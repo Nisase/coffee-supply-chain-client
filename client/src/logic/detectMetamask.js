@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { Button, Container, Paper, Typography } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../styles/Styles";
 
 const DetectMetamask = () => {
 	const [walletAddress, setWalletAddress] = useState("");
@@ -13,7 +16,6 @@ const DetectMetamask = () => {
 					method: "eth_requestAccounts",
 				});
 				console.log(accounts);
-				// setWalletAddress(accounts[0]);
 				accountChangedHandler(accounts[0]);
 			} catch (error) {
 				console.log("Error connecting...", error);
@@ -25,7 +27,6 @@ const DetectMetamask = () => {
 
 	const accountChangedHandler = (newAccount) => {
 		setWalletAddress(newAccount);
-		//updateEthers();
 	};
 
 	const chainChangedHandler = () => {
@@ -37,15 +38,40 @@ const DetectMetamask = () => {
 
 	window.ethereum.on("chainChanged", chainChangedHandler);
 
+	const handleClickMetamask = () => {
+		window.open("https://metamask.io/download/");
+	};
+
 	return (
-		<div className="">
-			{/* <p>Connected Account: {account}</p> */}
-			{/* <DetectProvider /> */}
-			<header>
-				<button onClick={requestAccount}>Connect Wallet</button>
-				<h3>Wallet Address: {walletAddress}</h3>
-			</header>
-		</div>
+		<ThemeProvider theme={theme}>
+			<Container
+				sx={{
+					maxWidth: "800px",
+				}}
+			>
+				<Paper
+					sx={{
+						marginTop: "10rem",
+						marginLeft: "2rem",
+					}}
+				>
+					<Button onClick={requestAccount} variant="contained" sx={{}}>
+						Connect Wallet
+					</Button>
+					<Typography
+						variant="h6"
+						sx={{
+							padding: "1rem",
+						}}
+					>
+						Wallet Address: {walletAddress}
+					</Typography>
+					<Button onClick={handleClickMetamask} variant="contained">
+						Get Metamask
+					</Button>
+				</Paper>
+			</Container>
+		</ThemeProvider>
 	);
 };
 
