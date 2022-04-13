@@ -1,42 +1,44 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button, Container, Paper, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../styles/Styles";
 
-const DetectMetamask = () => {
+const DetectProvider = () => {
 	const [walletAddress, setWalletAddress] = useState("");
-	async function requestAccount() {
-		console.log("Requesting account...");
 
-		//check if metamask exists
+	const requestAccount = useCallback(async () => {
+		console.log("Requesting account...");
 		if (window.ethereum) {
-			console.log("detected");
+			console.log("detected...");
 			try {
 				const accounts = await window.ethereum.request({
 					method: "eth_requestAccounts",
 				});
+				setWalletAddress(accounts[0]);
 				console.log(accounts);
-				accountChangedHandler(accounts[0]);
 			} catch (error) {
 				console.log("Error connecting...", error);
 			}
 		} else {
-			console.log("Meta Mask was not detected!");
+			console.log("Metamask not detected");
+			handleClickMetamask();
 		}
-	}
-
-	const accountChangedHandler = (newAccount) => {
-		setWalletAddress(newAccount);
-	};
-
-	const chainChangedHandler = () => {
-		// reload the page to avoid any errors with chain change mid use of application
-		window.location.reload();
-	};
-
-	window.ethereum.on("accountsChanged", accountChangedHandler);
-
-	window.ethereum.on("chainChanged", chainChangedHandler);
+	}, []);
+	useEffect(() => {
+		requestAccount();
+		const chainChangedHandler = () => {
+			// reload the page to avoid any errors with chain change mid use of application
+			window.location.reload();
+		};
+		window.ethereum.on("accountsChanged", requestAccount);
+		window.ethereum.on("chainChanged", chainChangedHandler);
+		//window.addEventListener("load", requestAccount);
+		return () => {
+			window.removeEventListener("accountsChanged", requestAccount);
+			window.removeEventListener("chainChanged", chainChangedHandler);
+			//window.removeEventListener("load", requestAccount);
+		};
+	}, []);
 
 	const handleClickMetamask = () => {
 		window.open("https://metamask.io/download/");
@@ -75,4 +77,4 @@ const DetectMetamask = () => {
 	);
 };
 
-export default DetectMetamask;
+export default DetectProvider;
