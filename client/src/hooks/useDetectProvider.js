@@ -5,7 +5,7 @@ const useDetectProvider = () => {
 
 	const requestAccount = useCallback(async () => {
 		console.log("Requesting account...");
-		if (window.ethereum) {
+		if (typeof window.ethereum !== "undefined") {
 			console.log("detected...");
 			try {
 				const accounts = await window.ethereum.request({
