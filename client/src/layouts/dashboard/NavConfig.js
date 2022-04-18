@@ -25,6 +25,11 @@ const navConfig = [
     title: 'blog',
     path: '/dashboard/blog',
     icon: getIcon('eva:file-text-fill'),
+  },
+  {
+    title: 'Home',
+    path: '/home',
+    icon: getIcon('eva:file-text-fill'),
   }
 ];
 

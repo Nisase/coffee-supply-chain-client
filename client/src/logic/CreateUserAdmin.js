@@ -6,10 +6,9 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material";
-import { useState, useEffect, useCallback } from "react";
+import { useState} from "react";
 import useDetectProvider from "../hooks/useDetectProvider";
 
-const adminAddress = "0x9E733B413600444663EF0FFd8116A279D8C07D7D";
 const CreateUserAdmin = () => {
 	const [walletAddress, requestAccount] = useDetectProvider();
 	const [userInfoAdmin, setUserInfoAdmin] = useState({
@@ -20,28 +19,6 @@ const CreateUserAdmin = () => {
 		userIsActive: false,
 		userProfileHash: "",
 	});
-
-	console.log(walletAddress.toUpperCase());
-	if (walletAddress.toUpperCase()) {
-		return "yes";
-	} else {
-		return "no";
-	}
-
-	// requestAccount();
-
-	// useEffect(() => {
-	// 	console.log("AQUI");
-	// 	requestAccount();
-	// 	// console.log("ENTRE");
-	// 	// const isEqual = () =>
-	// 	// 	walletAddress.toUpperCase() === adminAddress.toUpperCase() ? "YES" : "NO";
-	// 	// console.log(isEqual());
-	// }, [walletAddress, requestAccount]);
-
-	// const isEqual = () =>
-	// 	walletAddress.toUpperCase() === adminAddress.toUpperCase() ? "YES" : "NO";
-	// console.log(isEqual());
 
 	return (
 		<div>

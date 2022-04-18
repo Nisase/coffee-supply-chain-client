@@ -11,7 +11,7 @@ Logo.propTypes = {
   sx: PropTypes.object,
 };
 
-export default function Logo({ disabledLink = false, sx }) {
+export default function Logo({ urlLink="/", disabledLink = false, sx }) {
   const theme = useTheme();
 
   const PRIMARY_LIGHT = theme.palette.primary.light;
@@ -75,5 +75,5 @@ export default function Logo({ disabledLink = false, sx }) {
     return <>{logo}</>;
   }
 
-  return <RouterLink to="/"><div className='flex flex-row items-center py-5'>{logo} <p className='ml-2 font-bold'>Coffe Track</p></div></RouterLink>;
+  return <RouterLink to={urlLink}><div className='flex flex-row items-center py-5'>{logo} <p className='ml-2 font-bold'>Coffe Track</p></div></RouterLink>;
 }
