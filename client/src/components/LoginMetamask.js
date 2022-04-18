@@ -1,42 +1,38 @@
-import React from "react";
+import { Typography } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
+import { useTheme } from '@mui/material/styles';
 import useDetectProvider from "../hooks/useDetectProvider";
-import { Button, Container, Paper, Typography } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../styles/Styles";
 
 const LoginMetamask = () => {
-	const [walletAddress, requestAccount, handleClickMetamask] =
-		useDetectProvider();
+	const [walletAddress, error, requestAccount] = useDetectProvider();
+	const theme = useTheme();
+
+	const handleClickMetamask = () => {
+		window.open("https://metamask.io/download/")
+	}
+
 	return (
-		<ThemeProvider theme={theme}>
-			<Container
-				sx={{
-					maxWidth: "800px",
-				}}
-			>
-				<Paper
-					sx={{
-						marginTop: "10rem",
-						marginLeft: "2rem",
-					}}
-				>
-					<Button onClick={requestAccount} variant="contained" sx={{}}>
-						Connect Wallet
-					</Button>
-					<Typography
-						variant="h6"
-						sx={{
-							padding: "1rem",
-						}}
-					>
-						Wallet Address: {walletAddress}
-					</Typography>
-					<Button onClick={handleClickMetamask} variant="contained">
-						Get Metamask
-					</Button>
-				</Paper>
-			</Container>
-		</ThemeProvider>
+		<div className="flex flex-col justify-center items-center">
+			{ !walletAddress && <>
+			<LoadingButton onClick={requestAccount} variant="contained" fullWidth size="large" type="submit" loading={false}>
+			Connect Wallet
+			</LoadingButton>
+			<div className="w-full h-1 my-3" />
+			<LoadingButton onClick={handleClickMetamask} color="secondary" variant="contained" type="submit" loading={false}>
+				Get Metamask
+			</LoadingButton>
+			</>}
+
+			{ walletAddress && !error && 
+				<Typography variant="h6">
+				Wallet Address: {walletAddress}
+				</Typography>
+			}
+
+			{error && <div className="mt-5">
+				{error}
+			</div>}			
+		</div>				
 	);
 };
 
