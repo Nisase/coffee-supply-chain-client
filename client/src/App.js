@@ -1,5 +1,5 @@
 import React from "react";
-import LoginMetamask from "./components/LoginMetamask";
+import Login from "./components/Login";
 
 import supplychainStorageABI from "./contracts/SupplyChainStorage.json";
 import supplychainUserABI from "./contracts/SupplyChainUser.json";
@@ -11,7 +11,7 @@ const SupplyChainUserAddress = "0x9719E9dC77A7eDD3825844c77a68c896d4a7BB2b";
 function App() {
 	return (
 		<div>
-			<LoginMetamask />
+			<Login />
 		</div>
 	);
 }
