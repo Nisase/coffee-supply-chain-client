@@ -12,10 +12,12 @@ import DashboardApp from './pages/DashboardApp';
 
 // ----------------------------------------------------------------------
 
-const routes = (isLoggedIn) => [
+const routes = (walletAddress, error) => {
+  const isLoggedIn = walletAddress !==null && error ===null;
+  return [
   {
     path: '/dashboard',
-    element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
+    element: isLoggedIn ? <DashboardLayout walletAddress={walletAddress}/> : <Navigate to="/login" />,
     children: [
       { path: 'app', element: <DashboardApp /> },
       { path: 'user', element: <User /> },
@@ -34,6 +36,6 @@ const routes = (isLoggedIn) => [
     ],
   },
   { path: '*', element: <Navigate to="/404" replace /> },
-];
+]};
 
-  export default routes;
+export default routes;

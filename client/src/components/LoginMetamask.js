@@ -1,11 +1,9 @@
 import { Typography } from "@mui/material";
 import { LoadingButton } from '@mui/lab';
-import { useTheme } from '@mui/material/styles';
 import useDetectProvider from "../hooks/useDetectProvider";
 
 const LoginMetamask = () => {
 	const [walletAddress, error, requestAccount] = useDetectProvider();
-	const theme = useTheme();
 
 	const handleClickMetamask = () => {
 		window.open("https://metamask.io/download/")

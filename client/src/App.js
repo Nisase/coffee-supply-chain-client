@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes';
 import ThemeProvider from './theme';
@@ -17,18 +17,12 @@ const SupplyChainUserAddress = "0x9719E9dC77A7eDD3825844c77a68c896d4a7BB2b";
 
 function App() {
 	const [walletAddress, error] = useDetectProvider();
-	const [isWallet, setIsWallet] = useState(false);
-
-	useEffect(()=>{
-		setIsWallet(walletAddress !==null && error ===null)
-	}, [walletAddress]);
-
 
 	return (
 		<ThemeProvider>
 			<ScrollToTop />
 			<BaseOptionChartStyle />
-			{useRoutes(routes(isWallet))}
+			{useRoutes(routes(walletAddress, error))}
 		</ThemeProvider>
 	);
 }
