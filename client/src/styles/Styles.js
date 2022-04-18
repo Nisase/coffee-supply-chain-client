@@ -15,9 +15,6 @@ const Colors = {
 	shaft: "#333",
 	dove_gray: "#d5d5d5",
 	body_bg: "#f3f6f9",
-	///////////////
-	// Solid Color
-	///////////////
 	white: "#fff",
 	black: "#000",
 };
