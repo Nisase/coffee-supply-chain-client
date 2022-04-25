@@ -9,6 +9,8 @@ const LoginMetamask = () => {
 		window.open("https://metamask.io/download/")
 	}
 
+	// Tx pending
+
 	return (
 		<div className="flex flex-col justify-center items-center">
 			{ !walletAddress && <>

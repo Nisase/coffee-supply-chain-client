@@ -23,7 +23,7 @@ const useDetectProvider = () => {
 		}
 	}, []);
 	useEffect(() => {
-		requestAccount();
+		// requestAccount();
 		const chainChangedHandler = () => {
 			window.location.reload();
 		};
