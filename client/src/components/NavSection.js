@@ -29,6 +29,9 @@ const ListItemIconStyle = styled(ListItemIcon)({
 
 // ----------------------------------------------------------------------
 
+const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
+
+
 NavItem.propTypes = {
   item: PropTypes.object,
   active: PropTypes.func,
@@ -67,7 +70,7 @@ function NavItem({ item, active }) {
             ...(isActiveRoot && activeRootStyle),
           }}
         >
-          <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
+          <ListItemIconStyle>{icon && getIcon(icon)}</ListItemIconStyle>
           <ListItemText disableTypography primary={title} />
           {info && info}
           <Iconify
@@ -128,7 +131,7 @@ function NavItem({ item, active }) {
         ...(isActiveRoot && activeRootStyle),
       }}
     >
-      <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
+      <ListItemIconStyle>{icon && getIcon(icon)}</ListItemIconStyle>
       <ListItemText disableTypography primary={title} />
       {info && info}
     </ListItemStyle>

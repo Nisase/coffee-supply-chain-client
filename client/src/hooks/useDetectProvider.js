@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { utils } from "ethers";
 
-const useDetectProvider = () => {
+const useDetectProvider = (callRequestAccount=false) => {
 	const [walletAddress, setWalletAddress] = useState(null);
 	const [error, setError] = useState(null);
 
@@ -14,7 +15,7 @@ const useDetectProvider = () => {
 				const accounts = await window.ethereum.request({
 					method: "eth_requestAccounts",
 				});
-				setWalletAddress(accounts[0]);
+				setWalletAddress(utils.getAddress(accounts[0]));
 			} catch (error) {
 				setError("Esperando Aceptación");
 			}
@@ -23,7 +24,7 @@ const useDetectProvider = () => {
 		}
 	}, []);
 	useEffect(() => {
-		// requestAccount();
+		if(callRequestAccount) requestAccount();
 		const chainChangedHandler = () => {
 			window.location.reload();
 		};

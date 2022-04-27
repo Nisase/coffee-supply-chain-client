@@ -10,18 +10,24 @@ import Login from './pages/Login';
 import Tracking from './pages/Tracking';
 import NotFound from './pages/Page404';
 import Products from './pages/Products';
+import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardApp from './pages/DashboardApp';
+import Loading from './components/Loading'
 
 // ----------------------------------------------------------------------
 
-const routes = (walletAddress, error) => {
-  const isLoggedIn = walletAddress !==null && error ===null;
-  return [
+const routes = (loading, walletAddress, error, userInfo, isOwner, message) => {
+  const isLoggedIn = walletAddress !==null && error === null;
+
+
+
+  const route = loading ? [{ path: '*', element:  <Loading />}]: [
   {
     path: '/dashboard',
-    element: isLoggedIn ? <DashboardLayout walletAddress={walletAddress}/> : <Navigate to="/login" />,
+    element: isLoggedIn ? <DashboardLayout isOwner={isOwner} walletAddress={walletAddress}/> : <Navigate to="/login" />,
     children: [
       { path: 'app', element: <DashboardApp /> },
+      { path: 'admin', element: isOwner ? <DashboardAdmin walletAddress={walletAddress} />: <Navigate to="/dashboard/app" />  },
       { path: 'user', element: <User /> },
       { path: 'products', element: <Products /> },
       { path: 'blog', element: <Blog /> },
@@ -40,6 +46,10 @@ const routes = (walletAddress, error) => {
     ],
   },
   { path: '*', element: <Navigate to="/404" replace /> },
-]};
+]
+
+return route;
+
+};
 
 export default routes;

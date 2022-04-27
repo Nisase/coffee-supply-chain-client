@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
@@ -12,8 +12,6 @@ import useResponsive from '../../hooks/useResponsive';
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
-//
-import navConfig from './NavConfig';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +32,37 @@ const AccountStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[500_12],
 }));
 
+const navAdmin = [
+  {
+    title: 'admin',
+    path: '/dashboard/admin',
+    icon: 'eva:people-fill',
+  }]
+
+const navConfig = [  
+  {
+    title: 'dashboard',
+    path: '/dashboard/app',
+    icon: 'eva:pie-chart-2-fill',
+  },  
+  {
+    title: 'product',
+    path: '/dashboard/products',
+    icon: 'eva:shopping-bag-fill',
+  },
+  {
+    title: 'blog',
+    path: '/dashboard/blog',
+    icon: 'eva:file-text-fill',
+  },
+  {
+    title: 'Home',
+    path: '/home',
+    icon: 'eva:file-text-fill',
+  }
+];
+
+
 // ----------------------------------------------------------------------
 
 DashboardSidebar.propTypes = {
@@ -41,15 +70,29 @@ DashboardSidebar.propTypes = {
   onCloseSidebar: PropTypes.func,
 };
 
-export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+export default function DashboardSidebar({ walletAddress, isOpenSidebar, onCloseSidebar, isOwner }) {
+  const [isOwnerLocal, setIsOwnerLocal] = useState(isOwner)
+  const [navOptions, setNavOptions] = useState(navConfig)
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
+    setIsOwnerLocal(isOwner)
+
     if (isOpenSidebar) {
       onCloseSidebar();
     }
+
+    console.log(isOwnerLocal)
+
+    setNavOptions(() => {
+     if(isOwnerLocal)
+        return(navAdmin.concat(navConfig));
+    
+      return(navConfig);
+    })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
@@ -80,7 +123,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         </Link>
       </Box>}
 
-      <NavSection navConfig={navConfig} />
+      <NavSection navConfig={navOptions} />
 
     </Scrollbar>
   );

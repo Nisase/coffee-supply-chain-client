@@ -32,13 +32,13 @@ const MainStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function DashboardLayout({walletAddress}) {
+export default function DashboardLayout({walletAddress, isOwner}) {
   const [open, setOpen] = useState(false);
 
   return (
     <RootStyle>
       <DashboardNavbar walletAddress={walletAddress} onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <DashboardSidebar walletAddress={walletAddress} isOwner={isOwner} isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         <Outlet />
       </MainStyle>
