@@ -4,8 +4,6 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
-// mock
-import account from '../../_mock/account';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 // components
@@ -70,7 +68,7 @@ DashboardSidebar.propTypes = {
   onCloseSidebar: PropTypes.func,
 };
 
-export default function DashboardSidebar({ walletAddress, isOpenSidebar, onCloseSidebar, isOwner }) {
+export default function DashboardSidebar({ userInfo, walletAddress, isOwner, isOpenSidebar, onCloseSidebar }) {
   const [isOwnerLocal, setIsOwnerLocal] = useState(isOwner)
   const [navOptions, setNavOptions] = useState(navConfig)
   const { pathname } = useLocation();
@@ -107,16 +105,16 @@ export default function DashboardSidebar({ walletAddress, isOpenSidebar, onClose
         <Logo urlLink='/dashboard/app' />
       </Box>
 
-      {false && <Box sx={{ mb: 5, mx: 2.5 }}>
+      {userInfo && <Box sx={{ mb: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={userInfo.profileHash} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {isOwner ? "Administrador" : userInfo.name}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
+                Rol: {isOwner ? "ADMIN" :userInfo.role}
               </Typography>
             </Box>
           </AccountStyle>

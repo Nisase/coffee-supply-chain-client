@@ -21,10 +21,19 @@ const routes = (loading, walletAddress, error, userInfo, isOwner, message) => {
 
 
 
-  const route = loading ? [{ path: '*', element:  <Loading />}]: [
+  const route = loading ? [{
+    path: '/',
+    element: <LogoOnlyLayout />,
+    children: [
+      { path: '/', element: <Navigate to="/home" /> },
+      { path: 'home', element: <Home walletAddress={walletAddress}/> },
+      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
+      { path: 'tracking', element:  <Tracking />}
+    ],
+  }, { path: '*', element:  <Loading />}]: [
   {
     path: '/dashboard',
-    element: isLoggedIn ? <DashboardLayout isOwner={isOwner} walletAddress={walletAddress}/> : <Navigate to="/login" />,
+    element: isLoggedIn ? <DashboardLayout userInfo={userInfo} isOwner={isOwner} walletAddress={walletAddress}/> : <Navigate to="/login" />,
     children: [
       { path: 'app', element: <DashboardApp /> },
       { path: 'admin', element: isOwner ? <DashboardAdmin walletAddress={walletAddress} />: <Navigate to="/dashboard/app" />  },

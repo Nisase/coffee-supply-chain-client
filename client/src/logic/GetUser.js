@@ -23,7 +23,8 @@ const getUser = async () => {
 			email: userTemp.email,
 			role: userTemp.role,
 			isActive: userTemp.isActive,
-			profileHash: userTemp.profileHash,
+			// profileHash: userTemp.profileHash,
+			profileHash: "/static/mock-images/avatars/avatar_default.jpg",
 			message: null
 		})
 	} catch (error) {

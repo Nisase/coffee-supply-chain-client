@@ -39,7 +39,7 @@ DashboardNavbar.propTypes = {
   onOpenSidebar: PropTypes.func,
 };
 
-export default function DashboardNavbar({ walletAddress, onOpenSidebar }) {
+export default function DashboardNavbar({ userInfo, walletAddress, isOwner, onOpenSidebar }) {
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -50,7 +50,7 @@ export default function DashboardNavbar({ walletAddress, onOpenSidebar }) {
         <p className='mr-10 text-black'><span className='font-semibold'>Addres Account:</span> {walletAddress}</p>
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          <AccountPopover />
+          <AccountPopover userInfo={userInfo} walletAddress={walletAddress} isOwner={isOwner} />
         </Stack>
       </ToolbarStyle>
     </RootStyle>
