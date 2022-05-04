@@ -44,6 +44,26 @@ import RetailerListener from './logic/AddRetailer/RetailerListener';
 import getUser from './logic/GetUser';
 import getOwner from './logic/GetOwner';
 
+import GetFarmForm from './components/GetFarmDetails/GetFarmForm';
+
+import GetHarvestForm from './components/GetHarvest/GetHarvestForm';
+
+import GetProcessForm from './components/GetProcess/GetProcessForm';
+
+import GetGrainInspectionForm from './components/GetGrainInspection/GetGrainInspectionForm';
+
+import GetAgglomForm from './components/GetAgglom/GetAgglomForm';
+
+import GetShipPackerForm from './components/GetShipPacker/GetShipPackerForm';
+
+import GetPackerForm from './components/GetPacker/GetPackerForm';
+
+import GetShipRetailerForm from './components/GetShipRetailer/GetShipRetailerForm';
+
+import GetRetailerForm from './components/GetRetailer/GetRetailerForm';
+
+import GetNextActionForm from './components/GetNextAction/GetNextActionForm';
+
 import supplychainStorageABI from './contracts/SupplyChainStorage.json';
 import supplychainUserABI from './contracts/SupplyChainUser.json';
 import coffeeSupplychainABI from './contracts/CoffeeSupplyChain.json';
@@ -104,6 +124,16 @@ function App() {
       <ShipRetailerForm />
       <RetailerListener />
       <RetailerForm />
+      <GetFarmForm />
+      <GetHarvestForm />
+      <GetProcessForm />
+      <GetGrainInspectionForm />
+      <GetAgglomForm />
+      <GetShipPackerForm />
+      <GetPackerForm />
+      <GetShipRetailerForm />
+      <GetRetailerForm />
+      <GetNextActionForm />
     </ThemeProvider>
   );
 }
