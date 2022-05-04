@@ -9,7 +9,37 @@ import useDetectProvider from './hooks/useDetectProvider';
 
 //----
 import UserAdminForm from './components/AddUserAdmin/UserAdminForm';
-import UserAdminListener from './logic/AddUserAdmin/Listener';
+import UserAdminListener from './logic/AddUserAdmin/UserAdminListener';
+
+import UpdateUserForm from './components/UpdateUser/UpdateUserForm';
+import UpdateUserListener from './logic/UpdateUser/UpdateUserListener';
+
+import FarmForm from './components/AddFarmDetails/FarmForm';
+import FarmListener from './logic/AddFarmDetails/FarmListener';
+
+import HarvestForm from './components/AddHarvest/HarvestForm';
+import HarvestListener from './logic/AddHarvest/HarvestListener';
+
+import ProcessForm from './components/AddProcess/ProcessForm';
+import ProcessListener from './logic/AddProcess/ProcessListener';
+
+import GrainInspectionForm from './components/AddGrainInspection/GrainInspectionForm';
+import GrainInspectionListener from './logic/AddGrainInspection/GrainInspectionListener';
+
+import AgglomForm from './components/AddAgglom/AgglomForm';
+import AgglomListener from './logic/AddAgglom/AgglomListener';
+
+import ShipPackerForm from './components/AddShipPacker/ShipPackerForm';
+import ShipPackerListener from './logic/AddShipPacker/ShipPackerListener';
+
+import PackerForm from './components/AddPacker/PackerForm';
+import PackerListener from './logic/AddPacker/PackerListener';
+
+import ShipRetailerForm from './components/AddShipRetailer/ShipRetailerForm';
+import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
+
+import RetailerForm from './components/AddRetailer/RetailerForm';
+import RetailerListener from './logic/AddRetailer/RetailerListener';
 
 import getUser from './logic/GetUser';
 import getOwner from './logic/GetOwner';
@@ -54,6 +84,26 @@ function App() {
       {useRoutes(routes(loading, walletAddress, error, userInfo, isOwner, message))}
       <UserAdminListener />
       <UserAdminForm />
+      <UpdateUserListener />
+      <UpdateUserForm />
+      <FarmListener />
+      <FarmForm />
+      <HarvestListener />
+      <HarvestForm />
+      <ProcessListener />
+      <ProcessForm />
+      <GrainInspectionListener />
+      <GrainInspectionForm />
+      <AgglomListener />
+      <AgglomForm />
+      <ShipPackerListener />
+      <ShipPackerForm />
+      <PackerListener />
+      <PackerForm />
+      <ShipRetailerListener />
+      <ShipRetailerForm />
+      <RetailerListener />
+      <RetailerForm />
     </ThemeProvider>
   );
 }
