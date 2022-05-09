@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { useSelector } from 'react-redux';
 // components
 import Iconify from '../../components/Iconify';
 //
-import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
+
+import { walletAddressSelector } from '../../redux/appDataSlice';
+
 
 // ----------------------------------------------------------------------
 
@@ -39,7 +42,10 @@ DashboardNavbar.propTypes = {
   onOpenSidebar: PropTypes.func,
 };
 
-export default function DashboardNavbar({ userInfo, walletAddress, isOwner, onOpenSidebar }) {
+export default function DashboardNavbar({ onOpenSidebar }) {
+
+  const walletAddress = useSelector(walletAddressSelector)
+
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -50,7 +56,7 @@ export default function DashboardNavbar({ userInfo, walletAddress, isOwner, onOp
         <p className='mr-10 text-black'><span className='font-semibold'>Addres Account:</span> {walletAddress}</p>
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          <AccountPopover userInfo={userInfo} walletAddress={walletAddress} isOwner={isOwner} />
+          <AccountPopover />
         </Stack>
       </ToolbarStyle>
     </RootStyle>

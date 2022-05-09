@@ -1,9 +1,9 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom'
-// hooks
-import useResponsive from '../hooks/useResponsive';
+import { useSelector } from 'react-redux';
+import { walletAddressSelector } from '../redux/appDataSlice'
 // components
 import Page from '../components/Page';
 
@@ -14,15 +14,6 @@ const RootStyle = styled('div')(({ theme }) => ({
     display: 'flex',
   },
   zIndex: 10
-}));
-
-const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: 600,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
@@ -37,8 +28,9 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function Home({ walletAddress }) {
-  const mdUp = useResponsive('up', 'md');
+export default function Home() {
+
+  const walletAddress = useSelector(walletAddressSelector)
 
   return (
     <Page title="Login">

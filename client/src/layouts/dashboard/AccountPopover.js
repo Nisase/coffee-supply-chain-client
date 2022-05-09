@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
+import { isOwnerSelector, userDataSelector } from '../../redux/appDataSlice'
 // components
 import MenuPopover from '../../components/MenuPopover';
 
@@ -28,7 +31,11 @@ const MENU_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function AccountPopover({ userInfo, walletAddress, isOwner}) {
+export default function AccountPopover() {
+
+  const isOwner = useSelector(isOwnerSelector)
+  const userInfo = useSelector(userDataSelector)
+  
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(null);

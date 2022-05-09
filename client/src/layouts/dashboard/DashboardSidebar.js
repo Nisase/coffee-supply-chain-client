@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
+import { isOwnerSelector, userDataSelector } from '../../redux/appDataSlice'
 // components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
@@ -68,24 +72,22 @@ DashboardSidebar.propTypes = {
   onCloseSidebar: PropTypes.func,
 };
 
-export default function DashboardSidebar({ userInfo, walletAddress, isOwner, isOpenSidebar, onCloseSidebar }) {
-  const [isOwnerLocal, setIsOwnerLocal] = useState(isOwner)
+export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+  const isOwner = useSelector(isOwnerSelector)
+  const userInfo = useSelector(userDataSelector)
+
   const [navOptions, setNavOptions] = useState(navConfig)
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
 
   useEffect(() => {
-    setIsOwnerLocal(isOwner)
-
     if (isOpenSidebar) {
       onCloseSidebar();
     }
 
-    console.log(isOwnerLocal)
-
     setNavOptions(() => {
-     if(isOwnerLocal)
+     if(isOwner)
         return(navAdmin.concat(navConfig));
     
       return(navConfig);

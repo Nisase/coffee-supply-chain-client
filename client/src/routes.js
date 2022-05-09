@@ -16,27 +16,24 @@ import Loading from './components/Loading'
 
 // ----------------------------------------------------------------------
 
-const routes = (loading, walletAddress, error, userInfo, isOwner, message) => {
-  const isLoggedIn = walletAddress !==null && error === null;
-
-
+const routes = (loading, isLoggedIn, isOwner) => {
 
   const route = loading ? [{
     path: '/',
     element: <LogoOnlyLayout />,
     children: [
       { path: '/', element: <Navigate to="/home" /> },
-      { path: 'home', element: <Home walletAddress={walletAddress}/> },
+      { path: 'home', element: <Home/> },
       { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
       { path: 'tracking', element:  <Tracking />}
     ],
   }, { path: '*', element:  <Loading />}]: [
   {
     path: '/dashboard',
-    element: isLoggedIn ? <DashboardLayout userInfo={userInfo} isOwner={isOwner} walletAddress={walletAddress}/> : <Navigate to="/login" />,
+    element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'app', element: <DashboardApp /> },
-      { path: 'admin', element: isOwner ? <DashboardAdmin walletAddress={walletAddress} />: <Navigate to="/dashboard/app" />  },
+      { path: 'admin', element: isOwner ? <DashboardAdmin/>: <Navigate to="/dashboard/app" />  },
       { path: 'user', element: <User /> },
       { path: 'products', element: <Products /> },
       { path: 'blog', element: <Blog /> },
@@ -47,7 +44,7 @@ const routes = (loading, walletAddress, error, userInfo, isOwner, message) => {
     element: <LogoOnlyLayout />,
     children: [
       { path: '/', element: <Navigate to="/home" /> },
-      { path: 'home', element: <Home walletAddress={walletAddress}/> },
+      { path: 'home', element: <Home/> },
       { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
       { path: 'tracking', element:  <Tracking />},
       { path: '404', element: <NotFound /> },
