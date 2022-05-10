@@ -1,8 +1,8 @@
-import getCoffeERC20 from '../erc20'
+import { getCoffeWriterERC20 } from '../erc20'
 
 const HandleSubmit = async (values) => {
   
-  const erc20 = getCoffeERC20();
+  const erc20 = await getCoffeWriterERC20();
   await erc20.addFarmDetails(
     values.registrationNo,
     values.farmName,

@@ -1,13 +1,25 @@
 import { ethers } from 'ethers';
-import contractABI from '../contracts/CoffeeSupplyChain.json';
+import coffeeSupplyChainABI from '../contracts/CoffeeSupplyChain.json';
+import supplyChainUserABI from "../contracts/SupplyChainUser.json";
 
-const contractAddress = '0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534';
-
-const getCoffeERC20 = async () => {
+export const getCoffeWriterERC20 = () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  await provider.send('eth_requestAccounts', []);
-  const signer = await provider.getSigner();
-  return(new ethers.Contract(contractAddress, contractABI.abi, signer));
+  const signer = provider.getSigner();
+  return(new ethers.Contract(window.coffeAddress, coffeeSupplyChainABI.abi, signer));
 };
 
-export default getCoffeERC20;
+export const getUserWriterERC20 = () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+	const signer = provider.getSigner();
+	return(new ethers.Contract(window.userAddress, supplyChainUserABI.abi, signer));
+};
+
+export const getCoffeERC20 = () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  return(new ethers.Contract(window.coffeAddress, coffeeSupplyChainABI.abi, provider));
+};
+
+export const getUserERC20 = () => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+	return(new ethers.Contract(window.userAddress, supplyChainUserABI.abi, provider));
+};

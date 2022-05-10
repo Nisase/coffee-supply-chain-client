@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button } from '@mui/material';
+import { Grid, Container, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 
 import AskFarm from '../../logic/GetFarmDetails/AskFarm';

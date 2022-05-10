@@ -1,44 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Grid, Container, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Container, Typography } from '@mui/material';
+import { walletAddressSelector, userDataSelector } from '../redux/appDataSlice';
 // components
 import Page from '../components/Page';
-// sections
-import {
-  AppWidgetSummary
-} from '../sections/@dashboard/app';
-import getUser from '../logic/GetUser';
-import getOwner from '../logic/GetOwner';
+import FarmForm from '../components/AddFarmDetails/FarmForm'
+import GetFarmForm from '../components/GetFarmDetails/GetFarmForm';
 
 // ----------------------------------------------------------------------
 
-export default function DashboardAdmin({walletAddress}) {
+export default function DashboardAdmin() {
+  const walletAddress = useSelector(walletAddressSelector)
+  const userInfo = useSelector(userDataSelector)
 
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back {walletAddress}
+          Bienvenido: {userInfo.name}
         </Typography>
-
-        { walletAddress &&
-          <Grid container spacing={3}>                   
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={3}>
-              <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
-            </Grid>            
-          </Grid>
-        }
+        <FarmForm />
+        <br />
+        <GetFarmForm />
       </Container>
     </Page>
   );

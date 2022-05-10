@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
-import SelectWrapper from '../FormsUI/Select';
-import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddFarmDetails/HandleSubmit';
+import FarmListener from '../../logic/AddFarmDetails/FarmListener';
 
 const initialValues = {
   registrationNo: '',
@@ -25,6 +24,12 @@ const valSchema = Yup.object().shape({
 });
 
 const FarmForm = () => {
+  const {farmRegistered} = FarmListener();
+
+  useEffect(()=>{
+    console.log(farmRegistered)
+  }, [farmRegistered])
+
   return (
     <Grid container>
       <Grid item xs={12}>

@@ -22,6 +22,7 @@ export const contractsAddressSlice = createSlice({
 })
 
 export const coffeAddressSelector = createSelector( state => state.contractsAddress , contractsAddress => contractsAddress.coffeAddress)
+export const userAddressSelector = createSelector( state => state.contractsAddress , contractsAddress => contractsAddress.userAddress)
 
 export const { setCoffeAddress, setUserAddress } = contractsAddressSlice.actions
 

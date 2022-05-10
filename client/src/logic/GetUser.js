@@ -1,19 +1,10 @@
-import { ethers } from "ethers";
-import supplychainUserABI from "../contracts/SupplyChainUser.json";
-
-const SupplyChainUserAddress = "0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE";
+import {getUserERC20} from './erc20'
 
 const getUser = async () => {
-	const provider = new ethers.providers.Web3Provider(window.ethereum);
 	const account = await window.ethereum.request({
 		method: "eth_requestAccounts",
 	});
-	const signer = provider.getSigner();
-	const erc20 = new ethers.Contract(
-		SupplyChainUserAddress,
-		supplychainUserABI.abi,
-		signer
-	);
+	const erc20 = await getUserERC20()
 
 	try {
 		const userTemp = await erc20.callStatic.getUser(account[0]);

@@ -33,7 +33,6 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
 
-  const isOwner = useSelector(isOwnerSelector)
   const userInfo = useSelector(userDataSelector)
   
   const anchorRef = useRef(null);
@@ -87,10 +86,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {isOwner ? "Administrador" : userInfo.name}
+            {userInfo.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {isOwner ? "admin@track_coffer.com" : userInfo.email}
+            {userInfo.email}
           </Typography>
         </Box>
 
