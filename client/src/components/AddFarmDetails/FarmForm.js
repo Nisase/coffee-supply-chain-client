@@ -24,11 +24,11 @@ const valSchema = Yup.object().shape({
 });
 
 const FarmForm = () => {
-  const {farmRegistered} = FarmListener();
+  const { farmRegistered } = FarmListener();
 
-  useEffect(()=>{
-    console.log(farmRegistered)
-  }, [farmRegistered])
+  useEffect(() => {
+    console.log(farmRegistered);
+  }, [farmRegistered]);
 
   return (
     <Grid container>
