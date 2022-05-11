@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -7,6 +7,7 @@ import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddRetailer/HandleSubmit';
+import RetailerListener from '../../logic/AddRetailer/RetailerListener';
 
 const initialValues = {
   batchNo: '',
@@ -31,6 +32,12 @@ const valSchema = Yup.object().shape({
 });
 
 const RetailerForm = () => {
+  const { retailerRegistered } = RetailerListener();
+
+  useEffect(() => {
+    console.log(retailerRegistered);
+  }, [retailerRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -48,7 +55,7 @@ const RetailerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos del Retailer</Typography>
+                        <Typography>Añadir Datos de Retailer</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />

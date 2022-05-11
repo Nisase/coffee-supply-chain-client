@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -7,6 +7,7 @@ import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddShipPacker/HandleSubmit';
+import ShipPackerListener from '../../logic/AddShipPacker/ShipPackerListener';
 import transportTypeP from '../../data/transportTypeP.json';
 
 const initialValues = {
@@ -24,6 +25,12 @@ const valSchema = Yup.object().shape({
 });
 
 const ShipPackerForm = () => {
+  const { shipPackerRegistered } = ShipPackerListener();
+
+  useEffect(() => {
+    console.log(shipPackerRegistered);
+  }, [shipPackerRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -41,7 +48,7 @@ const ShipPackerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos del Transporte hacia la Empacadora</Typography>
+                        <Typography>Añadir Datos del Transporte hacia Empacadora</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />

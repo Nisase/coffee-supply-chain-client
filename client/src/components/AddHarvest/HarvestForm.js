@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -7,6 +7,7 @@ import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddHarvest/HandleSubmit';
+import HarvestListener from '../../logic/AddHarvest/HarvestListener';
 import typeSeeds from '../../data/typeSeeds.json';
 
 const initialValues = {
@@ -26,6 +27,12 @@ const valSchema = Yup.object().shape({
 });
 
 const HarvestForm = () => {
+  const { harvestRegistered } = HarvestListener();
+
+  useEffect(() => {
+    console.log(harvestRegistered);
+  }, [harvestRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>

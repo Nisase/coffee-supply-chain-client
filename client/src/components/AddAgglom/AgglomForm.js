@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -7,6 +7,7 @@ import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddAgglom/HandleSubmit';
+import AgglomListener from '../../logic/AddAgglom/AgglomListener';
 
 const initialValues = {
   batchNo: '',
@@ -16,13 +17,19 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La direccion debe tener maximo 42 caracteres').min(42),
+  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
   agglomAddress: Yup.string().required('Requerido'),
   agglomDate: Yup.date().required('Requerido'),
   storagePrice: Yup.number().typeError('Por favor ingrese un precio correcto').required('Requerido'),
 });
 
 const AgglomForm = () => {
+  const { agglomRegistered } = AgglomListener();
+
+  useEffect(() => {
+    console.log(agglomRegistered);
+  }, [agglomRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -52,11 +59,7 @@ const AgglomForm = () => {
                         <DateTimePicker name="agglomDate" label="Agglomeration Date" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper
-                          name="storagePrice"
-                          label="Storage
-                                                    Price"
-                        />
+                        <TextfieldWrapper name="storagePrice" label="Storage Price" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">

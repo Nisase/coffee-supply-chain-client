@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -7,6 +7,7 @@ import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddGrainInspection/HandleSubmit';
+import GrainInspectionListener from '../../logic/AddGrainInspection/GrainInspectionListener';
 
 const initialValues = {
   batchNo: '',
@@ -15,12 +16,18 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La direccion debe tener maximo 42 caracteres').min(42),
+  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
   tasteScore: Yup.number().typeError('Por favor ingrese una nota de catación correcta').required('Requerido'),
   grainPrice: Yup.number().typeError('Por favor ingrese un precio correcto').required('Requerido'),
 });
 
 const GrainInspectionForm = () => {
+  const { grainRegistered } = GrainInspectionListener();
+
+  useEffect(() => {
+    console.log(grainRegistered);
+  }, [grainRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -38,7 +45,7 @@ const GrainInspectionForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos de la Inspección del Grano</Typography>
+                        <Typography>Añadir Datos de Inspección del Grano</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />

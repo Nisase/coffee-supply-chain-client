@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -7,6 +7,7 @@ import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 
 import HandleSubmit from '../../logic/AddProcess/HandleSubmit';
+import ProcessListener from '../../logic/AddProcess/ProcessListener';
 import typeDrying from '../../data/typeDrying.json';
 import typeRoasting from '../../data/typeRoasting.json';
 
@@ -23,7 +24,7 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La direccion debe tener maximo 42 caracteres').min(42),
+  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
   procAddress: Yup.string().required('Requerido'),
   typeOfDrying: Yup.string().required('Requerido'),
   roastImageHash: Yup.string().required('Requerido'),
@@ -35,6 +36,12 @@ const valSchema = Yup.object().shape({
 });
 
 const ProcessForm = () => {
+  const { processRegistered } = ProcessListener();
+
+  useEffect(() => {
+    console.log(processRegistered);
+  }, [processRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
