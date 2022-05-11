@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -8,6 +8,7 @@ import CheckboxWrapper from '../FormsUI/Checkbox';
 
 import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
+import UserAdminListener from '../../logic/AddUserAdmin/UserAdminListener';
 
 const initialValues = {
   userAddress: '',
@@ -32,6 +33,12 @@ const valSchema = Yup.object().shape({
 });
 
 const UserAdminForm = () => {
+  const { userRegistered } = UserAdminListener();
+
+  useEffect(() => {
+    console.log(userRegistered);
+  }, [userRegistered]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -49,7 +56,7 @@ const UserAdminForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Detalles del Usuario</Typography>
+                        <Typography>Añadir Usuario</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="userAddress" label="User Address" />

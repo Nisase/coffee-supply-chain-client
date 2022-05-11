@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -8,6 +8,7 @@ import CheckboxWrapper from '../FormsUI/Checkbox';
 
 import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/UpdateUser/HandleSubmit';
+import UpdateUserListener from '../../logic/UpdateUser/UpdateUserListener';
 
 const initialValues = {
   name: '',
@@ -26,6 +27,12 @@ const valSchema = Yup.object().shape({
 });
 
 const UpdateUserForm = () => {
+  const { userUpdated } = UpdateUserListener();
+
+  useEffect(() => {
+    console.log(userUpdated);
+  }, [userUpdated]);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -43,7 +50,7 @@ const UpdateUserForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Modificar Datos del Usuario</Typography>
+                        <Typography>Modificar Datos de Usuario</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="name" label="Name" />
