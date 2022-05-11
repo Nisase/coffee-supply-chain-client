@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
-import coffeeSupplyChainABI from '../../contracts/CoffeeSupplyChain.json';
-
-const CoffeeSupplyChainAddress = '0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534';
+import { getCoffeERC20 } from '../erc20';
 
 const AskHarvest = async (values) => {
-  console.log('HARVEST INFO');
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const erc20 = new ethers.Contract(CoffeeSupplyChainAddress, coffeeSupplyChainABI.abi, signer);
+  const erc20 = await getCoffeERC20();
 
   try {
     const info = await erc20.callStatic.getHarvestData(values.batchNo);
-    console.log(info);
-  } catch (error) {
-    console.log('ERROR AT GETTING HARVEST INFO: ', error);
+    return { data: info, error: null };
+  } catch (err) {
+    return { data: null, error: err };
   }
 };
 
