@@ -12,7 +12,8 @@ const initialState = {
         message: ''
     },
     isOwner: false,
-    message: ''
+    message: '',
+    loading: false
 }
 
 export const appDataSlice = createSlice({
@@ -34,17 +35,22 @@ export const appDataSlice = createSlice({
 
     setMessage: (state, action) => {
         state.message = action.payload;
+    },
+
+    setLoading: (state, action) => {
+        state.loading = action.payload;
     }
 
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { setWalletAddress, setUserData, setIsOwer, setMessage } = appDataSlice.actions
+export const { setWalletAddress, setUserData, setIsOwer, setMessage, setLoading } = appDataSlice.actions
 export const walletAddressSelector = createSelector( state => state.appData , appData => appData.walletAddress)
 export const userDataSelector = createSelector( state => state.appData , appData => appData.userData)
 export const isOwnerSelector = createSelector( state => state.appData , appData => appData.isOwner)
 export const messageSelector = createSelector( state => state.appData , appData => appData.message)
+export const loadingSelector = createSelector( state => state.appData , appData => appData.loading)
 
 
 export default appDataSlice.reducer

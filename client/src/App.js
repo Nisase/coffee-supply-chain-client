@@ -13,7 +13,6 @@ import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
 
 import getUser from './logic/GetUser';
 import getOwner from './logic/GetOwner';
-import GetFarmForm from './components/GetFarmDetails/GetFarmForm';
 
 function App() {
 
@@ -21,7 +20,7 @@ function App() {
 
   const [walletAddress, error] = useDetectProvider(true);
   const [isOwner, setIsOwner] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loadingLocal, setLoadingLocal] = useState(false);
 
   useEffect(()=>{
     const userAddress = '0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE'
@@ -35,7 +34,7 @@ function App() {
 
   useEffect(() => {
     const getUserLocal = async () => {
-      setLoading(true);      
+      setLoadingLocal(true);      
       const user = await getUser();
       const owner = await getOwner();
       setIsOwner(owner === walletAddress);
@@ -50,7 +49,7 @@ function App() {
         dispatch(setUserData(user))
       } else dispatch(setMessage(user.message));
             
-      setLoading(false);
+      setLoadingLocal(false);
     };
     getUserLocal();
     dispatch(setWalletAddress(walletAddress))
@@ -61,7 +60,7 @@ function App() {
     <ThemeProvider>
       <ScrollToTop />
       <BaseOptionChartStyle />
-      {useRoutes(routes(loading, (walletAddress !==null && error === null), isOwner))}
+      {useRoutes(routes(loadingLocal, (walletAddress !==null && error === null), isOwner))}
     </ThemeProvider>
   );
 }

@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import { getUserERC20 } from '../erc20';
 
 const UserAdminListener = () => {
-  const [userRegistered, setUserRegistered] = useState([]);
+  const [ userRegistered, setUserRegistered ] = useState({});
 
   useEffect(() => {
     const erc20 = getUserERC20();
     erc20.on('UserUpdate', (user, name, email, role, isActive, profileHash) => {
-      console.log({ user, name, email, role, isActive, profileHash });
-      setUserRegistered((currentData) => [
-        ...currentData,
+      setUserRegistered(
         {
           user,
           name,
@@ -17,15 +15,15 @@ const UserAdminListener = () => {
           role,
           isActive,
           profileHash,
-        },
-      ]);
+        }
+      );
     });
     return () => {
       erc20.removeAllListeners('UserUpdate');
     };
   }, []);
 
-  return userRegistered;
+  return {userRegistered};
 };
 
 export default UserAdminListener;

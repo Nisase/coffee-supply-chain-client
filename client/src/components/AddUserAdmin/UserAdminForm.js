@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -9,14 +9,15 @@ import CheckboxWrapper from '../FormsUI/Checkbox';
 import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
 import UserAdminListener from '../../logic/AddUserAdmin/UserAdminListener';
+import FeedBack from '../FeedBack';
 
 const initialValues = {
-  userAddress: '',
-  name: '',
-  email: '',
-  role: '',
-  isActive: false,
-  profileHash: '',
+  userAddress: '0x2c592B3A35A86d009587478eF61A656F45510F56',
+  name: 'Retailer Test 2',
+  email: 'test@gmail.com',
+  role: 'RETAILER',
+  isActive: true,
+  profileHash: '0x5373hdvshs673gw',
 };
 
 const valSchema = Yup.object().shape({
@@ -33,10 +34,19 @@ const valSchema = Yup.object().shape({
 });
 
 const UserAdminForm = () => {
-  const { userRegistered } = UserAdminListener();
+  const { userRegistered }  = UserAdminListener();
+  const [stateSnackbar, setStateSnackbar] = useState({open:false, message:'Usuario no agregado', status: 'error', key: '', openLoading: true, messageLoading: '' });
+
+  const handleClose = () => {
+    setStateSnackbar({...stateSnackbar, open:false});
+  };
 
   useEffect(() => {
-    console.log(userRegistered);
+    console.log('Test')
+    console.log(userRegistered)
+    if(userRegistered.name !== undefined){
+      setStateSnackbar({open: true, message:`Usuario ${userRegistered.name} registrado correctamente`, status: 'success'});
+    }
   }, [userRegistered]);
 
   return (
@@ -87,8 +97,9 @@ const UserAdminForm = () => {
                 );
               }}
             </Formik>
-          </div>
+          </div>          
         </Container>
+        <FeedBack feedBack={stateSnackbar}/>     
       </Grid>
     </Grid>
   );
