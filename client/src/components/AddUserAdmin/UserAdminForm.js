@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
@@ -35,17 +36,25 @@ const valSchema = Yup.object().shape({
 
 const UserAdminForm = () => {
   const { userRegistered }  = UserAdminListener();
-  const [stateSnackbar, setStateSnackbar] = useState({open:false, message:'Usuario no agregado', status: 'error', key: '', openLoading: true, messageLoading: '' });
-
+  const [stateSnackbar, setStateSnackbar] = useState({open:false, message:'Usuario no agregado', status: 'success', key: 'UserAdminForm', openLoading: false});
+  
   const handleClose = () => {
     setStateSnackbar({...stateSnackbar, open:false});
   };
 
+  const localHandleSubmit = async (values) => {    
+    setStateSnackbar({...stateSnackbar, openLoading:true});
+    try {
+      await HandleSubmit(values)
+    } catch (error) {
+      console.log(error)
+      setStateSnackbar({...stateSnackbar, open:true, openLoading:false, status: 'error',message: error.message});
+    }
+  };
+
   useEffect(() => {
-    console.log('Test')
-    console.log(userRegistered)
     if(userRegistered.name !== undefined){
-      setStateSnackbar({open: true, message:`Usuario ${userRegistered.name} registrado correctamente`, status: 'success'});
+      setStateSnackbar({...stateSnackbar, open: true, message:`Usuario ${userRegistered.name} registrado correctamente`, status: 'success', openLoading: false});
     }
   }, [userRegistered]);
 
@@ -53,20 +62,20 @@ const UserAdminForm = () => {
     <Grid container>
       <Grid item xs={12}>
         <Container maxWidth="md">
+        <FeedBack stateProp={stateSnackbar} handleClose={handleClose}/>
           <div>
             <Formik
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
-                return (
+              {({ dirty, isValid }) => 
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Usuario</Typography>
+                        <Typography className='mb-5 font-semibold'>Añadir Usuario:</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="userAddress" label="User Address" />
@@ -87,19 +96,18 @@ const UserAdminForm = () => {
                         <CheckboxWrapper name="isActive" legend="Activity" label="Active User" />
                       </Grid>
                       <Grid item xs={12}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                        <LoadingButton loading={stateSnackbar.openLoading} fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
                           SUBMIT
-                        </Button>
+                        </LoadingButton>
+                        <div className={`flex justify-center mt-3 ${stateSnackbar.openLoading ? '':'hidden'}`}><Button fullWidth variant="contained" color="secondary" onClick={()=>{setStateSnackbar({...stateSnackbar, openLoading:false});}}>Cancelar</Button></div>
                       </Grid>
                     </Grid>
                   </Form>
-                );
-              }}
+              }
             </Formik>
           </div>          
         </Container>
-        <FeedBack feedBack={stateSnackbar}/>     
       </Grid>
     </Grid>
   );
