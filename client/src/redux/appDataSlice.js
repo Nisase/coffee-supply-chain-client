@@ -45,7 +45,7 @@ export const appDataSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setWalletAddress, setUserData, setIsOwer, setMessage, setLoading } = appDataSlice.actions
+export const { setWalletAddress, setUserData, setIsOwer, setMessage, setLoading, setTxStatus } = appDataSlice.actions
 export const walletAddressSelector = createSelector( state => state.appData , appData => appData.walletAddress)
 export const userDataSelector = createSelector( state => state.appData , appData => appData.userData)
 export const isOwnerSelector = createSelector( state => state.appData , appData => appData.isOwner)

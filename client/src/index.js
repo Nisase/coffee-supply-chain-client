@@ -1,4 +1,5 @@
 import { createRoot } from "react-dom/client";
+import { SnackbarProvider } from 'notistack';
 import "./index.css";
 import 'simplebar/src/simplebar.css';
 import { BrowserRouter } from 'react-router-dom';
@@ -15,7 +16,9 @@ root.render(
     <HelmetProvider>
         <Provider store={store}>
             <BrowserRouter>
+            <SnackbarProvider maxSnack={3}>
                 <App />
+            </SnackbarProvider>
             </BrowserRouter>
         </Provider>
     </HelmetProvider>);

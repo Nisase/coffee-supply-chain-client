@@ -34,36 +34,28 @@ const AccountStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[500_12],
 }));
 
-const navAdmin = [
+const navAdmin = 
   {
     title: 'admin',
     path: '/dashboard/admin',
     icon: 'eva:people-fill',
-  }]
+  }
 
-const navConfig = [  
+const navApp = 
   {
     title: 'dashboard',
     path: '/dashboard/app',
     icon: 'eva:pie-chart-2-fill',
-  },  
-  {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: 'eva:shopping-bag-fill',
-  },
-  {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: 'eva:file-text-fill',
-  },
+  }
+
+const navHome = 
   {
     title: 'Home',
     path: '/home',
     icon: 'eva:file-text-fill',
   }
-];
 
+  const navConfig = [navApp, navAdmin, navHome ]
 
 // ----------------------------------------------------------------------
 
@@ -88,12 +80,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
     setNavOptions(() => {
      if(isOwner)
-        return(navAdmin.concat(navConfig));
+        return(navConfig);
     
-      return(navConfig);
+      return([navApp, navHome]);
     })
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (

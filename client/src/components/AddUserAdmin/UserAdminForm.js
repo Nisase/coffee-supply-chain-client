@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
+import PendingConfirmation from '../PendingConfirmation';
 
 import role from '../../data/roles.json';
+import { addTx, removeTx } from '../../redux/txSlice';
+
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
-import UserAdminListener from '../../logic/AddUserAdmin/UserAdminListener';
-import FeedBack from '../FeedBack';
 
 const initialValues = {
-  userAddress: '0x2c592B3A35A86d009587478eF61A656F45510F56',
-  name: 'Retailer Test 2',
-  email: 'test@gmail.com',
-  role: 'RETAILER',
+  userAddress: '',
+  name: '',
+  email: '',
+  role: '',
   isActive: true,
-  profileHash: '0x5373hdvshs673gw',
+  profileHash: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -35,34 +38,37 @@ const valSchema = Yup.object().shape({
 });
 
 const UserAdminForm = () => {
-  const { userRegistered }  = UserAdminListener();
-  const [stateSnackbar, setStateSnackbar] = useState({open:false, message:'Usuario no agregado', status: 'success', key: 'UserAdminForm', openLoading: false});
-  
-  const handleClose = () => {
-    setStateSnackbar({...stateSnackbar, open:false});
-  };
 
-  const localHandleSubmit = async (values) => {    
-    setStateSnackbar({...stateSnackbar, openLoading:true});
-    try {
-      await HandleSubmit(values)
-    } catch (error) {
-      console.log(error)
-      setStateSnackbar({...stateSnackbar, open:true, openLoading:false, status: 'error',message: error.message});
-    }
-  };
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false) 
+  const [txHash, setTxHash] = useState('0x') 
 
-  useEffect(() => {
-    if(userRegistered.name !== undefined){
-      setStateSnackbar({...stateSnackbar, open: true, message:`Usuario ${userRegistered.name} registrado correctamente`, status: 'success', openLoading: false});
-    }
-  }, [userRegistered]);
+  const dispatch = useDispatch()
+
+  const localHandleSubmit = (values) => {
+    setTxHash('0x')
+    setLoading(true)
+    const tx = HandleSubmit(values)
+    tx.then((trans)=>{
+      setTxHash(trans.hash)
+      dispatch(addTx({tx: trans.hash, type: 'UserUpdate'}))
+      setLoading(false)
+      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' })
+      // const res = await trans.wait();
+      // const args = getArgsEvent(res, 'UserUpdate')
+    })
+    .catch((error)=>{
+      dispatch(removeTx({tx: txHash, type: 'UserUpdate' }))
+      enqueueSnackbar(error.message, { variant: 'warning' })
+      setLoading(false)
+    })
+  }
 
   return (
     <Grid container>
+      <PendingConfirmation loading={loading} />
       <Grid item xs={12}>
         <Container maxWidth="md">
-        <FeedBack stateProp={stateSnackbar} handleClose={handleClose}/>
           <div>
             <Formik
               initialValues={initialValues}
@@ -75,7 +81,7 @@ const UserAdminForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography className='mb-5 font-semibold'>Añadir Usuario:</Typography>
+                        <Typography className='mb-10 font-semibold text-center'>AÑADIR USUARIO CON ROL</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="userAddress" label="User Address" />
@@ -96,11 +102,10 @@ const UserAdminForm = () => {
                         <CheckboxWrapper name="isActive" legend="Activity" label="Active User" />
                       </Grid>
                       <Grid item xs={12}>
-                        <LoadingButton loading={stateSnackbar.openLoading} fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
                           SUBMIT
-                        </LoadingButton>
-                        <div className={`flex justify-center mt-3 ${stateSnackbar.openLoading ? '':'hidden'}`}><Button fullWidth variant="contained" color="secondary" onClick={()=>{setStateSnackbar({...stateSnackbar, openLoading:false});}}>Cancelar</Button></div>
+                        </Button>
                       </Grid>
                     </Grid>
                   </Form>

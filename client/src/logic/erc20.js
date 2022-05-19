@@ -23,3 +23,14 @@ export const getUserERC20 = () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
 	return(new ethers.Contract(window.userAddress, supplyChainUserABI.abi, provider));
 };
+
+export const getArgsEvent = (tx, eventName) => {
+  let args = [];
+  if(tx.events !== undefined )
+  tx.events.map((itemEvent)=>{ 
+    if(itemEvent.event!==undefined && itemEvent.event===eventName) 
+      args = itemEvent.args
+    return(null);
+  })
+  return args
+};
