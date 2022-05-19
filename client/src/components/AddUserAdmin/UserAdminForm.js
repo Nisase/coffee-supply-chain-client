@@ -21,10 +21,10 @@ const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
 const FILE_SIZE = 650 * 1024;
 
 const initialValues = {
-  userAddress: '0x2c592B3A35A86d009587478eF61A656F45510F56',
-  name: 'RETAILER2',
-  email: 'thema@gmail.com',
-  role: 'RETAILER',
+  userAddress: '',
+  name: '',
+  email: '',
+  role: '',
   isActive: true,
   profileHash: '',
 };
@@ -59,6 +59,16 @@ const UserAdminForm = () => {
   const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
     /*
+
+    const initialValues = {
+  userAddress: '0x2c592B3A35A86d009587478eF61A656F45510F56',
+  name: 'RETAILER2',
+  email: 'thema@gmail.com',
+  role: 'RETAILER',
+  isActive: true,
+  profileHash: '',
+};
+
     console.log(values.profileHash)
     if (!values.profileHash || values.profileHash.length === 0) {
       console.log('hola')
