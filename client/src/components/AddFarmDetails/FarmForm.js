@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
+import PendingConfirmation from '../PendingConfirmation';
+
+import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddFarmDetails/HandleSubmit';
-import FarmListener from '../../logic/AddFarmDetails/FarmListener';
 
 const initialValues = {
   registrationNo: '',
@@ -24,14 +29,31 @@ const valSchema = Yup.object().shape({
 });
 
 const FarmForm = () => {
-  const { farmRegistered } = FarmListener();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState('0x');
 
-  useEffect(() => {
-    console.log(farmRegistered);
-  }, [farmRegistered]);
+  const dispatch = useDispatch();
+
+  const localHandleSubmit = async (values) => {
+    setTxHash('0x');
+    setLoading(true);
+    const tx = HandleSubmit(values);
+    tx.then((trans) => {
+      setTxHash(trans.hash);
+      dispatch(addTx({ tx: trans.hash, type: 'SetFarmDetails' }));
+      setLoading(false);
+      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+    }).catch((error) => {
+      dispatch(removeTx({ tx: txHash, type: 'SetFarmDetails' }));
+      enqueueSnackbar(error.message, { variant: 'warning' });
+      setLoading(false);
+    });
+  };
 
   return (
     <Grid container>
+      <PendingConfirmation loading={loading} />
       <Grid item xs={12}>
         <Container maxWidth="md">
           <div>
@@ -39,7 +61,7 @@ const FarmForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                localHandleSubmit(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -47,11 +69,11 @@ const FarmForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Detalles de la Granja</Typography>
+                        <Typography>AÑADIR INFORMACIÓN DE LA GRANJA</Typography>
                       </Grid>
-                      { /* <Grid item xs={6}>
+                      {/* <Grid item xs={6}>
                                     <TextfieldWrapper name="registrationNo" label="Registration No" />
-                            </Grid> */ }
+                            </Grid> */}
                       <Grid item xs={6}>
                         <TextfieldWrapper name="farmName" label="Farm Name" />
                       </Grid>

@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
+import PendingConfirmation from '../PendingConfirmation';
+
+import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddRetailer/HandleSubmit';
-import RetailerListener from '../../logic/AddRetailer/RetailerListener';
 
 const initialValues = {
   batchNo: '',
@@ -27,19 +32,36 @@ const valSchema = Yup.object().shape({
   warehouseName: Yup.string().required('Requerido'),
   warehouseAddress: Yup.string().required('Requerido'),
   salePointAddress: Yup.string().required('Requerido'),
-  shipPriceSP: Yup.number().typeError('Por favor ingrese un precio correcto').required('Requerido'),
-  productPrice: Yup.number().typeError('Por favor ingrese un precio correcto').required('Requerido'),
+  shipPriceSP: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  productPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
 const RetailerForm = () => {
-  const { retailerRegistered } = RetailerListener();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState('0x');
 
-  useEffect(() => {
-    console.log(retailerRegistered);
-  }, [retailerRegistered]);
+  const dispatch = useDispatch();
+
+  const localHandleSubmit = async (values) => {
+    setTxHash('0x');
+    setLoading(true);
+    const tx = HandleSubmit(values);
+    tx.then((trans) => {
+      setTxHash(trans.hash);
+      dispatch(addTx({ tx: trans.hash, type: 'DoneRetailer' }));
+      setLoading(false);
+      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+    }).catch((error) => {
+      dispatch(removeTx({ tx: txHash, type: 'DoneRetailer' }));
+      enqueueSnackbar(error.message, { variant: 'warning' });
+      setLoading(false);
+    });
+  };
 
   return (
     <Grid container>
+      <PendingConfirmation loading={loading} />
       <Grid item xs={12}>
         <Container maxWidth="md">
           <div>
@@ -47,7 +69,7 @@ const RetailerForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                localHandleSubmit(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -55,7 +77,7 @@ const RetailerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos de Retailer</Typography>
+                        <Typography>AÑADIR DATOS DE RETAILER</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />

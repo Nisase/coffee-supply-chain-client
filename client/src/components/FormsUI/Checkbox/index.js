@@ -28,7 +28,7 @@ const CheckboxWrapper = ({ name, label, legend, ...otherProps }) => {
     <FormControl {...configFormControl}>
       <FormLabel component="legend">{legend}</FormLabel>
       <FormGroup>
-        <FormControlLabel control={<Checkbox {...configCheckbox} checked={field.value}/>} label={label} />
+        <FormControlLabel control={<Checkbox {...configCheckbox} checked={field.value} />} label={label} />
       </FormGroup>
     </FormControl>
   );

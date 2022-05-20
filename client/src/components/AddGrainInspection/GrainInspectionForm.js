@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
-import SelectWrapper from '../FormsUI/Select';
-import DateTimePicker from '../FormsUI/DateTimePicker';
+import PendingConfirmation from '../PendingConfirmation';
+
+import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddGrainInspection/HandleSubmit';
-import GrainInspectionListener from '../../logic/AddGrainInspection/GrainInspectionListener';
 
 const initialValues = {
   batchNo: '',
@@ -17,19 +20,36 @@ const initialValues = {
 
 const valSchema = Yup.object().shape({
   batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  tasteScore: Yup.number().typeError('Por favor ingrese una nota de catación correcta').required('Requerido'),
-  grainPrice: Yup.number().typeError('Por favor ingrese un precio correcto').required('Requerido'),
+  tasteScore: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  grainPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
 const GrainInspectionForm = () => {
-  const { grainRegistered } = GrainInspectionListener();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState('0x');
 
-  useEffect(() => {
-    console.log(grainRegistered);
-  }, [grainRegistered]);
+  const dispatch = useDispatch();
+
+  const localHandleSubmit = async (values) => {
+    setTxHash('0x');
+    setLoading(true);
+    const tx = HandleSubmit(values);
+    tx.then((trans) => {
+      setTxHash(trans.hash);
+      dispatch(addTx({ tx: trans.hash, type: 'SetGrainData' }));
+      setLoading(false);
+      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+    }).catch((error) => {
+      dispatch(removeTx({ tx: txHash, type: 'SetGrainData' }));
+      enqueueSnackbar(error.message, { variant: 'warning' });
+      setLoading(false);
+    });
+  };
 
   return (
     <Grid container>
+      <PendingConfirmation loading={loading} />
       <Grid item xs={12}>
         <Container maxWidth="md">
           <div>
@@ -37,7 +57,7 @@ const GrainInspectionForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                localHandleSubmit(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -45,7 +65,7 @@ const GrainInspectionForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos de Inspección del Grano</Typography>
+                        <Typography>AÑADIR DATOS DE INSPECCIÓN DEL GRANO</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />

@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react';
 import { getCoffeERC20 } from '../erc20';
 
-const useFarmListener = () => {
+const FarmListener = () => {
   const [farmRegistered, setFarmRegistered] = useState({});
-  
+
   useEffect(() => {
     const erc20 = getCoffeERC20();
-    erc20.on('SetFarmDetails', (user, batchNo) => {
+    erc20.on('SetFarmDetails', (user, batchNo, event) => {
       setFarmRegistered({
         user,
-        batchNo
+        batchNo,
+        tx: event.transactionHash,
       });
     });
     return () => {
       erc20.removeAllListeners('SetFarmDetails');
     };
   }, []);
-  return farmRegistered;
+  return { farmRegistered };
 };
 
-export default useFarmListener;
+export default FarmListener;

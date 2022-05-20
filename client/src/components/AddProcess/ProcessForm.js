@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
+import PendingConfirmation from '../PendingConfirmation';
+
+import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddProcess/HandleSubmit';
-import ProcessListener from '../../logic/AddProcess/ProcessListener';
 import typeDrying from '../../data/typeDrying.json';
 import typeRoasting from '../../data/typeRoasting.json';
 
@@ -32,18 +37,35 @@ const valSchema = Yup.object().shape({
   typeOfRoast: Yup.string().required('Requerido'),
   roastDate: Yup.date().required('Requerido'),
   millDate: Yup.date().required('Requerido'),
-  processorPrice: Yup.number().typeError('Por favor ingrese un precio correcto').required('Requerido'),
+  processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
 const ProcessForm = () => {
-  const { processRegistered } = ProcessListener();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState('0x');
 
-  useEffect(() => {
-    console.log(processRegistered);
-  }, [processRegistered]);
+  const dispatch = useDispatch();
+
+  const localHandleSubmit = async (values) => {
+    setTxHash('0x');
+    setLoading(true);
+    const tx = HandleSubmit(values);
+    tx.then((trans) => {
+      setTxHash(trans.hash);
+      dispatch(addTx({ tx: trans.hash, type: 'DoneProcessing' }));
+      setLoading(false);
+      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+    }).catch((error) => {
+      dispatch(removeTx({ tx: txHash, type: 'DoneProcessing' }));
+      enqueueSnackbar(error.message, { variant: 'warning' });
+      setLoading(false);
+    });
+  };
 
   return (
     <Grid container>
+      <PendingConfirmation loading={loading} />
       <Grid item xs={12}>
         <Container maxWidth="md">
           <div>
@@ -51,7 +73,7 @@ const ProcessForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                loadHandleSubmit(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -59,7 +81,7 @@ const ProcessForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos del Procesamiento</Typography>
+                        <Typography>AÑADIR DATOS DE PROCESAMIENTO</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />

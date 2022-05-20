@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
+import PendingConfirmation from '../PendingConfirmation';
+
+import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddHarvest/HandleSubmit';
-import HarvestListener from '../../logic/AddHarvest/HarvestListener';
 import typeSeeds from '../../data/typeSeeds.json';
 
 const initialValues = {
@@ -27,14 +32,31 @@ const valSchema = Yup.object().shape({
 });
 
 const HarvestForm = () => {
-  const { harvestRegistered } = HarvestListener();
+  const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading] = useState(false);
+  const [txHash, setTxHash] = useState('0x');
 
-  useEffect(() => {
-    console.log(harvestRegistered);
-  }, [harvestRegistered]);
+  const dispatch = useDispatch();
+
+  const localHandleSubmit = async (values) => {
+    setTxHash('0x');
+    setLoading(true);
+    const tx = HandleSubmit(values);
+    tx.then((trans) => {
+      setTxHash(trans.hash);
+      dispatch(addTx({ tx: trans.hash, type: 'DoneHarvesting' }));
+      setLoading(false);
+      enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
+    }).catch((error) => {
+      dispatch(removeTx({ tx: txHash, type: 'DoneHarvesting' }));
+      enqueueSnackbar(error.message, { variant: 'warning' });
+      setLoading(false);
+    });
+  };
 
   return (
     <Grid container>
+      <PendingConfirmation loading={loading} />
       <Grid item xs={12}>
         <Container maxWidth="md">
           <div>
@@ -42,7 +64,7 @@ const HarvestForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                HandleSubmit(values);
+                localHandleSubmit(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -50,7 +72,7 @@ const HarvestForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>Añadir Datos de Cosecha</Typography>
+                        <Typography>AÑADIR DATOS DE COSECHA</Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />
