@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
-import { isOwnerSelector, userDataSelector } from '../../redux/appDataSlice'
+import { userDataSelector } from '../../redux/appDataSlice'
 // components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
@@ -34,28 +34,31 @@ const AccountStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[500_12],
 }));
 
-const navAdmin = 
+  const allOptionsNav = [ 
   {
-    title: 'admin',
+    title: 'admintration',
     path: '/dashboard/admin',
     icon: 'eva:people-fill',
-  }
-
-const navApp = 
+    role: 'ADMIN',
+  },
   {
     title: 'dashboard',
     path: '/dashboard/app',
     icon: 'eva:pie-chart-2-fill',
-  }
-
-const navHome = 
+    role: 'ADMIN',
+  },
+  {
+    title: 'farmer',
+    path: '/dashboard/farmer',
+    icon: 'eva:pie-chart-2-fill',
+    role: 'FARMER',
+  },
   {
     title: 'Home',
     path: '/home',
     icon: 'eva:file-text-fill',
-  }
-
-  const navConfig = [navApp, navAdmin, navHome ]
+    role: 'ALL'
+  }]
 
 // ----------------------------------------------------------------------
 
@@ -65,27 +68,21 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
-  const isOwner = useSelector(isOwnerSelector)
   const userInfo = useSelector(userDataSelector)
 
-  const [navOptions, setNavOptions] = useState(navConfig)
+  const [navOptions, setNavOptions] = useState([{ title: 'Home', path: '/home', icon: 'eva:file-text-fill', role: 'all' }])
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
+
+  const getNavs = (role) => { return allOptionsNav.filter((item) => item.role === role || item.role === 'all') }
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-
-    setNavOptions(() => {
-     if(isOwner)
-        return(navConfig);
-    
-      return([navApp, navHome]);
-    })
-
-  }, [pathname]);
+    setNavOptions(getNavs(userInfo.role))
+  }, [pathname, userInfo]);
 
   const renderContent = (
     <Scrollbar

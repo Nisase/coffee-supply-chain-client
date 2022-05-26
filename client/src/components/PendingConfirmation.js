@@ -1,7 +1,7 @@
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-function PendingConfirmation({loading, message='Esperando confirmación desde Metamask'}){
+function PendingConfirmation({loading, message='Transacción en proceso'}){
     return(
         <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

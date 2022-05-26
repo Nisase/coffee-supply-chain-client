@@ -6,8 +6,11 @@ export const createIpfs = () => {
 }
 
 export const addFileToIpfs = async (ipfs, file) => {
-    if(!ipfs) return 
-
-    const result = await ipfs.pin.add(file);
-    return `https://ipfs.infura.io/ipfs/${result.path}`
+    if(!ipfs) return {url: null, error: 'IPFS error'}
+    try {
+        const result = await ipfs.add(file, {timeout:100});
+        return {url: `https://ipfs.infura.io/ipfs/${result.path}`, error: null}
+    } catch (error) {
+        return {url: null, error: error.message}
+    }
 }

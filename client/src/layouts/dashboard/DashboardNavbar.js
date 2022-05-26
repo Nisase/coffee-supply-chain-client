@@ -53,7 +53,7 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
-        <p className='mr-10 text-black'><span className='font-semibold'>Addres Account:</span> {walletAddress}</p>
+        <p className='mr-10 text-black'><span className='font-semibold'>Addres Account:</span> {walletAddress.slice(0, 8).concat("...").concat(walletAddress.slice(-8))}</p>
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <AccountPopover />

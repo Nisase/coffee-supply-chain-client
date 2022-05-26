@@ -13,6 +13,7 @@ import Products from './pages/Products';
 import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardApp from './pages/DashboardApp';
 import Loading from './components/Loading'
+import DashboardFarmer from './pages/DashboardFarmer';
 
 // ----------------------------------------------------------------------
 
@@ -33,7 +34,8 @@ const routes = (loading, isLoggedIn, isOwner) => {
     element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'app', element: <DashboardApp /> },
-      { path: 'admin', element: isOwner ? <DashboardAdmin/>: <Navigate to="/dashboard/app" />  },
+      { path: 'admin', element: isOwner ? <DashboardAdmin/>: <Navigate to="/home" />  },
+      { path: 'farmer', element: <DashboardFarmer /> },
       { path: 'user', element: <User /> },
       { path: 'products', element: <Products /> },
       { path: 'blog', element: <Blog /> },
@@ -45,7 +47,7 @@ const routes = (loading, isLoggedIn, isOwner) => {
     children: [
       { path: '/', element: <Navigate to="/home" /> },
       { path: 'home', element: <Home/> },
-      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
+      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/home" /> },
       { path: 'tracking', element:  <Tracking />},
       { path: '404', element: <NotFound /> },
       { path: '*', element: <Navigate to="/404" /> },

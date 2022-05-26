@@ -25,7 +25,7 @@ const initialValues = {
   email: 'farmer4test@gmail.com',
   role: 'FARMER',
   isActive: true,
-  profileHash: '',
+  profileHash: null,
 };
 
 const valSchema = Yup.object().shape({
@@ -60,32 +60,26 @@ const UserAdminForm = () => {
 
   const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
-    /*
-
-    const initialValues = {
-  userAddress: '0x2c592B3A35A86d009587478eF61A656F45510F56',
-  name: 'RETAILER2',
-  email: 'thema@gmail.com',
-  role: 'RETAILER',
-  isActive: true,
-  profileHash: '',
-};
-
-    console.log(values.profileHash)
-    if (!values.profileHash || values.profileHash.length === 0) {
-      console.log('hola')
-      values.profileHash = '';
-    }
-    console.log('hola2')
-    console.log(ipfs)
-    const url = await addFileToIpfs(ipfs, values.profileHash)
-    console.log('hola3')
-    console.log(url)
-    setfileUrl(url)
-    */
-
+    
     setTxHash('0x');
     setLoading(true);
+    setfileUrl('')
+
+    if (!values.profileHash || values.profileHash.length === 0) {
+      values.profileHash = '';
+    }
+    if(values.profileHash !== ''){
+      enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
+      const result = await addFileToIpfs(ipfs, values.profileHash)
+      if(result.error !== null ){
+        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
+        setLoading(false);
+        return 
+      }
+      values.profileHash = result.url
+      setfileUrl(result.url)
+    }
+    
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
@@ -98,6 +92,7 @@ const UserAdminForm = () => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
       enqueueSnackbar(error.message, { variant: 'warning' });
       setLoading(false);
+      setfileUrl('')
     });
   };
 
@@ -118,7 +113,7 @@ const UserAdminForm = () => {
                 <Form>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <Typography className="mb-10 font-semibold text-center">AÑADIR USUARIO</Typography>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">AÑADIR USUARIO</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <TextfieldWrapper name="userAddress" label="User Address" />
