@@ -36,7 +36,7 @@ const AccountStyle = styled('div')(({ theme }) => ({
 
   const allOptionsNav = [ 
   {
-    title: 'admintration',
+    title: 'administration',
     path: '/dashboard/admin',
     icon: 'eva:people-fill',
     role: 'ADMIN',

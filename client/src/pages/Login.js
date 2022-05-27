@@ -27,7 +27,6 @@ const SectionStyle = styled(Card)(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
@@ -50,12 +49,9 @@ export default function Login() {
           </SectionStyle>
         )}
 
-        <Container maxWidth="sm">
+        <Container maxWidth="md">
           <ContentStyle>
-            <img src="/static/illustrations/logistica_16.svg" alt="login" className='absolute w-2/3 self-center opacity-10'/>
-            <Typography variant="h4" gutterBottom>
-              Ingrese con su cuenta de Metamask
-            </Typography>
+            <img src="/static/illustrations/logistica_16.svg" alt="login" className='absolute w-2/3 self-center opacity-10'/>            
             <LoginMetamask />
           </ContentStyle>
         </Container>

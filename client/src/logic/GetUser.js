@@ -4,10 +4,13 @@ const getUser = async () => {
   const account = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
-  const erc20 = await getUserERC20();
+  return getUserByAddress(account[0])
+};
 
+export const getUserByAddress = async (address) => {
   try {
-    const userTemp = await erc20.callStatic.getUser(account[0]);
+    const erc20 = await getUserERC20();
+    const userTemp = await erc20.callStatic.getUser(address);
     return {
       // userAddress: user["userAddress"],
       name: userTemp.name,

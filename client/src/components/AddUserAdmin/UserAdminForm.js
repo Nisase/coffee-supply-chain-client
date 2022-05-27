@@ -14,6 +14,7 @@ import role from '../../data/roles.json';
 import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
+import {getUserByAddress} from '../../logic/GetUser';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
@@ -78,6 +79,18 @@ const UserAdminForm = () => {
       }
       values.profileHash = result.url
       setfileUrl(result.url)
+    }
+
+    const userTemp = await getUserByAddress(values.userAddress)
+    if(userTemp.role !=='' && userTemp.message === null){
+      setLoading(false);
+      enqueueSnackbar(`Address ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
+      return
+    }
+    if(userTemp.message !== null){
+      setLoading(false);
+      enqueueSnackbar(`Datos ingresados con error: ${userTemp.message}`, { variant: 'warning' });
+      return
     }
     
     const tx = HandleSubmit(values);

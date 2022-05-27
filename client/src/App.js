@@ -8,8 +8,8 @@ import { BaseOptionChartStyle } from './components/chart/BaseOptionChart';
 import routes from './routes';
 
 import useDetectProvider from './hooks/useDetectProvider';
-import UserAdminListener from './logic/AddUserAdmin/UserAdminListener';
 
+import UserAdminListener from './logic/AddUserAdmin/UserAdminListener';
 import UpdateUserListener from './logic/UpdateUser/UpdateUserListener';
 import FarmListener from './logic/AddFarmDetails/FarmListener';
 import HarvestListener from './logic/AddHarvest/HarvestListener';
@@ -21,7 +21,7 @@ import PackerListener from './logic/AddPacker/PackerListener';
 import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
 import RetailerListener from './logic/AddRetailer/RetailerListener';
 
-import { setWalletAddress, setUserData, setMessage, setIsOwer } from './redux/appDataSlice';
+import { setWalletAddress, setUserData, setMessage, setIsOwer, userDataSelector } from './redux/appDataSlice';
 import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
 import { txListSelector, removeTx } from './redux/txSlice';
 
@@ -36,6 +36,7 @@ function App() {
   const [walletAddress, error] = useDetectProvider(true);
   const [isOwner, setIsOwner] = useState(false);
   const [loadingLocal, setLoadingLocal] = useState(false);
+  const userData = useSelector(userDataSelector);
 
   useEffect(() => {
     const userAddress = '0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE';
@@ -55,13 +56,19 @@ function App() {
       setIsOwner(owner === walletAddress);
       dispatch(setIsOwer(isOwner));
 
-      if (user && user.message == null) {
+      if (user && user.message === null) {
         if (isOwner) {
           user.name = 'Administrador';
           user.role = 'ADMIN';
           user.email = 'admincoffe@.epn.edu.ec';
         }
+        if(user.role === '' || user.name === ''){
+          dispatch(setUserData(null));
+          setLoadingLocal(false);
+          return
+        }
         dispatch(setUserData(user));
+        dispatch(setMessage(''))
       } else dispatch(setMessage(user.message));
 
       setLoadingLocal(false);
@@ -205,7 +212,7 @@ function App() {
     <ThemeProvider>
       <ScrollToTop />
       <BaseOptionChartStyle />
-      {useRoutes(routes(loadingLocal, walletAddress !== null && error === null, isOwner))}
+      {useRoutes(routes(loadingLocal, userData, isOwner))}
     </ThemeProvider>
   );
 }

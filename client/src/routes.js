@@ -17,7 +17,7 @@ import DashboardFarmer from './pages/DashboardFarmer';
 
 // ----------------------------------------------------------------------
 
-const routes = (loading, isLoggedIn, isOwner) => {
+const routes = (loading, userData, isOwner) => {
 
   const route = loading ? [{
     path: '/',
@@ -25,13 +25,13 @@ const routes = (loading, isLoggedIn, isOwner) => {
     children: [
       { path: '/', element: <Navigate to="/home" /> },
       { path: 'home', element: <Home/> },
-      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
+      { path: 'login', element: userData ? <Navigate to="/dashboard/app" /> : <Login /> },
       { path: 'tracking', element:  <Tracking />}
     ],
   }, { path: '*', element:  <Loading />}]: [
   {
     path: '/dashboard',
-    element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
+    element: userData ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
       { path: 'app', element: <DashboardApp /> },
       { path: 'admin', element: isOwner ? <DashboardAdmin/>: <Navigate to="/home" />  },
@@ -47,7 +47,7 @@ const routes = (loading, isLoggedIn, isOwner) => {
     children: [
       { path: '/', element: <Navigate to="/home" /> },
       { path: 'home', element: <Home/> },
-      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/home" /> },
+      { path: 'login', element: userData ? <Navigate to="/home" /> : <Login /> },
       { path: 'tracking', element:  <Tracking />},
       { path: '404', element: <NotFound /> },
       { path: '*', element: <Navigate to="/404" /> },
