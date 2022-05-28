@@ -41,7 +41,7 @@ export default function Home() {
               <h1 className='text-center'>TITLE</h1>
               <img src="/static/images/login.jpg" alt="login" className='w-2/3 self-center my-10'/>
               {!walletAddress && <RouterLink to="/login"><p className='font-bold uppercase my-5'>login -></p></RouterLink>}
-              <RouterLink to="/dashboard/app"><p className='font-bold uppercase my-5'>dashboard -></p></RouterLink>
+              <RouterLink to="/dashboard"><p className='font-bold uppercase my-5'>dashboard -></p></RouterLink>
               <p className='my-10'>loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren </p>
               <img src="/static/images/login.jpg" alt="login" className='w-2/3 self-center my-10'/>
               <p className='my-2'>loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren loren </p>

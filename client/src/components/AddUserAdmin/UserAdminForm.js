@@ -66,6 +66,20 @@ const UserAdminForm = () => {
     setLoading(true);
     setfileUrl('')
 
+    const userTemp = await getUserByAddress(values.userAddress)
+    if(userTemp.role !=='' && userTemp.message === null){
+      setLoading(false);
+      enqueueSnackbar(`Address ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
+      values.profileHash = null
+      return
+    }
+    if(userTemp.message !== null){
+      setLoading(false);
+      enqueueSnackbar(`Datos ingresados con error: ${userTemp.message}`, { variant: 'warning' });
+      values.profileHash = null
+      return
+    }
+
     if (!values.profileHash || values.profileHash.length === 0) {
       values.profileHash = '';
     }
@@ -80,17 +94,20 @@ const UserAdminForm = () => {
       values.profileHash = result.url
       setfileUrl(result.url)
     }
-
-    const userTemp = await getUserByAddress(values.userAddress)
-    if(userTemp.role !=='' && userTemp.message === null){
-      setLoading(false);
-      enqueueSnackbar(`Address ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
-      return
+    
+    if (!values.profileHash || values.profileHash.length === 0) {
+      values.profileHash = '';
     }
-    if(userTemp.message !== null){
-      setLoading(false);
-      enqueueSnackbar(`Datos ingresados con error: ${userTemp.message}`, { variant: 'warning' });
-      return
+    if(values.profileHash !== ''){
+      enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
+      const result = await addFileToIpfs(ipfs, values.profileHash)
+      if(result.error !== null ){
+        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
+        setLoading(false);
+        return 
+      }
+      values.profileHash = result.url
+      setfileUrl(result.url)
     }
     
     const tx = HandleSubmit(values);

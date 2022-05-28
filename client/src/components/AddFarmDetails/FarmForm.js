@@ -21,7 +21,6 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  // registrationNo: Yup.string().required('Requerido'),
   farmName: Yup.string().required('Requerido'),
   latitude: Yup.string().required('Requerido'),
   longitude: Yup.string().required('Requerido'),
@@ -64,16 +63,12 @@ const FarmForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
-                return (
+              {({ dirty, isValid }) => (
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">AÑADIR INFORMACIÓN DE LA GRANJA</Typography>
                       </Grid>
-                      {/* <Grid item xs={6}>
-                                    <TextfieldWrapper name="registrationNo" label="Registration No" />
-                            </Grid> */}
                       <Grid item xs={6}>
                         <TextfieldWrapper name="farmName" label="Farm Name" />
                       </Grid>
@@ -94,8 +89,7 @@ const FarmForm = () => {
                       </Grid>
                     </Grid>
                   </Form>
-                );
-              }}
+              )}
             </Formik>
           </div>
         </Container>

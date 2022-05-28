@@ -67,14 +67,13 @@ const HarvestForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
-                return (
+              {({ dirty, isValid }) => (
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DE COSECHA</Typography>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">AÑADIR DATOS DE COSECHA</Typography>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="batchNo" label="Batch No" />
                       </Grid>
                       <Grid item xs={6}>
@@ -97,8 +96,7 @@ const HarvestForm = () => {
                       </Grid>
                     </Grid>
                   </Form>
-                );
-              }}
+              )}
             </Formik>
           </div>
         </Container>

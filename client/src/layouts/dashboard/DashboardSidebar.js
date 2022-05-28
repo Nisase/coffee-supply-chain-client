@@ -75,7 +75,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const getNavs = (role) => { return allOptionsNav.filter((item) => item.role === role || item.role === 'all') }
+  const getNavs = (role) => ( allOptionsNav.filter((item) => item.role === role || item.role === 'ALL') )
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -92,7 +92,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo urlLink='/dashboard/app' />
+        <Logo urlLink='/dashboard' />
       </Box>
 
       {userInfo && <Box sx={{ mb: 5, mx: 2.5 }}>
