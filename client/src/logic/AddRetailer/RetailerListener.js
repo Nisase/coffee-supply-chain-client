@@ -5,17 +5,19 @@ const RetailerListener = () => {
   const [retailerRegistered, setRetailerRegistered] = useState({});
 
   useEffect(() => {
-    const erc20 = getCoffeERC20();
-    erc20.on('DoneRetailer', (user, batchNo, event) => {
-      setRetailerRegistered({
-        user,
-        batchNo,
-        tx: event.transactionHash,
+    if (typeof window.ethereum !== "undefined") {
+      const erc20 = getCoffeERC20();
+      erc20.on('DoneRetailer', (user, batchNo, event) => {
+        setRetailerRegistered({
+          user,
+          batchNo,
+          tx: event.transactionHash,
+        });
       });
-    });
-    return () => {
-      erc20.removeAllListeners('DoneRetailer');
-    };
+      return () => {
+        erc20.removeAllListeners('DoneRetailer');
+      };
+    }
   }, []);
 
   return { retailerRegistered };

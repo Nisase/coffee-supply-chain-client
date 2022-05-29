@@ -1,14 +1,23 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Alert, Typography } from "@mui/material";
 import { LoadingButton } from '@mui/lab';
 import useDetectProvider from "../hooks/useDetectProvider";
+import { setWalletAddress, loadingSelector } from '../redux/appDataSlice';
+
 
 const LoginMetamask = () => {
+	const dispatch = useDispatch()
+	const loading = useSelector(loadingSelector)
 	const [walletAddress, error, requestAccount] = useDetectProvider();
 
 	const handleClickMetamask = () => {
 		window.open("https://metamask.io/download/")
 	}
 
+	useEffect(()=>{
+		if(walletAddress !== null) dispatch(setWalletAddress(walletAddress));
+	}, [walletAddress])
 	// Tx pending
 
 	return (
@@ -18,15 +27,15 @@ const LoginMetamask = () => {
               Ingrese con su cuenta de Metamask
             </Typography>
 			<LoadingButton onClick={requestAccount} variant="contained" fullWidth size="large" type="submit" loading={false}>
-			Connect Wallet
+			Conectar Wallet Metamask
 			</LoadingButton>
 			<div className="w-full h-1 my-3" />
 			<LoadingButton onClick={handleClickMetamask} color="secondary" variant="contained" type="submit" loading={false}>
-				Get Metamask
+				Instalar Metamask
 			</LoadingButton>
 			</>}
 
-			{ walletAddress && !error && 
+			{ walletAddress && !error && !loading && 
 				<>
 				<Typography variant="p" className="my-3">
 				Wallet Address: {walletAddress}
@@ -35,8 +44,8 @@ const LoginMetamask = () => {
 				</>
 			}
 
-			{error && <div className="mt-5">
-				{error}
+			{error && <div className="mt-5 text-lg">
+				<Alert severity="error">{error}</Alert>
 			</div>}			
 		</div>				
 	);

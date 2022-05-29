@@ -5,6 +5,7 @@ const UserAdminListener = () => {
   const [ userRegistered, setUserRegistered ] = useState({});
   
   useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
     const erc20 = getUserERC20();
     erc20.on('UserUpdate', (user, name, email, role, isActive, profileHash, event) => {
       setUserRegistered({
@@ -20,7 +21,7 @@ const UserAdminListener = () => {
     )
     return () => {
       erc20.removeAllListeners('UserUpdate');
-    }
+    }}
   }, []);
 
   return {userRegistered};

@@ -5,21 +5,23 @@ const UpdateUserListener = () => {
   const [userUpdated, setUserUpdated] = useState({});
 
   useEffect(() => {
-    const erc20 = getUserERC20();
-    erc20.on('UserUpdate', (user, name, email, role, isActive, profileHash, event) => {
-      setUserUpdated({
-        user,
-        name,
-        email,
-        role,
-        isActive,
-        profileHash,
-        tx: event.transactionHash,
+    if (typeof window.ethereum !== "undefined") {
+      const erc20 = getUserERC20();
+      erc20.on('UserUpdate', (user, name, email, role, isActive, profileHash, event) => {
+        setUserUpdated({
+          user,
+          name,
+          email,
+          role,
+          isActive,
+          profileHash,
+          tx: event.transactionHash,
+        });
       });
-    });
-    return () => {
-      erc20.removeAllListeners('UserUpdate');
-    };
+      return () => {
+        erc20.removeAllListeners('UserUpdate');
+      };
+    }
   }, []);
   return { userUpdated };
 };

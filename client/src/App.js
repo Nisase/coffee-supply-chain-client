@@ -21,11 +21,11 @@ import PackerListener from './logic/AddPacker/PackerListener';
 import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
 import RetailerListener from './logic/AddRetailer/RetailerListener';
 
-import { setWalletAddress, setUserData, setMessage, setIsOwer, userDataSelector } from './redux/appDataSlice';
+import { setWalletAddress, setLoading, setUserData, setMessage, setIsOwer, userDataSelector, walletAddressSelector, loadingSelector } from './redux/appDataSlice';
 import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
 import { txListSelector, removeTx } from './redux/txSlice';
 
-import getUser from './logic/GetUser';
+import getUserByAddress from './logic/GetUser';
 import getOwner from './logic/GetOwner';
 
 function App() {
@@ -33,10 +33,11 @@ function App() {
   const { enqueueSnackbar } = useSnackbar();
 
   // UserInfo, Wallet and Owner //
-  const [walletAddress, error] = useDetectProvider(true);
+  const [walletAddress, error] = useDetectProvider();
   const [isOwner, setIsOwner] = useState(false);
-  const [loadingLocal, setLoadingLocal] = useState(false);
   const userData = useSelector(userDataSelector);
+  const loading = useSelector(loadingSelector);
+  const walletAddressApp = useSelector(walletAddressSelector);
 
   useEffect(() => {
     const userAddress = '0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE';
@@ -49,13 +50,17 @@ function App() {
   });
 
   useEffect(() => {
-    const getUserLocal = async () => {
-      setLoadingLocal(true);
-      const user = await getUser();
+    dispatch(setWalletAddress(walletAddress));
+  }, [walletAddress]);
+  
+  useEffect(() => {
+    const getUserLocal = async (walletAddress) => {
+      dispatch(setLoading(true))
+      const user = await getUserByAddress(walletAddress);
       const owner = await getOwner();
       setIsOwner(owner === walletAddress);
-      dispatch(setIsOwer(isOwner));
-
+      dispatch(setIsOwer(isOwner));     
+  
       if (user && user.message === null) {
         if (isOwner) {
           user.name = 'Administrador';
@@ -64,26 +69,38 @@ function App() {
         }
         if(user.role === '' || user.name === ''){
           dispatch(setUserData(null));
-          setLoadingLocal(false);
+          dispatch(setLoading(false))
           return
         }
         dispatch(setUserData(user));
         dispatch(setMessage(''))
       } else dispatch(setMessage(user.message));
+  
+      dispatch(setLoading(false))
+    }
 
-      setLoadingLocal(false);
-    };
-    getUserLocal();
-    dispatch(setWalletAddress(walletAddress));
-  }, [walletAddress, isOwner]);
+    const setNullUserLocal = () => {
+      dispatch(setIsOwer(false));     
+      dispatch(setUserData(null));
+      dispatch(setMessage(''))
+    }
+
+
+    console.log('set walletAddressApp')
+    console.log(walletAddressApp)
+
+    if(walletAddressApp)
+      getUserLocal(walletAddressApp)
+    else
+      setNullUserLocal()
+  }, [walletAddressApp, isOwner]);
+
 
   // END //
 
   // Transactions Listeners in APP //
   const txList = useSelector(txListSelector);
-  const txIsContain = (tx, type) => {
-    return txList.some((item) => item.tx === tx && item.type === type);
-  };
+  const txIsContain = (tx, type) => txList.some((item) => item.tx === tx && item.type === type);
 
   const { userRegistered } = UserAdminListener();
   useEffect(() => {
@@ -206,13 +223,18 @@ function App() {
     }
   }, [retailerRegistered, txList]);
 
+  const getValidUser = (userData) => {
+    if(!userData || userData.role === '') return null
+    return userData;
+  } 
+
   // END //
 
   return (
     <ThemeProvider>
       <ScrollToTop />
       <BaseOptionChartStyle />
-      {useRoutes(routes(loadingLocal, userData, isOwner))}
+      {useRoutes(routes(loading, getValidUser(userData), isOwner))}
     </ThemeProvider>
   );
 }

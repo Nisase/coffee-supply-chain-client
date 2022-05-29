@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    walletAddress: '0x',
+    walletAddress: null,
     userData: {
         name: '',
         email: '',

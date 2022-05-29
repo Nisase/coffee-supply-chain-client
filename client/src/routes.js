@@ -25,7 +25,7 @@ const routes = (loading, userData, isOwner) => {
     children: [
       { path: '/', element: <Navigate to="/home" /> },
       { path: 'home', element: <Home/> },
-      { path: 'login', element: userData ? <Navigate to="/dashboard/app" /> : <Login /> },
+      { path: 'login', element: userData ? <Navigate to="/dashboard" /> : <Login /> },
       { path: 'tracking', element:  <Tracking />}
     ],
   }, { path: '*', element:  <Loading />}]: [
@@ -47,7 +47,7 @@ const routes = (loading, userData, isOwner) => {
     children: [
       { path: '/', element: <Navigate to="/home" /> },
       { path: 'home', element: <Home/> },
-      { path: 'login', element: userData ? <Navigate to="/home" /> : <Login /> },
+      { path: 'login', element: userData ? <Navigate to="/dashboard" /> : <Login /> },
       { path: 'tracking', element:  <Tracking />},
       { path: '404', element: <NotFound /> },
       { path: '*', element: <Navigate to="/404" /> },

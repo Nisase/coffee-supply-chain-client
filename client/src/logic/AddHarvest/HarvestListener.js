@@ -5,6 +5,8 @@ const HarvestListener = () => {
   const [harvestRegistered, setHarvestRegistered] = useState({});
 
   useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+
     const erc20 = getCoffeERC20();
 
     erc20.on('DoneHarvesting', (user, batchNo, event) => {
@@ -18,6 +20,7 @@ const HarvestListener = () => {
     return () => {
       erc20.removeAllListeners('DoneHarvesting');
     };
+    }
   }, []);
   return { harvestRegistered };
 };

@@ -5,17 +5,19 @@ const ShipRetailerListener = () => {
   const [shipRetailerRegistered, setShipRetailerRegistered] = useState({});
 
   useEffect(() => {
-    const erc20 = getCoffeERC20();
-    erc20.on('DoneShippingRetailer', (user, batchNo, event) => {
-      setShipRetailerRegistered({
-        user,
-        batchNo,
-        tx: event.transactionHash,
+    if (typeof window.ethereum !== "undefined") {
+      const erc20 = getCoffeERC20();
+      erc20.on('DoneShippingRetailer', (user, batchNo, event) => {
+        setShipRetailerRegistered({
+          user,
+          batchNo,
+          tx: event.transactionHash,
+        });
       });
-    });
-    return () => {
-      erc20.removeAllListeners('DoneShippingRetailer');
-    };
+      return () => {
+        erc20.removeAllListeners('DoneShippingRetailer');
+      };
+    }
   }, []);
 
   return { shipRetailerRegistered };

@@ -5,17 +5,19 @@ const PackerListener = () => {
   const [packRegistered, setPackRegistered] = useState({});
 
   useEffect(() => {
-    const erc20 = getCoffeERC20();
-    erc20.on('DonePackaging', (user, batchNo, event) => {
-      setPackRegistered({
-        user,
-        batchNo,
-        tx: event.transactionHash,
+    if (typeof window.ethereum !== "undefined") {
+      const erc20 = getCoffeERC20();
+      erc20.on('DonePackaging', (user, batchNo, event) => {
+        setPackRegistered({
+          user,
+          batchNo,
+          tx: event.transactionHash,
+        });
       });
-    });
-    return () => {
-      erc20.removeAllListeners('DonePackaging');
-    };
+      return () => {
+        erc20.removeAllListeners('DonePackaging');
+      };
+    }
   }, []);
 
   return { packRegistered };

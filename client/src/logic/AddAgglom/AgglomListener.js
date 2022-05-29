@@ -5,17 +5,19 @@ const AgglomListener = () => {
   const [agglomRegistered, setAgglomRegistered] = useState({});
 
   useEffect(() => {
-    const erc20 = getCoffeERC20();
-    erc20.on('DoneAgglomeration', (user, batchNo, event) => {
-      setAgglomRegistered({
-        user,
-        batchNo,
-        tx: event.transactionHash,
+    if (typeof window.ethereum !== "undefined") {
+      const erc20 = getCoffeERC20();
+      erc20.on('DoneAgglomeration', (user, batchNo, event) => {
+        setAgglomRegistered({
+          user,
+          batchNo,
+          tx: event.transactionHash,
+        });
       });
-    });
-    return () => {
-      erc20.removeAllListeners('DoneAgglomeration');
-    };
+      return () => {
+        erc20.removeAllListeners('DoneAgglomeration');
+      };
+    }
   }, []);
   return { agglomRegistered };
 };
