@@ -14,7 +14,7 @@ import role from '../../data/roles.json';
 import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
-import {getUserByAddress} from '../../logic/GetUser';
+import { getUserByAddress } from '../../logic/GetUser';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
@@ -31,13 +31,13 @@ const initialValues = {
 
 const valSchema = Yup.object().shape({
   userAddress: Yup.string()
-    .required('Requerido')
-    .max(42, 'Las direcciones de Metamask tienen un máximo de 42 caracteres')
-    .min(42),
-  name: Yup.string().required('Requerido').min(2, 'Ingresa un nombre completo'),
-  email: Yup.string().email('Email inválido').required('Requerido'),
-  role: Yup.string().required('Requerido'),
-  isActive: Yup.boolean().required('requerido'),
+    .required('Obligatorio')
+    .max(42, 'Las direcciones de Metamask tienen 42 caracteres')
+    .min(42, 'Las direcciones de Metamask tienen 42 caracteres'),
+  name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
+  email: Yup.string().email('Email inválido').required('Obligatorio'),
+  role: Yup.string().required('Obligatorio'),
+  isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
     .test(
       'fileSize',
@@ -61,23 +61,22 @@ const UserAdminForm = () => {
 
   const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
-    
     setTxHash('0x');
     setLoading(true);
-    setfileUrl('')
+    setfileUrl('');
 
-    const userTemp = await getUserByAddress(values.userAddress)
-    if(userTemp.role !=='' && userTemp.message === null){
+    const userTemp = await getUserByAddress(values.userAddress);
+    if (userTemp.role !== '' && userTemp.message === null) {
       setLoading(false);
-      enqueueSnackbar(`Address ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
-      values.profileHash = null
-      return
+      enqueueSnackbar(`La dirección ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
+      values.profileHash = null;
+      return;
     }
-    if(userTemp.message !== null){
+    if (userTemp.message !== null) {
       setLoading(false);
       enqueueSnackbar(`Datos ingresados con error: ${userTemp.message}`, { variant: 'warning' });
-      values.profileHash = null
-      return
+      values.profileHash = null;
+      return;
     }
 
     if (!values.profileHash || values.profileHash.length === 0) {
@@ -122,7 +121,7 @@ const UserAdminForm = () => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
       enqueueSnackbar(error.message, { variant: 'warning' });
       setLoading(false);
-      setfileUrl('')
+      setfileUrl('');
     });
   };
 
@@ -143,26 +142,28 @@ const UserAdminForm = () => {
                 <Form>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <Typography className="mb-5 font-semibold underline underline-offset-2">AÑADIR USUARIO</Typography>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">
+                        AÑADIR USUARIO
+                      </Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <TextfieldWrapper name="userAddress" label="User Address" />
+                      <TextfieldWrapper name="userAddress" label="Dirección de Metamask" />
                     </Grid>
                     <Grid item xs={6}>
-                      <TextfieldWrapper name="name" label="Name" />
+                      <TextfieldWrapper name="name" label="Nombre" />
                     </Grid>
                     <Grid item xs={6}>
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
                     <Grid item xs={6}>
-                      <SelectWrapper name="role" label="Role" options={role} />
+                      <SelectWrapper name="role" label="Rol" options={role} />
                     </Grid>
                     <Grid item xs={6}>
-                      <CheckboxWrapper name="isActive" legend="Activity" label="Active User" />
+                      <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                     </Grid>
                     <Grid item xs={6} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
-                        <FormLabel component="legend">Profile Hash</FormLabel>
+                        <FormLabel component="legend">Imagen de Perfil</FormLabel>
                         <input
                           className="mt-2 text-sm"
                           name="profileHash"
@@ -185,7 +186,7 @@ const UserAdminForm = () => {
                     <Grid item xs={12}>
                       <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                         {' '}
-                        SUBMIT
+                        REGISTRAR USUARIO
                       </Button>
                     </Grid>
                     {fileUrl && <img src={fileUrl} alt="File in IFPS" width="600px" />}

@@ -21,10 +21,10 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  farmName: Yup.string().required('Requerido'),
-  latitude: Yup.string().required('Requerido'),
-  longitude: Yup.string().required('Requerido'),
-  farmAddress: Yup.string().required('Requerido'),
+  farmName: Yup.string().required('Obligatorio'),
+  latitude: Yup.string().required('Obligatorio'),
+  longitude: Yup.string().required('Obligatorio'),
+  farmAddress: Yup.string().required('Obligatorio'),
 });
 
 const FarmForm = () => {
@@ -64,31 +64,33 @@ const FarmForm = () => {
               }}
             >
               {({ dirty, isValid }) => (
-                  <Form>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography className="mb-5 font-semibold underline underline-offset-2">AÑADIR INFORMACIÓN DE LA GRANJA</Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="farmName" label="Farm Name" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="latitude" label="Latitude" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="longitude" label="Longitude" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="farmAddress" label="Farm Address" />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          SUBMIT
-                        </Button>
-                      </Grid>
+                <Form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">
+                        AÑADIR INFORMACIÓN DE LA GRANJA
+                      </Typography>
                     </Grid>
-                  </Form>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="farmName" label="Nombre de la Granja" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="latitude" label="Latitud" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="longitude" label="Longitud" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="farmAddress" label="Dirección de la Granja" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                        {' '}
+                        REGISTRAR GRANJA
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
               )}
             </Formik>
           </div>

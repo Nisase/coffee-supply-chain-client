@@ -26,11 +26,14 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  coffeeFamily: Yup.string().required('Requerido'),
-  typeOfSeed: Yup.string().required('Requerido'),
-  fertilizerUsed: Yup.string().required('Requerido'),
-  harvestDate: Yup.date().required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  coffeeFamily: Yup.string().required('Obligatorio'),
+  typeOfSeed: Yup.string().required('Obligatorio'),
+  fertilizerUsed: Yup.string().required('Obligatorio'),
+  harvestDate: Yup.date().required('Obligatorio'),
 });
 
 const HarvestForm = () => {
@@ -89,34 +92,36 @@ const HarvestForm = () => {
               }}
             >
               {({ dirty, isValid }) => (
-                  <Form>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                      <Typography className="mb-5 font-semibold underline underline-offset-2">AÑADIR DATOS DE COSECHA</Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="coffeeFamily" label="Coffee Family" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <SelectWrapper name="typeOfSeed" label="Type Of Seed" options={typeSeeds} />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="fertilizerUsed" label="Fertilizer Used" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <DateTimePicker name="harvestDate" label="Harvest Date" />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          SUBMIT
-                        </Button>
-                      </Grid>
+                <Form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">
+                        AÑADIR DATOS DE COSECHA
+                      </Typography>
                     </Grid>
-                  </Form>
+                    <Grid item xs={12}>
+                      <TextfieldWrapper name="batchNo" label="No. Lote" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="coffeeFamily" label="Familia del Café" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <SelectWrapper name="typeOfSeed" label="Tipo de Semilla" options={typeSeeds} />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="fertilizerUsed" label="Fertilizante Utilizado" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <DateTimePicker name="harvestDate" label="Fecha de Cosecha" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                        {' '}
+                        AGREGAR DATOS
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
               )}
             </Formik>
           </div>

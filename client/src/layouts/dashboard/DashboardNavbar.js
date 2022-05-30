@@ -10,7 +10,6 @@ import AccountPopover from './AccountPopover';
 
 import { walletAddressSelector } from '../../redux/appDataSlice';
 
-
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
@@ -18,7 +17,7 @@ const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
-  padding: "25px 0",
+  padding: '25px 0',
   boxShadow: 'none',
   backdropFilter: 'blur(6px)',
   WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
@@ -43,8 +42,7 @@ DashboardNavbar.propTypes = {
 };
 
 export default function DashboardNavbar({ onOpenSidebar }) {
-
-  const walletAddress = useSelector(walletAddressSelector)
+  const walletAddress = useSelector(walletAddressSelector);
 
   return (
     <RootStyle>
@@ -53,9 +51,12 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
-        { walletAddress &&
-        <p className='mr-10 text-black'><span className='font-semibold'>Addres Account:</span> {walletAddress.slice(0, 8).concat("...").concat(walletAddress.slice(-8))}</p>
-        }
+        {walletAddress && (
+          <p className="mr-10 text-black">
+            <span className="font-semibold">Cuenta Conectada:</span>{' '}
+            {walletAddress.slice(0, 8).concat('...').concat(walletAddress.slice(-8))}
+          </p>
+        )}
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <AccountPopover />
         </Stack>

@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button } from '@mui/material';
+import { Grid, Container, Typography, Button, FormLabel } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
@@ -14,33 +14,68 @@ import { addTx, removeTx } from '../../redux/txSlice';
 
 import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/UpdateUser/HandleSubmit';
+import { getUserByAddress } from '../../logic/GetUser';
+import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
+
+const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
+const FILE_SIZE = 650 * 1024;
 
 const initialValues = {
   name: '',
   email: '',
   role: '',
-  isActive: false,
-  profileHash: '',
+  isActive: true,
+  profileHash: null,
 };
 
 const valSchema = Yup.object().shape({
-  name: Yup.string().required('Requerido').min(2, 'Ingresa un nombre completo'),
-  email: Yup.string().email('Email inválido').required('Requerido'),
-  role: Yup.string().required('Requerido'),
-  isActive: Yup.boolean().required('requerido'),
-  profileHash: Yup.string(),
+  name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
+  email: Yup.string().email('Email inválido').required('Obligatorio'),
+  role: Yup.string().required('Obligatorio'),
+  isActive: Yup.boolean().required('Obligatorio'),
+  // profileHash: Yup.string(),
+  profileHash: Yup.mixed()
+    .test(
+      'fileSize',
+      `Solo se admite archivos menores a ${FILE_SIZE}`,
+      (value) => value === null || (value && value?.size <= FILE_SIZE)
+    )
+    .test(
+      'type',
+      'Los archivos soportados son: jpg, jpeg y png',
+      (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
+    ),
 });
 
 const UpdateUserForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
+  const [fileUrl, setfileUrl] = useState('');
   const [txHash, setTxHash] = useState('0x');
 
   const dispatch = useDispatch();
 
+  const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
     setTxHash('0x');
     setLoading(true);
+    setfileUrl('');
+
+    if (!values.profileHash || values.profileHash.length === 0) {
+      values.profileHash = '';
+    }
+    if (values.profileHash !== '') {
+      enqueueSnackbar('Guardando imagen del usuario en red IPFS', { variant: 'info' });
+      const result = await addFileToIpfs(ipfs, values.profileHash);
+      if (result.error !== null) {
+        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
+        setLoading(false);
+        return;
+      }
+      values.profileHash = result.url;
+      setfileUrl(result.url);
+    }
+
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
@@ -51,6 +86,7 @@ const UpdateUserForm = () => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
       enqueueSnackbar(error.message, { variant: 'warning' });
       setLoading(false);
+      setfileUrl('');
     });
   };
 
@@ -67,32 +103,56 @@ const UpdateUserForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>MODIFICAR DATOS DE USUARIO</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          ACTUALIZAR DATOS DE USUARIO
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="name" label="Name" />
+                        <TextfieldWrapper name="name" label="Nombre" />
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="email" label="Email" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="role" label="Role" options={role} />
+                        <SelectWrapper name="role" label="Rol" options={role} />
                       </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="profileHash" label="Profile Hash" />
+                      <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                        <div className="flex flex-col">
+                          <FormLabel component="legend">Imagen de Perfil</FormLabel>
+                          <input
+                            className="mt-2 text-sm"
+                            name="profileHash"
+                            type="file"
+                            onChange={(event) => {
+                              setTouched({
+                                ...touched,
+                                profileHash: true,
+                              });
+                              setFieldValue('profileHash', event.target.files[0]);
+                            }}
+                          />
+                          {touched.profileHash && errors.profileHash ? (
+                            <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
+                              {errors.profileHash}
+                            </small>
+                          ) : null}
+                        </div>
                       </Grid>
+                      {/* <Grid item xs={6}>
+                        <TextfieldWrapper name="profileHash" label="Imagen de Perfil" />
+                      </Grid> */}
                       <Grid item xs={6}>
-                        <CheckboxWrapper name="isActive" legend="Activity" label="Active User" />
+                        <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          ACTUALIZAR USUARIO
                         </Button>
                       </Grid>
                     </Grid>

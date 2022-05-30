@@ -3,18 +3,13 @@ import { Container } from '@mui/material';
 import Page from '../components/Page';
 import UserAdminForm from '../components/AddUserAdmin/UserAdminForm';
 
-import FarmForm from '../components/AddFarmDetails/FarmForm';
-
 // ----------------------------------------------------------------------
 
-export default function DashboardAdmin() {
+export default function DashboardAddUserAdmin() {
   return (
     <Page title="Administrator">
       <Container maxWidth="xl">
         <UserAdminForm />
-        <div className='mt-20'>
-          <FarmForm />
-        </div>
       </Container>
     </Page>
   );

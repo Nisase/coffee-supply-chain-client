@@ -2,15 +2,18 @@ import { Container } from '@mui/material';
 // components
 import Page from '../components/Page';
 
-import HarvestForm from '../components/AddHarvest/HarvestForm';
+import FarmForm from '../components/AddFarmDetails/FarmForm';
 
 // ----------------------------------------------------------------------
 
-export default function DashboardFarmer() {
+export default function DashboardAdmin() {
   return (
-    <Page title="Farmer">
+    <Page title="Administrator">
       <Container maxWidth="xl">
-        <HarvestForm />
+        {/* <UserAdminForm /> */}
+        <div className="mt-20">
+          <FarmForm />
+        </div>
       </Container>
     </Page>
   );
