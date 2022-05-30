@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
 // material
 import { styled } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
-import { userDataSelector } from '../../redux/appDataSlice'
+import { userDataSelector } from '../../redux/appDataSlice';
 // components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
@@ -34,11 +33,17 @@ const AccountStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[500_12],
 }));
 
-  const allOptionsNav = [ 
+const allOptionsNav = [
   {
-    title: 'administration',
-    path: '/dashboard/admin',
+    title: 'Agregar Usuario',
+    path: '/dashboard/admin_addUsers',
     icon: 'eva:people-fill',
+    role: 'ADMIN',
+  },
+  {
+    title: 'Agregar Granja',
+    path: '/dashboard/admin_addFarm',
+    icon: 'iconoir:farm',
     role: 'ADMIN',
   },
   {
@@ -48,17 +53,24 @@ const AccountStyle = styled('div')(({ theme }) => ({
     role: 'ADMIN',
   },
   {
-    title: 'farmer',
-    path: '/dashboard/farmer',
-    icon: 'eva:pie-chart-2-fill',
+    title: 'Actualizar Perfil',
+    path: '/dashboard/farmer_updateUser',
+    icon: 'carbon:user-profile',
+    role: 'FARMER',
+  },
+  {
+    title: 'Agregar Cosecha',
+    path: '/dashboard/farmer_addHarvest',
+    icon: 'healthicons:plantation-worker-alt',
     role: 'FARMER',
   },
   {
     title: 'Home',
     path: '/home',
     icon: 'eva:file-text-fill',
-    role: 'ALL'
-  }]
+    role: 'ALL',
+  },
+];
 
 // ----------------------------------------------------------------------
 
@@ -68,20 +80,22 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
-  const userInfo = useSelector(userDataSelector)
+  const userInfo = useSelector(userDataSelector);
 
-  const [navOptions, setNavOptions] = useState([{ title: 'Home', path: '/home', icon: 'eva:file-text-fill', role: 'all' }])
+  const [navOptions, setNavOptions] = useState([
+    { title: 'Home', path: '/home', icon: 'eva:file-text-fill', role: 'all' },
+  ]);
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const getNavs = (role) => ( allOptionsNav.filter((item) => item.role === role || item.role === 'ALL') )
+  const getNavs = (role) => allOptionsNav.filter((item) => item.role === role || item.role === 'ALL');
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    setNavOptions(getNavs(userInfo.role))
+    setNavOptions(getNavs(userInfo.role));
   }, [pathname, userInfo]);
 
   const renderContent = (
@@ -92,27 +106,28 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo urlLink='/dashboard' />
+        <Logo urlLink="/dashboard" />
       </Box>
 
-      {userInfo && <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
-          <AccountStyle>
-            <Avatar src={userInfo.profileHash} alt="photoURL" />
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {userInfo.name}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Rol: {userInfo.role}
-              </Typography>
-            </Box>
-          </AccountStyle>
-        </Link>
-      </Box>}
+      {userInfo && (
+        <Box sx={{ mb: 5, mx: 2.5 }}>
+          <Link underline="none" component={RouterLink} to="#">
+            <AccountStyle>
+              <Avatar src={userInfo.profileHash} alt="photoURL" />
+              <Box sx={{ ml: 2 }}>
+                <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+                  {userInfo.name}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  Rol: {userInfo.role}
+                </Typography>
+              </Box>
+            </AccountStyle>
+          </Link>
+        </Box>
+      )}
 
       <NavSection navConfig={navOptions} />
-
     </Scrollbar>
   );
 
