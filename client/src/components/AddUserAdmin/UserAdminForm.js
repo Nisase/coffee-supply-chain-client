@@ -84,29 +84,16 @@ const UserAdminForm = () => {
     }
     if (values.profileHash !== '') {
       enqueueSnackbar('Guardando imagen del usuario en red IPFS', { variant: 'info' });
+      console.log('IPFS: ', ipfs);
       const result = await addFileToIpfs(ipfs, values.profileHash);
-      if (result.error !== null) {
-        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
-        setLoading(false);
-        return;
-      }
-      values.profileHash = result.url;
-      setfileUrl(result.url);
-    }
-
-    if (!values.profileHash || values.profileHash.length === 0) {
-      values.profileHash = '';
-    }
-    if (values.profileHash !== '') {
-      enqueueSnackbar('Guardando imagen del usuario en red IPFS', { variant: 'info' });
-      const result = await addFileToIpfs(ipfs, values.profileHash);
-      if (result.error !== null) {
-        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
-        setLoading(false);
-        return;
-      }
-      values.profileHash = result.url;
-      setfileUrl(result.url);
+      console.log('result: ', result);
+      // if (result.error !== null) {
+      //   enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
+      //   setLoading(false);
+      //   return;
+      // }
+      // values.profileHash = result.url;
+      // setfileUrl(result.url);
     }
 
     const tx = HandleSubmit(values);
