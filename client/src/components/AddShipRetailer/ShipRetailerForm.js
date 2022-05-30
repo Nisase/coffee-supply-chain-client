@@ -23,10 +23,13 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  transportTypeR: Yup.string().required('Requerido'),
-  pickupDateR: Yup.date().required('Requerido'),
-  shipPriceR: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  transportTypeR: Yup.string().required('Obligatorio'),
+  pickupDateR: Yup.date().required('Obligatorio'),
+  shipPriceR: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const ShipRetailerForm = () => {
@@ -70,24 +73,26 @@ const ShipRetailerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DEL TRANSPORTE HACIA EL RETAILER</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DE TRANSPORTE HACIA RETAILER
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="transportTypeR" label="Transportation Type" options={transportTypeR} />
+                        <SelectWrapper name="transportTypeR" label="Tipo de Transporte" options={transportTypeR} />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="pickupDateR" label="Pick Up Date at Packer" />
+                        <DateTimePicker name="pickupDateR" label="Fecha Recogida en Empacadora" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="shipPriceR" label="Shipment Price" />
+                        <TextfieldWrapper name="shipPriceR" label="Precio del Transporte" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

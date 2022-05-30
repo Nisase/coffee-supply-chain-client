@@ -29,14 +29,17 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  procAddress: Yup.string().required('Requerido'),
-  typeOfDrying: Yup.string().required('Requerido'),
-  roastImageHash: Yup.string().required('Requerido'),
-  roastTemp: Yup.string().required('Requerido'),
-  typeOfRoast: Yup.string().required('Requerido'),
-  roastDate: Yup.date().required('Requerido'),
-  millDate: Yup.date().required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  procAddress: Yup.string().required('Obligatorio'),
+  typeOfDrying: Yup.string().required('Obligatorio'),
+  roastImageHash: Yup.string().required('Obligatorio'),
+  roastTemp: Yup.string().required('Obligatorio'),
+  typeOfRoast: Yup.string().required('Obligatorio'),
+  roastDate: Yup.date().required('Obligatorio'),
+  millDate: Yup.date().required('Obligatorio'),
   processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
@@ -73,7 +76,7 @@ const ProcessForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                loadHandleSubmit(values);
+                localHandleSubmit(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -81,39 +84,41 @@ const ProcessForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DE PROCESAMIENTO</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DE PROCESAMIENTO
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="procAddress" label="Processor Address" />
+                        <TextfieldWrapper name="procAddress" label="Dirección del Procesador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="typeOfDrying" label="Type Of Drying" options={typeDrying} />
+                        <SelectWrapper name="typeOfDrying" label="Tipo de Secado" options={typeDrying} />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="roastImageHash" label="Roasting Image Hash" />
+                        <TextfieldWrapper name="roastImageHash" label="Imagen del Tueste" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="roastTemp" label="Roasting Temperature" />
+                        <TextfieldWrapper name="roastTemp" label="Temperatura de Tueste" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="typeOfRoast" label="Type Of Roasting" options={typeRoasting} />
+                        <SelectWrapper name="typeOfRoast" label="Tipo de Tueste" options={typeRoasting} />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="roastDate" label="Roast Date" />
+                        <DateTimePicker name="roastDate" label="Fecha de Tostado" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="millDate" label="Mill Date" />
+                        <DateTimePicker name="millDate" label="Fecha de Molienda" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="processorPrice" label="Processor Price" />
+                        <TextfieldWrapper name="processorPrice" label="Precio del Procesado" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>
