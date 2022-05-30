@@ -94,21 +94,6 @@ const UserAdminForm = () => {
       setfileUrl(result.url)
     }
     
-    if (!values.profileHash || values.profileHash.length === 0) {
-      values.profileHash = '';
-    }
-    if(values.profileHash !== ''){
-      enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
-      const result = await addFileToIpfs(ipfs, values.profileHash)
-      if(result.error !== null ){
-        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
-        setLoading(false);
-        return 
-      }
-      values.profileHash = result.url
-      setfileUrl(result.url)
-    }
-    
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);

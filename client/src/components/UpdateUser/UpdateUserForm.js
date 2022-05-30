@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
@@ -11,10 +11,10 @@ import CheckboxWrapper from '../FormsUI/Checkbox';
 import PendingConfirmation from '../PendingConfirmation';
 
 import { addTx, removeTx } from '../../redux/txSlice';
+import { userDataSelector } from '../../redux/appDataSlice';
 
 import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/UpdateUser/HandleSubmit';
-import { getUserByAddress } from '../../logic/GetUser';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
@@ -54,17 +54,26 @@ const UpdateUserForm = () => {
   const [txHash, setTxHash] = useState('0x');
 
   const dispatch = useDispatch();
+  const userData = useSelector(userDataSelector);
+
+  const initialValues = {
+    name: userData.name,
+    email: userData.email,
+    role: userData.role,
+    isActive: userData.isActive,
+    profileHash: null,
+  };
 
   const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
     setTxHash('0x');
     setLoading(true);
-    setfileUrl('');
+    setfileUrl(null);
 
     if (!values.profileHash || values.profileHash.length === 0) {
-      values.profileHash = '';
+      values.profileHash = null;
     }
-    if (values.profileHash !== '') {
+    if (values.profileHash) {
       enqueueSnackbar('Guardando imagen del usuario en red IPFS', { variant: 'info' });
       const result = await addFileToIpfs(ipfs, values.profileHash);
       if (result.error !== null) {
@@ -72,11 +81,11 @@ const UpdateUserForm = () => {
         setLoading(false);
         return;
       }
-      values.profileHash = result.url;
+      // values.profileHash = result.url;
       setfileUrl(result.url);
     }
 
-    const tx = HandleSubmit(values);
+    const tx = HandleSubmit({...values, profileHash:fileUrl});
     tx.then((trans) => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'UserUpdate' }));

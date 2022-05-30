@@ -11,14 +11,14 @@ export const getUserByAddress = async (address) => {
   try {
     const erc20 = getUserERC20();
     const userTemp = await erc20.callStatic.getUser(address);
+    console.log(userTemp.profileHash)
     return {
       // userAddress: user["userAddress"],
       name: userTemp.name,
       email: userTemp.email,
       role: userTemp.role,
       isActive: userTemp.isActive,
-      // profileHash: userTemp.profileHash,
-      profileHash: '/static/mock-images/avatars/avatar_default.jpg',
+      profileHash: userTemp.profileHash === '' ? '/static/mock-images/avatars/avatar_default.jpg': userTemp.profileHash,
       message: null,
     };
   } catch (error) {
