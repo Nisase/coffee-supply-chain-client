@@ -16,6 +16,13 @@ import Loading from './components/Loading';
 import DashboardAddHarvest from './pages/DashboardAddHarvest';
 import DashboardAddFarm from './pages/DashboardAddFarm';
 import DashboardUpdateUser from './pages/DashboardUpdateUser';
+import DashboardAddProcess from './pages/DashboardAddProcess';
+import DashboardAddGrain from './pages/DashboardAddGrain';
+import DashboardAddAgglom from './pages/DashboardAddAgglom';
+import DashboardAddShipPacker from './pages/DashboardAddShipPacker';
+import DashboardAddPacker from './pages/DashboardAddPacker';
+import DashboardAddShipRetailer from './pages/DashboardAddShipRetailer';
+import DashboardAddRetailer from './pages/DashboardAddRetailer';
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +51,20 @@ const routes = (loading, userData, isOwner) => {
             { path: 'admin_addFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/home" /> },
             { path: 'farmer_updateUser', element: <DashboardUpdateUser /> },
             { path: 'farmer_addHarvest', element: <DashboardAddHarvest /> },
+            { path: 'processor_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'processor_addProcess', element: <DashboardAddProcess /> },
+            { path: 'grainInspector_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'grainInspector_addGrain', element: <DashboardAddGrain /> },
+            { path: 'agglomerator_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'agglomerator_addAgglom', element: <DashboardAddAgglom /> },
+            { path: 'shipPacker_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'shipPacker_addShipment', element: <DashboardAddShipPacker /> },
+            { path: 'packer_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'packer_addPackage', element: <DashboardAddPacker /> },
+            { path: 'shipRetailer_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'shipRetailer_addShipment', element: <DashboardAddShipRetailer /> },
+            { path: 'retailer_updateUser', element: <DashboardUpdateUser /> },
+            { path: 'retailer_addRetailer', element: <DashboardAddRetailer /> },
             { path: 'user', element: <User /> },
             { path: 'products', element: <Products /> },
             { path: 'blog', element: <Blog /> },

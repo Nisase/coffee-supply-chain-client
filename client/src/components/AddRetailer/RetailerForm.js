@@ -26,14 +26,17 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  arrivalDateW: Yup.date().required('Requerido'),
-  arrivalDateSP: Yup.date().required('Requerido'),
-  warehouseName: Yup.string().required('Requerido'),
-  warehouseAddress: Yup.string().required('Requerido'),
-  salePointAddress: Yup.string().required('Requerido'),
-  shipPriceSP: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
-  productPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  arrivalDateW: Yup.date().required('Obligatorio'),
+  arrivalDateSP: Yup.date().required('Obligatorio'),
+  warehouseName: Yup.string().required('Obligatorio'),
+  warehouseAddress: Yup.string().required('Obligatorio'),
+  salePointAddress: Yup.string().required('Obligatorio'),
+  shipPriceSP: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  productPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const RetailerForm = () => {
@@ -77,36 +80,38 @@ const RetailerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DE RETAILER</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DEL RETAILER
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="arrivalDateW" label="Arrival Date at Warehouse" />
+                        <DateTimePicker name="arrivalDateW" label="Fecha de Llegada al Almacén" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="arrivalDateSP" label="Arrival Date at Sale Point" />
+                        <DateTimePicker name="arrivalDateSP" label="Fecha de Llegada al Punto de Venta" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="warehouseName" label="Warehouse Name" />
+                        <TextfieldWrapper name="warehouseName" label="Nombre del Almacén" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="warehouseAddress" label="Warehouse Address" />
+                        <TextfieldWrapper name="warehouseAddress" label="Dirección Almacén" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="salePointAddress" label="Sale Point Address" />
+                        <TextfieldWrapper name="salePointAddress" label="Dirección Punto de Venta" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="shipPriceSP" label="Shipment Price" />
+                        <TextfieldWrapper name="shipPriceSP" label="Precio de Transporte" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="productPrice" label="Product Price" />
+                        <TextfieldWrapper name="productPrice" label="Precio del Producto Final" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

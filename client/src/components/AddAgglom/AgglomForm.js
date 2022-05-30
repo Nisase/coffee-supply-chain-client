@@ -22,10 +22,13 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  agglomAddress: Yup.string().required('Requerido'),
-  agglomDate: Yup.date().required('Requerido'),
-  storagePrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  agglomAddress: Yup.string().required('Obligatorio'),
+  agglomDate: Yup.date().required('Obligatorio'),
+  storagePrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const AgglomForm = () => {
@@ -69,24 +72,26 @@ const AgglomForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DEL AGLOMERADO</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DEL AGLOMERADO
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="agglomAddress" label="Agglomertor Address" />
+                        <TextfieldWrapper name="agglomAddress" label="Dirección del Aglomerador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="agglomDate" label="Agglomeration Date" />
+                        <DateTimePicker name="agglomDate" label="Fecha de Aglomerado" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="storagePrice" label="Storage Price" />
+                        <TextfieldWrapper name="storagePrice" label="Precio del Bodegaje" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

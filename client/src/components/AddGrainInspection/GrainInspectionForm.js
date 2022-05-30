@@ -19,9 +19,12 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  tasteScore: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
-  grainPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  tasteScore: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  grainPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const GrainInspectionForm = () => {
@@ -65,21 +68,23 @@ const GrainInspectionForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DE INSPECCIÓN DEL GRANO</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DE INSPECCIÓN DEL GRANO
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="tasteScore" label="Tasting Score" />
+                        <TextfieldWrapper name="tasteScore" label="Puntuación de Catación" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="grainPrice" label="Grain Price" />
+                        <TextfieldWrapper name="grainPrice" label="Precio del Grano" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

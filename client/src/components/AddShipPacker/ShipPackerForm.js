@@ -23,10 +23,13 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  transportTypeP: Yup.string().required('Requerido'),
-  pickupDateP: Yup.date().required('Requerido'),
-  shipPriceP: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  transportTypeP: Yup.string().required('Obligatorio'),
+  pickupDateP: Yup.date().required('Obligatorio'),
+  shipPriceP: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const ShipPackerForm = () => {
@@ -70,24 +73,26 @@ const ShipPackerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DE TRANSPORTE HACIA EMPACADORA</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DE TRANSPORTE HACIA EMPACADORA
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="transportTypeP" label="Transportation Type" options={transportTypeP} />
+                        <SelectWrapper name="transportTypeP" label="Tipo de Transporte" options={transportTypeP} />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="pickupDateP" label="Pick Up Date at Agglomerator" />
+                        <DateTimePicker name="pickupDateP" label="Fecha Recogida en Aglomerador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="shipPriceP" label="Shipment Price" />
+                        <TextfieldWrapper name="shipPriceP" label="Precio del Transporte" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

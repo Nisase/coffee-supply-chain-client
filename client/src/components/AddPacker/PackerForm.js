@@ -23,11 +23,14 @@ const initialValues = {
 };
 
 const valSchema = Yup.object().shape({
-  batchNo: Yup.string().required('Requerido').max(42, 'La dirección debe tener máximo 42 caracteres').min(42),
-  packAddress: Yup.string().required('Requerido'),
-  arrivalDateP: Yup.date().required('Requerido'),
-  packDate: Yup.date().required('Requerido'),
-  packPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  batchNo: Yup.string()
+    .required('Obligatorio')
+    .max(42, 'La dirección debe tener 42 caracteres')
+    .min(42, 'La dirección debe tener 42 caracteres'),
+  packAddress: Yup.string().required('Obligatorio'),
+  arrivalDateP: Yup.date().required('Obligatorio'),
+  packDate: Yup.date().required('Obligatorio'),
+  packPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const PackerForm = () => {
@@ -70,27 +73,29 @@ const PackerForm = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Typography>AÑADIR DATOS DE EMPACADO</Typography>
+                        <Typography className="mb-5 font-semibold underline underline-offset-2">
+                          DATOS DE EMPACADO
+                        </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="Batch No" />
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="packAddress" label="Packer Address" />
+                        <TextfieldWrapper name="packAddress" label="Dirección de Empacadora" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="arrivalDateP" label="Arrival Date at Packer" />
+                        <DateTimePicker name="arrivalDateP" label="Fecha de Llegada a Empacadora" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="packDate" label="Packaging Date" />
+                        <DateTimePicker name="packDate" label="Fecha de Empacado" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="packPrice" label="Packer Price" />
+                        <TextfieldWrapper name="packPrice" label="Precio de Empacado" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          SUBMIT
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>
