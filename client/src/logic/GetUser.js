@@ -9,7 +9,7 @@ const getUser = async () => {
 
 export const getUserByAddress = async (address) => {
   try {
-    const erc20 = await getUserERC20();
+    const erc20 = getUserERC20();
     const userTemp = await erc20.callStatic.getUser(address);
     return {
       // userAddress: user["userAddress"],

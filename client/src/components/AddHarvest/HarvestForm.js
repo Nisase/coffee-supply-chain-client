@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
@@ -13,6 +13,8 @@ import PendingConfirmation from '../PendingConfirmation';
 import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddHarvest/HandleSubmit';
+import AskNextAction from '../../logic/GetNextAction/AskNextAction';
+import { getCoffeERC20 } from '../../logic/erc20';
 import typeSeeds from '../../data/typeSeeds.json';
 
 const initialValues = {
@@ -33,8 +35,27 @@ const valSchema = Yup.object().shape({
 
 const HarvestForm = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const [ batchNo, setBatchNo ] = useState([]);
+  const [ nextActions, setNextActions ] = useState([]);
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
+
+  useEffect(()=>{
+    const de = async () => {
+      const erc = getCoffeERC20()
+      const events = await erc.queryFilter(erc.filters.DoneHarvesting(null))
+      const batchTemp = events.map((event)=> event.args.batchNo)
+      const nextActionsTemp = batchTemp.map(async (item ) => {
+        const res = await AskNextAction({batchNo:item})
+        return res.data
+      })
+      // Now that all the asynchronous operations are running, here we wait until they all complete.
+      // return baz(await Promise.all(results));
+      setBatchNo(batchTemp)
+      setNextActions(await Promise.all(nextActionsTemp))
+    }
+    de()
+  }, [])
 
   const dispatch = useDispatch();
 
@@ -99,6 +120,14 @@ const HarvestForm = () => {
               )}
             </Formik>
           </div>
+        </Container>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Container maxWidth="md">
+          {batchNo.length > 0 && batchNo.map((batch, index)=>
+            <div key={index}>Bach: {batch} - NEXT ACTION: {nextActions[index]}</div>
+          )}
         </Container>
       </Grid>
     </Grid>

@@ -28,7 +28,7 @@ export const getArgsEvent = (tx, eventName) => {
   let args = [];
   if (tx.events !== undefined)
     tx.events.map((itemEvent) => {
-      if (itemEvent.event !== undefined && itemEvent.event === eventName) args = itemEvent.args;
+      if (itemEvent.event !== undefined && itemEvent.event === eventName) args = {...itemEvent.args};
       return null;
     });
   return args;
