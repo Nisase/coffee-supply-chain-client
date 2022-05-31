@@ -23,7 +23,7 @@ const FILE_SIZE = 650 * 1024;
 const valSchema = Yup.object().shape({
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
-  role: Yup.string().required('Obligatorio'),
+  // role: Yup.string().required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   // profileHash: Yup.string(),
   profileHash: Yup.mixed()
@@ -50,7 +50,7 @@ const UpdateUserForm = () => {
   const initialValues = {
     name: userData.name,
     email: userData.email,
-    role: userData.role,
+    // role: userData.role,
     isActive: userData.isActive,
     profileHash: null,
   };
@@ -73,8 +73,8 @@ const UpdateUserForm = () => {
         return;
       }
     }
-    
-    const tx = HandleSubmit({...values, profileHash:result.url});
+
+    const tx = HandleSubmit({ ...values, profileHash: result.url });
     tx.then((trans) => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'UserUpdate' }));
@@ -100,65 +100,69 @@ const UpdateUserForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => 
-                  <Form>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DE USUARIO
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Grid item xs={6} className='bg-gray-200 max-w-fit p-2 rounded-xl mb-5'>
-                          <img alt='Profile' className='rounded-full w-40 h-40' src={values.profileHash? URL.createObjectURL(values.profileHash):userData.profileHash} />
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="name" label="Nombre" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="email" label="Email" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <SelectWrapper name="role" label="Rol" options={role} />
-                      </Grid>
-                      <Grid item xs={6} justifyContent="space-between" alignItems="center">
-                        <div className="flex flex-col">
-                          <FormLabel component="legend">Cargar imagen de perfil</FormLabel>
-                          <input
-                            className="mt-2 text-sm"
-                            name="profileHash"
-                            type="file"
-                            onChange={(event) => {
-                              setTouched({
-                                ...touched,
-                                profileHash: true,
-                              });
-                              setFieldValue('profileHash', event.target.files[0]);
-                            }}
-                          />
-                          {touched.profileHash && errors.profileHash ? (
-                            <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
-                              {errors.profileHash}
-                            </small>
-                          ) : null}
-                        </div>
-                      </Grid>
-                      {/* <Grid item xs={6}>
-                        <TextfieldWrapper name="profileHash" label="Imagen de Perfil" />
-                      </Grid> */}
-                      <Grid item xs={6}>
-                        <CheckboxWrapper name="isActive" legend="Estado" label="Usuario Activo" />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          ACTUALIZAR USUARIO
-                        </Button>
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
+                <Form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">
+                        DATOS DE USUARIO
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
+                        <img
+                          alt="Profile"
+                          className="rounded-full w-40 h-40"
+                          src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
+                        />
                       </Grid>
                     </Grid>
-                  </Form>
-              }
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="name" label="Nombre" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="email" label="Email" />
+                    </Grid>
+                    {/* <Grid item xs={6}>
+                        <SelectWrapper name="role" label="Rol" options={role} />
+                      </Grid> */}
+                    <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                      <div className="flex flex-col">
+                        <FormLabel component="legend">Cargar imagen de perfil</FormLabel>
+                        <input
+                          className="mt-2 text-sm"
+                          name="profileHash"
+                          type="file"
+                          onChange={(event) => {
+                            setTouched({
+                              ...touched,
+                              profileHash: true,
+                            });
+                            setFieldValue('profileHash', event.target.files[0]);
+                          }}
+                        />
+                        {touched.profileHash && errors.profileHash ? (
+                          <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
+                            {errors.profileHash}
+                          </small>
+                        ) : null}
+                      </div>
+                    </Grid>
+                    {/* <Grid item xs={6}>
+                        <TextfieldWrapper name="profileHash" label="Imagen de Perfil" />
+                      </Grid> */}
+                    <Grid item xs={6}>
+                      <CheckboxWrapper name="isActive" legend="Estado" label="Usuario Activo" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                        {' '}
+                        ACTUALIZAR USUARIO
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
             </Formik>
           </div>
         </Container>

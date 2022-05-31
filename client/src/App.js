@@ -21,7 +21,16 @@ import PackerListener from './logic/AddPacker/PackerListener';
 import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
 import RetailerListener from './logic/AddRetailer/RetailerListener';
 
-import { setWalletAddress, setLoading, setUserData, setMessage, setIsOwer, userDataSelector, walletAddressSelector, loadingSelector } from './redux/appDataSlice';
+import {
+  setWalletAddress,
+  setLoading,
+  setUserData,
+  setMessage,
+  setIsOwer,
+  userDataSelector,
+  walletAddressSelector,
+  loadingSelector,
+} from './redux/appDataSlice';
 import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
 import { txListSelector, removeTx } from './redux/txSlice';
 
@@ -40,8 +49,10 @@ function App() {
   const walletAddressApp = useSelector(walletAddressSelector);
 
   useEffect(() => {
-    const userAddress = '0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE';
-    const coffeAddress = '0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534';
+    const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';
+    // const userAddress = '0x8c3ADb90d52223eAf8C5BeD5a6D44da08d4b0BaE';
+    const coffeAddress = '0x37F97d0D133c2217Fa058944eA3C69B030e658FC';
+    // const coffeAddress = '0xa108A7C2e0417aF523eadFA4Cf628126BEFB0534';
     dispatch(setUserAddress(userAddress));
     dispatch(setCoffeAddress(coffeAddress));
 
@@ -52,45 +63,42 @@ function App() {
   useEffect(() => {
     dispatch(setWalletAddress(walletAddress));
   }, [walletAddress]);
-  
+
   useEffect(() => {
     const getUserLocal = async (walletAddress) => {
-      dispatch(setLoading(true))
+      dispatch(setLoading(true));
       const user = await getUserByAddress(walletAddress);
       const owner = await getOwner();
       setIsOwner(owner === walletAddress);
-      dispatch(setIsOwer(isOwner));     
-  
+      dispatch(setIsOwer(isOwner));
+
       if (user && user.message === null) {
         if (isOwner) {
           user.name = 'Administrador';
           user.role = 'ADMIN';
           user.email = 'admincoffe@.epn.edu.ec';
         }
-        if(user.role === '' || user.name === ''){
+        if (user.role === '' || user.name === '') {
           dispatch(setUserData(null));
-          dispatch(setLoading(false))
-          return
+          dispatch(setLoading(false));
+          return;
         }
         dispatch(setUserData(user));
-        dispatch(setMessage(''))
+        dispatch(setMessage(''));
       } else dispatch(setMessage(user.message));
-  
-      dispatch(setLoading(false))
-    }
+
+      dispatch(setLoading(false));
+    };
 
     const setNullUserLocal = () => {
-      dispatch(setIsOwer(false));     
+      dispatch(setIsOwer(false));
       dispatch(setUserData(null));
-      dispatch(setMessage(''))
-    }
+      dispatch(setMessage(''));
+    };
 
-    if(walletAddressApp)
-      getUserLocal(walletAddressApp)
-    else
-      setNullUserLocal()
+    if (walletAddressApp) getUserLocal(walletAddressApp);
+    else setNullUserLocal();
   }, [walletAddressApp, isOwner]);
-
 
   // END //
 
@@ -220,9 +228,9 @@ function App() {
   }, [retailerRegistered, txList]);
 
   const getValidUser = (userData) => {
-    if(!userData || userData.role === '') return null
+    if (!userData || userData.role === '') return null;
     return userData;
-  } 
+  };
 
   // END //
 

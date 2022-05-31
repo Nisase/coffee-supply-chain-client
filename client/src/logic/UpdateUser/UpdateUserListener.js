@@ -5,7 +5,7 @@ const UpdateUserListener = () => {
   const [userUpdated, setUserUpdated] = useState({});
 
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
+    if (typeof window.ethereum !== 'undefined') {
       const erc20 = getUserERC20();
       erc20.on('UserUpdate', (user, name, email, role, isActive, profileHash, event) => {
         setUserUpdated({
