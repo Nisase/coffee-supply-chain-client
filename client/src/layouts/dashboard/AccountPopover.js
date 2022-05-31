@@ -18,15 +18,10 @@ const MENU_OPTIONS = [
     linkTo: '/',
   },
   {
-    label: 'Profile',
+    label: 'Dashboard',
     icon: 'eva:person-fill',
-    linkTo: '#',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-    linkTo: '#',
-  },
+    linkTo: '/dashboard',
+  }
 ];
 
 // ----------------------------------------------------------------------
@@ -103,11 +98,11 @@ export default function AccountPopover() {
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        { /* <Divider sx={{ borderStyle: 'dashed' }} />
 
         <MenuItem onClick={handleClose} sx={{ m: 1 }}>
           Logout
-        </MenuItem>
+          </MenuItem> */}
       </MenuPopover>
     </>
   );

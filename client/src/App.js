@@ -85,10 +85,6 @@ function App() {
       dispatch(setMessage(''))
     }
 
-
-    console.log('set walletAddressApp')
-    console.log(walletAddressApp)
-
     if(walletAddressApp)
       getUserLocal(walletAddressApp)
     else

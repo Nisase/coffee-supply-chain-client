@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton, Tooltip } from '@mui/material';
 import { useSelector } from 'react-redux';
 // components
 import Iconify from '../../components/Iconify';
@@ -52,10 +52,13 @@ export default function DashboardNavbar({ onOpenSidebar }) {
         </IconButton>
         <Box sx={{ flexGrow: 1 }} />
         {walletAddress && (
-          <p className="mr-10 text-black">
-            <span className="font-semibold">Cuenta Conectada:</span>{' '}
-            {walletAddress.slice(0, 8).concat('...').concat(walletAddress.slice(-8))}
-          </p>
+          <Tooltip title="Copiar" placement="top">
+            <div className="mr-10 text-black hover:cursor-pointer" onClick={()=>{navigator.clipboard.writeText(walletAddress)}} aria-hidden="true">
+              <span className="font-semibold">Cuenta:</span>{' '}
+              {walletAddress.slice(0, 8).concat('...').concat(walletAddress.slice(-8))}
+            </div>
+        </Tooltip>
+          
         )}
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <AccountPopover />

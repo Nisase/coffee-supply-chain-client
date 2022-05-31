@@ -22,7 +22,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     flexShrink: 0,
     width: DRAWER_WIDTH,
-  },
+  }
 }));
 
 const AccountStyle = styled('div')(({ theme }) => ({
@@ -236,7 +236,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
           PaperProps={{
             sx: {
               width: DRAWER_WIDTH,
-              bgcolor: 'background.default',
+              bgcolor: 'background.neutral',
               borderRightStyle: 'dashed',
             },
           }}

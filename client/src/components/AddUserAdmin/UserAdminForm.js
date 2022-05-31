@@ -123,7 +123,7 @@ const UserAdminForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid, setTouched, setFieldValue, touched, errors }) => (
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
                 <Form>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -131,6 +131,11 @@ const UserAdminForm = () => {
                         DATOS DE USUARIO
                       </Typography>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Grid item xs={6} className='bg-gray-200 max-w-fit p-2 rounded-xl mb-5'>
+                          <img alt='Profile' className='rounded-full w-40 h-40' src={values.profileHash? URL.createObjectURL(values.profileHash):'/static/mock-images/avatars/avatar_default.jpg'} />
+                        </Grid>
+                      </Grid>
                     <Grid item xs={6}>
                       <TextfieldWrapper name="userAddress" label="Dirección de Metamask" />
                     </Grid>
@@ -153,6 +158,7 @@ const UserAdminForm = () => {
                           className="mt-2 text-sm"
                           name="profileHash"
                           type="file"
+                          onClick={(event) => {console.log(event); setFieldValue('profileHash', null); event.target.value = ''}}
                           onChange={(event) => {
                             setTouched({
                               ...touched,

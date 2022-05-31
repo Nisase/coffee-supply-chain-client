@@ -2,13 +2,25 @@ import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
+
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button } from '@mui/material';
+import { Grid, Container, Typography, Button, Tooltip } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 import PendingConfirmation from '../PendingConfirmation';
+
+
 
 import { addTx, removeTx } from '../../redux/txSlice';
 
@@ -129,11 +141,97 @@ const HarvestForm = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Container maxWidth="md">
+        <Container maxWidth="md" justifyContent="center">
           {batchNo.length > 0 && batchNo.map((batch, index)=>
-            <div key={index}>Bach: {batch} - NEXT ACTION: {nextActions[index]}</div>
+            <div key={index} className='my-10'>
+              <Tooltip title="Copiar" placement="top">
+                <div className="mr-10 text-black hover:cursor-default" onClick={()=>{navigator.clipboard.writeText(batch)}} aria-hidden="true">
+                  {batch}
+                </div>
+              </Tooltip>
+              NEXT ACTION: {nextActions[index]}
+            </div>
           )}
         </Container>
+      </Grid>
+      <Grid item xs={12}>
+        <Timeline position="alternate">
+        <TimelineItem>
+          <TimelineOppositeContent
+            sx={{ m: 'auto 0' }}
+            align="right"
+            variant="body2"
+            color="text.secondary"
+          >
+            9:30 am
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <TimelineConnector />
+            <TimelineDot>
+              FAstFood
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <Typography variant="h6" component="span">
+              Eat
+            </Typography>
+            <Typography>Because you need strength</Typography>
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineOppositeContent
+            sx={{ m: 'auto 0' }}
+            variant="body2"
+            color="text.secondary"
+          >
+            10:00 am
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <TimelineConnector />
+            <TimelineDot color="primary">
+              Laptop
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <Typography variant="h6" component="span">
+              Code
+            </Typography>
+            <Typography>Because it&apos;s awesome!</Typography>
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineConnector />
+            <TimelineDot color="primary" variant="outlined">
+              Hotel
+            </TimelineDot>
+            <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <Typography variant="h6" component="span">
+              Sleep
+            </Typography>
+            <Typography>Because you need rest</Typography>
+          </TimelineContent>
+        </TimelineItem>
+        <TimelineItem>
+          <TimelineSeparator>
+            <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+            <TimelineDot color="secondary">
+              Repeat
+            </TimelineDot>
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent sx={{ py: '12px', px: 2 }}>
+            <Typography variant="h6" component="span">
+              Repeat
+            </Typography>
+            <Typography>Because this is the life you love!</Typography>
+          </TimelineContent>
+        </TimelineItem>
+      </Timeline>
       </Grid>
     </Grid>
   );
