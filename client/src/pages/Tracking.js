@@ -1,11 +1,10 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import { useSearchParams } from "react-router-dom";
-// hooks
-import useResponsive from '../hooks/useResponsive';
 // components
 import Page from '../components/Page';
+import TimeLine from '../components/Tracking/TimeLine';
 
 // ----------------------------------------------------------------------
 
@@ -14,15 +13,6 @@ const RootStyle = styled('div')(({ theme }) => ({
     display: 'flex',
   },
   zIndex: 10
-}));
-
-const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: 600,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
@@ -38,18 +28,17 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Tracking() {
-  const mdUp = useResponsive('up', 'md');
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const batch = searchParams.get("batch");
 
-  // http://localhost:3000/tracking?batch=0xgsjdhsfgsbddgbdfdhfjdhdfbksfjbdksb
+  // http://localhost:3000/tracking?batch=0xd63f65EB4D5F6116BEa6A97f0D7433F8Db0B2b65
 
   return (
     <Page title="Login">
       <RootStyle>
         <Container maxWidth="sm">
           <ContentStyle>
-          {batch}  
+            <TimeLine batchNoIn={batch} /> 
           </ContentStyle>
         </Container>
       </RootStyle>

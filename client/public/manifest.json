@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Coffee Tracking",
+  "name": "Coffee Tracking App",
   "icons": [
     {
       "src": "favicon/android-chrome-192x192.png",

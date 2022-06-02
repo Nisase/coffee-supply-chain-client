@@ -154,6 +154,12 @@ const allOptionsNav = [
     icon: 'eva:file-text-fill',
     role: 'ALL',
   },
+  {
+    title: 'Track',
+    path: '/tracking',
+    icon: 'eva:file-text-fill',
+    role: 'ALL',
+  }
 ];
 
 // ----------------------------------------------------------------------
