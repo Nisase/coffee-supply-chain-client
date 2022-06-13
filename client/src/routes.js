@@ -24,6 +24,8 @@ import DashboardAddPacker from './pages/DashboardAddPacker';
 import DashboardAddShipRetailer from './pages/DashboardAddShipRetailer';
 import DashboardAddRetailer from './pages/DashboardAddRetailer';
 
+import DashboardAdmin from './pages/DashboardAdmin';
+
 // ----------------------------------------------------------------------
 
 const routes = (loading, userData, isOwner) => {
@@ -65,6 +67,7 @@ const routes = (loading, userData, isOwner) => {
             { path: 'shipRetailer_addShipment', element: <DashboardAddShipRetailer /> },
             { path: 'retailer_updateUser', element: <DashboardUpdateUser /> },
             { path: 'retailer_addRetailer', element: <DashboardAddRetailer /> },
+            { path: 'admin', element: <DashboardAdmin /> },
             { path: 'user', element: <User /> },
             { path: 'products', element: <Products /> },
             { path: 'blog', element: <Blog /> },

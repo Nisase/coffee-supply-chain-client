@@ -22,7 +22,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     flexShrink: 0,
     width: DRAWER_WIDTH,
-  }
+  },
 }));
 
 const AccountStyle = styled('div')(({ theme }) => ({
@@ -149,6 +149,12 @@ const allOptionsNav = [
     role: 'RETAILER',
   },
   {
+    title: 'Vista General',
+    path: '/dashboard/admin',
+    icon: 'fluent:building-shop-24-filled',
+    role: 'ADMIN',
+  },
+  {
     title: 'Home',
     path: '/home',
     icon: 'eva:file-text-fill',
@@ -159,7 +165,7 @@ const allOptionsNav = [
     path: '/tracking',
     icon: 'eva:file-text-fill',
     role: 'ALL',
-  }
+  },
 ];
 
 // ----------------------------------------------------------------------

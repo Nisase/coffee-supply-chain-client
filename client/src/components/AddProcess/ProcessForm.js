@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button } from '@mui/material';
+import { Grid, Container, Typography, Button, FormLabel } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
@@ -15,12 +15,17 @@ import { addTx, removeTx } from '../../redux/txSlice';
 import HandleSubmit from '../../logic/AddProcess/HandleSubmit';
 import typeDrying from '../../data/typeDrying.json';
 import typeRoasting from '../../data/typeRoasting.json';
+import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
+
+const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
+const FILE_SIZE = 650 * 1024;
 
 const initialValues = {
   batchNo: '',
   procAddress: '',
   typeOfDrying: '',
-  roastImageHash: '',
+  // roastImageHash: '',
+  roastImageHash: undefined,
   roastTemp: '',
   typeOfRoast: '',
   roastDate: '',
@@ -35,7 +40,19 @@ const valSchema = Yup.object().shape({
     .min(42, 'La dirección debe tener 42 caracteres'),
   procAddress: Yup.string().required('Obligatorio'),
   typeOfDrying: Yup.string().required('Obligatorio'),
-  roastImageHash: Yup.string().required('Obligatorio'),
+  // roastImageHash: Yup.string().required('Obligatorio'),
+  roastImageHash: Yup.mixed()
+    .required('Obligatorio')
+    .test(
+      'fileSize',
+      `Solo se admite archivos menores a ${FILE_SIZE}`,
+      (value) => value === null || (value && value?.size <= FILE_SIZE)
+    )
+    .test(
+      'type',
+      'Los archivos soportados son: jpg, jpeg y png',
+      (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
+    ),
   roastTemp: Yup.string().required('Obligatorio'),
   typeOfRoast: Yup.string().required('Obligatorio'),
   roastDate: Yup.date().required('Obligatorio'),
@@ -47,12 +64,31 @@ const ProcessForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
+  const [fileUrl, setfileUrl] = useState('');
 
   const dispatch = useDispatch();
 
+  const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
     setTxHash('0x');
     setLoading(true);
+    setfileUrl('');
+
+    console.log('roast Img value', values.roastImageHash);
+
+    if (values.roastImageHash !== '') {
+      enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
+      const result = await addFileToIpfs(ipfs, values.roastImageHash);
+      console.log('Result', result);
+      if (result.error !== null) {
+        enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
+        setLoading(false);
+        return;
+      }
+      values.roastImageHash = result.url;
+      setfileUrl(result.url);
+    }
+
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
@@ -63,6 +99,7 @@ const ProcessForm = () => {
       dispatch(removeTx({ tx: txHash, type: 'DoneProcessing' }));
       enqueueSnackbar(error.message, { variant: 'warning' });
       setLoading(false);
+      setfileUrl('');
     });
   };
 
@@ -79,7 +116,7 @@ const ProcessForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
@@ -97,8 +134,35 @@ const ProcessForm = () => {
                       <Grid item xs={6}>
                         <SelectWrapper name="typeOfDrying" label="Tipo de Secado" options={typeDrying} />
                       </Grid>
-                      <Grid item xs={6}>
+                      {/* <Grid item xs={6}>
                         <TextfieldWrapper name="roastImageHash" label="Imagen del Tueste" />
+                      </Grid> */}
+                      <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                        <div className="flex flex-col">
+                          <FormLabel component="legend">Imagen de Tueste</FormLabel>
+                          <input
+                            className="mt-2 text-sm"
+                            name="roastImageHash"
+                            type="file"
+                            onClick={(event) => {
+                              console.log(event);
+                              setFieldValue('roastImageHash', null);
+                              event.target.value = '';
+                            }}
+                            onChange={(event) => {
+                              setTouched({
+                                ...touched,
+                                roastImageHash: true,
+                              });
+                              setFieldValue('roastImageHash', event.target.files[0]);
+                            }}
+                          />
+                          {touched.roastImageHash && errors.roastImageHash ? (
+                            <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
+                              {errors.roastImageHash}
+                            </small>
+                          ) : null}
+                        </div>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="roastTemp" label="Temperatura de Tueste" />
