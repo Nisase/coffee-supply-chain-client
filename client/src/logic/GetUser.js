@@ -4,7 +4,7 @@ const getUser = async () => {
   const account = await window.ethereum.request({
     method: 'eth_requestAccounts',
   });
-  return getUserByAddress(account[0])
+  return getUserByAddress(account[0]);
 };
 
 export const getUserByAddress = async (address) => {
@@ -17,7 +17,7 @@ export const getUserByAddress = async (address) => {
       email: userTemp.email,
       role: userTemp.role,
       isActive: userTemp.isActive,
-      profileHash: userTemp.profileHash === '' ? '/static/mock-images/avatars/avatar_default.jpg': userTemp.profileHash,
+      profileHash: userTemp.profileHash === '' ? '/static/mock-images/avatars/farmer-avatar.png' : userTemp.profileHash,
       message: null,
     };
   } catch (error) {

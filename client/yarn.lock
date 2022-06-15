@@ -1902,6 +1902,13 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
+"@mui/icons-material@^5.8.3":
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.8.3.tgz#75c8bde42e6ba71e3871439a2b751be987343493"
+  integrity sha512-dAdhimSLKOV0Q8FR7AYGEaCrTUh9OV7zU4Ueo5REoUt4cC3Vy+UBKDjZk66x5ezaYb63AFgQIFwtnZj3B/QDbQ==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+
 "@mui/lab@^5.0.0-alpha.77":
   version "5.0.0-alpha.77"
   resolved "https://registry.yarnpkg.com/@mui/lab/-/lab-5.0.0-alpha.77.tgz#0ef32c33f9e55b1a84443d8b011f490503e9d477"
@@ -8254,6 +8261,11 @@ q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
+
+qrcode.react@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-3.0.2.tgz#7ceaea165aa7066253ef670a25bf238eaec4eb9e"
+  integrity sha512-8F3SGxSkNb3fMIHdlseqjFjLbsPrF3WvF/1MOboSUUHytT537W8f/FtbdA3XFIHDrc+TrRBjTI/QLmwhAIGWWw==
 
 qs@6.9.7:
   version "6.9.7"

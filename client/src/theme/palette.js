@@ -29,20 +29,92 @@ const GREY = {
 };
 
 const PRIMARY = {
-  lighter: '#D1E9FC',
-  light: '#76B0F1',
+  lighter: '#FBBC9D',
+  light: '#F78750',
   main: '#AF4108',
-  dark: '#103996',
-  darker: '#061B64',
+  dark: '#883206',
+  darker: '#4E1C03',
   contrastText: '#fff',
 };
 
 const SECONDARY = {
-  lighter: '#D6E4FF',
-  light: '#84A9FF',
-  main: '#6D603A',
-  dark: '#1939B7',
-  darker: '#091A7A',
+  lighter: '#B3B286',
+  light: '#71704D',
+  main: '#838350',
+  dark: '#595823',
+  darker: '#4C4C3D',
+  contrastText: '#fff',
+};
+
+const TERTIARY = {
+  lighter: '#B2999A',
+  light: '#836668',
+  main: '#705C5D',
+  dark: '#58393C',
+  darker: '#4C4344',
+  contrastText: '#fff',
+};
+
+const QUATERNARY = {
+  lighter: '#DBB894',
+  light: '#D1A375',
+  main: '#B67A3D',
+  dark: '#996633',
+  darker: '#5C3D1F',
+  contrastText: '#fff',
+};
+
+const FIFTH = {
+  lighter: '#81C0C5',
+  light: '#76BBC0',
+  main: '#57ACB2',
+  dark: '#3A797E',
+  darker: '#204346',
+  contrastText: '#fff',
+};
+
+const SIXTH = {
+  lighter: '#F9D2B4',
+  light: '#F6BB8E',
+  main: '#F4B382',
+  dark: '#F09956',
+  darker: '#EB771E',
+  contrastText: '#fff',
+};
+
+const SEVENTH = {
+  lighter: '#6D9DC5',
+  light: '#4075A0',
+  main: '#2F5575',
+  dark: '#1D3549',
+  darker: '#0D1821',
+  contrastText: '#fff',
+};
+
+const EIGHTH = {
+  lighter: '#F9D2B4',
+  light: '#F6BB8E',
+  main: '#F4B382',
+  dark: '#F09956',
+  darker: '#EB771E',
+  contrastText: '#fff',
+};
+
+const NINTH = {
+  lighter: '#F9D2B4',
+  light: '#F6BB8E',
+  main: '#F4B382',
+  dark: '#F09956',
+  darker: '#EB771E',
+  contrastText: '#fff',
+};
+
+const TENTH = {
+  lighter: '#F9D2B4',
+  light: '#F6BB8E',
+  main: '#F4B382',
+  dark: '#F09956',
+  darker: '#EB771E',
   contrastText: '#fff',
 };
 
@@ -102,6 +174,11 @@ const palette = {
   common: { black: '#000', white: '#fff' },
   primary: { ...PRIMARY },
   secondary: { ...SECONDARY },
+  tertiary: { ...TERTIARY },
+  quaternary: { ...QUATERNARY },
+  fifth: { ...FIFTH },
+  sixth: { ...SIXTH },
+  seventh: { ...SEVENTH },
   info: { ...INFO },
   success: { ...SUCCESS },
   warning: { ...WARNING },
@@ -119,7 +196,7 @@ const palette = {
     disabled: GREY[500_80],
     disabledBackground: GREY[500_24],
     focus: GREY[500_24],
-    hoverOpacity: 0.08,
+    zOpacity: 0.08,
     disabledOpacity: 0.48,
   },
 };
