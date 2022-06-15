@@ -124,12 +124,7 @@ const defColor = (myState) => {
   }
   return (
     <Stack>
-      <StyledChip
-        label={myState}
-        color={color}
-        icon={icon}
-        // sx={{ backgroundColor: { color } }}
-      />
+      <StyledChip label={myState} color={color} icon={icon} />
     </Stack>
   );
 };
@@ -137,11 +132,9 @@ const defColor = (myState) => {
 const StyledChip = styled(Chip)(({ theme }) => ({
   [`&.${chipClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.fifth.dark,
-    // color: theme.palette.info.darker,
   },
   [`&.${chipClasses.colorSecondary}`]: {
     backgroundColor: theme.palette.success.dark,
-    // color: theme.palette.info.darker,
   },
 }));
 
@@ -176,14 +169,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const TableAdmin = () => {
+const TableHarvest = () => {
   const [batchNo, setBatchNo] = useState([]);
   const [nextActions, setNextActions] = useState([]);
   const walletAddress = useSelector(walletAddressSelector);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(2);
-
-  // const zip = (a1, a2) => a1.map((x, i) => [x, a2[i]]);
 
   const assignState = (action) => {
     let arr = [];
@@ -292,8 +283,8 @@ const TableAdmin = () => {
 
   useEffect(() => {
     const getBatch = async () => {
-      const erc = getCoffeERC20();
-      const events = await erc.queryFilter(erc.filters.SetFarmDetails(walletAddress, null));
+      const erc = getCoffeERC20(); // aqui posible error del listener
+      const events = await erc.queryFilter(erc.filters.DoneHarvesting(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });
@@ -302,13 +293,10 @@ const TableAdmin = () => {
 
       setBatchNo(batchTemp);
       setNextActions(await Promise.all(nextActionsTemp));
-
-      //   console.log(zip(batchTemp, nextActionsTemp));
     };
     getBatch();
   }, []);
 
-  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, batchNo.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
@@ -322,6 +310,26 @@ const TableAdmin = () => {
 
   return (
     <>
+      {/* <Container maxWidth="md">
+        {batchNo.length > 0 &&
+          batchNo.map((batch, index) => (
+            <div key={index} className="my-10">
+              <Tooltip title="Copiar" placement="top">
+                <div
+                  className="mr-10 text-black hover:cursor-default"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`https${batch}`);
+                  }}
+                  aria-hidden="true"
+                >
+                  {batch}
+                </div>
+              </Tooltip>
+              NEXT ACTION: {nextActions[index]}
+            </div>
+          ))}
+      </Container> */}
+
       <Grid item xs={12}>
         <TableContainer sx={{ maxHeight: '1000px', boxShadow: 8, borderRadius: 1 }} component={Paper}>
           <Table sx={{ minWidth: '2100px' }} aria-label="customized table" stickyHeader>
@@ -371,12 +379,6 @@ const TableAdmin = () => {
                     <Grid item xs={2}>
                       <Stack direction="column" spacing={1}>
                         <QRCode id="miQR" value={`https://192.168.100.4:3000/dashboard/batch?${batch}`} size="50" />
-
-                        {/* <Avatar
-                          sx={{
-                            bgcolor: 'primary.light',
-                          }}
-                        > */}
                         <div>
                           <Chip
                             onClick={() => {
@@ -400,30 +402,22 @@ const TableAdmin = () => {
                             icon={<DownloadForOfflineRoundedIcon />}
                           />
                         </div>
-                        {/* </Avatar> */}
                       </Stack>
                     </Grid>
                   </StyledTableCell>
                   {assignState(nextActions[index]).map((myState) => (
                     <StyledTableCell key={uuid()} align="center">
-                      {/* {myState} */}
                       {defColor(myState)}
                     </StyledTableCell>
                   ))}
                   <StyledTableCell align="center">
                     <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
                       <RouterLink to={`https://localhost:3000/tracking?batch=${batch}`}>
-                        <IconButton
-                          aria-label="tracking-batch"
-                          // color="fifth"
-                          sx={{ color: 'grey[800]' }}
-                          size="small"
-                        >
+                        <IconButton aria-label="tracking-batch" sx={{ color: 'grey[800]' }} size="small">
                           <RemoveRedEyeRoundedIcon />
                         </IconButton>
                       </RouterLink>
                     </Stack>
-                    {/* {nextActions[index]} */}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -434,19 +428,8 @@ const TableAdmin = () => {
                 </StyledTableRow>
               )}
             </TableBody>
-
             <TableFooter>
               <TableRow>
-                {/* <Box
-                  // m="auto"
-                  textAlign="center"
-                  // sx={{
-                  //   display: 'flex',
-                  //   justifyContent: 'center',
-                  //   // margin: 'auto',
-                  //   // backgroundColor: 'divider',
-                  // }}
-                > */}
                 <TablePagination
                   rowsPerPageOptions={[2, 5, 10, 25]}
                   count={batchNo.length}
@@ -472,22 +455,13 @@ const TableAdmin = () => {
                   sx={{
                     '.MuiTablePagination-toolbar': {
                       backgroundColor: 'divider',
-                      // display: 'flex',
                     },
                     '.MuiTablePagination-selectLabel, .MuiTablePagination-input': {
                       fontWeight: 'bold',
                       color: 'grey',
                     },
-                    // '.MuiTablePagination-root': {
-                    //   // backgroundColor: 'divider',
-                    //   display: 'flex',
-                    //   justifyContent: 'center',
-                    //   margin: 'auto',
-                    // },
                   }}
-                  // component={Box}
                 />
-                {/* </Box> */}
               </TableRow>
             </TableFooter>
           </Table>
@@ -497,4 +471,4 @@ const TableAdmin = () => {
   );
 };
 
-export default TableAdmin;
+export default TableHarvest;

@@ -25,6 +25,7 @@ import DashboardAddShipRetailer from './pages/DashboardAddShipRetailer';
 import DashboardAddRetailer from './pages/DashboardAddRetailer';
 
 import DashboardAdmin from './pages/DashboardAdmin';
+import DashboardHarvest from './pages/DashboardHarvest';
 
 // ----------------------------------------------------------------------
 
@@ -68,6 +69,7 @@ const routes = (loading, userData, isOwner) => {
             { path: 'retailer_updateUser', element: <DashboardUpdateUser /> },
             { path: 'retailer_addRetailer', element: <DashboardAddRetailer /> },
             { path: 'admin', element: <DashboardAdmin /> },
+            { path: 'farmer', element: <DashboardHarvest /> },
             { path: 'user', element: <User /> },
             { path: 'products', element: <Products /> },
             { path: 'blog', element: <Blog /> },

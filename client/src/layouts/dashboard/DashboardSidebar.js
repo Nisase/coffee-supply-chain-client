@@ -155,6 +155,12 @@ const allOptionsNav = [
     role: 'ADMIN',
   },
   {
+    title: 'Vista General',
+    path: '/dashboard/farmer',
+    icon: 'fluent:building-shop-24-filled',
+    role: 'FARMER',
+  },
+  {
     title: 'Home',
     path: '/home',
     icon: 'eva:file-text-fill',
