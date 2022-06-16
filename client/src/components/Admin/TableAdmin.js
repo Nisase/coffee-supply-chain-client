@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Grid,
   Container,
@@ -18,6 +19,16 @@ import {
   Badge,
   Chip,
   Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
@@ -50,19 +61,22 @@ import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FaceIcon from '@mui/icons-material/Face';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { walletAddressSelector } from '../../redux/appDataSlice';
-import { getCoffeERC20 } from '../../logic/erc20';
+import { getCoffeERC20, getUserERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
+import UserAdminForm from '../AddUserAdmin/UserAdminForm';
+import FarmForm from '../AddFarmDetails/FarmForm';
 
 function ShareSocialMedia(batch) {
   return (
     <Stack direction="row" spacing={1}>
       {/* <div> */}
       <FacebookShareButton
-        url={`https://192.168.100.4:3000/dashboard/batch?${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
@@ -71,7 +85,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <WhatsappShareButton
-        url={`https://192.168.100.4:3000/dashboard/batch?${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
@@ -80,7 +94,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <EmailShareButton
-        url={`https://192.168.100.4:3000/dashboard/batch?${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -90,7 +104,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <TelegramShareButton
-        url={`https://192.168.100.4:3000/dashboard/batch?${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
@@ -98,7 +112,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <TwitterShareButton
-        url={`https://192.168.100.4:3000/dashboard/batch?${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -137,11 +151,9 @@ const defColor = (myState) => {
 const StyledChip = styled(Chip)(({ theme }) => ({
   [`&.${chipClasses.colorPrimary}`]: {
     backgroundColor: theme.palette.fifth.dark,
-    // color: theme.palette.info.darker,
   },
   [`&.${chipClasses.colorSecondary}`]: {
     backgroundColor: theme.palette.success.dark,
-    // color: theme.palette.info.darker,
   },
 }));
 
@@ -176,9 +188,56 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
+
+// const bull = (
+//   <Box component="span" sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}>
+//     •
+//   </Box>
+// );
+
 const TableAdmin = () => {
   const [batchNo, setBatchNo] = useState([]);
   const [nextActions, setNextActions] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [openUser, setOpenUser] = useState(false);
+  const [openBatch, setOpenBatch] = useState(false);
   const walletAddress = useSelector(walletAddressSelector);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(2);
@@ -290,25 +349,44 @@ const TableAdmin = () => {
     return arr;
   };
 
+  const removeDuplicates = (arr) => {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  };
+
+  const handleClickOpenUser = () => {
+    setOpenUser(true);
+  };
+  const handleCloseUser = () => {
+    setOpenUser(false);
+  };
+  const handleClickOpenBatch = () => {
+    setOpenBatch(true);
+  };
+  const handleCloseBatch = () => {
+    setOpenBatch(false);
+  };
+
   useEffect(() => {
     const getBatch = async () => {
       const erc = getCoffeERC20();
+      const ercUsers = getUserERC20();
       const events = await erc.queryFilter(erc.filters.SetFarmDetails(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });
         return res.data;
       });
+      const eventsUsers = await ercUsers.queryFilter(ercUsers.filters.UserRoleUpdate(null));
+      const usersTemp = eventsUsers.map((event) => event.args.user);
+      const newUsers = removeDuplicates(usersTemp);
 
       setBatchNo(batchTemp);
       setNextActions(await Promise.all(nextActionsTemp));
-
-      //   console.log(zip(batchTemp, nextActionsTemp));
+      setUsers(newUsers);
     };
     getBatch();
   }, []);
 
-  // const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, batchNo.length - page * rowsPerPage);
 
   const handleChangePage = (event, newPage) => {
@@ -322,7 +400,120 @@ const TableAdmin = () => {
 
   return (
     <>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ paddingTop: '0px', marginTop: '0px' }}>
+        <Grid
+          container
+          rowSpacing={3}
+          columnSpacing={{ xs: 5, sm: 5, md: 35 }}
+          // sx={{
+          //   display: 'flex',
+          //   justifyContent: 'center',
+          // }}
+        >
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            // sx={{ margin: '0px 50px 0px 0px' }}
+          >
+            <Card
+              sx={{
+                minWidth: 275,
+              }}
+            >
+              <CardHeader title="Usuarios" />
+              <CardMedia component="img" height="194" alt="Agricultor de café" image="/static/images/farmer2.jpg" />
+
+              <CardActions>
+                <Button size="small" onClick={handleClickOpenUser}>
+                  Agregar Usuario
+                </Button>
+                <BootstrapDialog
+                  // onClose={handleClose} // hace q si cliqueo en cualquier lugar cierre el popup
+                  aria-labelledby="customized-dialog-title"
+                  open={openUser}
+                >
+                  <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseUser}>
+                    Agregar Datos de Usuario
+                  </BootstrapDialogTitle>
+                  <DialogContent dividers>
+                    <UserAdminForm />
+                  </DialogContent>
+                </BootstrapDialog>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            // sx={{ margin: '0px 50px 0px 0px' }}
+            xs={12}
+            sm={6}
+            md={3}
+          >
+            <Card
+              sx={{
+                minWidth: 275,
+              }}
+            >
+              <CardHeader title="Lotes de Café" />
+              <CardMedia component="img" height="194" alt="Lotes de café" image="/static/images/lote1.jpg" />
+              <CardActions>
+                <Button size="small" onClick={handleClickOpenBatch}>
+                  Agregar Lote
+                </Button>
+                <BootstrapDialog
+                  // onClose={handleClose} // hace q si cliqueo en cualquier lugar cierre el popup
+                  aria-labelledby="customized-dialog-title"
+                  open={openBatch}
+                >
+                  <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseBatch}>
+                    Agregar Información de la Granja
+                  </BootstrapDialogTitle>
+                  <DialogContent dividers>
+                    <FarmForm />
+                  </DialogContent>
+                </BootstrapDialog>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid
+            item
+            // sx={{ margin: '0px 50px 0px 0px' }}
+            xs={12}
+            sm={6}
+            md={3}
+          >
+            <Card
+              sx={{
+                minWidth: 275,
+              }}
+            >
+              <CardHeader title="Resumen" />
+
+              <CardContent>
+                <Stack direction="row" spacing={2}>
+                  <Typography color="text.secondary" variant="subtitle2">
+                    Usuarios agregados:
+                  </Typography>
+                  <Typography color="text.secondary" variant="body2">
+                    {users.length}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" spacing={2}>
+                  <Typography color="text.secondary" variant="subtitle2">
+                    Lotes de café agregados:
+                  </Typography>
+                  <Typography color="text.secondary" variant="body2">
+                    {batchNo.length}
+                  </Typography>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} sx={{ marginTop: '50px' }}>
         <TableContainer sx={{ maxHeight: '1000px', boxShadow: 8, borderRadius: 1 }} component={Paper}>
           <Table sx={{ minWidth: '2100px' }} aria-label="customized table" stickyHeader>
             <TableHead>
@@ -370,13 +561,12 @@ const TableAdmin = () => {
                   <StyledTableCell align="center" spacing={2}>
                     <Grid item xs={2}>
                       <Stack direction="column" spacing={1}>
-                        <QRCode id="miQR" value={`https://192.168.100.4:3000/dashboard/batch?${batch}`} size="50" />
+                        <QRCode
+                          id="miQR"
+                          value={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
+                          size="50"
+                        />
 
-                        {/* <Avatar
-                          sx={{
-                            bgcolor: 'primary.light',
-                          }}
-                        > */}
                         <div>
                           <Chip
                             onClick={() => {
@@ -400,30 +590,22 @@ const TableAdmin = () => {
                             icon={<DownloadForOfflineRoundedIcon />}
                           />
                         </div>
-                        {/* </Avatar> */}
                       </Stack>
                     </Grid>
                   </StyledTableCell>
                   {assignState(nextActions[index]).map((myState) => (
                     <StyledTableCell key={uuid()} align="center">
-                      {/* {myState} */}
                       {defColor(myState)}
                     </StyledTableCell>
                   ))}
                   <StyledTableCell align="center">
                     <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
                       <RouterLink to={`https://localhost:3000/tracking?batch=${batch}`}>
-                        <IconButton
-                          aria-label="tracking-batch"
-                          // color="fifth"
-                          sx={{ color: 'grey[800]' }}
-                          size="small"
-                        >
+                        <IconButton aria-label="tracking-batch" sx={{ color: 'grey[800]' }} size="small">
                           <RemoveRedEyeRoundedIcon />
                         </IconButton>
                       </RouterLink>
                     </Stack>
-                    {/* {nextActions[index]} */}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

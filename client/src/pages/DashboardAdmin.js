@@ -8,7 +8,7 @@ const DashboardAdmin = () => {
   return (
     <Page title="TableAdmin">
       <Container maxWidth="xl">
-        <div className="mt-20">
+        <div className="mt-5">
           <TableAdmin />
         </div>
       </Container>
