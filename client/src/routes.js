@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
@@ -23,6 +23,9 @@ import DashboardAddShipPacker from './pages/DashboardAddShipPacker';
 import DashboardAddPacker from './pages/DashboardAddPacker';
 import DashboardAddShipRetailer from './pages/DashboardAddShipRetailer';
 import DashboardAddRetailer from './pages/DashboardAddRetailer';
+
+import DashboardAdmin from './pages/DashboardAdmin';
+import DashboardHarvest from './pages/DashboardHarvest';
 
 // ----------------------------------------------------------------------
 
@@ -65,6 +68,8 @@ const routes = (loading, userData, isOwner) => {
             { path: 'shipRetailer_addShipment', element: <DashboardAddShipRetailer /> },
             { path: 'retailer_updateUser', element: <DashboardUpdateUser /> },
             { path: 'retailer_addRetailer', element: <DashboardAddRetailer /> },
+            { path: 'admin', element: <DashboardAdmin /> },
+            { path: 'farmer', element: <DashboardHarvest /> },
             { path: 'user', element: <User /> },
             { path: 'products', element: <Products /> },
             { path: 'blog', element: <Blog /> },

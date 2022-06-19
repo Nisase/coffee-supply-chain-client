@@ -82,18 +82,18 @@ const UserAdminForm = () => {
     if (!values.profileHash || values.profileHash.length === 0) {
       values.profileHash = '';
     }
-    if(values.profileHash !== ''){
+    if (values.profileHash !== '') {
       enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
-      const result = await addFileToIpfs(ipfs, values.profileHash)
-      if(result.error !== null ){
+      const result = await addFileToIpfs(ipfs, values.profileHash);
+      if (result.error !== null) {
         enqueueSnackbar('Error al guardar imagen del usuario en red IPFS', { variant: 'error' });
         setLoading(false);
-        return 
+        return;
       }
-      values.profileHash = result.url
-      setfileUrl(result.url)
+      values.profileHash = result.url;
+      setfileUrl(result.url);
     }
-    
+
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
@@ -126,17 +126,25 @@ const UserAdminForm = () => {
               {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
                 <Form>
                   <Grid container spacing={2}>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                       <Typography className="mb-5 font-semibold underline underline-offset-2">
                         DATOS DE USUARIO
                       </Typography>
+                    </Grid> */}
+                    <Grid item xs={12}>
+                      <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
+                        <img
+                          alt="Profile"
+                          className="rounded-full w-40 h-40"
+                          src={
+                            values.profileHash
+                              ? URL.createObjectURL(values.profileHash)
+                              : '/static/mock-images/avatars/farmer2.png'
+                          }
+                        />
+                      </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <Grid item xs={6} className='bg-gray-200 max-w-fit p-2 rounded-xl mb-5'>
-                          <img alt='Profile' className='rounded-full w-40 h-40' src={values.profileHash? URL.createObjectURL(values.profileHash):'/static/mock-images/avatars/avatar_default.jpg'} />
-                        </Grid>
-                      </Grid>
-                    <Grid item xs={6}>
                       <TextfieldWrapper name="userAddress" label="Dirección de Metamask" />
                     </Grid>
                     <Grid item xs={6}>
@@ -151,14 +159,18 @@ const UserAdminForm = () => {
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                     </Grid>
-                    <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                    <Grid item xs={12} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
                         <FormLabel component="legend">Imagen de Perfil</FormLabel>
                         <input
                           className="mt-2 text-sm"
                           name="profileHash"
                           type="file"
-                          onClick={(event) => {console.log(event); setFieldValue('profileHash', null); event.target.value = ''}}
+                          onClick={(event) => {
+                            console.log(event);
+                            setFieldValue('profileHash', null);
+                            event.target.value = '';
+                          }}
                           onChange={(event) => {
                             setTouched({
                               ...touched,
@@ -175,7 +187,13 @@ const UserAdminForm = () => {
                       </div>
                     </Grid>
                     <Grid item xs={12}>
-                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                      <Button
+                        // sx={{ backgroundColor: 'error.darker' }}
+                        fullWidth
+                        variant="contained"
+                        disabled={!dirty || !isValid}
+                        type="submit"
+                      >
                         {' '}
                         REGISTRAR USUARIO
                       </Button>

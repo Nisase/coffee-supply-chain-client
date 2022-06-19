@@ -31,7 +31,6 @@ const ListItemIconStyle = styled(ListItemIcon)({
 
 const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
 
-
 NavItem.propTypes = {
   item: PropTypes.object,
   active: PropTypes.func,

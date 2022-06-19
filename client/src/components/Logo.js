@@ -19,6 +19,31 @@ export default function Logo({ urlLink = '/', disabledLink = false, sx }) {
   const PRIMARY_MAIN = theme.palette.primary.main;
 
   const PRIMARY_DARK = theme.palette.primary.dark;
+  const PRIMARY_DARKER = theme.palette.primary.darker;
+
+  const TERTIARY_LIGHT = theme.palette.tertiary.light;
+
+  const TERTIARY_MAIN = theme.palette.tertiary.main;
+
+  const TERTIARY_DARK = theme.palette.tertiary.dark;
+
+  const SECONDARY_LIGHT = theme.palette.secondary.light;
+
+  const SECONDARY_MAIN = theme.palette.secondary.main;
+
+  const SECONDARY_DARK = theme.palette.secondary.dark;
+
+  const QUATERNARY_LIGHT = theme.palette.quaternary.light;
+
+  const QUATERNARY_MAIN = theme.palette.quaternary.main;
+
+  const QUATERNARY_DARK = theme.palette.quaternary.dark;
+
+  const ERROR_LIGHT = theme.palette.error.light;
+
+  const ERROR_MAIN = theme.palette.error.main;
+
+  const ERROR_DARK = theme.palette.error.darker;
 
   // OR
   // const logo = <Box component="img" src="/static/logo.svg" sx={{ width: 40, height: 40, ...sx }} />
@@ -28,12 +53,12 @@ export default function Logo({ urlLink = '/', disabledLink = false, sx }) {
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 300 300">
         <defs>
           <linearGradient id="BG1" x1="100%" x2="50%" y1="9.946%" y2="50%">
-            <stop offset="0%" stopColor={PRIMARY_DARK} />
-            <stop offset="100%" stopColor={PRIMARY_MAIN} />
+            <stop offset="0%" stopColor={ERROR_DARK} />
+            <stop offset="100%" stopColor={QUATERNARY_MAIN} />
           </linearGradient>
           <linearGradient id="BG2" x1="50%" x2="50%" y1="0%" y2="100%">
-            <stop offset="0%" stopColor={PRIMARY_LIGHT} />
-            <stop offset="100%" stopColor={PRIMARY_MAIN} />
+            <stop offset="0%" stopColor={SECONDARY_LIGHT} />
+            <stop offset="100%" stopColor={ERROR_DARK} />
           </linearGradient>
         </defs>
 
