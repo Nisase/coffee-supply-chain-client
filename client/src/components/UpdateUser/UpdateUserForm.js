@@ -103,11 +103,11 @@ const UpdateUserForm = () => {
               {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
                 <Form>
                   <Grid container spacing={2}>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                       <Typography className="mb-5 font-semibold underline underline-offset-2">
                         DATOS DE USUARIO
                       </Typography>
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                       <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
                         <img
@@ -126,7 +126,7 @@ const UpdateUserForm = () => {
                     {/* <Grid item xs={6}>
                         <SelectWrapper name="role" label="Rol" options={role} />
                       </Grid> */}
-                    <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                    <Grid item xs={12} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
                         <FormLabel component="legend">Cargar imagen de perfil</FormLabel>
                         <input

@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack';
 
-
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
@@ -10,8 +9,6 @@ import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 import PendingConfirmation from '../PendingConfirmation';
-
-
 
 import { addTx, removeTx } from '../../redux/txSlice';
 
@@ -37,7 +34,7 @@ const valSchema = Yup.object().shape({
   harvestDate: Yup.date().required('Obligatorio'),
 });
 
-const HarvestForm = () => {
+const HarvestForm = ({ children }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
@@ -73,17 +70,27 @@ const HarvestForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => (
+              {({ dirty, isValid, errors }) => (
                 <Form>
                   <Grid container spacing={2}>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                       <Typography className="mb-5 font-semibold underline underline-offset-2">
                         DATOS DE COSECHA
                       </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </Grid> */}
+                    {children ? (
+                      <Grid item xs={12}>
+                        <TextfieldWrapper name="batchNo" label="No. Lote" value={children} />
+                        {/* <Typography>{children}</Typography> */}
+                      </Grid>
+                    ) : (
+                      <Grid item xs={12}>
+                        <TextfieldWrapper name="batchNo" label="No. Lote" />
+                      </Grid>
+                    )}
+                    {/* <Grid item xs={12}>
                       <TextfieldWrapper name="batchNo" label="No. Lote" />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={6}>
                       <TextfieldWrapper name="coffeeFamily" label="Familia del Café" />
                     </Grid>
@@ -96,8 +103,23 @@ const HarvestForm = () => {
                     <Grid item xs={6}>
                       <DateTimePicker name="harvestDate" label="Fecha de Cosecha" />
                     </Grid>
+                    <Grid item xs={6}>
+                      <Typography>{dirty ? 'true' : 'false'}</Typography>
+                      <Typography>{isValid ? 'true' : 'false'}</Typography>
+                      {/* {errors.map((el, index) => (
+                        <Typography key={index}>{el}</Typography>
+                      ))} */}
+                      <Typography>{errors.batchNo}</Typography>
+                      <Typography>HOLA</Typography>
+                    </Grid>
                     <Grid item xs={12}>
-                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        // disabled={!dirty || !isValid}
+                        disabled={!isValid || !dirty}
+                        type="submit"
+                      >
                         {' '}
                         AGREGAR DATOS
                       </Button>
@@ -108,7 +130,7 @@ const HarvestForm = () => {
             </Formik>
           </div>
         </Container>
-      </Grid>      
+      </Grid>
     </Grid>
   );
 };

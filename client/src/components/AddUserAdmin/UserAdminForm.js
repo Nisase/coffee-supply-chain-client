@@ -144,7 +144,7 @@ const UserAdminForm = () => {
                         />
                       </Grid>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="userAddress" label="Dirección de Metamask" />
                     </Grid>
                     <Grid item xs={6}>
@@ -159,7 +159,7 @@ const UserAdminForm = () => {
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                     </Grid>
-                    <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                    <Grid item xs={12} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
                         <FormLabel component="legend">Imagen de Perfil</FormLabel>
                         <input

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import ThemeProvider from './theme';
@@ -40,6 +40,8 @@ import getOwner from './logic/GetOwner';
 function App() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
+  const [searchParams] = useSearchParams();
+  const batch = searchParams.get('batch');
 
   // UserInfo, Wallet and Owner //
   const [walletAddress, error] = useDetectProvider();
@@ -47,6 +49,8 @@ function App() {
   const userData = useSelector(userDataSelector);
   const loading = useSelector(loadingSelector);
   const walletAddressApp = useSelector(walletAddressSelector);
+
+  console.log('batch: ', batch);
 
   useEffect(() => {
     const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';

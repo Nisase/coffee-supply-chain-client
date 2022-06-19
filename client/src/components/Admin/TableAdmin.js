@@ -49,6 +49,7 @@ import {
   TelegramIcon,
 } from 'react-share';
 import { v4 as uuid } from 'uuid';
+import { saveSvgAsPng } from 'save-svg-as-png';
 import QRCode from 'qrcode.react';
 import { GetApp } from '@mui/icons-material';
 import DownloadForOfflineRoundedIcon from '@mui/icons-material/DownloadForOfflineRounded';
@@ -76,7 +77,7 @@ function ShareSocialMedia(batch) {
     <Stack direction="row" spacing={1}>
       {/* <div> */}
       <FacebookShareButton
-        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
@@ -85,7 +86,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <WhatsappShareButton
-        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
@@ -94,7 +95,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <EmailShareButton
-        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -104,7 +105,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <TelegramShareButton
-        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
@@ -112,7 +113,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <TwitterShareButton
-        url={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
+        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -427,7 +428,7 @@ const TableAdmin = () => {
 
               <CardActions>
                 <Button size="small" onClick={handleClickOpenUser}>
-                  Agregar Usuario
+                  AGREGAR USUARIO
                 </Button>
                 <BootstrapDialog
                   // onClose={handleClose} // hace q si cliqueo en cualquier lugar cierre el popup
@@ -460,7 +461,7 @@ const TableAdmin = () => {
               <CardMedia component="img" height="194" alt="Lotes de café" image="/static/images/lote1.jpg" />
               <CardActions>
                 <Button size="small" onClick={handleClickOpenBatch}>
-                  Agregar Lote
+                  AGREGAR LOTE
                 </Button>
                 <BootstrapDialog
                   // onClose={handleClose} // hace q si cliqueo en cualquier lugar cierre el popup
@@ -518,17 +519,17 @@ const TableAdmin = () => {
           <Table sx={{ minWidth: '2100px' }} aria-label="customized table" stickyHeader>
             <TableHead>
               <TableRow>
-                <StyledTableCell align="center">No. Lote</StyledTableCell>
-                <StyledTableCell align="center">Código QR</StyledTableCell>
-                <StyledTableCell align="center">Cosecha</StyledTableCell>
-                <StyledTableCell align="center">Procesado</StyledTableCell>
-                <StyledTableCell align="center">Inspección del Grano</StyledTableCell>
-                <StyledTableCell align="center">Aglomerado</StyledTableCell>
-                <StyledTableCell align="center">Transporte a Empacadora</StyledTableCell>
-                <StyledTableCell align="center">Empacado</StyledTableCell>
-                <StyledTableCell align="center">Transporte a Retailer</StyledTableCell>
-                <StyledTableCell align="center">Retailer</StyledTableCell>
-                <StyledTableCell align="center">Tracking</StyledTableCell>
+                <StyledTableCell align="center">NO. LOTE</StyledTableCell>
+                <StyledTableCell align="center">CÓDIGO QR</StyledTableCell>
+                <StyledTableCell align="center">COSECHA</StyledTableCell>
+                <StyledTableCell align="center">PROCESADO</StyledTableCell>
+                <StyledTableCell align="center">INSPECCIÓN DEL GRANO</StyledTableCell>
+                <StyledTableCell align="center">AGLOMERADO</StyledTableCell>
+                <StyledTableCell align="center">TRANSPORTE A EMPACADORA</StyledTableCell>
+                <StyledTableCell align="center">EMPACADO</StyledTableCell>
+                <StyledTableCell align="center">TRANSPORTE A RETAILER</StyledTableCell>
+                <StyledTableCell align="center">RETAILER</StyledTableCell>
+                <StyledTableCell align="center">TRACKING</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -562,22 +563,20 @@ const TableAdmin = () => {
                     <Grid item xs={2}>
                       <Stack direction="column" spacing={1}>
                         <QRCode
+                          bgColor="#FFFFFF"
                           id="miQR"
-                          value={`https://192.168.100.4:3000/dashboard/batches?batch=${batch}`}
-                          size="50"
+                          value={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+                          size="100"
+                          includeMargin
+                          renderAs="svg"
                         />
 
                         <div>
                           <Chip
                             onClick={() => {
-                              const canvas = document.getElementById('miQR');
-                              const pngUrl = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
-                              const downloadLink = document.createElement('a');
-                              downloadLink.href = pngUrl;
-                              downloadLink.download = `QR_lote_${batch}.png`;
-                              document.body.appendChild(downloadLink);
-                              downloadLink.click();
-                              document.body.removeChild(downloadLink);
+                              saveSvgAsPng(document.getElementById('miQR'), `QR_lote_${batch}.png`, {
+                                scale: 60,
+                              });
                             }}
                             style={{ marginLeft: 2 }}
                             color="primary"
@@ -611,7 +610,7 @@ const TableAdmin = () => {
               ))}
 
               {emptyRows > 0 && (
-                <StyledTableRow style={{ height: 162 * emptyRows }}>
+                <StyledTableRow style={{ height: 166 * emptyRows }}>
                   <StyledTableCell colSpan={3} />
                 </StyledTableRow>
               )}
