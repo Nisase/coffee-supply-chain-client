@@ -601,7 +601,7 @@ const TableHarvest = () => {
                         Agregar Datos de Cosecha
                       </BootstrapDialogTitle>
                       <DialogContent dividers>
-                        <HarvestForm children={batchNoQR} />
+                        <HarvestForm batchValue={batchNoQR} />
                       </DialogContent>
                     </BootstrapDialog>
                   </DialogActions>
