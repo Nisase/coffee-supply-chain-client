@@ -689,7 +689,7 @@ const TableHarvest = () => {
                       <Stack direction="column" spacing={1}>
                         <QRCode
                           bgColor="#FFFFFF"
-                          id="miQR"
+                          id={batch}
                           value={`https://192.168.100.4:3000/tracking?batch=${batch}`}
                           size="100"
                           includeMargin
@@ -698,7 +698,7 @@ const TableHarvest = () => {
                         <div>
                           <Chip
                             onClick={() => {
-                              saveSvgAsPng(document.getElementById('miQR'), `QR_lote_${batch}.png`, {
+                              saveSvgAsPng(document.getElementById(`${batch}`), `QR_lote_${batch}.png`, {
                                 scale: 60,
                               });
                             }}
