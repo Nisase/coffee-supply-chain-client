@@ -564,7 +564,7 @@ const TableAdmin = () => {
                       <Stack direction="column" spacing={1}>
                         <QRCode
                           bgColor="#FFFFFF"
-                          id="miQR"
+                          id={batch}
                           value={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
                           size="100"
                           includeMargin
@@ -574,7 +574,7 @@ const TableAdmin = () => {
                         <div>
                           <Chip
                             onClick={() => {
-                              saveSvgAsPng(document.getElementById('miQR'), `QR_lote_${batch}.png`, {
+                              saveSvgAsPng(document.getElementById(`${batch}`), `QR_lote_${batch}.png`, {
                                 scale: 60,
                               });
                             }}
