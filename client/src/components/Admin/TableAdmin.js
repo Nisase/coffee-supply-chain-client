@@ -77,7 +77,7 @@ function ShareSocialMedia(batch) {
     <Stack direction="row" spacing={1}>
       {/* <div> */}
       <FacebookShareButton
-        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
@@ -86,7 +86,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <WhatsappShareButton
-        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
@@ -95,7 +95,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <EmailShareButton
-        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -105,7 +105,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <TelegramShareButton
-        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
@@ -113,7 +113,7 @@ function ShareSocialMedia(batch) {
       {/* </div>{' '} */}
       {/* <div> */}
       <TwitterShareButton
-        url={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -247,7 +247,7 @@ const TableAdmin = () => {
 
   const assignState = (action) => {
     let arr = [];
-    if (action === 'FARMER') {
+    if (action === 'AGRICULTOR/PRODUCTOR') {
       arr = [
         'En Proceso',
         'No Disponible',
@@ -258,7 +258,7 @@ const TableAdmin = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'PROCESSOR') {
+    } else if (action === 'PROCESADOR') {
       arr = [
         'Completado',
         'En Proceso',
@@ -269,7 +269,7 @@ const TableAdmin = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'GRAIN_INSPECTOR') {
+    } else if (action === 'INSPECTOR DE GRANO/AGRICULTOR') {
       arr = [
         'Completado',
         'Completado',
@@ -280,7 +280,7 @@ const TableAdmin = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'AGGLOMERATOR') {
+    } else if (action === 'AGLOMERADOR') {
       arr = [
         'Completado',
         'Completado',
@@ -291,7 +291,7 @@ const TableAdmin = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'SHIPPER_PACKER') {
+    } else if (action === 'TRANSPORTISTA A EMPACADORA') {
       arr = [
         'Completado',
         'Completado',
@@ -302,7 +302,7 @@ const TableAdmin = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'PACKER') {
+    } else if (action === 'EMPACADORA') {
       arr = [
         'Completado',
         'Completado',
@@ -313,7 +313,7 @@ const TableAdmin = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'SHIPPER_RETAILER') {
+    } else if (action === 'TRANSPORTISTA A RETAILER') {
       arr = [
         'Completado',
         'Completado',
@@ -565,7 +565,7 @@ const TableAdmin = () => {
                         <QRCode
                           bgColor="#FFFFFF"
                           id={batch}
-                          value={`https://192.168.100.4:3000/dashboard/?batch=${batch}`}
+                          value={`https://192.168.100.4:3000/tracking?batch=${batch}`}
                           size="100"
                           includeMargin
                           renderAs="svg"

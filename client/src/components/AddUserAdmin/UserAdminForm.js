@@ -24,7 +24,7 @@ const initialValues = {
   userAddress: '0xce49E1834F30fD7572F87aCf2Af38C63B604Be69',
   name: 'FARMER 4',
   email: 'farmer4test@gmail.com',
-  role: 'FARMER',
+  role: 'AGRICULTOR/PRODUCTOR',
   isActive: true,
   profileHash: null,
 };
