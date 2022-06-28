@@ -252,7 +252,7 @@ const TableHarvest = () => {
 
   const assignState = (action) => {
     let arr = [];
-    if (action === 'FARMER') {
+    if (action === 'AGRICULTOR/PRODUCTOR') {
       arr = [
         'En Proceso',
         'No Disponible',
@@ -263,7 +263,7 @@ const TableHarvest = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'PROCESSOR') {
+    } else if (action === 'PROCESADOR') {
       arr = [
         'Completado',
         'En Proceso',
@@ -274,7 +274,7 @@ const TableHarvest = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'GRAIN_INSPECTOR') {
+    } else if (action === 'INSPECTOR DE GRANO/AGRICULTOR') {
       arr = [
         'Completado',
         'Completado',
@@ -285,7 +285,7 @@ const TableHarvest = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'AGGLOMERATOR') {
+    } else if (action === 'AGLOMERADOR') {
       arr = [
         'Completado',
         'Completado',
@@ -296,7 +296,7 @@ const TableHarvest = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'SHIPPER_PACKER') {
+    } else if (action === 'TRANSPORTISTA A EMPACADORA') {
       arr = [
         'Completado',
         'Completado',
@@ -307,7 +307,7 @@ const TableHarvest = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'PACKER') {
+    } else if (action === 'EMPACADORA') {
       arr = [
         'Completado',
         'Completado',
@@ -318,7 +318,7 @@ const TableHarvest = () => {
         'No Disponible',
         'No Disponible',
       ];
-    } else if (action === 'SHIPPER_RETAILER') {
+    } else if (action === 'TRANSPORTISTA A RETAILER') {
       arr = [
         'Completado',
         'Completado',
