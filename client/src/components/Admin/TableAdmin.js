@@ -588,6 +588,7 @@ const TableAdmin = () => {
                             }}
                             icon={<DownloadForOfflineRoundedIcon />}
                           />
+                          {console.log('url: ', `https://192.168.100.4:3000/tracking?batch=${batch}`)}
                         </div>
                       </Stack>
                     </Grid>
