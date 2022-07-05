@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRoutes, useSearchParams } from 'react-router-dom';
+import { useRoutes, useSearchParams, useLocation, Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import ThemeProvider from './theme';
@@ -20,6 +20,7 @@ import ShipPackerListener from './logic/AddShipPacker/ShipPackerListener';
 import PackerListener from './logic/AddPacker/PackerListener';
 import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
 import RetailerListener from './logic/AddRetailer/RetailerListener';
+import AskNextAction from './logic/GetNextAction/AskNextAction';
 
 import {
   setWalletAddress,
@@ -41,7 +42,7 @@ function App() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [searchParams] = useSearchParams();
-  const batch = searchParams.get('batch');
+  const batchParam = searchParams.get('batch');
 
   // UserInfo, Wallet and Owner //
   const [walletAddress, error] = useDetectProvider();
@@ -49,8 +50,10 @@ function App() {
   const userData = useSelector(userDataSelector);
   const loading = useSelector(loadingSelector);
   const walletAddressApp = useSelector(walletAddressSelector);
+  const { pathname } = useLocation();
 
-  console.log('batch: ', batch);
+  // console.log('batch: ', batch);
+  // console.log('path: ', pathname);
 
   useEffect(() => {
     // const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';
@@ -103,6 +106,26 @@ function App() {
     if (walletAddressApp) getUserLocal(walletAddressApp);
     else setNullUserLocal();
   }, [walletAddressApp, isOwner]);
+
+  useEffect(() => {
+    const verifyBatch = async () => {
+      // console.log('user.role: ', userData.role);
+      let actionRes;
+      if (pathname === '/tracking' && batchParam.length === 42) {
+        // <RouterLink to={'https://localhost:3000/login'} />;
+        console.log('user.role: ', userData.role);
+        // console.log('batch: ', batchParam);
+        // actionRes = await AskNextAction({ batchNo: batchParam });
+        // if (batchParam.length === 42) {
+        //   console.log('42');
+        //   if (actionRes.data === userData.role) {
+        //     console.log('role: ', actionRes.data);
+        //   }
+        // }
+      }
+    };
+    verifyBatch();
+  }, []);
 
   // END //
 
@@ -248,3 +271,5 @@ function App() {
 }
 
 export default App;
+
+// {(pathname === '/tracking' && batchParam.length === 42)? <RouterLink to={'https://localhost:3000/login'}></RouterLink> : }
