@@ -74,15 +74,17 @@ import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import HarvestForm from '../AddHarvest/HarvestForm';
 import UpdateUserForm from '../UpdateUser/UpdateUserForm';
 import {
-  setBatchNoQR,
-  setNextAction,
-  setMessageQR,
-  setReadyToAdd,
-  batchNoQRSelector,
-  nextActionSelector,
-  readyToAddSelector,
-  messageQRSelector,
-} from '../../redux/batchQRDataSlice';
+  setUrlExternal,
+  setBatchNoExternal,
+  setNextActionExternal,
+  setMessageExternal,
+  setReadyToAddExternal,
+  urlExternalSelector,
+  batchNoExternalSelector,
+  nextActionExternalSelector,
+  readyToAddExternalSelector,
+  messageExternalSelector,
+} from '../../redux/batchExternalDataSlice';
 
 function ShareSocialMedia(batch) {
   return (
@@ -242,10 +244,11 @@ const TableHarvest = () => {
   const [nextActionNew, setNextActionNew] = useState('');
   const walletAddress = useSelector(walletAddressSelector);
   const userData = useSelector(userDataSelector);
-  const batchNoQR = useSelector(batchNoQRSelector);
-  const nextAction = useSelector(nextActionSelector);
-  const messageQR = useSelector(messageQRSelector);
-  const readyToAdd = useSelector(readyToAddSelector);
+  const urlQR = useSelector(urlExternalSelector);
+  const batchNoQR = useSelector(batchNoExternalSelector);
+  const nextAction = useSelector(nextActionExternalSelector);
+  const messageQR = useSelector(messageExternalSelector);
+  const readyToAdd = useSelector(readyToAddExternalSelector);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   // const [searchBatchParams, setSearchBatchParams] = useSearchParams();
@@ -366,10 +369,11 @@ const TableHarvest = () => {
   };
   const handleCloseBatch = () => {
     setOpenBatch(false);
-    dispatch(setMessageQR(''));
-    dispatch(setReadyToAdd(false));
-    dispatch(setBatchNoQR(''));
-    dispatch(setNextAction(''));
+    dispatch(setMessageExternal(''));
+    dispatch(setReadyToAddExternal(false));
+    dispatch(setBatchNoExternal(''));
+    dispatch(setUrlExternal(''));
+    dispatch(setNextActionExternal(''));
   };
   const handleClickOpenLectorQR = () => {
     setOpenLectorQR(true);
@@ -378,13 +382,15 @@ const TableHarvest = () => {
     setDataQR('');
     setStateLectorQR(false);
     setOpenLectorQR(false);
-    dispatch(setMessageQR(''));
-    dispatch(setReadyToAdd(false));
-    dispatch(setBatchNoQR(''));
-    dispatch(setNextAction(''));
+    dispatch(setMessageExternal(''));
+    dispatch(setReadyToAddExternal(false));
+    dispatch(setBatchNoExternal(''));
+    dispatch(setUrlExternal(''));
+    dispatch(setNextActionExternal(''));
   };
 
   const handleAddQR = () => {
+    console.log('redux 0:', urlQR);
     console.log('redux 1: ', batchNoQR);
     console.log('redux 2: ', nextAction);
     console.log('redux 3: ', messageQR);
@@ -403,7 +409,9 @@ const TableHarvest = () => {
     let str;
     let res;
 
-    dispatch(setMessageQR(`La url ${batchNoUrl} no contiene un número de lote correcto. Ingrese un código QR válido.`));
+    dispatch(
+      setMessageExternal(`La url ${batchNoUrl} no contiene un número de lote correcto. Ingrese un código QR válido.`)
+    );
 
     if (batchNoUrl.includes('?batch=0x')) {
       str = batchNoUrl.split('?batch=');
@@ -415,10 +423,11 @@ const TableHarvest = () => {
         if (res.data === userData.role) {
           setBatchNew(str[1]);
           setNextActionNew(res.data);
-          dispatch(setMessageQR(`Código QR válido. Proceda a agregar información de cosecha.`));
-          dispatch(setReadyToAdd(true));
-          dispatch(setBatchNoQR(str[1]));
-          dispatch(setNextAction(res.data));
+          dispatch(setMessageExternal(`Código QR válido. Proceda a agregar información de cosecha.`));
+          dispatch(setReadyToAddExternal(true));
+          dispatch(setBatchNoExternal(str[1]));
+          dispatch(setUrlExternal(batchNoUrl));
+          dispatch(setNextActionExternal(res.data));
           // enqueueSnackbar(messageQR, { variant: 'success' });
           console.log('HOOA');
         }
@@ -435,6 +444,7 @@ const TableHarvest = () => {
       enqueueSnackbar(messageQR, { variant: 'error' });
     }
     // enqueueSnackbar(messageQR);
+    console.log('redux 0:', urlQR);
     console.log('redux 1: ', batchNoQR);
     console.log('redux 2: ', nextAction);
     console.log('redux 3: ', messageQR);
@@ -573,6 +583,10 @@ const TableHarvest = () => {
                             {dataQR}
                           </Typography>
                           <Typography variant="body2" sx={{ fontSize: 14 }} color="text.secondary">
+                            {'hola'}
+                            <br />
+                            {urlQR}
+                            <br />
                             {batchNoQR}
                             <br />
                             {nextAction}
