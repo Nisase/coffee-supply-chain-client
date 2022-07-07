@@ -28,7 +28,7 @@ const GREY = {
   500_80: alpha('#919EAB', 0.8),
 };
 
-const PRIMARY = {
+const COMP1 = {
   lighter: '#FBBC9D',
   light: '#F78750',
   main: '#AF4108',
@@ -37,7 +37,7 @@ const PRIMARY = {
   contrastText: '#fff',
 };
 
-const SECONDARY = {
+const COMP2 = {
   lighter: '#B3B286',
   light: '#71704D',
   main: '#838350',
@@ -46,7 +46,7 @@ const SECONDARY = {
   contrastText: '#fff',
 };
 
-const TERTIARY = {
+const COMP3 = {
   lighter: '#B2999A',
   light: '#836668',
   main: '#705C5D',
@@ -55,7 +55,7 @@ const TERTIARY = {
   contrastText: '#fff',
 };
 
-const QUATERNARY = {
+const COMP4 = {
   lighter: '#DBB894',
   light: '#D1A375',
   main: '#B67A3D',
@@ -64,7 +64,7 @@ const QUATERNARY = {
   contrastText: '#fff',
 };
 
-const FIFTH = {
+const COMP5 = {
   lighter: '#81C0C5',
   light: '#76BBC0',
   main: '#57ACB2',
@@ -73,7 +73,7 @@ const FIFTH = {
   contrastText: '#fff',
 };
 
-const SIXTH = {
+const COMP6 = {
   lighter: '#F9D2B4',
   light: '#F6BB8E',
   main: '#F4B382',
@@ -82,7 +82,7 @@ const SIXTH = {
   contrastText: '#fff',
 };
 
-const SEVENTH = {
+const COMP7 = {
   lighter: '#6D9DC5',
   light: '#4075A0',
   main: '#2F5575',
@@ -91,30 +91,48 @@ const SEVENTH = {
   contrastText: '#fff',
 };
 
-const EIGHTH = {
-  lighter: '#F9D2B4',
-  light: '#F6BB8E',
-  main: '#F4B382',
-  dark: '#F09956',
-  darker: '#EB771E',
+const PRIMARY = {
+  lighter: '#0E7981',
+  light: '#0A575C',
+  main: '#042A2B',
+  dark: '#042325',
+  darker: '021112',
   contrastText: '#fff',
 };
 
-const NINTH = {
-  lighter: '#F9D2B4',
-  light: '#F6BB8E',
-  main: '#F4B382',
-  dark: '#F09956',
-  darker: '#EB771E',
+const SECONDARY = {
+  lighter: '#E37B64',
+  light: '#DC5E41',
+  main: '#CF4526',
+  dark: '#AC3920',
+  darker: '#672213',
   contrastText: '#fff',
 };
 
-const TENTH = {
-  lighter: '#F9D2B4',
-  light: '#F6BB8E',
-  main: '#F4B382',
-  dark: '#F09956',
-  darker: '#EB771E',
+const TERTIARY = {
+  lighter: '#99CDD6',
+  light: '#7CBFCB',
+  main: '#5EB1BF',
+  dark: '#4092A0',
+  darker: '#295D66',
+  contrastText: '#fff',
+};
+
+const QUATERNARY = {
+  lighter: '#F7BCA1',
+  light: '#F29469',
+  main: '#EF7B45',
+  dark: '#EB5F1E',
+  darker: '#CE4E12',
+  contrastText: '#fff',
+};
+
+const FIFTH = {
+  lighter: '#EEF9FC',
+  light: '#DDF3F9',
+  main: '#CDEDF6',
+  dark: '#86D4E9',
+  darker: '#41BBDC',
   contrastText: '#fff',
 };
 
@@ -177,8 +195,13 @@ const palette = {
   tertiary: { ...TERTIARY },
   quaternary: { ...QUATERNARY },
   fifth: { ...FIFTH },
-  sixth: { ...SIXTH },
-  seventh: { ...SEVENTH },
+  comp1: { ...COMP1 },
+  comp2: { ...COMP2 },
+  comp3: { ...COMP3 },
+  comp4: { ...COMP4 },
+  comp5: { ...COMP5 },
+  comp6: { ...COMP6 },
+  comp7: { ...COMP7 },
   info: { ...INFO },
   success: { ...SUCCESS },
   warning: { ...WARNING },
@@ -187,8 +210,20 @@ const palette = {
   gradients: GRADIENTS,
   chart: CHART_COLORS,
   divider: GREY[500_24],
-  text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-  background: { paper: '#fff', default: GREY[100], neutral: GREY[200] },
+  text: { primary: GREY[900], secondary: GREY[600], disabled: GREY[500] },
+  // background: { paper: '#fff', default: GREY[100], neutral: GREY[200] },
+  // background: { paper: '#fff', default: GREY[100], neutral: 'primary#612940' },
+  background: { paper: '#fff', default: GREY[100], neutral: '#042A2B', verd: '#042A2B' },
+  // '#042A2B'
+  // '#E55B13'
+  // 19323C
+
+  // background: {
+  //   paper: 'linear-gradient(to bottom, red, yellow)',
+  //   default: 'linear-gradient(to bottom, red, yellow)',
+  //   neutral: GREY[200],
+  // },
+
   action: {
     active: GREY[600],
     hover: GREY[500_8],

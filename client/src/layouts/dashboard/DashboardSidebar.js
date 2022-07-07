@@ -4,7 +4,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // material
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
@@ -182,6 +182,7 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+  const theme = useTheme();
   const userInfo = useSelector(userDataSelector);
 
   const [navOptions, setNavOptions] = useState([
@@ -217,10 +218,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <AccountStyle>
               <Avatar src={userInfo.profileHash} alt="photoURL" />
               <Box sx={{ ml: 2 }}>
-                <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+                <Typography variant="subtitle2" sx={{ color: (theme) => theme.palette.grey[300] }}>
                   {userInfo.name}
                 </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                <Typography variant="body2" sx={{ color: (theme) => theme.palette.grey[400] }}>
                   Rol: {userInfo.role}
                 </Typography>
               </Box>

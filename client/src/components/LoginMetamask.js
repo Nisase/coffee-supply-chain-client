@@ -33,14 +33,16 @@ const LoginMetamask = () => {
             size="large"
             type="submit"
             loading={false}
-            color="primary"
+            color="secondary"
+            // color="primary"
           >
             Conectar Wallet Metamask
           </LoadingButton>
           <div className="w-full h-1 my-3" />
           <LoadingButton
             onClick={handleClickMetamask}
-            color="quaternary"
+            // color="secondary"
+            color="primary"
             variant="contained"
             type="submit"
             loading={false}

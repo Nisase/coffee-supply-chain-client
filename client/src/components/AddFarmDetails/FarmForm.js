@@ -1,10 +1,24 @@
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
+import { useTheme, styled } from '@mui/material/styles';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button } from '@mui/material';
+import {
+  Grid,
+  Container,
+  Typography,
+  Button,
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CardHeader,
+} from '@mui/material';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import PendingConfirmation from '../PendingConfirmation';
 
@@ -28,6 +42,7 @@ const valSchema = Yup.object().shape({
 });
 
 const FarmForm = () => {
+  const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
@@ -66,25 +81,90 @@ const FarmForm = () => {
               {({ dirty, isValid }) => (
                 <Form>
                   <Grid container spacing={2}>
-                    {/* <Grid item xs={12}>
-                      <Typography className="mb-5 font-semibold underline underline-offset-2">
-                        INFORMACIÓN DE LA GRANJA
-                      </Typography>
-                    </Grid> */}
-                    <Grid item xs={6}>
-                      <TextfieldWrapper name="farmName" label="Nombre de la Granja" />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextfieldWrapper name="latitude" label="Latitud" />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextfieldWrapper name="longitude" label="Longitud" />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextfieldWrapper name="farmAddress" label="Dirección de la Granja" />
+                    <Grid item xs={12}>
+                      <TextfieldWrapper
+                        sx={{
+                          boxShadow: 0,
+                          paddingBottom: 0,
+                        }}
+                        name="farmName"
+                        label="Nombre de la Granja"
+                      />
                     </Grid>
                     <Grid item xs={12}>
-                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
+                      <Card
+                        sx={{
+                          boxShadow: 3,
+                        }}
+                      >
+                        <CardHeader
+                          title="Información sobre Ubicación de la Granja"
+                          sx={{
+                            color: 'grey.700',
+                          }}
+                          // className="mb-3 font-semibold"
+                        />
+                        <CardContent>
+                          <Grid item xs={12}>
+                            <TextfieldWrapper
+                              name="farmAddress"
+                              label="Dirección de la Granja"
+                              sx={{
+                                boxShadow: 0,
+                                paddingBottom: 2,
+                                borderRadius: '0%',
+                                borderBottom: 'none',
+                              }}
+                            />
+                          </Grid>
+                          <Grid item xs={12}>
+                            <Grid container spacing={2}>
+                              <Grid item xs={6}>
+                                <TextfieldWrapper
+                                  name="latitude"
+                                  label="Latitud"
+                                  sx={{
+                                    boxShadow: 0,
+                                  }}
+                                />
+                              </Grid>
+                              <Grid item xs={6}>
+                                {' '}
+                                <TextfieldWrapper
+                                  name="longitude"
+                                  label="Longitud"
+                                  sx={{
+                                    boxShadow: 0,
+                                  }}
+                                />
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                        <CardActions sx={{ display: 'flex', justifyContent: 'right' }}>
+                          <Button size="small" color="quaternary" startIcon={<MyLocationIcon />} variant="contained">
+                            Obtener mi ubicación actual
+                          </Button>
+                          <Button
+                            size="small"
+                            color="quaternary"
+                            variant="contained"
+                            startIcon={<AddLocationAltIcon />}
+                          >
+                            Buscar ubicación en el mapa
+                          </Button>
+                        </CardActions>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        disabled={!dirty || !isValid}
+                        type="submit"
+                        color="secondary"
+                      >
                         {' '}
                         REGISTRAR GRANJA
                       </Button>

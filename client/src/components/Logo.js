@@ -14,30 +14,30 @@ Logo.propTypes = {
 export default function Logo({ urlLink = '/', disabledLink = false, sx }) {
   const theme = useTheme();
 
-  const PRIMARY_LIGHT = theme.palette.primary.light;
+  const COMP1_LIGHT = theme.palette.comp1.light;
 
-  const PRIMARY_MAIN = theme.palette.primary.main;
+  const COMP1_MAIN = theme.palette.comp1.main;
 
-  const PRIMARY_DARK = theme.palette.primary.dark;
-  const PRIMARY_DARKER = theme.palette.primary.darker;
+  const COMP1_DARK = theme.palette.comp1.dark;
+  const COMP1_DARKER = theme.palette.comp1.darker;
 
-  const TERTIARY_LIGHT = theme.palette.tertiary.light;
+  const COMP3_LIGHT = theme.palette.comp3.light;
 
-  const TERTIARY_MAIN = theme.palette.tertiary.main;
+  const COMP3_MAIN = theme.palette.comp3.main;
 
-  const TERTIARY_DARK = theme.palette.tertiary.dark;
+  const COMP3_DARK = theme.palette.comp3.dark;
 
-  const SECONDARY_LIGHT = theme.palette.secondary.light;
+  const COMP2_LIGHT = theme.palette.comp2.light;
 
-  const SECONDARY_MAIN = theme.palette.secondary.main;
+  const COMP2_MAIN = theme.palette.comp2.main;
 
-  const SECONDARY_DARK = theme.palette.secondary.dark;
+  const COMP2_DARK = theme.palette.comp2.dark;
 
-  const QUATERNARY_LIGHT = theme.palette.quaternary.light;
+  const COMP4_LIGHT = theme.palette.comp4.light;
 
-  const QUATERNARY_MAIN = theme.palette.quaternary.main;
+  const COMP4_MAIN = theme.palette.comp4.main;
 
-  const QUATERNARY_DARK = theme.palette.quaternary.dark;
+  const COMP4_DARK = theme.palette.comp4.dark;
 
   const ERROR_LIGHT = theme.palette.error.light;
 
@@ -54,10 +54,10 @@ export default function Logo({ urlLink = '/', disabledLink = false, sx }) {
         <defs>
           <linearGradient id="BG1" x1="100%" x2="50%" y1="9.946%" y2="50%">
             <stop offset="0%" stopColor={ERROR_DARK} />
-            <stop offset="100%" stopColor={QUATERNARY_MAIN} />
+            <stop offset="100%" stopColor={COMP4_MAIN} />
           </linearGradient>
           <linearGradient id="BG2" x1="50%" x2="50%" y1="0%" y2="100%">
-            <stop offset="0%" stopColor={SECONDARY_LIGHT} />
+            <stop offset="0%" stopColor={COMP2_LIGHT} />
             <stop offset="100%" stopColor={ERROR_DARK} />
           </linearGradient>
         </defs>
