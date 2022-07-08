@@ -13,6 +13,7 @@ import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import AskHarvest from '../../logic/GetHavest/AskHarvest';
 import AskProcess from '../../logic/GetProcess/AskProcess';
 import AskGrainInspection from '../../logic/GetGrainInspection/AskGrainInspection';
+import AskAgglom from '../../logic/GetAgglom/AskAgglom';
 
 
 
@@ -22,10 +23,20 @@ const TimeLine = ({ batchNoIn }) => {
   const [harversData, setHarversData] = useState({});
   const [processData, setProcessData] = useState({});
   const [inspectData, setInspectData] = useState({});
+  const [agglomData, setAgglomData] = useState({});
 
   // https://docs.ethers.io/v5/concepts/events/
   // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
+  const parseFloat =(str, radix)=>
+  {
+      const parts = str.split(".");
+      if ( parts.length > 1 )
+      {
+          return parseInt(parts[0], radix) + parseInt(parts[1], radix) / (radix **parts[1].length);
+      }
+      return parseInt(parts[0], radix);
+  }
 
   useEffect(() => {
     const de = async () => {
@@ -41,8 +52,10 @@ const TimeLine = ({ batchNoIn }) => {
       setHarversData(await AskHarvest({ batchNo:  batchNoIn}));
       setProcessData(await AskProcess({ batchNo:  batchNoIn}));
       setInspectData(await AskGrainInspection({ batchNo:  batchNoIn}));
-      console.log(nextAction)
-      console.log(inspectData)
+      setAgglomData(await AskAgglom({ batchNo:  batchNoIn}));
+      // console.log(nextAction)
+      console.log(harversData)
+
       // setBatchNo(batchTemp);
       // setNextActions(await Promise.all(nextActionsTemp));
     };
@@ -56,21 +69,24 @@ const TimeLine = ({ batchNoIn }) => {
         <div style={{backgroundImage:"url(static/icons/data_shapes.svg)"}} className="w-full h-full absolute opacity-10"><br/></div>
         <Timeline>
           <TimelineItem className="relative">
-          {
-            false && <TimelineOppositeContent sx={{ m: 'auto 0' }} align="right" variant="body2" color="text.secondary">
-              9:30 am
+          <TimelineOppositeContent sx={{ m: 'auto 0' }} align="right" variant="body2">
+              <Typography variant="h6" component="span">
+              Cosecha
+              { processData.data && 
+              <span className=''>
+                <br/>
+                {processData.data.millDate}
+              </span>
+              }
+              </Typography>
             </TimelineOppositeContent>
-          }
             <TimelineSeparator>
               <TimelineDot variant="outlined" className='h-16 w-16'>
                 <img alt="" src='static/icons/cosecha.png' className='h-auto w-auto p-1'/>
               </TimelineDot>
               <TimelineConnector />
             </TimelineSeparator>
-            <TimelineContent sx={{ py: '16px', px: 2 }}>
-              <Typography variant="h6" component="span">
-              Cosecha
-              </Typography>
+            <TimelineContent sx={{ py: '16px', px: 2 }}>              
               { harversData.data && <div className='flex flex-row'>
               <div className='flex flex-col w-8/12'>
               <Typography><span className='underline mr-2'>Familia:</span>{harversData.data.coffeeFamily}</Typography>
@@ -79,6 +95,7 @@ const TimeLine = ({ batchNoIn }) => {
               <div className='flex items-center justify-center w-full'>
               <div className='bg-gray-200 p-2 rounded-lg hover:cursor-pointer hover:underline'>
                 Más Información
+                <a href='http://localhost:3000/dashboard?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197'>INGRESAR INFO</a>
               </div>
               </div>
               </div>
@@ -99,12 +116,13 @@ const TimeLine = ({ batchNoIn }) => {
             </TimelineSeparator>
             <TimelineContent sx={{ py: '16px', px: 2 }}>
               <Typography variant="h6" component="span">
-                Procesado
+                Procesados
               </Typography>
               { processData.data && <div className='flex flex-row'>
               <div className='flex flex-col w-8/12'>
               <Typography><span className='underline mr-2'>Secado:</span>{processData.data.typeOfDrying}</Typography>
-              <Typography><span className='underline mr-2'>Tueste:</span>{processData.data.typeOfRoast}</Typography>  
+              <Typography><span className='underline mr-2'>Tueste:</span>{ processData.data.typeOfRoast}</Typography>
+              <Typography><span className='underline mr-2'>Precio:</span>{ parseFloat(processData.data.processorPrice._hex, 16)}</Typography>  
               </div>
               <div className='flex items-center justify-center w-full'>
               <div className='bg-gray-200 p-2 rounded-lg hover:cursor-pointer hover:underline'>
@@ -122,12 +140,14 @@ const TimeLine = ({ batchNoIn }) => {
               </TimelineDot>
               <TimelineConnector/>
             </TimelineSeparator>
-            <TimelineContent sx={{ py: '35px', px: 2 }}>
+            <TimelineContent sx={{ py: '16px', px: 2 }}>
               <Typography variant="h6" component="span">
                 Inspección del Grano
               </Typography>
               { inspectData.data && <div className='flex flex-row'>
-              <div className='flex flex-col w-8/12'>hol
+              <div className='flex flex-col w-8/12'>
+              <Typography><span className='underline mr-2'>Precio:</span>{parseFloat(inspectData.data.grainPrice._hex, 16)}</Typography>
+              <Typography><span className='underline mr-2'>Catacion:</span>{parseFloat(inspectData.data.tasteScore._hex, 16)}</Typography>  
               </div>
               <div className='flex items-center justify-center w-full'>
               <div className='bg-gray-200 p-2 rounded-lg hover:cursor-pointer hover:underline'>
@@ -140,16 +160,26 @@ const TimeLine = ({ batchNoIn }) => {
           </TimelineItem>
           <TimelineItem>
             <TimelineSeparator>
-              <TimelineConnector/>
               <TimelineDot variant="outlined" className='h-16 w-16'>
                 <img alt="" src='static/icons/aglomerado.png' className='h-auto w-auto p-1'/>
               </TimelineDot>
             </TimelineSeparator>
-            <TimelineContent sx={{ py: '35px', px: 2 }}>
+            <TimelineContent sx={{ py: '16px', px: 2 }}>
               <Typography variant="h6" component="span">
                 Aglomerado
               </Typography>
-              <Typography>Because this is the life you love!</Typography>
+              { agglomData.data && <div className='flex flex-row'>
+              <div className='flex flex-col w-8/12'>
+              <Typography><span className='underline mr-2'>Direccion:</span>{agglomData.data.agglomAddress}</Typography>
+              <Typography><span className='underline mr-2'>Precio:</span>{parseFloat(agglomData.data.storagePrice._hex, 16)}</Typography>  
+              </div>
+              <div className='flex items-center justify-center w-full'>
+              <div className='bg-gray-200 p-2 rounded-lg hover:cursor-pointer hover:underline'>
+                Más Información
+              </div>
+              </div>
+              </div>
+              }
             </TimelineContent>
           </TimelineItem>
           <TimelineItem>

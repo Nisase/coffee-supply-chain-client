@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, useLocation, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import ThemeProvider from './theme';
@@ -42,14 +42,17 @@ function App() {
   const { enqueueSnackbar } = useSnackbar();
 
   // UserInfo, Wallet and Owner //
-  const [walletAddress, error] = useDetectProvider();
+  const [walletAddress, error, requestAccount] = useDetectProvider(true);
   const [isOwner, setIsOwner] = useState(false);
   const userData = useSelector(userDataSelector);
   const loading = useSelector(loadingSelector);
   const walletAddressApp = useSelector(walletAddressSelector);
 
+  const location = useLocation()
+  const [searchParams] = useSearchParams();
+  const batch = searchParams.get('batch');
+
   useLayoutEffect(() => {
-    console.log("SET ADDRES")
     // const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';
     const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
     // const coffeAddress = '0x37F97d0D133c2217Fa058944eA3C69B030e658FC';
@@ -57,11 +60,17 @@ function App() {
     
     window.userAddress = userAddress;
     window.coffeAddress = coffeAddress;
-    console.log(window.coffeAddress)
 
     dispatch(setUserAddress(userAddress));
     dispatch(setCoffeAddress(coffeAddress));
   }, []);
+
+  useEffect(() => {
+    if(location.pathname==="/dashboard" && !userData){
+      // requestAccount()
+      // console.log(userData)
+    }
+  }, [location]);
 
   useEffect(() => {
     dispatch(setWalletAddress(walletAddress));
