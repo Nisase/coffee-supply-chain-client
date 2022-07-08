@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useRoutes, useSearchParams } from 'react-router-dom';
+import { useEffect, useState, useLayoutEffect } from 'react';
+import { useRoutes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import ThemeProvider from './theme';
@@ -40,8 +40,6 @@ import getOwner from './logic/GetOwner';
 function App() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const [searchParams] = useSearchParams();
-  const batch = searchParams.get('batch');
 
   // UserInfo, Wallet and Owner //
   const [walletAddress, error] = useDetectProvider();
@@ -50,19 +48,20 @@ function App() {
   const loading = useSelector(loadingSelector);
   const walletAddressApp = useSelector(walletAddressSelector);
 
-  console.log('batch: ', batch);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log("SET ADDRES")
     // const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';
     const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
     // const coffeAddress = '0x37F97d0D133c2217Fa058944eA3C69B030e658FC';
     const coffeAddress = '0x5F87cD4E112beb3AF8918Be2Eb232DdEF032f69d';
-    dispatch(setUserAddress(userAddress));
-    dispatch(setCoffeAddress(coffeAddress));
-
+    
     window.userAddress = userAddress;
     window.coffeAddress = coffeAddress;
-  });
+    console.log(window.coffeAddress)
+
+    dispatch(setUserAddress(userAddress));
+    dispatch(setCoffeAddress(coffeAddress));
+  }, []);
 
   useEffect(() => {
     dispatch(setWalletAddress(walletAddress));

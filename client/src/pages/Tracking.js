@@ -16,11 +16,10 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
-  justifyContent: 'center',
+  // justifyContent: 'center',
   flexDirection: 'column',
   padding: theme.spacing(12, 0),
 }));
@@ -31,14 +30,20 @@ export default function Tracking() {
   const [searchParams] = useSearchParams();
   const batch = searchParams.get('batch');
 
-  // http://localhost:3000/tracking?batch=0xd63f65EB4D5F6116BEa6A97f0D7433F8Db0B2b65
+  // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
   return (
     <Page title="Login">
       <RootStyle>
-        <Container maxWidth="sm">
-          <ContentStyle>
+        <Container>
+          <ContentStyle className='w-full'>
+            {batch ?
             <TimeLine batchNoIn={batch} />
+            :
+            <>
+            Bach No Valido: Probar con <a href='http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197'>0x6B4964E34816C7FF32EA3787c2C615E583715197</a>
+            </>
+           }
           </ContentStyle>
         </Container>
       </RootStyle>
