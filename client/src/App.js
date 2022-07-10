@@ -124,26 +124,6 @@ function App() {
     else setNullUserLocal();
   }, [walletAddressApp, isOwner]);
 
-  useEffect(() => {
-    const verifyBatch = async () => {
-      // console.log('user.role: ', userData.role);
-      let actionRes;
-      if (pathname === '/tracking' && batchParam.length === 42) {
-        // <RouterLink to={'https://localhost:3000/login'} />;
-        console.log('user.role: ', userData.role);
-        // console.log('batch: ', batchParam);
-        // actionRes = await AskNextAction({ batchNo: batchParam });
-        // if (batchParam.length === 42) {
-        //   console.log('42');
-        //   if (actionRes.data === userData.role) {
-        //     console.log('role: ', actionRes.data);
-        //   }
-        // }
-      }
-    };
-    verifyBatch();
-  }, []);
-
   // END //
 
   // Transactions Listeners in APP //
