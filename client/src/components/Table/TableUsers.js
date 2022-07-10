@@ -430,7 +430,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                         bgColor="#FFFFFF"
                         id={batch}
                         value={`https://192.168.100.4:3000/tracking?batch=${batch}`}
-                        size="100"
+                        size="40"
                         includeMargin
                         renderAs="svg"
                       />
@@ -475,7 +475,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
               </StyledTableRow>
             ))}
             {emptyRows > 0 && (
-              <StyledTableRow style={{ height: 166 * emptyRows }}>
+              <StyledTableRow style={{ height: 200 * emptyRows }}>
                 <StyledTableCell colSpan={3} />
               </StyledTableRow>
             )}
@@ -483,7 +483,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[2, 5, 10, 25]}
+                rowsPerPageOptions={[5, 10, 25]}
                 count={batchNo.length}
                 rowsPerPage={rowsPerPage}
                 page={page}

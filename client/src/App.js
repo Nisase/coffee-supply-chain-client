@@ -32,6 +32,16 @@ import {
   walletAddressSelector,
   loadingSelector,
 } from './redux/appDataSlice';
+import {
+  setDirectionData,
+  setLatitudeData,
+  setLongitudeData,
+  setLocReadyToAddData,
+  directionDataSelector,
+  latitudeDataSelector,
+  longitudeDataSelector,
+  locReadyToAddDataSelector,
+} from './redux/locationDataSlice';
 import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
 import { txListSelector, removeTx } from './redux/txSlice';
 
@@ -156,6 +166,10 @@ function App() {
         variant: 'success',
       });
       dispatch(removeTx({ tx: farmRegistered.tx, type: 'SetFarmDetails' }));
+      dispatch(setDirectionData(''));
+      dispatch(setLatitudeData(''));
+      dispatch(setLongitudeData(''));
+      dispatch(setLocReadyToAddData(false));
     }
   }, [farmRegistered, txList]);
 

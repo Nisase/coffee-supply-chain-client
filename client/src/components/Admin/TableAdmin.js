@@ -631,7 +631,7 @@ const TableAdmin = () => {
                   // }}
                 > */}
                 <TablePagination
-                  rowsPerPageOptions={[2, 5, 10, 25]}
+                  rowsPerPageOptions={[5, 10, 25]}
                   count={batchNo.length}
                   rowsPerPage={rowsPerPage}
                   page={page}

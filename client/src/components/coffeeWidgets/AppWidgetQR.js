@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes, { element } from 'prop-types';
+import PropTypes from 'prop-types';
 import {
   Grid,
   Container,
   Typography,
   Tooltip,
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
   Paper,
   Fab,
   IconButton,
@@ -31,49 +25,19 @@ import {
   DialogActions,
   TextareaAutosize,
 } from '@mui/material';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
-import { chipClasses } from '@mui/material/Chip';
-import { tooltipClasses } from '@mui/material/Tooltip';
-import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  FacebookIcon,
-  WhatsappIcon,
-  EmailIcon,
-  TwitterIcon,
-  TelegramIcon,
-} from 'react-share';
 import { v4 as uuid } from 'uuid';
-import { saveSvgAsPng } from 'save-svg-as-png';
-import QRCode from 'qrcode.react';
 import { QrReader } from 'react-qr-reader';
-import { GetApp } from '@mui/icons-material';
-import DownloadForOfflineRoundedIcon from '@mui/icons-material/DownloadForOfflineRounded';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
-import PendingRoundedIcon from '@mui/icons-material/PendingRounded';
-import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded';
-import RunningWithErrorsRoundedIcon from '@mui/icons-material/RunningWithErrorsRounded';
-import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
-import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+
 import CloseIcon from '@mui/icons-material/Close';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import { walletAddressSelector, userDataSelector } from '../../redux/appDataSlice';
-import { getCoffeERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import HarvestForm from '../AddHarvest/HarvestForm';
-import UpdateUserForm from '../UpdateUser/UpdateUserForm';
 import {
   setUrlExternal,
   setBatchNoExternal,
@@ -182,12 +146,11 @@ export default function AppWidgetQR({
   };
 
   const handleAddQR = () => {
-    console.log('redux 0:', urlQR);
-    console.log('redux 1: ', batchNoQR);
-    console.log('redux 2: ', nextAction);
-    console.log('redux 3: ', messageQR);
-    console.log('redux 4: ', readyToAdd);
-    enqueueSnackbar(messageQR);
+    // console.log('redux 0:', urlQR);
+    // console.log('redux 1: ', batchNoQR);
+    // console.log('redux 2: ', nextAction);
+    // console.log('redux 3: ', messageQR);
+    // console.log('redux 4: ', readyToAdd);
     if (readyToAdd) {
       setOpenBatch(true);
       setStateLectorQR(false);
@@ -200,6 +163,7 @@ export default function AppWidgetQR({
   const getNextAction = async (batchNoUrl) => {
     let str;
     let res;
+    let validBatch = false;
 
     dispatch(
       setMessageExternal(`La url ${batchNoUrl} no contiene un número de lote correcto. Ingrese un código QR válido.`)
@@ -209,9 +173,6 @@ export default function AppWidgetQR({
       str = batchNoUrl.split('?batch=');
       res = await AskNextAction({ batchNo: str[1] });
       if (str[1].length === 42) {
-        console.log('42');
-        console.log('res.data', res.data);
-        console.log('usedata.role', userData.role);
         if (res.data === userData.role) {
           setBatchNew(str[1]);
           setNextActionNew(res.data);
@@ -220,27 +181,22 @@ export default function AppWidgetQR({
           dispatch(setBatchNoExternal(str[1]));
           dispatch(setUrlExternal(batchNoUrl));
           dispatch(setNextActionExternal(res.data));
-          // enqueueSnackbar(messageQR, { variant: 'success' });
-          console.log('HOOA');
+          validBatch = true;
         }
       }
     }
-    // enqueueSnackbar(messageQR,  { variant: 'error' });
-    messageShow();
-  };
 
-  const messageShow = () => {
-    if (readyToAdd) {
-      enqueueSnackbar(messageQR, { variant: 'success' });
+    if (validBatch) {
+      enqueueSnackbar(`Código QR válido. Proceda a agregar información de cosecha.`, { variant: 'success' });
     } else {
-      enqueueSnackbar(messageQR, { variant: 'error' });
+      enqueueSnackbar(
+        `La url ${batchNoUrl} no contiene un número de lote correcto.
+      Ingrese un código QR válido.`,
+        {
+          variant: 'error',
+        }
+      );
     }
-    // enqueueSnackbar(messageQR);
-    console.log('redux 0:', urlQR);
-    console.log('redux 1: ', batchNoQR);
-    console.log('redux 2: ', nextAction);
-    console.log('redux 3: ', messageQR);
-    console.log('redux 4: ', readyToAdd);
   };
 
   return (
@@ -269,11 +225,19 @@ export default function AppWidgetQR({
           >
             {buttonText}
           </Button>
-          <BootstrapDialog aria-labelledby="customized-dialog-title" open={openLectorQR}>
+          <BootstrapDialog
+            PaperProps={{ sx: { width: '40%' } }}
+            aria-labelledby="customized-dialog-title"
+            open={openLectorQR}
+          >
             <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLectorQR}>
               {dialogTitle}
             </BootstrapDialogTitle>
-            <DialogContent dividers>
+            <DialogContent
+              dividers
+              // PaperProps={{ sx: { width: '80%' } }}
+              sx={{ margin: 0, padding: 0 }}
+            >
               <Grid container sx={{ justifyContent: 'center' }}>
                 <Grid item>
                   <QrReader
@@ -284,11 +248,10 @@ export default function AppWidgetQR({
                         getNextAction(result?.text);
                       }
                     }}
-                    style={{ width: '100%' }}
                     containerStyle={{
                       marginTop: '0px',
                       paddingTop: '0px',
-                      width: '500px',
+                      width: '350px',
                     }}
                   />
                 </Grid>
@@ -296,26 +259,13 @@ export default function AppWidgetQR({
                   <Grid item>
                     <Typography
                       variant="h6"
-                      sx={{ fontSize: 14 }}
+                      sx={{ color: 'grey.700' }}
                       // color="text.secondary"
                     >
-                      Su código es:{' '}
+                      Su código contiene:{' '}
                     </Typography>
                     <Typography variant="body2" sx={{ fontSize: 14 }} color="text.secondary">
                       {dataQR}
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontSize: 14 }} color="text.secondary">
-                      {'hola'}
-                      <br />
-                      {urlQR}
-                      <br />
-                      {batchNoQR}
-                      <br />
-                      {nextAction}
-                      <br />
-                      {messageQR}
-                      <br />
-                      {readyToAdd ? 'true' : 'false'}
                     </Typography>
                   </Grid>
                 ) : (

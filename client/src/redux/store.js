@@ -3,6 +3,7 @@ import appDataSliceReducer from './appDataSlice';
 import contractsAddressReducer from './contractsAddressSlice';
 import txReducer from './txSlice';
 import batchExternalDataReducer from './batchExternalDataSlice';
+import locationDataReducer from './locationDataSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     contractsAddress: contractsAddressReducer,
     tx: txReducer,
     batchExternalData: batchExternalDataReducer,
+    locationData: locationDataReducer,
   },
 });
