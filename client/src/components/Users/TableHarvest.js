@@ -682,6 +682,7 @@ const TableHarvest = () => {
                     sx={{
                       position: 'sticky',
                       left: 0,
+                      zIndex: 100,
 
                       backgroundColor: 'primary.lighter',
                     }}

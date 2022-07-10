@@ -71,6 +71,7 @@ import { getCoffeERC20, getUserERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import UserAdminForm from '../AddUserAdmin/UserAdminForm';
 import FarmForm from '../AddFarmDetails/FarmForm';
+import AppWidgetCoffee from '../coffeeWidgets/AppWidgetCoffee';
 
 function ShareSocialMedia(batch) {
   return (
@@ -543,6 +544,7 @@ const TableAdmin = () => {
                     sx={{
                       position: 'sticky',
                       left: 0,
+                      zIndex: 100,
 
                       backgroundColor: 'primary.lighter',
                     }}
@@ -629,7 +631,7 @@ const TableAdmin = () => {
                   // }}
                 > */}
                 <TablePagination
-                  rowsPerPageOptions={[2, 5, 10, 25]}
+                  rowsPerPageOptions={[5, 10, 25]}
                   count={batchNo.length}
                   rowsPerPage={rowsPerPage}
                   page={page}

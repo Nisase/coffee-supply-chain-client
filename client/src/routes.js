@@ -49,6 +49,7 @@ const routes = (loading, userData, isOwner) => {
           path: '/dashboard',
           element: userData ? <DashboardLayout /> : <Navigate to="/login" />,
           children: [
+            // { path: '/', element: userData && userData.role === 'ADMIN' ? <DashboardAddUserAdmin /> : <></> },
             { path: 'app', element: <DashboardApp /> },
             { path: 'admin_addUsers', element: isOwner ? <DashboardAddUserAdmin /> : <Navigate to="/home" /> },
             { path: 'admin_addFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/home" /> },

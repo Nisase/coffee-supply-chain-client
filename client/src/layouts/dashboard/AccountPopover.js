@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
-import { isOwnerSelector, userDataSelector } from '../../redux/appDataSlice'
+import { isOwnerSelector, userDataSelector } from '../../redux/appDataSlice';
 // components
 import MenuPopover from '../../components/MenuPopover';
 
@@ -21,15 +21,14 @@ const MENU_OPTIONS = [
     label: 'Dashboard',
     icon: 'eva:person-fill',
     linkTo: '/dashboard',
-  }
+  },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const userInfo = useSelector(userDataSelector);
 
-  const userInfo = useSelector(userDataSelector)
-  
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(null);
@@ -98,7 +97,7 @@ export default function AccountPopover() {
           ))}
         </Stack>
 
-        { /* <Divider sx={{ borderStyle: 'dashed' }} />
+        {/* <Divider sx={{ borderStyle: 'dashed' }} />
 
         <MenuItem onClick={handleClose} sx={{ m: 1 }}>
           Logout

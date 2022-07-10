@@ -3,6 +3,7 @@ import { Container } from '@mui/material';
 import Page from '../components/Page';
 
 import TableAdmin from '../components/Admin/TableAdmin';
+import AdminView from '../components/Admin/AdminView';
 
 const DashboardAdmin = () => {
   return (
@@ -10,6 +11,7 @@ const DashboardAdmin = () => {
       <Container maxWidth="xl">
         <div className="mt-5">
           <TableAdmin />
+          <AdminView />
         </div>
       </Container>
     </Page>

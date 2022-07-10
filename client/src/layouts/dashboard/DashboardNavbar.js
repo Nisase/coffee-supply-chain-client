@@ -17,11 +17,11 @@ const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
-  padding: '25px 0',
+  padding: '10px 0',
   boxShadow: 'none',
   backdropFilter: 'blur(6px)',
   WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
-  backgroundColor: alpha(theme.palette.background.default, 0.72),
+  backgroundColor: alpha(theme.palette.tertiary.light, 0.42),
   [theme.breakpoints.up('lg')]: {
     width: `calc(100% - ${DRAWER_WIDTH + 1}px)`,
   },
@@ -53,12 +53,17 @@ export default function DashboardNavbar({ onOpenSidebar }) {
         <Box sx={{ flexGrow: 1 }} />
         {walletAddress && (
           <Tooltip title="Copiar" placement="top">
-            <div className="mr-10 text-black hover:cursor-pointer" onClick={()=>{navigator.clipboard.writeText(walletAddress)}} aria-hidden="true">
+            <div
+              className="mr-10 text-black hover:cursor-pointer"
+              onClick={() => {
+                navigator.clipboard.writeText(walletAddress);
+              }}
+              aria-hidden="true"
+            >
               <span className="font-semibold">Cuenta:</span>{' '}
               {walletAddress.slice(0, 8).concat('...').concat(walletAddress.slice(-8))}
             </div>
-        </Tooltip>
-          
+          </Tooltip>
         )}
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <AccountPopover />
