@@ -1,5 +1,5 @@
 import { useEffect, useState, useLayoutEffect } from 'react';
-import { useRoutes, useLocation, useSearchParams } from 'react-router-dom';
+import { useRoutes, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import ThemeProvider from './theme';
@@ -20,7 +20,6 @@ import ShipPackerListener from './logic/AddShipPacker/ShipPackerListener';
 import PackerListener from './logic/AddPacker/PackerListener';
 import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
 import RetailerListener from './logic/AddRetailer/RetailerListener';
-import AskNextAction from './logic/GetNextAction/AskNextAction';
 
 import {
   setWalletAddress,
@@ -36,11 +35,7 @@ import {
   setDirectionData,
   setLatitudeData,
   setLongitudeData,
-  setLocReadyToAddData,
-  directionDataSelector,
-  latitudeDataSelector,
-  longitudeDataSelector,
-  locReadyToAddDataSelector,
+  setLocReadyToAddData
 } from './redux/locationDataSlice';
 import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
 import { txListSelector, removeTx } from './redux/txSlice';
@@ -52,19 +47,51 @@ function App() {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  // UserInfo, Wallet and Owner //
-  const [walletAddress, error, requestAccount] = useDetectProvider(true);
+  // UserInfo, Wallet and Owner
+
+  const [walletAddress, error] = useDetectProvider(true);
   const [isOwner, setIsOwner] = useState(false);
   const userData = useSelector(userDataSelector);
   const loading = useSelector(loadingSelector);
   const walletAddressApp = useSelector(walletAddressSelector);
-  const { pathname } = useLocation();
-
-  const location = useLocation();
   const [searchParams] = useSearchParams();
-  const batch = searchParams.get('batch');
+  const batch = searchParams.get("batch");
+  
+  const getUserLocal = async (walletAddress) => {
+    dispatch(setLoading(true));
+    const user = await getUserByAddress(walletAddress);
+    const owner = await getOwner();
+    setIsOwner(owner === walletAddress);
+    dispatch(setIsOwer(isOwner));
+
+    if (user && user.message === null) {
+      if (isOwner) {
+        user.name = 'Administrador';
+        user.role = 'ADMIN';
+        user.email = 'admincoffe@.epn.edu.ec';
+      }
+      if (user.role === '' || user.name === '') {
+        dispatch(setUserData(null));
+        dispatch(setLoading(false));
+        return;
+      }
+      dispatch(setUserData(user));
+      dispatch(setMessage(''));
+    } else dispatch(setMessage(user.message));
+
+    dispatch(setLoading(false));
+  };
+
+
+  const setNullUserLocal = () => {
+    dispatch(setIsOwer(false));
+    dispatch(setUserData(null));
+    dispatch(setMessage(''));
+  };  
+
 
   useLayoutEffect(() => {
+    // dispatch(setLoading(true));
     // const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';
     const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
     // const coffeAddress = '0x37F97d0D133c2217Fa058944eA3C69B030e658FC';
@@ -73,53 +100,31 @@ function App() {
     window.userAddress = userAddress;
     window.coffeAddress = coffeAddress;
 
+    // console.log("DISPACH SMART CONTRACT ADDRESS")
     dispatch(setUserAddress(userAddress));
     dispatch(setCoffeAddress(coffeAddress));
   }, []);
 
   useEffect(() => {
-    if (location.pathname === '/dashboard' && !userData) {
-      // requestAccount()
-      // console.log(userData)
-    }
-  }, [location]);
+    console.log("DISPACH ERROR ADDRESS")
+    console.log(error)
+    if(error){
+      // enqueueSnackbar(error, { variant: 'error' });
+      // setNullUserLocal();
+      dispatch(setLoading(false));
+    }    
+  }, [error]);
+
 
   useEffect(() => {
+    // console.log("DISPACH USER ADDRESS")
     dispatch(setWalletAddress(walletAddress));
   }, [walletAddress]);
 
-  useEffect(() => {
-    const getUserLocal = async (walletAddress) => {
-      dispatch(setLoading(true));
-      const user = await getUserByAddress(walletAddress);
-      const owner = await getOwner();
-      setIsOwner(owner === walletAddress);
-      dispatch(setIsOwer(isOwner));
 
-      if (user && user.message === null) {
-        if (isOwner) {
-          user.name = 'Administrador';
-          user.role = 'ADMIN';
-          user.email = 'admincoffe@.epn.edu.ec';
-        }
-        if (user.role === '' || user.name === '') {
-          dispatch(setUserData(null));
-          dispatch(setLoading(false));
-          return;
-        }
-        dispatch(setUserData(user));
-        dispatch(setMessage(''));
-      } else dispatch(setMessage(user.message));
-
-      dispatch(setLoading(false));
-    };
-
-    const setNullUserLocal = () => {
-      dispatch(setIsOwer(false));
-      dispatch(setUserData(null));
-      dispatch(setMessage(''));
-    };
-
+  useLayoutEffect(() => {
+    console.log("Wallet Address")
+    console.log(walletAddressApp)
     if (walletAddressApp) getUserLocal(walletAddressApp);
     else setNullUserLocal();
   }, [walletAddressApp, isOwner]);
@@ -255,7 +260,7 @@ function App() {
     }
   }, [retailerRegistered, txList]);
 
-  const getValidUser = (userData) => {
+  const getValidUserss = (userData) => {
     if (!userData || userData.role === '') return null;
     return userData;
   };
@@ -266,11 +271,9 @@ function App() {
     <ThemeProvider>
       <ScrollToTop />
       <BaseOptionChartStyle />
-      {useRoutes(routes(loading, getValidUser(userData), isOwner))}
+      {useRoutes(routes(loading, userData, isOwner, batch))}
     </ThemeProvider>
   );
 }
 
 export default App;
-// DONE
-// {(pathname === '/tracking' && batchParam.length === 42)? <RouterLink to={'https://localhost:3000/login'}></RouterLink> : }

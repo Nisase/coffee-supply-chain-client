@@ -2,18 +2,10 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   walletAddress: null,
-  userData: {
-    name: '',
-    email: '',
-    role: '',
-    isActive: '',
-    // profileHash: userTemp.profileHash,
-    profileHash: '/static/mock-images/avatars/farmer-avatar.png',
-    message: '',
-  },
+  userData: null,
   isOwner: false,
   message: '',
-  loading: false,
+  loading: true,
 };
 
 export const appDataSlice = createSlice({

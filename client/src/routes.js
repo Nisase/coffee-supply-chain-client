@@ -29,7 +29,7 @@ import DashboardHarvest from './pages/DashboardHarvest';
 
 // ----------------------------------------------------------------------
 
-const routes = (loading, userData, isOwner) => {
+const routes = (loading, userData, isOwner, batch) => {
   const route = loading
     ? [
         {
@@ -38,7 +38,7 @@ const routes = (loading, userData, isOwner) => {
           children: [
             { path: '/', element: <Navigate to="/home" /> },
             { path: 'home', element: <Home /> },
-            { path: 'login', element: userData ? <Navigate to="/dashboard" /> : <Login /> },
+            { path: 'login', element: userData ? <Navigate to={batch ? `/dashboard?batch=${batch}`: `/dashboard`} /> : <Login to={batch ? `/login?batch=${batch}`: `/login`}/> },
             { path: 'tracking', element: <Tracking /> },
           ],
         },
@@ -47,7 +47,7 @@ const routes = (loading, userData, isOwner) => {
     : [
         {
           path: '/dashboard',
-          element: userData ? <DashboardLayout /> : <Navigate to="/login" />,
+          element: userData ? <DashboardLayout /> : <Navigate to={batch ? `/login?batch=${batch}`: `/login`} />,
           children: [
             // { path: '/', element: userData && userData.role === 'ADMIN' ? <DashboardAddUserAdmin /> : <></> },
             { path: 'app', element: <DashboardApp /> },
@@ -82,7 +82,7 @@ const routes = (loading, userData, isOwner) => {
           children: [
             { path: '/', element: <Navigate to="/home" /> },
             { path: 'home', element: <Home /> },
-            { path: 'login', element: userData ? <Navigate to="/dashboard" /> : <Login /> },
+            { path: 'login', element: userData ? <Navigate to={batch ? `/dashboard?batch=${batch}`: `/dashboard`} /> : <Login to={batch ? `/login?batch=${batch}`: `/login`}/>},
             { path: 'tracking', element: <Tracking /> },
             { path: '404', element: <NotFound /> },
             { path: '*', element: <Navigate to="/404" /> },
