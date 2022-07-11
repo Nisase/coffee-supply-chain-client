@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
@@ -60,11 +60,12 @@ const valSchema = Yup.object().shape({
   processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
-const ProcessForm = () => {
+const ProcessForm = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
   const [fileUrl, setfileUrl] = useState('');
+  const formikRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -103,6 +104,13 @@ const ProcessForm = () => {
     });
   };
 
+  useEffect(() => {
+    if (props.batchValue) {
+      formikRef.current.setFieldValue('batchNo', props.batchValue);
+    }
+  }, [props.batchValue]);
+
+
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -110,6 +118,7 @@ const ProcessForm = () => {
         <Container maxWidth="md">
           <div>
             <Formik
+            innerRef={formikRef}
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
@@ -126,7 +135,7 @@ const ProcessForm = () => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="No. Lote" />
+                        {props.batchNo ? <TextfieldWrapper name="batchNo" label="No. Lote" /> : <TextfieldWrapper name="batchNo" label="No. Lote" disabled />}
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="procAddress" label="Dirección del Procesador" />

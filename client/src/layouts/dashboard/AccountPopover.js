@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
-import { isOwnerSelector, userDataSelector } from '../../redux/appDataSlice';
+import { userDataSelector } from '../../redux/appDataSlice';
 // components
 import MenuPopover from '../../components/MenuPopover';
 
