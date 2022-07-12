@@ -102,6 +102,7 @@ const MapsLocation = ({ svg }) => {
 
         <Marker
           key={uuid()}
+          // position={{ lat: parseFloat(markers.lat), lng: parseFloat(markers.lng) }}
           position={{ lat: parseFloat(markers.lat), lng: parseFloat(markers.lng) }}
           onClick={() => {
             setSelected(markers);
