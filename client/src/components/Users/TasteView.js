@@ -6,14 +6,14 @@ import { useSelector } from 'react-redux';
 import { walletAddressSelector } from '../../redux/appDataSlice';
 import { getCoffeERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
-import HarvestForm from '../AddHarvest/HarvestForm';
 import UpdateUserForm from '../UpdateUser/UpdateUserForm';
+import TasterForm from '../AddGrainInspection/GrainInspectionForm';
 
 import AppWidgetCoffee from '../coffeeWidgets/AppWidgetCoffee';
 import AppWidgetQR from '../coffeeWidgets/AppWidgetQR';
 import TableUsers from '../Table/TableUsers';
 
-const HarvestView = () => {
+const TasteView = () => {
   const [batchNo, setBatchNo] = useState([]);
   const [nextActions, setNextActions] = useState([]);
   const walletAddress = useSelector(walletAddressSelector);
@@ -21,7 +21,7 @@ const HarvestView = () => {
   useEffect(() => {
     const getBatch = async () => {
       const erc = getCoffeERC20();
-      const events = await erc.queryFilter(erc.filters.DoneHarvesting(walletAddress, null));
+      const events = await erc.queryFilter(erc.filters.SetGrainData(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });
@@ -45,29 +45,29 @@ const HarvestView = () => {
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
-              altImg="Agricultor de café"
+              altImg="Catador de café"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
               image="/static/images/lote1.jpg"
-              buttonText="AGREGAR COSECHA"
-              dialogTitle="Agregar Datos de Cosecha"
-              Form={HarvestForm}
+              buttonText="AGREGAR CATACIÓN"
+              dialogTitle="Agregar Datos de Catación"
+              Form={TasterForm}
               altImg="Lotes de café"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetQR
               title="Lotes de Café"
-              innerButtonText="AGREGAR COSECHA"
-              innerDialogText="Agregar Datos de Cosecha"
+              innerButtonText="AGREGAR CATACIÓN"
+              innerDialogText="Agregar Datos de Catación"
               altImg="Lector QR"
               image="/static/images/lote1.jpg"
-              buttonText="AGREGAR COSECHA CON CÓDIGO QR"
-              dialogTitle="Agregar Cosecha de Lote de Café con Código QR"
-              Form={HarvestForm}
+              buttonText="AGREGAR CATACIÓN CON CÓDIGO QR"
+              dialogTitle="Agregar Catación de Lote de Café con Código QR"
+              Form={TasterForm}
             />
           </Grid>
         </Grid>
@@ -77,4 +77,4 @@ const HarvestView = () => {
   );
 };
 
-export default HarvestView;
+export default TasteView;

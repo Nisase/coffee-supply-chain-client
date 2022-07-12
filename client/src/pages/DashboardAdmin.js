@@ -10,7 +10,7 @@ const DashboardAdmin = () => {
     <Page title="TableAdmin">
       <Container maxWidth="xl">
         <div className="mt-5">
-          <TableAdmin />
+          {/* <TableAdmin /> */}
           <AdminView />
         </div>
       </Container>

@@ -26,7 +26,13 @@ import DashboardAddRetailer from './pages/DashboardAddRetailer';
 
 import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardHarvest from './pages/DashboardHarvest';
-
+import DashboardProcess from './pages/DashboardProcess';
+import DashboardTaster from './pages/DashboardTaster';
+import DashboardWarehouse from './pages/DashboardWarehouse';
+import DashboardShipToPacker from './pages/DashboardShipToPacker';
+import DashboardPacker from './pages/DashboardPacker';
+import DashboardShipToRetailer from './pages/DashboardShipToRetailer';
+import DashboardRetailer from './pages/DashboardRetailer';
 // ----------------------------------------------------------------------
 
 const routes = (loading, userData, isOwner, batch) => {
@@ -38,7 +44,14 @@ const routes = (loading, userData, isOwner, batch) => {
           children: [
             { path: '/', element: <Navigate to="/home" /> },
             { path: 'home', element: <Home /> },
-            { path: 'login', element: userData ? <Navigate to={batch ? `/dashboard?batch=${batch}`: `/dashboard`} /> : <Login to={batch ? `/login?batch=${batch}`: `/login`}/> },
+            {
+              path: 'login',
+              element: userData ? (
+                <Navigate to={batch ? `/dashboard?batch=${batch}` : `/dashboard`} />
+              ) : (
+                <Login to={batch ? `/login?batch=${batch}` : `/login`} />
+              ),
+            },
             { path: 'tracking', element: <Tracking /> },
           ],
         },
@@ -47,7 +60,7 @@ const routes = (loading, userData, isOwner, batch) => {
     : [
         {
           path: '/dashboard',
-          element: userData ? <DashboardLayout /> : <Navigate to={batch ? `/login?batch=${batch}`: `/login`} />,
+          element: userData ? <DashboardLayout /> : <Navigate to={batch ? `/login?batch=${batch}` : `/login`} />,
           children: [
             // { path: '/', element: userData && userData.role === 'ADMIN' ? <DashboardAddUserAdmin /> : <></> },
             { path: 'app', element: <DashboardApp /> },
@@ -69,8 +82,15 @@ const routes = (loading, userData, isOwner, batch) => {
             { path: 'shipRetailer_addShipment', element: <DashboardAddShipRetailer /> },
             { path: 'retailer_updateUser', element: <DashboardUpdateUser /> },
             { path: 'retailer_addRetailer', element: <DashboardAddRetailer /> },
-            { path: 'admin', element: <DashboardAdmin /> },
-            { path: 'farmer', element: <DashboardHarvest /> },
+            { path: 'Admin', element: <DashboardAdmin /> },
+            { path: 'Farmer', element: <DashboardHarvest /> },
+            { path: 'Processor', element: <DashboardProcess /> },
+            { path: 'Taster', element: <DashboardTaster /> },
+            { path: 'Warehouse', element: <DashboardWarehouse /> },
+            { path: 'ShipperToPacker', element: <DashboardShipToPacker /> },
+            { path: 'Packer', element: <DashboardPacker /> },
+            { path: 'ShipperToRetailer', element: <DashboardShipToRetailer /> },
+            { path: 'Retailer', element: <DashboardRetailer /> },
             { path: 'user', element: <User /> },
             { path: 'products', element: <Products /> },
             { path: 'blog', element: <Blog /> },
@@ -82,7 +102,14 @@ const routes = (loading, userData, isOwner, batch) => {
           children: [
             { path: '/', element: <Navigate to="/home" /> },
             { path: 'home', element: <Home /> },
-            { path: 'login', element: userData ? <Navigate to={batch ? `/dashboard?batch=${batch}`: `/dashboard`} /> : <Login to={batch ? `/login?batch=${batch}`: `/login`}/>},
+            {
+              path: 'login',
+              element: userData ? (
+                <Navigate to={batch ? `/dashboard?batch=${batch}` : `/dashboard`} />
+              ) : (
+                <Login to={batch ? `/login?batch=${batch}` : `/login`} />
+              ),
+            },
             { path: 'tracking', element: <Tracking /> },
             { path: '404', element: <NotFound /> },
             { path: '*', element: <Navigate to="/404" /> },
