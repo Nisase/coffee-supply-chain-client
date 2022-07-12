@@ -69,7 +69,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import { walletAddressSelector, userDataSelector } from '../../redux/appDataSlice';
-import { getCoffeERC20 } from '../../logic/erc20';
+import { getCoffe1ERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import HarvestForm from '../AddHarvest/HarvestForm';
 import UpdateUserForm from '../UpdateUser/UpdateUserForm';
@@ -453,7 +453,7 @@ const TableHarvest = () => {
 
   useEffect(() => {
     const getBatch = async () => {
-      const erc = getCoffeERC20(); // aqui posible error del listener
+      const erc = getCoffe1ERC20(); // aqui posible error del listener
       const events = await erc.queryFilter(erc.filters.DoneHarvesting(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {

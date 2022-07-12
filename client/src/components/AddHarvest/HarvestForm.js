@@ -17,10 +17,13 @@ import typeSeeds from '../../data/typeSeeds.json';
 
 const initialValues = {
   batchNo: '',
-  coffeeFamily: '',
+  seedSupplier: '',
   typeOfSeed: '',
+  coffeeFamily: '',
   fertilizerUsed: '',
   harvestDate: '',
+  humidityPercentage: '',
+  batchWeight: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -28,10 +31,13 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  coffeeFamily: Yup.string().required('Obligatorio'),
+  seedSupplier: Yup.string().required('Obligatorio'),
   typeOfSeed: Yup.string().required('Obligatorio'),
+  coffeeFamily: Yup.string().required('Obligatorio'),
   fertilizerUsed: Yup.string().required('Obligatorio'),
   harvestDate: Yup.date().required('Obligatorio'),
+  humidityPercentage: Yup.date().required('Obligatorio'),
+  batchWeight: Yup.date().required('Obligatorio'),
 });
 
 const HarvestForm = (props) => {
@@ -92,16 +98,25 @@ const HarvestForm = (props) => {
                       </Grid>
                     )}
                     <Grid item xs={6}>
-                      <TextfieldWrapper name="coffeeFamily" label="Familia del Café" />
+                      <TextfieldWrapper name="seedSupplier" label="Proveedor de Semilla" />
                     </Grid>
                     <Grid item xs={6}>
                       <SelectWrapper name="typeOfSeed" label="Tipo de Semilla" options={typeSeeds} />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="coffeeFamily" label="Familia del Café" />
                     </Grid>
                     <Grid item xs={6}>
                       <TextfieldWrapper name="fertilizerUsed" label="Fertilizante Utilizado" />
                     </Grid>
                     <Grid item xs={6}>
                       <DateTimePicker name="harvestDate" label="Fecha de Cosecha" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="humidityPercentage" label="Porcentaje de Humedad del Grano Cosechado" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextfieldWrapper name="batchWeight" label="Peso del Lote Cosechado [kg]" />
                     </Grid>
                     <Grid item xs={12}>
                       <Button fullWidth variant="contained" disabled={!isValid || !dirty} type="submit">

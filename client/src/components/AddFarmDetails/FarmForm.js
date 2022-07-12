@@ -138,20 +138,11 @@ const FarmForm = () => {
       formikRef.current.setFieldValue('longitude', longitudeData);
       formikRef.current.setFieldValue('farmAddress', directionData);
       console.log('formik ref: ', formikRef.current);
-      console.log('AQUI ESTOY ....');
-      console.log('dir: ', directionData);
-      console.log('lat: ', latitudeData);
-      console.log('lng: ', longitudeData);
     } else {
       formikRef.current.setFieldValue('farmName', '');
       formikRef.current.setFieldValue('latitude', '');
       formikRef.current.setFieldValue('longitude', '');
       formikRef.current.setFieldValue('farmAddress', '');
-      console.log('formik ref: ', formikRef.current);
-      console.log('AQUI ESTOY ... asI');
-      console.log('dir: ', directionData);
-      console.log('lat: ', latitudeData);
-      console.log('lng: ', longitudeData);
     }
   }, [latitudeData, longitudeData, directionData]);
 

@@ -17,8 +17,9 @@ import DashboardAddHarvest from './pages/DashboardAddHarvest';
 import DashboardAddFarm from './pages/DashboardAddFarm';
 import DashboardUpdateUser from './pages/DashboardUpdateUser';
 import DashboardAddProcess from './pages/DashboardAddProcess';
-import DashboardAddGrain from './pages/DashboardAddGrain';
-import DashboardAddAgglom from './pages/DashboardAddAgglom';
+import DashboardAddTasting from './pages/DashboardAddTasting';
+import DashboardAddCoffeeSell from './pages/DashboardAddCoffeeSell';
+import DashboardAddWarehouse from './pages/DashboardAddWarehouse';
 import DashboardAddShipPacker from './pages/DashboardAddShipPacker';
 import DashboardAddPacker from './pages/DashboardAddPacker';
 import DashboardAddShipRetailer from './pages/DashboardAddShipRetailer';
@@ -28,6 +29,7 @@ import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardHarvest from './pages/DashboardHarvest';
 import DashboardProcess from './pages/DashboardProcess';
 import DashboardTaster from './pages/DashboardTaster';
+// import DashboardCoffeeSell from "./pages/dashboardco"
 import DashboardWarehouse from './pages/DashboardWarehouse';
 import DashboardShipToPacker from './pages/DashboardShipToPacker';
 import DashboardPacker from './pages/DashboardPacker';
@@ -63,25 +65,27 @@ const routes = (loading, userData, isOwner, batch) => {
           element: userData ? <DashboardLayout /> : <Navigate to={batch ? `/login?batch=${batch}` : `/login`} />,
           children: [
             // { path: '/', element: userData && userData.role === 'ADMIN' ? <DashboardAddUserAdmin /> : <></> },
-            { path: 'app', element: <DashboardApp /> },
-            { path: 'admin_addUsers', element: isOwner ? <DashboardAddUserAdmin /> : <Navigate to="/home" /> },
-            { path: 'admin_addFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/home" /> },
-            { path: 'farmer_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'farmer_addHarvest', element: <DashboardAddHarvest /> },
-            { path: 'processor_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'processor_addProcess', element: <DashboardAddProcess /> },
-            { path: 'grainInspector_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'grainInspector_addGrain', element: <DashboardAddGrain /> },
-            { path: 'agglomerator_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'agglomerator_addAgglom', element: <DashboardAddAgglom /> },
-            { path: 'shipPacker_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'shipPacker_addShipment', element: <DashboardAddShipPacker /> },
-            { path: 'packer_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'packer_addPackage', element: <DashboardAddPacker /> },
-            { path: 'shipRetailer_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'shipRetailer_addShipment', element: <DashboardAddShipRetailer /> },
-            { path: 'retailer_updateUser', element: <DashboardUpdateUser /> },
-            { path: 'retailer_addRetailer', element: <DashboardAddRetailer /> },
+            { path: 'App', element: <DashboardApp /> },
+            { path: 'AddUsers', element: isOwner ? <DashboardAddUserAdmin /> : <Navigate to="/home" /> },
+            { path: 'AddFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/home" /> },
+            { path: 'FarmerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddHarvest', element: <DashboardAddHarvest /> },
+            { path: 'ProcessorUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddProcess', element: <DashboardAddProcess /> },
+            { path: 'TasterUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddTasting', element: <DashboardAddTasting /> },
+            { path: 'AddCoffeeSelling', element: <DashboardAddTasting /> },
+            { path: 'SellerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'WarehouseUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddWarehouse', element: <DashboardAddWarehouse /> },
+            { path: 'ShipperToPackerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddShippingToPacker', element: <DashboardAddShipPacker /> },
+            { path: 'PackerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddPackaging', element: <DashboardAddPacker /> },
+            { path: 'ShipperToRetailerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddShippingToRetailer', element: <DashboardAddShipRetailer /> },
+            { path: 'RetailerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddRetailer', element: <DashboardAddRetailer /> },
             { path: 'Admin', element: <DashboardAdmin /> },
             { path: 'Farmer', element: <DashboardHarvest /> },
             { path: 'Processor', element: <DashboardProcess /> },

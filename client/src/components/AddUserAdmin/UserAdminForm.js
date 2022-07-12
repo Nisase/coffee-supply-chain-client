@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button, FormLabel } from '@mui/material';
+import { Grid, Container, Typography, Button, FormLabel, TextField } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
@@ -24,7 +24,7 @@ const initialValues = {
   userAddress: '0xce49E1834F30fD7572F87aCf2Af38C63B604Be69',
   name: 'FARMER 4',
   email: 'farmer4test@gmail.com',
-  role: 'AGRICULTOR/PRODUCTOR',
+  role: ['FARMER', 'COFFEE SELLER'],
   isActive: true,
   profileHash: null,
 };
@@ -36,7 +36,8 @@ const valSchema = Yup.object().shape({
     .min(42, 'Las direcciones de Metamask tienen 42 caracteres'),
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
-  role: Yup.string().required('Obligatorio'),
+  role: Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+  // Yup.string().required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
     .test(
@@ -66,12 +67,15 @@ const UserAdminForm = () => {
     setfileUrl('');
 
     const userTemp = await getUserByAddress(values.userAddress);
-    if (userTemp.role !== '' && userTemp.message === null) {
+    // for (let i = 0; i < userTemp.role.length; i++) {
+    if (userTemp.role[0] !== '' && userTemp.message === null) {
       setLoading(false);
       enqueueSnackbar(`La dirección ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
       values.profileHash = null;
       return;
     }
+    // }
+
     if (userTemp.message !== null) {
       setLoading(false);
       enqueueSnackbar(`Datos ingresados con error: ${userTemp.message}`, { variant: 'warning' });
@@ -154,7 +158,8 @@ const UserAdminForm = () => {
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
                     <Grid item xs={6}>
-                      <SelectWrapper name="role" label="Rol" options={role} />
+                      {/* <SelectWrapper name="role" label="Rol" options={role} /> */}
+                      <TextfieldWrapper name="role" label="Rol" />
                     </Grid>
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />

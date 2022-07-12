@@ -67,7 +67,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import { walletAddressSelector } from '../../redux/appDataSlice';
-import { getCoffeERC20, getUserERC20 } from '../../logic/erc20';
+import { getCoffe1ERC20, getUserERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import UserAdminForm from '../AddUserAdmin/UserAdminForm';
 import FarmForm from '../AddFarmDetails/FarmForm';
@@ -370,7 +370,7 @@ const TableAdmin = () => {
 
   useEffect(() => {
     const getBatch = async () => {
-      const erc = getCoffeERC20();
+      const erc = getCoffe1ERC20();
       const ercUsers = getUserERC20();
       const events = await erc.queryFilter(erc.filters.SetFarmDetails(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);

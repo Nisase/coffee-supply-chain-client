@@ -22,15 +22,17 @@ const FILE_SIZE = 650 * 1024;
 
 const initialValues = {
   batchNo: '',
-  procAddress: '',
+  processorAddress: '',
   typeOfDrying: '',
+  humidityAfterDrying: '',
   // roastImageHash: '',
   roastImageHash: undefined,
   roastTemp: '',
   typeOfRoast: '',
   roastDate: '',
   millDate: '',
-  processorPrice: '',
+  processorPricePerKilo: '',
+  processBatchWeight: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -38,8 +40,9 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  procAddress: Yup.string().required('Obligatorio'),
+  processorAddress: Yup.string().required('Obligatorio'),
   typeOfDrying: Yup.string().required('Obligatorio'),
+  humidityAfterDrying: Yup.string().required('Obligatorio'),
   // roastImageHash: Yup.string().required('Obligatorio'),
   roastImageHash: Yup.mixed()
     .required('Obligatorio')
@@ -57,7 +60,9 @@ const valSchema = Yup.object().shape({
   typeOfRoast: Yup.string().required('Obligatorio'),
   roastDate: Yup.date().required('Obligatorio'),
   millDate: Yup.date().required('Obligatorio'),
-  processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
+  processorPricePerKilo: Yup.date().required('Obligatorio'),
+  processBatchWeight: Yup.date().required('Obligatorio'),
+  // processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
 const ProcessForm = (props) => {
@@ -110,7 +115,6 @@ const ProcessForm = (props) => {
     }
   }, [props.batchValue]);
 
-
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -118,7 +122,7 @@ const ProcessForm = (props) => {
         <Container maxWidth="md">
           <div>
             <Formik
-            innerRef={formikRef}
+              innerRef={formikRef}
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
@@ -135,17 +139,21 @@ const ProcessForm = (props) => {
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        {props.batchNo ? <TextfieldWrapper name="batchNo" label="No. Lote" /> : <TextfieldWrapper name="batchNo" label="No. Lote" disabled />}
+                        {props.batchNo ? (
+                          <TextfieldWrapper name="batchNo" label="No. Lote" />
+                        ) : (
+                          <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
+                        )}
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="procAddress" label="Dirección del Procesador" />
+                        <TextfieldWrapper name="processorAddress" label="Dirección del Procesador" />
                       </Grid>
                       <Grid item xs={6}>
                         <SelectWrapper name="typeOfDrying" label="Tipo de Secado" options={typeDrying} />
                       </Grid>
-                      {/* <Grid item xs={6}>
-                        <TextfieldWrapper name="roastImageHash" label="Imagen del Tueste" />
-                      </Grid> */}
+                      <Grid item xs={6}>
+                        <TextfieldWrapper name="humidityAfterDrying" label="Humedad después del Secado" />
+                      </Grid>
                       <Grid item xs={6} justifyContent="space-between" alignItems="center">
                         <div className="flex flex-col">
                           <FormLabel component="legend">Imagen de Tueste</FormLabel>
@@ -186,7 +194,10 @@ const ProcessForm = (props) => {
                         <DateTimePicker name="millDate" label="Fecha de Molienda" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="processorPrice" label="Precio del Procesado" />
+                        <TextfieldWrapper name="processorPricePerKilo" label="Precio del Procesado" />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextfieldWrapper name="processBatchWeight" label="Peso del Lote Procesado" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
