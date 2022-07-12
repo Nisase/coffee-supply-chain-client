@@ -30,6 +30,8 @@ export default function Tracking() {
   const [searchParams] = useSearchParams();
   const batch = searchParams.get('batch');
 
+
+
   // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
   return (
@@ -37,7 +39,7 @@ export default function Tracking() {
       <RootStyle>
         <Container>
           <ContentStyle className='w-full'>
-            {batch ?
+            {batch && batch.length===42 ?
             <TimeLine batchNoIn={batch} />
             :
             <>
