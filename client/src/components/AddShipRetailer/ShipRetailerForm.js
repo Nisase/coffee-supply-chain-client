@@ -19,8 +19,7 @@ import transportTypeR from '../../data/transportTypeR.json';
 const initialValues = {
   batchNo: '',
   toRetailerTransportType: '',
-  // packerPickupDate: '',
-  packerPickupDateTime: {},
+  packerPickupDate: '',
   toReatilerShippingPrice: '',
 };
 
@@ -31,7 +30,7 @@ const valSchema = Yup.object().shape({
     .min(42, 'La dirección debe tener 42 caracteres'),
   toRetailerTransportType: Yup.string().required('Obligatorio'),
   // packerPickupDate: Yup.date().required('Obligatorio'),
-  packerPickupDateTime: Yup.object().required('Obligatorio'),
+  packerPickupDateTime: Yup.string().required('Obligatorio'),
   toReatilerShippingPrice: Yup.string().required('Obligatorio'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
@@ -66,6 +65,7 @@ const ShipRetailerForm = () => {
         <Container maxWidth="md">
           <div>
             <Formik
+              enableReinitialize
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
