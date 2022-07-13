@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { Grid, Container, Typography, Button, FormLabel, TextField, OutlinedInput } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import SelectWrapper from '../FormsUI/Select';
 import SelectWrapper2 from '../FormsUI/Select2';
 import CheckboxWrapper from '../FormsUI/Checkbox';
@@ -15,6 +16,13 @@ import PendingConfirmation from '../PendingConfirmation';
 import MultipleRolesSelect from './MultipleRolesSelect';
 
 import role from '../../data/roles.json';
+=======
+import MultipleSelectChip from '../FormsUI/Select/MultipleSelectChip';
+import CheckboxWrapper from '../FormsUI/Checkbox';
+import PendingConfirmation from '../PendingConfirmation';
+
+import roleData from '../../data/roles.json';
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 =======
 import MultipleSelectChip from '../FormsUI/Select/MultipleSelectChip';
 import CheckboxWrapper from '../FormsUI/Checkbox';
@@ -47,8 +55,12 @@ const initialValues = {
   name: 'FARMER 4',
   email: 'farmer4test@gmail.com',
 <<<<<<< HEAD
+<<<<<<< HEAD
   role: ['FARMER', 'COFFEE SELLER'],
   // role: 'FARMER',
+=======
+  role: [],
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 =======
   role: [],
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
@@ -64,9 +76,13 @@ const valSchema = Yup.object().shape({
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
 <<<<<<< HEAD
+<<<<<<< HEAD
   // role: Yup.string().required('Obligatorio'),
   role: Yup.array().of(Yup.string()).required('Obligatorio'),
   // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+=======
+  role: Yup.array().min(1, 'Se necesita asignar al menos un rol por persona').max(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 =======
   role: Yup.array().min(1, 'Se necesita asignar al menos un rol por persona').max(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
@@ -101,13 +117,19 @@ const UserAdminForm = () => {
 
     const userTemp = await getUserByAddress(values.userAddress);
 <<<<<<< HEAD
+<<<<<<< HEAD
     // ?
     for (let i = 0; i < userTemp.role.length; i += 1) {
 =======
+=======
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
     console.log("userTemp")
     console.log(userTemp)
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < userTemp.role.length; i++) {      
+<<<<<<< HEAD
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
+=======
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
       if (userTemp.role[i] !== '' && userTemp.message === null) {
         setLoading(false);
@@ -195,6 +217,7 @@ const UserAdminForm = () => {
                     </Grid>
                     <Grid item xs={6}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                       <SelectWrapper2
                         multiple
                         name="role"
@@ -219,6 +242,8 @@ const UserAdminForm = () => {
                       />
                       <Typography>{typeof values.role}</Typography>
 =======
+=======
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
                       {/* <SelectWrapper name="role" label="Rol" options={role} /> 
                       <TextfieldWrapper name="role" label="Rol" /> */}
                       <MultipleSelectChip name="role" options={roleData}/>
@@ -228,6 +253,9 @@ const UserAdminForm = () => {
                           </small>
                         ) : null}
 
+<<<<<<< HEAD
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
+=======
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
                     </Grid>
                     {/* <Grid item xs={6}>

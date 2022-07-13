@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
     "FARMER": "Agricultor",
     "PROCESSOR": "Procesador",
@@ -11,6 +12,8 @@
     "RETAILER": "Retailer"
 }
 =======
+=======
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 [
     {"key": "AGRICULTOR/PRODUCTOR"},
     {"key": "PROCESADOR"},
@@ -20,5 +23,9 @@
     {"key": "EMPACADORA"},
     {"key": "TRANSPORTISTA A RETAILER"},
     {"key": "RETAILER"}
+<<<<<<< HEAD
+]
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
+=======
 ]
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
