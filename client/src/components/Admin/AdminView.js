@@ -10,6 +10,7 @@ import UserAdminForm from '../AddUserAdmin/UserAdminForm';
 import FarmForm from '../AddFarmDetails/FarmForm';
 import AppWidgetCoffee from '../coffeeWidgets/AppWidgetCoffee';
 import TableUsers from '../Table/TableUsers';
+import AddUsersForm from '../AddUserAdmin/AddUsersForm';
 
 const AdminView = () => {
   const [batchNo, setBatchNo] = useState([]);
@@ -66,6 +67,17 @@ const AdminView = () => {
               buttonText="AGREGAR LOTE"
               dialogTitle="Agregar Información de la Granja"
               Form={FarmForm}
+              altImg="Lotes de café"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetCoffee
+              title="Lotes de Café"
+              image="/static/images/lote1.jpg"
+              // icon={'ant-design:android-filled'}
+              buttonText="AGREGAR LOTE"
+              dialogTitle="Agregar Información de la Granja"
+              Form={AddUsersForm}
               altImg="Lotes de café"
             />
           </Grid>
