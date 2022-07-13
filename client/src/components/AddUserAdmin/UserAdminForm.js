@@ -28,11 +28,14 @@ const initialValues = {
 <<<<<<< HEAD
   // role: 'FARMER',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   role: [],
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 =======
 >>>>>>> parent of 00b5e51... select component added
+=======
+>>>>>>> parent of a16193c... test
 =======
 >>>>>>> parent of a16193c... test
   isActive: true,
@@ -49,6 +52,7 @@ const valSchema = Yup.object().shape({
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   // role: Yup.string().required('Obligatorio'),
   role: Yup.array().of(Yup.string()).required('Obligatorio'),
   // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
@@ -58,6 +62,11 @@ const valSchema = Yup.object().shape({
 =======
   role: Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
 >>>>>>> parent of 00b5e51... select component added
+=======
+  // role: Yup.string().required('Obligatorio'),
+  role: Yup.array().of(Yup.string()).required('Obligatorio'),
+  // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+>>>>>>> parent of a16193c... test
 =======
   // role: Yup.string().required('Obligatorio'),
   role: Yup.array().of(Yup.string()).required('Obligatorio'),
@@ -96,6 +105,9 @@ const UserAdminForm = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of a16193c... test
 =======
 >>>>>>> parent of a16193c... test
     // ?
@@ -202,6 +214,9 @@ const UserAdminForm = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of a16193c... test
 =======
 >>>>>>> parent of a16193c... test
                       <SelectWrapper2
@@ -228,6 +243,7 @@ const UserAdminForm = () => {
                       />
                       <Typography>{typeof values.role}</Typography>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                       {/* <SelectWrapper name="role" label="Rol" options={role} /> 
                       <TextfieldWrapper name="role" label="Rol" /> */}
@@ -243,6 +259,8 @@ const UserAdminForm = () => {
                       {/* <SelectWrapper name="role" label="Rol" options={role} /> */}
                       <TextfieldWrapper name="role" label="Rol" />
 >>>>>>> parent of 00b5e51... select component added
+=======
+>>>>>>> parent of a16193c... test
 =======
 >>>>>>> parent of a16193c... test
                     </Grid>
