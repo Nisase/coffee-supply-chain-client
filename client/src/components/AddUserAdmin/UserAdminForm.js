@@ -6,19 +6,11 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button, FormLabel, TextField } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
-<<<<<<< HEAD
 import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
 import PendingConfirmation from '../PendingConfirmation';
 
 import role from '../../data/roles.json';
-=======
-import MultipleSelectChip from '../FormsUI/Select/MultipleSelectChip';
-import CheckboxWrapper from '../FormsUI/Checkbox';
-import PendingConfirmation from '../PendingConfirmation';
-
-import roleData from '../../data/roles.json';
->>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
@@ -32,15 +24,17 @@ const initialValues = {
   userAddress: '0xce49E1834F30fD7572F87aCf2Af38C63B604Be69',
   name: 'FARMER 4',
   email: 'farmer4test@gmail.com',
-<<<<<<< HEAD
   role: ['FARMER', 'COFFEE SELLER'],
 <<<<<<< HEAD
   // role: 'FARMER',
+<<<<<<< HEAD
 =======
   role: [],
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 =======
 >>>>>>> parent of 00b5e51... select component added
+=======
+>>>>>>> parent of a16193c... test
   isActive: true,
   profileHash: null,
 };
@@ -54,6 +48,7 @@ const valSchema = Yup.object().shape({
   email: Yup.string().email('Email inválido').required('Obligatorio'),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   // role: Yup.string().required('Obligatorio'),
   role: Yup.array().of(Yup.string()).required('Obligatorio'),
   // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
@@ -63,6 +58,11 @@ const valSchema = Yup.object().shape({
 =======
   role: Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
 >>>>>>> parent of 00b5e51... select component added
+=======
+  // role: Yup.string().required('Obligatorio'),
+  role: Yup.array().of(Yup.string()).required('Obligatorio'),
+  // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+>>>>>>> parent of a16193c... test
   // Yup.string().required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
@@ -95,14 +95,11 @@ const UserAdminForm = () => {
     const userTemp = await getUserByAddress(values.userAddress);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of a16193c... test
     // ?
     for (let i = 0; i < userTemp.role.length; i += 1) {
-=======
-    console.log("userTemp")
-    console.log(userTemp)
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < userTemp.role.length; i++) {      
->>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
       if (userTemp.role[i] !== '' && userTemp.message === null) {
         setLoading(false);
         enqueueSnackbar(`La dirección ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
@@ -204,6 +201,9 @@ const UserAdminForm = () => {
                     <Grid item xs={6}>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of a16193c... test
                       <SelectWrapper2
                         multiple
                         name="role"
@@ -227,6 +227,7 @@ const UserAdminForm = () => {
                         ]}
                       />
                       <Typography>{typeof values.role}</Typography>
+<<<<<<< HEAD
 =======
                       {/* <SelectWrapper name="role" label="Rol" options={role} /> 
                       <TextfieldWrapper name="role" label="Rol" /> */}
@@ -242,6 +243,8 @@ const UserAdminForm = () => {
                       {/* <SelectWrapper name="role" label="Rol" options={role} /> */}
                       <TextfieldWrapper name="role" label="Rol" />
 >>>>>>> parent of 00b5e51... select component added
+=======
+>>>>>>> parent of a16193c... test
                     </Grid>
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />

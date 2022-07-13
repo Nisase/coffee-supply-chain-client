@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
 <<<<<<< HEAD
     "FARMER": "Agricultor",
@@ -10,6 +9,7 @@
     "PACKER": "Empacador",
     "SHIPPER TO RETAILER": "Transportista a Retailer",
     "RETAILER": "Retailer"
+<<<<<<< HEAD
 }
 =======
 [
@@ -34,3 +34,6 @@
     "RETAILER": "RETAILER"
 }
 >>>>>>> parent of 00b5e51... select component added
+=======
+}
+>>>>>>> parent of a16193c... test
