@@ -16,7 +16,7 @@ import NavSection from '../../components/NavSection';
 
 // ----------------------------------------------------------------------
 
-const DRAWER_WIDTH = 280;
+const DRAWER_WIDTH = 250;
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -50,7 +50,7 @@ const allOptionsNav = [
     title: 'dashboard',
     path: '/dashboard/app',
     icon: 'eva:pie-chart-2-fill',
-    role: 'ADMINS',
+    role: 'ADMIN',
   },
   {
     title: 'Actualizar Perfil',
@@ -237,7 +237,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const theme = useTheme();
-  const [textRole, setTextRole] = useState("");
+  const [textRole, setTextRole] = useState('');
   const userInfo = useSelector(userDataSelector);
 
   const [navOptions, setNavOptions] = useState([
@@ -247,14 +247,15 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const getNavs = (role) => allOptionsNav.filter((item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key===item.role) !== -1);
+  const getNavs = (role) =>
+    allOptionsNav.filter((item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key === item.role) !== -1);
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
     setNavOptions(getNavs(userInfo.role));
-    userInfo.role.forEach( (item, index) => setTextRole(index===0 ? item.value :`${textRole} / ${item.value}` ))
+    userInfo.role.forEach((item, index) => setTextRole(index === 0 ? item.value : `${textRole} / ${item.value}`));
   }, [pathname, userInfo]);
 
   const renderContent = (
@@ -292,17 +293,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
   return (
     <RootStyle>
-      {!isDesktop && (
-        <Drawer
-          open={isOpenSidebar}
-          onClose={onCloseSidebar}
-          PaperProps={{
-            sx: { width: DRAWER_WIDTH },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
+      {/* {!isDesktop && ( */}
+      <Drawer
+        open={isOpenSidebar}
+        onClose={onCloseSidebar}
+        PaperProps={{
+          sx: { width: DRAWER_WIDTH },
+        }}
+      >
+        {renderContent}
+      </Drawer>
+      {/* )} */}
 
       {isDesktop && (
         <Drawer

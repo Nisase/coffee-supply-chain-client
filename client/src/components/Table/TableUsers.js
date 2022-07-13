@@ -46,6 +46,8 @@ import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRound
 import RunningWithErrorsRoundedIcon from '@mui/icons-material/RunningWithErrorsRounded';
 
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
@@ -53,6 +55,20 @@ import { Link as RouterLink } from 'react-router-dom';
 function ShareSocialMedia(batch) {
   return (
     <Stack direction="row" spacing={1}>
+      <IconButton
+        aria-label="copy"
+        // color="comp5"
+        color="quaternary"
+        sixe="small"
+        sx={{ p: 0, m: 0 }}
+        onClick={() => {
+          navigator.clipboard.writeText(batch);
+        }}
+      >
+        <Tooltip arrow size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '0.9875rem' }}>
+          <ContentCopyRoundedIcon />
+        </Tooltip>
+      </IconButton>
       <FacebookShareButton
         url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
@@ -131,6 +147,7 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
 ))(({ theme }) => ({
   [`& .${tooltipClasses.arrow}`]: {
     color: theme.palette.grey[900],
+    // .grey[900],
   },
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.grey[900],
@@ -340,7 +357,19 @@ const TableUsers = ({ batchNo, nextActions }) => {
                       enterDelay={300}
                       leaveDelay={200}
                     >
-                      <Typography variant="body2">{batch} </Typography>
+                      {/* <Tooltip title="Copiar" placement="bottom">
+                        <div
+                          className="mr-10 text-black hover:cursor-pointer"
+                          onClick={() => {
+                            navigator.clipboard.writeText(batch);
+                          }}
+                          aria-hidden="true"
+                        > */}
+                      <Typography variant="body2">
+                        {batch.slice(0, 8).concat('...').concat(batch.slice(-8))}{' '}
+                      </Typography>
+                      {/* </div>
+                      </Tooltip> */}
                     </BootstrapTooltip>
                   </Stack>
                 </StyledTableCell>
