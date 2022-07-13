@@ -9,6 +9,7 @@ import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 import PendingConfirmation from '../PendingConfirmation';
+import DateTimePickerMobile from '../FormsUI/MobileDateTimePicker.js';
 
 import { addTx, removeTx } from '../../redux/txSlice';
 
@@ -18,7 +19,8 @@ import transportTypeP from '../../data/transportTypeP.json';
 const initialValues = {
   batchNo: '',
   toPackerTransportType: '',
-  warehousePickupDate: '',
+  // warehousePickupDate: '',
+  warehousePickupDateTime: {},
   toPackerShippingPrice: '',
 };
 
@@ -28,7 +30,8 @@ const valSchema = Yup.object().shape({
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
   toPackerTransportType: Yup.string().required('Obligatorio'),
-  warehousePickupDate: Yup.date().required('Obligatorio'),
+  // warehousePickupDate: Yup.date().required('Obligatorio'),
+  warehousePickupDateTime: Yup.object().required('Obligatorio'),
   toPackerShippingPrice: Yup.string().required('Obligatorio'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
@@ -73,11 +76,11 @@ const ShipPackerForm = () => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
-                      <Grid item xs={12}>
+                      {/* <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">
                           DATOS DE TRANSPORTE HACIA EMPACADOR
                         </Typography>
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
@@ -89,7 +92,11 @@ const ShipPackerForm = () => {
                         />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="warehousePickupDate" label="Fecha de Recogida en Aglomerador" />
+                        {/* <DateTimePicker name="warehousePickupDate" label="Fecha de Recogida en Aglomerador" /> */}
+                        <DateTimePickerMobile
+                          name="warehousePickupDateTime"
+                          label="Fecha y Hora de Recogida en Bodega"
+                        />
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="toPackerShippingPrice" label="Precio del Transporte" />
