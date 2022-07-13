@@ -98,6 +98,7 @@ const FarmForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
+  const [farmNameTemp, setFarmNameTemp] = useState('');
 
   const [openMap, setOpenMap] = useState(false);
   const formikRef = useRef();
@@ -133,10 +134,12 @@ const FarmForm = () => {
   };
 
   useEffect(() => {
+    console.log('ref: ', formikRef.current.values.farmName);
     if (locReadyToAddData) {
       formikRef.current.setFieldValue('latitude', latitudeData);
       formikRef.current.setFieldValue('longitude', longitudeData);
       formikRef.current.setFieldValue('farmAddress', directionData);
+      formikRef.current.setFieldValue('farmName', formikRef.current.values.farmName);
       console.log('formik ref: ', formikRef.current);
       console.log('AQUI 1');
     } else {
