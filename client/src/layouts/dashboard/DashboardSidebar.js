@@ -120,7 +120,7 @@ const allOptionsNav = [
   },
   {
     title: 'Agregar Transporte',
-    path: '/dashboard/shipPacker_addShipment',
+    path: '/dashboard/AddShippingToPacker',
     icon: 'icon-park-solid:transporter',
     role: 'SHIPPER_PACKER',
   },
@@ -144,7 +144,7 @@ const allOptionsNav = [
   },
   {
     title: 'Agregar Transporte',
-    path: '/dashboard/shipRetailer_addShipment',
+    path: '/dashboard/AddShippingToRetailer',
     icon: 'icon-park-solid:transporter',
     role: 'SHIPPER_RETAILER',
   },
@@ -209,7 +209,7 @@ const allOptionsNav = [
     role: 'SHIPPER_RETAILER',
   },
   {
-    title: 'Vista General',
+    title: 'Retailer',
     path: '/dashboard/Retailer',
     icon: 'fluent:building-shop-24-filled',
     role: 'RETAILER',
@@ -247,15 +247,23 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const getNavs = (role) => allOptionsNav.filter((item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key===item.role) !== -1);
+  const getNavs = (role) => {
+    const items = allOptionsNav.filter((item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key===item.role) !== -1)
+    return items.filter((item, index) => items.findIndex((iItem) => iItem.path===item.path) === index)
+  };
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
     setNavOptions(getNavs(userInfo.role));
-    userInfo.role.forEach( (item, index) => setTextRole(index===0 ? item.value :`${textRole} / ${item.value}` ))
   }, [pathname, userInfo]);
+
+  useEffect(() => {
+    let textRoletemp = ""
+    userInfo.role.forEach( (item, index) => {textRoletemp = index===0 ? item.value :`${textRoletemp} / ${item.value}`; return "";})
+    setTextRole(textRoletemp)
+  }, [userInfo])
 
   const renderContent = (
     <Scrollbar

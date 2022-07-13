@@ -77,11 +77,11 @@ const ShipPackerForm = () => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
-                      {/* <Grid item xs={12}>
+                      <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">
                           DATOS DE TRANSPORTE HACIA EMPACADOR
                         </Typography>
-                      </Grid> */}
+                      </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>

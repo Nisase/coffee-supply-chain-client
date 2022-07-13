@@ -150,8 +150,8 @@ export default function NavSection({ navConfig, ...other }) {
   return (
     <Box {...other}>
       <List disablePadding sx={{ p: 1 }}>
-        {navConfig.map((item) => (
-          <NavItem key={item.title} item={item} active={match} />
+        {navConfig.map((item, index) => (
+          <NavItem key={`${item.path}_${index}`} item={item} active={match} />
         ))}
       </List>
     </Box>
