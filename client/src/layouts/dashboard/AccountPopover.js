@@ -1,8 +1,11 @@
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
+import { userDataSelector } from '../../redux/appDataSlice';
 // components
 import MenuPopover from '../../components/MenuPopover';
 
@@ -15,20 +18,17 @@ const MENU_OPTIONS = [
     linkTo: '/',
   },
   {
-    label: 'Profile',
+    label: 'Dashboard',
     icon: 'eva:person-fill',
-    linkTo: '#',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-    linkTo: '#',
+    linkTo: '/dashboard',
   },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function AccountPopover({ userInfo, walletAddress, isOwner}) {
+export default function AccountPopover() {
+  const userInfo = useSelector(userDataSelector);
+
   const anchorRef = useRef(null);
 
   const [open, setOpen] = useState(null);
@@ -80,10 +80,10 @@ export default function AccountPopover({ userInfo, walletAddress, isOwner}) {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {isOwner ? "Administrador" : userInfo.name}
+            {userInfo.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {isOwner ? "admin@track_coffer.com" : userInfo.email}
+            {userInfo.email}
           </Typography>
         </Box>
 
@@ -97,11 +97,11 @@ export default function AccountPopover({ userInfo, walletAddress, isOwner}) {
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        {/* <Divider sx={{ borderStyle: 'dashed' }} />
 
         <MenuItem onClick={handleClose} sx={{ m: 1 }}>
           Logout
-        </MenuItem>
+          </MenuItem> */}
       </MenuPopover>
     </>
   );

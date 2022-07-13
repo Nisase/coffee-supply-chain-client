@@ -1,19 +1,26 @@
 import { createRoot } from "react-dom/client";
+import { SnackbarProvider } from 'notistack';
 import "./index.css";
 import 'simplebar/src/simplebar.css';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import * as serviceWorker from './serviceWorker';
 import reportWebVitals from "./reportWebVitals";
+import { store } from './redux/store';
 import App from "./App";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
     <HelmetProvider>
-        <BrowserRouter>
-        <App />
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+            <SnackbarProvider maxSnack={3}>
+                <App />
+            </SnackbarProvider>
+            </BrowserRouter>
+        </Provider>
     </HelmetProvider>);
 
 

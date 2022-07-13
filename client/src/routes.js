@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
@@ -10,55 +10,119 @@ import Login from './pages/Login';
 import Tracking from './pages/Tracking';
 import NotFound from './pages/Page404';
 import Products from './pages/Products';
-import DashboardAdmin from './pages/DashboardAdmin';
+import DashboardAddUserAdmin from './pages/DashboardAddUserAdmin';
 import DashboardApp from './pages/DashboardApp';
-import Loading from './components/Loading'
+import Loading from './components/Loading';
+import DashboardAddHarvest from './pages/DashboardAddHarvest';
+import DashboardAddFarm from './pages/DashboardAddFarm';
+import DashboardUpdateUser from './pages/DashboardUpdateUser';
+import DashboardAddProcess from './pages/DashboardAddProcess';
+import DashboardAddTasting from './pages/DashboardAddTasting';
+import DashboardAddCoffeeSell from './pages/DashboardAddCoffeeSell';
+import DashboardAddWarehouse from './pages/DashboardAddWarehouse';
+import DashboardAddShipPacker from './pages/DashboardAddShipPacker';
+import DashboardAddPacker from './pages/DashboardAddPacker';
+import DashboardAddShipRetailer from './pages/DashboardAddShipRetailer';
+import DashboardAddRetailer from './pages/DashboardAddRetailer';
 
+import DashboardAdmin from './pages/DashboardAdmin';
+import DashboardHarvest from './pages/DashboardHarvest';
+import DashboardProcess from './pages/DashboardProcess';
+import DashboardTaster from './pages/DashboardTaster';
+// import DashboardCoffeeSell from "./pages/dashboardco"
+import DashboardWarehouse from './pages/DashboardWarehouse';
+import DashboardShipToPacker from './pages/DashboardShipToPacker';
+import DashboardPacker from './pages/DashboardPacker';
+import DashboardShipToRetailer from './pages/DashboardShipToRetailer';
+import DashboardRetailer from './pages/DashboardRetailer';
 // ----------------------------------------------------------------------
 
-const routes = (loading, walletAddress, error, userInfo, isOwner, message) => {
-  const isLoggedIn = walletAddress !==null && error === null;
+const routes = (loading, userData, isOwner, batch) => {
+  const route = loading
+    ? [
+        {
+          path: '/',
+          element: <LogoOnlyLayout />,
+          children: [
+            { path: '/', element: <Navigate to="/home" /> },
+            { path: 'home', element: <Home /> },
+            {
+              path: 'login',
+              element: userData ? (
+                <Navigate to={batch ? `/dashboard?batch=${batch}` : `/dashboard`} />
+              ) : (
+                <Login to={batch ? `/login?batch=${batch}` : `/login`} />
+              ),
+            },
+            { path: 'tracking', element: <Tracking /> },
+          ],
+        },
+        { path: '*', element: <Loading /> },
+      ]
+    : [
+        {
+          path: '/dashboard',
+          element: userData ? <DashboardLayout /> : <Navigate to={batch ? `/login?batch=${batch}` : `/login`} />,
+          children: [
+            // { path: '/', element: userData && userData.role === 'ADMIN' ? <DashboardAddUserAdmin /> : <></> },
+            { path: 'App', element: <DashboardApp /> },
+            { path: 'AddUsers', element: isOwner ? <DashboardAddUserAdmin /> : <Navigate to="/home" /> },
+            { path: 'AddFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/home" /> },
+            { path: 'FarmerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddHarvest', element: <DashboardAddHarvest /> },
+            { path: 'ProcessorUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddProcess', element: <DashboardAddProcess /> },
+            { path: 'TasterUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddTasting', element: <DashboardAddTasting /> },
+            { path: 'AddCoffeeSelling', element: <DashboardAddTasting /> },
+            { path: 'SellerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'WarehouseUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddWarehouse', element: <DashboardAddWarehouse /> },
+            { path: 'ShipperToPackerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddShippingToPacker', element: <DashboardAddShipPacker /> },
+            { path: 'PackerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddPackaging', element: <DashboardAddPacker /> },
+            { path: 'ShipperToRetailerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddShippingToRetailer', element: <DashboardAddShipRetailer /> },
+            { path: 'RetailerUpdateUser', element: <DashboardUpdateUser /> },
+            { path: 'AddRetailer', element: <DashboardAddRetailer /> },
+            { path: 'Admin', element: <DashboardAdmin /> },
+            { path: 'Farmer', element: <DashboardHarvest /> },
+            { path: 'Processor', element: <DashboardProcess /> },
+            { path: 'Taster', element: <DashboardTaster /> },
+            { path: 'Warehouse', element: <DashboardWarehouse /> },
+            { path: 'ShipperToPacker', element: <DashboardShipToPacker /> },
+            { path: 'Packer', element: <DashboardPacker /> },
+            { path: 'ShipperToRetailer', element: <DashboardShipToRetailer /> },
+            { path: 'Retailer', element: <DashboardRetailer /> },
+            { path: 'user', element: <User /> },
+            { path: 'products', element: <Products /> },
+            { path: 'blog', element: <Blog /> },
+          ],
+        },
+        {
+          path: '/',
+          element: <LogoOnlyLayout />,
+          children: [
+            { path: '/', element: <Navigate to="/home" /> },
+            { path: 'home', element: <Home /> },
+            {
+              path: 'login',
+              element: userData ? (
+                <Navigate to={batch ? `/dashboard?batch=${batch}` : `/dashboard`} />
+              ) : (
+                <Login to={batch ? `/login?batch=${batch}` : `/login`} />
+              ),
+            },
+            { path: 'tracking', element: <Tracking /> },
+            { path: '404', element: <NotFound /> },
+            { path: '*', element: <Navigate to="/404" /> },
+          ],
+        },
+        { path: '*', element: <Navigate to="/404" replace /> },
+      ];
 
-
-
-  const route = loading ? [{
-    path: '/',
-    element: <LogoOnlyLayout />,
-    children: [
-      { path: '/', element: <Navigate to="/home" /> },
-      { path: 'home', element: <Home walletAddress={walletAddress}/> },
-      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
-      { path: 'tracking', element:  <Tracking />}
-    ],
-  }, { path: '*', element:  <Loading />}]: [
-  {
-    path: '/dashboard',
-    element: isLoggedIn ? <DashboardLayout userInfo={userInfo} isOwner={isOwner} walletAddress={walletAddress}/> : <Navigate to="/login" />,
-    children: [
-      { path: 'app', element: <DashboardApp /> },
-      { path: 'admin', element: isOwner ? <DashboardAdmin walletAddress={walletAddress} />: <Navigate to="/dashboard/app" />  },
-      { path: 'user', element: <User /> },
-      { path: 'products', element: <Products /> },
-      { path: 'blog', element: <Blog /> },
-    ],
-  },
-  {
-    path: '/',
-    element: <LogoOnlyLayout />,
-    children: [
-      { path: '/', element: <Navigate to="/home" /> },
-      { path: 'home', element: <Home walletAddress={walletAddress}/> },
-      { path: 'login', element: !isLoggedIn ? <Login /> : <Navigate to="/dashboard/app" /> },
-      { path: 'tracking', element:  <Tracking />},
-      { path: '404', element: <NotFound /> },
-      { path: '*', element: <Navigate to="/404" /> },
-    ],
-  },
-  { path: '*', element: <Navigate to="/404" replace /> },
-]
-
-return route;
-
+  return route;
 };
 
 export default routes;

@@ -28,21 +28,111 @@ const GREY = {
   500_80: alpha('#919EAB', 0.8),
 };
 
-const PRIMARY = {
-  lighter: '#D1E9FC',
-  light: '#76B0F1',
+const COMP1 = {
+  lighter: '#FBBC9D',
+  light: '#F78750',
   main: '#AF4108',
-  dark: '#103996',
-  darker: '#061B64',
+  dark: '#883206',
+  darker: '#4E1C03',
+  contrastText: '#fff',
+};
+
+const COMP2 = {
+  lighter: '#B3B286',
+  light: '#71704D',
+  main: '#838350',
+  dark: '#595823',
+  darker: '#4C4C3D',
+  contrastText: '#fff',
+};
+
+const COMP3 = {
+  lighter: '#B2999A',
+  light: '#836668',
+  main: '#705C5D',
+  dark: '#58393C',
+  darker: '#4C4344',
+  contrastText: '#fff',
+};
+
+const COMP4 = {
+  lighter: '#DBB894',
+  light: '#D1A375',
+  main: '#B67A3D',
+  dark: '#996633',
+  darker: '#5C3D1F',
+  contrastText: '#fff',
+};
+
+const COMP5 = {
+  lighter: '#81C0C5',
+  light: '#76BBC0',
+  main: '#57ACB2',
+  dark: '#3A797E',
+  darker: '#204346',
+  contrastText: '#fff',
+};
+
+const COMP6 = {
+  lighter: '#F9D2B4',
+  light: '#F6BB8E',
+  main: '#F4B382',
+  dark: '#F09956',
+  darker: '#EB771E',
+  contrastText: '#fff',
+};
+
+const COMP7 = {
+  lighter: '#6D9DC5',
+  light: '#4075A0',
+  main: '#2F5575',
+  dark: '#1D3549',
+  darker: '#0D1821',
+  contrastText: '#fff',
+};
+
+const PRIMARY = {
+  lighter: '#0E7981',
+  light: '#0A575C',
+  main: '#042A2B',
+  dark: '#042325',
+  darker: '021112',
   contrastText: '#fff',
 };
 
 const SECONDARY = {
-  lighter: '#D6E4FF',
-  light: '#84A9FF',
-  main: '#6D603A',
-  dark: '#1939B7',
-  darker: '#091A7A',
+  lighter: '#E37B64',
+  light: '#DC5E41',
+  main: '#CF4526',
+  dark: '#AC3920',
+  darker: '#672213',
+  contrastText: '#fff',
+};
+
+const TERTIARY = {
+  lighter: '#99CDD6',
+  light: '#7CBFCB',
+  main: '#5EB1BF',
+  dark: '#4092A0',
+  darker: '#295D66',
+  contrastText: '#fff',
+};
+
+const QUATERNARY = {
+  lighter: '#F7BCA1',
+  light: '#F29469',
+  main: '#EF7B45',
+  dark: '#EB5F1E',
+  darker: '#CE4E12',
+  contrastText: '#fff',
+};
+
+const FIFTH = {
+  lighter: '#EEF9FC',
+  light: '#DDF3F9',
+  main: '#CDEDF6',
+  dark: '#86D4E9',
+  darker: '#41BBDC',
   contrastText: '#fff',
 };
 
@@ -102,6 +192,16 @@ const palette = {
   common: { black: '#000', white: '#fff' },
   primary: { ...PRIMARY },
   secondary: { ...SECONDARY },
+  tertiary: { ...TERTIARY },
+  quaternary: { ...QUATERNARY },
+  fifth: { ...FIFTH },
+  comp1: { ...COMP1 },
+  comp2: { ...COMP2 },
+  comp3: { ...COMP3 },
+  comp4: { ...COMP4 },
+  comp5: { ...COMP5 },
+  comp6: { ...COMP6 },
+  comp7: { ...COMP7 },
   info: { ...INFO },
   success: { ...SUCCESS },
   warning: { ...WARNING },
@@ -110,8 +210,20 @@ const palette = {
   gradients: GRADIENTS,
   chart: CHART_COLORS,
   divider: GREY[500_24],
-  text: { primary: GREY[800], secondary: GREY[600], disabled: GREY[500] },
-  background: { paper: '#fff', default: GREY[100], neutral: GREY[200] },
+  text: { primary: GREY[900], secondary: GREY[600], disabled: GREY[500] },
+  // background: { paper: '#fff', default: GREY[100], neutral: GREY[200] },
+  // background: { paper: '#fff', default: GREY[100], neutral: 'primary#612940' },
+  background: { paper: '#fff', default: GREY[100], neutral: '#042A2B', verd: '#042A2B' },
+  // '#042A2B'
+  // '#E55B13'
+  // 19323C
+
+  // background: {
+  //   paper: 'linear-gradient(to bottom, red, yellow)',
+  //   default: 'linear-gradient(to bottom, red, yellow)',
+  //   neutral: GREY[200],
+  // },
+
   action: {
     active: GREY[600],
     hover: GREY[500_8],
@@ -119,7 +231,7 @@ const palette = {
     disabled: GREY[500_80],
     disabledBackground: GREY[500_24],
     focus: GREY[500_24],
-    hoverOpacity: 0.08,
+    zOpacity: 0.08,
     disabledOpacity: 0.48,
   },
 };

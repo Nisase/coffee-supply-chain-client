@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, Outlet, useSearchParams, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 // material
 import { styled } from '@mui/material/styles';
 //
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
+
+import { userDataSelector } from '../../redux/appDataSlice';
 
 // ----------------------------------------------------------------------
 
@@ -21,8 +25,8 @@ const MainStyle = styled('div')(({ theme }) => ({
   flexGrow: 1,
   overflow: 'auto',
   minHeight: '100%',
-  paddingTop: APP_BAR_MOBILE + 24,
-  paddingBottom: theme.spacing(10),
+  paddingTop: APP_BAR_MOBILE +50,
+  paddingBottom: theme.spacing(20),
   [theme.breakpoints.up('lg')]: {
     paddingTop: APP_BAR_DESKTOP + 50,
     paddingLeft: theme.spacing(2),
@@ -32,13 +36,29 @@ const MainStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function DashboardLayout({userInfo, walletAddress, isOwner}) {
+export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const {pathname} = useLocation();
+  const navigate = useNavigate();
+  const userInfo = useSelector(userDataSelector);
+
+  const batch = searchParams.get("batch")
+
+  useEffect(()=>{
+    if(batch && batch.length===42 && (pathname==="/dashboard" || pathname==="/dashboard/")){
+      // console.log(userInfo.role)
+      let localPathname = "/dashboard";
+      if(userInfo.role==="AGRICULTOR/PRODUCTOR") localPathname += "/farmer_addHarvest";
+      if(userInfo.role==="PROCESADOR") localPathname += "/processor_addProcess";
+      if(localPathname !== "/dashboard" ) navigate(`${localPathname}?batch=${batch}`)
+    } 
+  })
 
   return (
     <RootStyle>
-      <DashboardNavbar userInfo={userInfo} walletAddress={walletAddress} isOwner={isOwner} onOpenSidebar={() => setOpen(true)} />
-      <DashboardSidebar userInfo={userInfo} walletAddress={walletAddress} isOwner={isOwner} isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
+      <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
+      <DashboardSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)} />
       <MainStyle>
         <Outlet />
       </MainStyle>

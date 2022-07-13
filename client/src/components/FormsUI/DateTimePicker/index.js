@@ -8,12 +8,11 @@ const DateTimePicker = ({ name, ...otherProps }) => {
   const configDateTimePicker = {
     ...field,
     ...otherProps,
-    type: 'date', // permite que sea de tipo date
+    type: 'date',
     variant: 'outlined',
     fullWidth: true,
     InputLabelProps: {
       shrink: true,
-      // solo se hace en datetime picker para q no se muestre el label?
     },
   };
 

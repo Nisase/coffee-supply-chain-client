@@ -1,11 +1,10 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Container, Typography } from '@mui/material';
-import { useSearchParams } from "react-router-dom";
-// hooks
-import useResponsive from '../hooks/useResponsive';
+import { Container } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
 // components
 import Page from '../components/Page';
+import TimeLine from '../components/Tracking/TimeLine';
 
 // ----------------------------------------------------------------------
 
@@ -13,24 +12,14 @@ const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     display: 'flex',
   },
-  zIndex: 10
-}));
-
-const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: 600,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
+  zIndex: 10,
 }));
 
 const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
   margin: 'auto',
   minHeight: '100vh',
   display: 'flex',
-  justifyContent: 'center',
+  // justifyContent: 'center',
   flexDirection: 'column',
   padding: theme.spacing(12, 0),
 }));
@@ -38,18 +27,25 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Tracking() {
-  const mdUp = useResponsive('up', 'md');
-  const [searchParams, setSearchParams] = useSearchParams();
-  const batch = searchParams.get("batch");
+  const [searchParams] = useSearchParams();
+  const batch = searchParams.get('batch');
 
-  // http://localhost:3000/tracking?batch=0xgsjdhsfgsbddgbdfdhfjdhdfbksfjbdksb
+
+
+  // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
   return (
     <Page title="Login">
       <RootStyle>
-        <Container maxWidth="sm">
-          <ContentStyle>
-          {batch}  
+        <Container>
+          <ContentStyle className='w-full'>
+            {batch && batch.length===42 ?
+            <TimeLine batchNoIn={batch} />
+            :
+            <>
+            Bach No Valido: Probar con <a href='http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197'>0x6B4964E34816C7FF32EA3787c2C615E583715197</a>
+            </>
+           }
           </ContentStyle>
         </Container>
       </RootStyle>

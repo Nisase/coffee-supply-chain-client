@@ -1,0 +1,555 @@
+{
+    "abi": [
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_supplyChainStorage",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_supplyChainStorage2",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "DonePackaging",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "DoneRetailer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "DoneShippingPacker",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "DoneShippingRetailer",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "DoneWarehousing",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previousOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipRenounced",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "previusOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_packerAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_packerArrivalDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_packingDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_packingPricePerKilo",
+                    "type": "string"
+                }
+            ],
+            "name": "addPackData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string[]",
+                    "name": "_warehouseSalepointArrivalDate",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_warehouseRetailerName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_salepointRetailerName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_warehouseRetailerAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_salepointRetailerAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_toSalepointTransportType",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_toSalepointShippingPrice",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_retailerPricePerKilo",
+                    "type": "string"
+                }
+            ],
+            "name": "addRetailerData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_toPackerTransportType",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_warehousePickupDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_toPackerShippingPrice",
+                    "type": "string"
+                }
+            ],
+            "name": "addShipPackerData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_toRetailerTransportType",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_packerPickupDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_toReatilerShippingPrice",
+                    "type": "string"
+                }
+            ],
+            "name": "addShipRetailerData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_warehouseAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_warehouseArrivalDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_storagePricePerKiloPerTime",
+                    "type": "string"
+                }
+            ],
+            "name": "addWarehousingData",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "getPackData",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "packerAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "packerArrivalDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "packingDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "packingPricePerKilo",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "getRetailerData",
+            "outputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "warehouseSalepointArrivalDate",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "string",
+                    "name": "warehouseRetailerName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "salepointRetailerName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "warehouseRetailerAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "salepointRetailerAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "toSalepointTransportType",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "toSalepointShippingPrice",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "retailerPricePerKilo",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "getShipPackerData",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "toPackerTransportType",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "warehousePickupDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "toPackerShippingPrice",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "getShipRetailerData",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "toRetailerTransportType",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "packerPickupDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "toReatilerShippingPrice",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_batchNo",
+                    "type": "address"
+                }
+            ],
+            "name": "getWarehousingData",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "warehouseAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "warehouseArrivalDate",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "storagePricePerKiloPerTime",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ]
+}

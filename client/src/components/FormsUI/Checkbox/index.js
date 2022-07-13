@@ -9,7 +9,6 @@ const CheckboxWrapper = ({ name, label, legend, ...otherProps }) => {
 
   const handleChange = (evt) => {
     const { checked } = evt.target;
-    // checked es un valor boolean
     setFieldValue(name, checked);
   };
 
@@ -19,7 +18,6 @@ const CheckboxWrapper = ({ name, label, legend, ...otherProps }) => {
     onChange: handleChange,
   };
 
-  // como checkbox no tiene un prop for error necesito usar FormControl
   const configFormControl = {};
 
   if (meta && meta.touched && meta.error) {
@@ -30,7 +28,7 @@ const CheckboxWrapper = ({ name, label, legend, ...otherProps }) => {
     <FormControl {...configFormControl}>
       <FormLabel component="legend">{legend}</FormLabel>
       <FormGroup>
-        <FormControlLabel control={<Checkbox {...configCheckbox} />} label={label} />
+        <FormControlLabel control={<Checkbox {...configCheckbox} checked={field.value} />} label={label} />
       </FormGroup>
     </FormControl>
   );
