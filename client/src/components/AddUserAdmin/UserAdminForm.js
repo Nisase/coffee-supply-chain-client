@@ -6,6 +6,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button, FormLabel, TextField, OutlinedInput } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
+<<<<<<< HEAD
 import SelectWrapper from '../FormsUI/Select';
 import SelectWrapper2 from '../FormsUI/Select2';
 import CheckboxWrapper from '../FormsUI/Checkbox';
@@ -14,6 +15,13 @@ import PendingConfirmation from '../PendingConfirmation';
 import MultipleRolesSelect from './MultipleRolesSelect';
 
 import role from '../../data/roles.json';
+=======
+import MultipleSelectChip from '../FormsUI/Select/MultipleSelectChip';
+import CheckboxWrapper from '../FormsUI/Checkbox';
+import PendingConfirmation from '../PendingConfirmation';
+
+import roleData from '../../data/roles.json';
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
 import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
@@ -38,8 +46,12 @@ const initialValues = {
   userAddress: '0xce49E1834F30fD7572F87aCf2Af38C63B604Be69',
   name: 'FARMER 4',
   email: 'farmer4test@gmail.com',
+<<<<<<< HEAD
   role: ['FARMER', 'COFFEE SELLER'],
   // role: 'FARMER',
+=======
+  role: [],
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
   isActive: true,
   profileHash: null,
 };
@@ -51,9 +63,13 @@ const valSchema = Yup.object().shape({
     .min(42, 'Las direcciones de Metamask tienen 42 caracteres'),
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
+<<<<<<< HEAD
   // role: Yup.string().required('Obligatorio'),
   role: Yup.array().of(Yup.string()).required('Obligatorio'),
   // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+=======
+  role: Yup.array().min(1, 'Se necesita asignar al menos un rol por persona').max(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
   // Yup.string().required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
@@ -84,8 +100,15 @@ const UserAdminForm = () => {
     setfileUrl('');
 
     const userTemp = await getUserByAddress(values.userAddress);
+<<<<<<< HEAD
     // ?
     for (let i = 0; i < userTemp.role.length; i += 1) {
+=======
+    console.log("userTemp")
+    console.log(userTemp)
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < userTemp.role.length; i++) {      
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
       if (userTemp.role[i] !== '' && userTemp.message === null) {
         setLoading(false);
         enqueueSnackbar(`La dirección ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
@@ -171,6 +194,7 @@ const UserAdminForm = () => {
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
                     <Grid item xs={6}>
+<<<<<<< HEAD
                       <SelectWrapper2
                         multiple
                         name="role"
@@ -194,6 +218,17 @@ const UserAdminForm = () => {
                         ]}
                       />
                       <Typography>{typeof values.role}</Typography>
+=======
+                      {/* <SelectWrapper name="role" label="Rol" options={role} /> 
+                      <TextfieldWrapper name="role" label="Rol" /> */}
+                      <MultipleSelectChip name="role" options={roleData}/>
+                      {touched.role && errors.role ? (
+                          <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
+                            {errors.role}
+                          </small>
+                        ) : null}
+
+>>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
                     </Grid>
                     {/* <Grid item xs={6}>
                       <SelectWrapper name="role" label="Rol" options={role} />
