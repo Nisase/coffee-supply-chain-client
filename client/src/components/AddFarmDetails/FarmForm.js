@@ -104,9 +104,9 @@ const FarmForm = () => {
 
   const dispatch = useDispatch();
 
-  const directionData = useSelector(directionDataSelector);
-  const latitudeData = useSelector(latitudeDataSelector);
-  const longitudeData = useSelector(longitudeDataSelector);
+  const directionData = String(useSelector(directionDataSelector));
+  const latitudeData = String(useSelector(latitudeDataSelector));
+  const longitudeData = String(useSelector(longitudeDataSelector));
   const locReadyToAddData = useSelector(locReadyToAddDataSelector);
 
   const localHandleSubmit = async (values) => {
@@ -138,21 +138,18 @@ const FarmForm = () => {
       formikRef.current.setFieldValue('longitude', longitudeData);
       formikRef.current.setFieldValue('farmAddress', directionData);
       console.log('formik ref: ', formikRef.current);
-      console.log('AQUI ESTOY ....');
-      console.log('dir: ', directionData);
-      console.log('lat: ', latitudeData);
-      console.log('lng: ', longitudeData);
+      console.log('AQUI 1');
     } else {
       formikRef.current.setFieldValue('farmName', '');
       formikRef.current.setFieldValue('latitude', '');
       formikRef.current.setFieldValue('longitude', '');
       formikRef.current.setFieldValue('farmAddress', '');
-      console.log('formik ref: ', formikRef.current);
-      console.log('AQUI ESTOY ... asI');
-      console.log('dir: ', directionData);
-      console.log('lat: ', latitudeData);
-      console.log('lng: ', longitudeData);
+      console.log('AQUI 2');
     }
+
+    console.log('latitude: ', latitudeData);
+    console.log('latitude type: ', typeof latitudeData);
+    console.log('long:', longitudeData);
   }, [latitudeData, longitudeData, directionData]);
 
   return (
@@ -310,7 +307,10 @@ const FarmForm = () => {
                         )}
                       </Container>
                     </Grid>
-
+                    {/* <Grid item xs={12}>
+                      <Typography>dirty: {dirty}</Typography>
+                      <Typography>dirty: {isValid}</Typography>
+                    </Grid> */}
                     <Grid item xs={12}>
                       <Button
                         fullWidth

@@ -17,9 +17,9 @@ import transportTypeP from '../../data/transportTypeP.json';
 
 const initialValues = {
   batchNo: '',
-  transportTypeP: '',
-  pickupDateP: '',
-  shipPriceP: '',
+  toPackerTransportType: '',
+  warehousePickupDate: '',
+  toPackerShippingPrice: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -27,9 +27,10 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  transportTypeP: Yup.string().required('Obligatorio'),
-  pickupDateP: Yup.date().required('Obligatorio'),
-  shipPriceP: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  toPackerTransportType: Yup.string().required('Obligatorio'),
+  warehousePickupDate: Yup.date().required('Obligatorio'),
+  toPackerShippingPrice: Yup.string().required('Obligatorio'),
+  // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const ShipPackerForm = () => {
@@ -74,20 +75,24 @@ const ShipPackerForm = () => {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DE TRANSPORTE HACIA EMPACADORA
+                          DATOS DE TRANSPORTE HACIA EMPACADOR
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="transportTypeP" label="Tipo de Transporte" options={transportTypeP} />
+                        <SelectWrapper
+                          name="toPackerTransportType"
+                          label="Tipo de Transporte"
+                          options={transportTypeP}
+                        />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="pickupDateP" label="Fecha Recogida en Aglomerador" />
+                        <DateTimePicker name="warehousePickupDate" label="Fecha de Recogida en Aglomerador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="shipPriceP" label="Precio del Transporte" />
+                        <TextfieldWrapper name="toPackerShippingPrice" label="Precio del Transporte" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">

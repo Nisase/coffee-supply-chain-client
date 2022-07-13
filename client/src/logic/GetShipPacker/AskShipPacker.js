@@ -1,7 +1,7 @@
-import { getCoffeERC20 } from '../erc20';
+import { getCoffe2ERC20 } from '../erc20';
 
 const AskShipPacker = async (values) => {
-  const erc20 = await getCoffeERC20();
+  const erc20 = await getCoffe2ERC20();
 
   try {
     const info = await erc20.callStatic.getShipPackerData(values.batchNo);

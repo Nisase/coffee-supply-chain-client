@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import { v4 as uuid } from 'uuid';
 import { useSelector } from 'react-redux';
 import { walletAddressSelector } from '../../redux/appDataSlice';
-import { getCoffeERC20 } from '../../logic/erc20';
+import { getCoffe1ERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import UpdateUserForm from '../UpdateUser/UpdateUserForm';
 import ProcessForm from '../AddProcess/ProcessForm';
@@ -20,7 +20,7 @@ const ProcessView = () => {
 
   useEffect(() => {
     const getBatch = async () => {
-      const erc = getCoffeERC20();
+      const erc = getCoffe1ERC20();
       const events = await erc.queryFilter(erc.filters.DoneProcessing(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {

@@ -2,18 +2,18 @@ import { Container } from '@mui/material';
 // components
 import Page from '../components/Page';
 
-import AgglomForm from '../components/AddAgglom/AgglomForm';
+import TasterFormForm from '../components/AddTaster/TasterForm';
 
-const DashboardAddAgglom = () => {
+const DashboardAddTasting = () => {
   return (
-    <Page title="Processor">
+    <Page title="GrainInspector">
       <Container maxWidth="xl">
         <div className="mt-20">
-          <AgglomForm />
+          <TasterFormForm />
         </div>
       </Container>
     </Page>
   );
 };
 
-export default DashboardAddAgglom;
+export default DashboardAddTasting;

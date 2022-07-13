@@ -10,12 +10,11 @@ import PendingConfirmation from '../PendingConfirmation';
 
 import { addTx, removeTx } from '../../redux/txSlice';
 
-import HandleSubmit from '../../logic/AddGrainInspection/HandleSubmit';
+import HandleSubmit from '../../logic/AddCoffeeSell/HandleSubmit';
 
 const initialValues = {
   batchNo: '',
-  tasteScore: '',
-  grainPrice: '',
+  beanPricePerKilo: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -23,11 +22,10 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  tasteScore: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
-  grainPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  beanPricePerKilo: Yup.string().required('Obligatorio'),
 });
 
-const GrainInspectionForm = () => {
+const CoffeeSellForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
@@ -40,11 +38,11 @@ const GrainInspectionForm = () => {
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
-      dispatch(addTx({ tx: trans.hash, type: 'SetGrainData' }));
+      dispatch(addTx({ tx: trans.hash, type: 'DoneCoffeeSelling' }));
       setLoading(false);
       enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
     }).catch((error) => {
-      dispatch(removeTx({ tx: txHash, type: 'SetGrainData' }));
+      dispatch(removeTx({ tx: txHash, type: 'DoneCoffeeSelling' }));
       enqueueSnackbar(error.message, { variant: 'warning' });
       setLoading(false);
     });
@@ -69,17 +67,14 @@ const GrainInspectionForm = () => {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DE INSPECCIÓN DEL GRANO
+                          DATOS DE VENTA DEL GRANO
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="tasteScore" label="Puntuación de Catación" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="grainPrice" label="Precio del Grano" />
+                        <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta del Grano por Kilo" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
@@ -99,4 +94,4 @@ const GrainInspectionForm = () => {
   );
 };
 
-export default GrainInspectionForm;
+export default CoffeeSellForm;

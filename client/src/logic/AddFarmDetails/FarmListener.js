@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getCoffeERC20 } from '../erc20';
+import { getCoffe1ERC20 } from '../erc20';
 
 const FarmListener = () => {
   const [farmRegistered, setFarmRegistered] = useState({});
 
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
-      const erc20 = getCoffeERC20();
+    if (typeof window.ethereum !== 'undefined') {
+      const erc20 = getCoffe1ERC20();
       erc20.on('SetFarmDetails', (user, batchNo, event) => {
         setFarmRegistered({
           user,

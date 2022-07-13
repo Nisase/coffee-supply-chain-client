@@ -16,13 +16,15 @@ import HandleSubmit from '../../logic/AddRetailer/HandleSubmit';
 
 const initialValues = {
   batchNo: '',
-  arrivalDateW: '',
-  arrivalDateSP: '',
-  warehouseName: '',
-  warehouseAddress: '',
-  salePointAddress: '',
-  shipPriceSP: '',
-  productPrice: '',
+  warehouseArrivalDate: '',
+  salepointArrivalDate: '',
+  warehouseRetailerName: '',
+  salepointRetailerName: '',
+  warehouseRetailerAddress: '',
+  salepointRetailerAddress: '',
+  toSalepointTransportType: '',
+  toSalepointShippingPrice: '',
+  retailerPricePerKilo: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -30,13 +32,17 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  arrivalDateW: Yup.date().required('Obligatorio'),
-  arrivalDateSP: Yup.date().required('Obligatorio'),
-  warehouseName: Yup.string().required('Obligatorio'),
-  warehouseAddress: Yup.string().required('Obligatorio'),
-  salePointAddress: Yup.string().required('Obligatorio'),
-  shipPriceSP: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
-  productPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  warehouseArrivalDate: Yup.date().required('Obligatorio'),
+  salepointArrivalDate: Yup.date().required('Obligatorio'),
+  warehouseRetailerName: Yup.string().required('Obligatorio'),
+  salepointRetailerName: Yup.string().required('Obligatorio'),
+  warehouseRetailerAddress: Yup.string().required('Obligatorio'),
+  salepointRetailerAddress: Yup.string().required('Obligatorio'),
+  toSalepointTransportType: Yup.string().required('Obligatorio'),
+  toSalepointShippingPrice: Yup.string().required('Obligatorio'),
+  // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  retailerPricePerKilo: Yup.string().required('Obligatorio'),
+  // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const RetailerForm = () => {
@@ -81,32 +87,44 @@ const RetailerForm = () => {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DEL RETAILER
+                          DATOS DE RETAILER
                         </Typography>
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="arrivalDateW" label="Fecha de Llegada al Almacén" />
+                        <DateTimePicker name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="arrivalDateSP" label="Fecha de Llegada al Punto de Venta" />
+                        <DateTimePicker name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="warehouseName" label="Nombre del Almacén" />
+                        <TextfieldWrapper name="warehouseRetailerName" label="Nombre del Almacén" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="warehouseAddress" label="Dirección Almacén" />
+                        <TextfieldWrapper name="salepointRetailerName" label="Nombre del Punto de Venta" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="salePointAddress" label="Dirección Punto de Venta" />
+                        <TextfieldWrapper name="warehouseRetailerAddress" label="Dirección del Almacén" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="shipPriceSP" label="Precio de Transporte" />
+                        <TextfieldWrapper name="salepointRetailerAddress" label="Dirección del Punto de Venta" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="productPrice" label="Precio del Producto Final" />
+                        <TextfieldWrapper name="toSalepointTransportType" label="Tipo de Transporte" />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextfieldWrapper
+                          name="toSalepointShippingPrice"
+                          label="Precio de Transporte del Almacén al Punto de Venta"
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextfieldWrapper
+                          name="retailerPricePerKilo"
+                          label="Precio por Kilo del Producto en el Retailer"
+                        />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">

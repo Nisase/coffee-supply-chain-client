@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getCoffeERC20 } from '../erc20';
+import { getCoffe2ERC20 } from '../erc20';
 
 const PackerListener = () => {
   const [packRegistered, setPackRegistered] = useState({});
 
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
-      const erc20 = getCoffeERC20();
+    if (typeof window.ethereum !== 'undefined') {
+      const erc20 = getCoffe2ERC20();
       erc20.on('DonePackaging', (user, batchNo, event) => {
         setPackRegistered({
           user,

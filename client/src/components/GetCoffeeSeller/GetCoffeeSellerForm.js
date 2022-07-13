@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 
-import AskGrainInspection from '../../logic/GetGrainInspection/AskGrainInspection';
+import AskCoffeeSeller from '../../logic/GetCoffeeSeller/AskCoffeeSeller';
 
 const initialValues = {
   batchNo: '',
@@ -14,7 +14,7 @@ const valSchema = Yup.object().shape({
   batchNo: Yup.string().required('Requerido').max(42, 'La direccion debe tener maximo 42 caracteres').min(42),
 });
 
-const GetGrainInspectionForm = () => {
+const GetCoffeeSellerForm = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -24,7 +24,7 @@ const GetGrainInspectionForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                AskGrainInspection(values);
+                AskCoffeeSeller(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -37,7 +37,7 @@ const GetGrainInspectionForm = () => {
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          OBTENER DATOS DE INSPECCIÓN DEL GRANO
+                          OBTENER DATOS DEL PROCESADO
                         </Button>
                       </Grid>
                     </Grid>
@@ -52,4 +52,4 @@ const GetGrainInspectionForm = () => {
   );
 };
 
-export default GetGrainInspectionForm;
+export default GetCoffeeSellerForm;

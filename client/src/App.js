@@ -14,8 +14,9 @@ import UpdateUserListener from './logic/UpdateUser/UpdateUserListener';
 import FarmListener from './logic/AddFarmDetails/FarmListener';
 import HarvestListener from './logic/AddHarvest/HarvestListener';
 import ProcessListener from './logic/AddProcess/ProcessListener';
-import GrainInspectionListener from './logic/AddGrainInspection/GrainInspectionListener';
-import AgglomListener from './logic/AddAgglom/AgglomListener';
+import TastingListener from './logic/AddTaster/TasterListener';
+import CoffeeSellListener from './logic/AddCoffeeSell/CoffeeSellListener';
+import WarehouseListener from './logic/AddWarehouse/WarehouseListener';
 import ShipPackerListener from './logic/AddShipPacker/ShipPackerListener';
 import PackerListener from './logic/AddPacker/PackerListener';
 import ShipRetailerListener from './logic/AddShipRetailer/ShipRetailerListener';
@@ -31,13 +32,8 @@ import {
   walletAddressSelector,
   loadingSelector,
 } from './redux/appDataSlice';
-import {
-  setDirectionData,
-  setLatitudeData,
-  setLongitudeData,
-  setLocReadyToAddData
-} from './redux/locationDataSlice';
-import { setCoffeAddress, setUserAddress } from './redux/contractsAddressSlice';
+import { setDirectionData, setLatitudeData, setLongitudeData, setLocReadyToAddData } from './redux/locationDataSlice';
+import { setCoffeAddress1, setCoffeAddress2, setUserAddress } from './redux/contractsAddressSlice';
 import { txListSelector, removeTx } from './redux/txSlice';
 
 import getUserByAddress from './logic/GetUser';
@@ -55,8 +51,8 @@ function App() {
   const loading = useSelector(loadingSelector);
   const walletAddressApp = useSelector(walletAddressSelector);
   const [searchParams] = useSearchParams();
-  const batch = searchParams.get("batch");
-  
+  const batch = searchParams.get('batch');
+
   const getUserLocal = async (walletAddress) => {
     dispatch(setLoading(true));
     const user = await getUserByAddress(walletAddress);
@@ -82,49 +78,49 @@ function App() {
     dispatch(setLoading(false));
   };
 
-
   const setNullUserLocal = () => {
     dispatch(setIsOwer(false));
     dispatch(setUserData(null));
     dispatch(setMessage(''));
-  };  
-
+  };
 
   useLayoutEffect(() => {
     // dispatch(setLoading(true));
-    // const userAddress = '0xA898D61bD7Ed054C5cEd27Fce111BcC0B3C270d8';
-    const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
-    // const coffeAddress = '0x37F97d0D133c2217Fa058944eA3C69B030e658FC';
-    const coffeAddress = '0x5F87cD4E112beb3AF8918Be2Eb232DdEF032f69d';
+    // const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
+    // const coffeAddress = '0x5F87cD4E112beb3AF8918Be2Eb232DdEF032f69d';
+
+    const userAddress = '0xfD5Ca7C4a1be3F774f11B4D824A86e78c228C25f';
+    const coffeAddress1 = '0x829a731ac34D016C5dF6b42Ef9804580ab5D320b';
+    const coffeAddress2 = '0xd3218ce85DfD29167Af4020ef0f779CF092AD8D4';
 
     window.userAddress = userAddress;
-    window.coffeAddress = coffeAddress;
+    window.coffeAddress1 = coffeAddress1;
+    window.coffeAddress2 = coffeAddress2;
 
     // console.log("DISPACH SMART CONTRACT ADDRESS")
     dispatch(setUserAddress(userAddress));
-    dispatch(setCoffeAddress(coffeAddress));
+    dispatch(setCoffeAddress1(coffeAddress1));
+    dispatch(setCoffeAddress2(coffeAddress2));
   }, []);
 
   useEffect(() => {
-    console.log("DISPACH ERROR ADDRESS")
-    console.log(error)
-    if(error){
+    console.log('DISPACH ERROR ADDRESS');
+    console.log(error);
+    if (error) {
       // enqueueSnackbar(error, { variant: 'error' });
       // setNullUserLocal();
       dispatch(setLoading(false));
-    }    
+    }
   }, [error]);
-
 
   useEffect(() => {
     // console.log("DISPACH USER ADDRESS")
     dispatch(setWalletAddress(walletAddress));
   }, [walletAddress]);
 
-
   useLayoutEffect(() => {
-    console.log("Wallet Address")
-    console.log(walletAddressApp)
+    console.log('Wallet Address');
+    console.log(walletAddressApp);
     if (walletAddressApp) getUserLocal(walletAddressApp);
     else setNullUserLocal();
   }, [walletAddressApp, isOwner]);
@@ -185,28 +181,41 @@ function App() {
     }
   }, [processRegistered, txList]);
 
-  const { grainRegistered } = GrainInspectionListener();
+  const { tastingRegistered } = TastingListener();
   useEffect(() => {
-    if (grainRegistered !== undefined && txIsContain(grainRegistered.tx, 'SetGrainData')) {
+    if (tastingRegistered !== undefined && txIsContain(tastingRegistered.tx, 'DoneTasting')) {
       enqueueSnackbar(
-        `Datos de inspección del grano correspondientes al lote de café ${grainRegistered.batchNo} agregados correctamente`,
+        `Datos de inspección del grano correspondientes al lote de café ${tastingRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
       );
-      dispatch(removeTx({ tx: grainRegistered.tx, type: 'SetGrainData' }));
+      dispatch(removeTx({ tx: tastingRegistered.tx, type: 'DoneTasting' }));
     }
-  }, [grainRegistered, txList]);
+  }, [tastingRegistered, txList]);
 
-  const { agglomRegistered } = AgglomListener();
+  const { coffeeSellerRegistered } = TastingListener();
   useEffect(() => {
-    if (agglomRegistered !== undefined && txIsContain(agglomRegistered.tx, 'DoneAgglomeration')) {
-      enqueueSnackbar(`Datos de aglomerado del lote de café ${agglomRegistered.batchNo} agregados correctamente`, {
+    if (coffeeSellerRegistered !== undefined && txIsContain(coffeeSellerRegistered.tx, 'DoneCoffeeSelling')) {
+      enqueueSnackbar(
+        `Datos de inspección del grano correspondientes al lote de café ${coffeeSellerRegistered.batchNo} agregados correctamente`,
+        {
+          variant: 'success',
+        }
+      );
+      dispatch(removeTx({ tx: coffeeSellerRegistered.tx, type: 'DoneCoffeeSelling' }));
+    }
+  }, [coffeeSellerRegistered, txList]);
+
+  const { warehouseRegistered } = WarehouseListener();
+  useEffect(() => {
+    if (warehouseRegistered !== undefined && txIsContain(warehouseRegistered.tx, 'DoneAgglomeration')) {
+      enqueueSnackbar(`Datos de aglomerado del lote de café ${warehouseRegistered.batchNo} agregados correctamente`, {
         variant: 'success',
       });
-      dispatch(removeTx({ tx: agglomRegistered.tx, type: 'DoneAgglomeration' }));
+      dispatch(removeTx({ tx: warehouseRegistered.tx, type: 'DoneAgglomeration' }));
     }
-  }, [agglomRegistered, txList]);
+  }, [warehouseRegistered, txList]);
 
   const { shipPackerRegistered } = ShipPackerListener();
   useEffect(() => {

@@ -1,25 +1,24 @@
 import { useState, useEffect } from 'react';
-import { getCoffeERC20 } from '../erc20';
+import { getCoffe1ERC20 } from '../erc20';
 
 const HarvestListener = () => {
   const [harvestRegistered, setHarvestRegistered] = useState({});
 
   useEffect(() => {
-    if (typeof window.ethereum !== "undefined") {
+    if (typeof window.ethereum !== 'undefined') {
+      const erc20 = getCoffe1ERC20();
 
-    const erc20 = getCoffeERC20();
-
-    erc20.on('DoneHarvesting', (user, batchNo, event) => {
-      // console.log({ user, batchNo });
-      setHarvestRegistered({
-        user,
-        batchNo,
-        tx: event.transactionHash,
+      erc20.on('DoneHarvesting', (user, batchNo, event) => {
+        // console.log({ user, batchNo });
+        setHarvestRegistered({
+          user,
+          batchNo,
+          tx: event.transactionHash,
+        });
       });
-    });
-    return () => {
-      erc20.removeAllListeners('DoneHarvesting');
-    };
+      return () => {
+        erc20.removeAllListeners('DoneHarvesting');
+      };
     }
   }, []);
   return { harvestRegistered };

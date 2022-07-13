@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 
-import AskAgglom from '../../logic/GetAgglom/AskAgglom';
+import AskTasting from '../../logic/GetTasting/AskTasting';
 
 const initialValues = {
   batchNo: '',
@@ -14,7 +14,7 @@ const valSchema = Yup.object().shape({
   batchNo: Yup.string().required('Requerido').max(42, 'La direccion debe tener maximo 42 caracteres').min(42),
 });
 
-const GetAgglomForm = () => {
+const GetTasterForm = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -24,7 +24,7 @@ const GetAgglomForm = () => {
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
-                AskAgglom(values);
+                AskTasting(values);
               }}
             >
               {({ dirty, isValid }) => {
@@ -37,7 +37,7 @@ const GetAgglomForm = () => {
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
-                          OBTENER DATOS DE AGLOMERACIÓN
+                          OBTENER DATOS DE INSPECCIÓN DEL GRANO
                         </Button>
                       </Grid>
                     </Grid>
@@ -52,4 +52,4 @@ const GetAgglomForm = () => {
   );
 };
 
-export default GetAgglomForm;
+export default GetTasterForm;

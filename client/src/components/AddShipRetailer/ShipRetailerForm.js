@@ -17,9 +17,9 @@ import transportTypeR from '../../data/transportTypeR.json';
 
 const initialValues = {
   batchNo: '',
-  transportTypeR: '',
-  pickupDateR: '',
-  shipPriceR: '',
+  toRetailerTransportType: '',
+  packerPickupDate: '',
+  toReatilerShippingPrice: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -27,9 +27,10 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  transportTypeR: Yup.string().required('Obligatorio'),
-  pickupDateR: Yup.date().required('Obligatorio'),
-  shipPriceR: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  toRetailerTransportType: Yup.string().required('Obligatorio'),
+  packerPickupDate: Yup.date().required('Obligatorio'),
+  toReatilerShippingPrice: Yup.string().required('Obligatorio'),
+  // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const ShipRetailerForm = () => {
@@ -81,13 +82,17 @@ const ShipRetailerForm = () => {
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <SelectWrapper name="transportTypeR" label="Tipo de Transporte" options={transportTypeR} />
+                        <SelectWrapper
+                          name="toRetailerTransportType"
+                          label="Tipo de Transporte"
+                          options={transportTypeR}
+                        />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="pickupDateR" label="Fecha Recogida en Empacadora" />
+                        <DateTimePicker name="packerPickupDate" label="Fecha Recogida en Empacador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="shipPriceR" label="Precio del Transporte" />
+                        <TextfieldWrapper name="toReatilerShippingPrice" label="Precio del Transporte" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">

@@ -16,10 +16,10 @@ import HandleSubmit from '../../logic/AddPacker/HandleSubmit';
 
 const initialValues = {
   batchNo: '',
-  packAddress: '',
-  arrivalDateP: '',
-  packDate: '',
-  packPrice: '',
+  packerAddress: '',
+  packerArrivalDate: '',
+  packingDate: '',
+  packingPricePerKilo: '',
 };
 
 const valSchema = Yup.object().shape({
@@ -27,10 +27,11 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  packAddress: Yup.string().required('Obligatorio'),
-  arrivalDateP: Yup.date().required('Obligatorio'),
-  packDate: Yup.date().required('Obligatorio'),
-  packPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
+  packerAddress: Yup.string().required('Obligatorio'),
+  packerArrivalDate: Yup.date().required('Obligatorio'),
+  packingDate: Yup.date().required('Obligatorio'),
+  packingPricePerKilo: Yup.string().required('Obligatorio'),
+  // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
 const PackerForm = () => {
@@ -81,16 +82,16 @@ const PackerForm = () => {
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="packAddress" label="Dirección de Empacadora" />
+                        <TextfieldWrapper name="packerAddress" label="Dirección de Empacador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="arrivalDateP" label="Fecha de Llegada a Empacadora" />
+                        <DateTimePicker name="packerArrivalDate" label="Fecha de Llegada al Empacador" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="packDate" label="Fecha de Empacado" />
+                        <DateTimePicker name="packingDate" label="Fecha de Empacado" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="packPrice" label="Precio de Empacado" />
+                        <TextfieldWrapper name="packingPricePerKilo" label="Precio de Empacado por Kilo" />
                       </Grid>
                       <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
