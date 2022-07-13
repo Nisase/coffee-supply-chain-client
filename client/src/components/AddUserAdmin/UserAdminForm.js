@@ -1,18 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button, FormLabel, TextField, OutlinedInput } from '@mui/material';
+import { Grid, Container, Typography, Button, FormLabel, TextField } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 <<<<<<< HEAD
 import SelectWrapper from '../FormsUI/Select';
-import SelectWrapper2 from '../FormsUI/Select2';
 import CheckboxWrapper from '../FormsUI/Checkbox';
 import PendingConfirmation from '../PendingConfirmation';
-
-import MultipleRolesSelect from './MultipleRolesSelect';
 
 import role from '../../data/roles.json';
 =======
@@ -28,17 +25,6 @@ import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
 import { getUserByAddress } from '../../logic/GetUser';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-// const MenuProps = {
-//   PaperProps: {
-//     style: {
-//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-//       width: 250,
-//     },
-//   },
-// };
-
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
 const FILE_SIZE = 650 * 1024;
 
@@ -48,10 +34,13 @@ const initialValues = {
   email: 'farmer4test@gmail.com',
 <<<<<<< HEAD
   role: ['FARMER', 'COFFEE SELLER'],
+<<<<<<< HEAD
   // role: 'FARMER',
 =======
   role: [],
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
+=======
+>>>>>>> parent of 00b5e51... select component added
   isActive: true,
   profileHash: null,
 };
@@ -64,12 +53,16 @@ const valSchema = Yup.object().shape({
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
 <<<<<<< HEAD
+<<<<<<< HEAD
   // role: Yup.string().required('Obligatorio'),
   role: Yup.array().of(Yup.string()).required('Obligatorio'),
   // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
 =======
   role: Yup.array().min(1, 'Se necesita asignar al menos un rol por persona').max(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
+=======
+  role: Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+>>>>>>> parent of 00b5e51... select component added
   // Yup.string().required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
@@ -101,6 +94,7 @@ const UserAdminForm = () => {
 
     const userTemp = await getUserByAddress(values.userAddress);
 <<<<<<< HEAD
+<<<<<<< HEAD
     // ?
     for (let i = 0; i < userTemp.role.length; i += 1) {
 =======
@@ -115,7 +109,16 @@ const UserAdminForm = () => {
         values.profileHash = null;
         return;
       }
+=======
+    // for (let i = 0; i < userTemp.role.length; i++) {
+    if (userTemp.role[0] !== '' && userTemp.message === null) {
+      setLoading(false);
+      enqueueSnackbar(`La dirección ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
+      values.profileHash = null;
+      return;
+>>>>>>> parent of 00b5e51... select component added
     }
+    // }
 
     if (userTemp.message !== null) {
       setLoading(false);
@@ -171,6 +174,11 @@ const UserAdminForm = () => {
               {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
                 <Form>
                   <Grid container spacing={2}>
+                    {/* <Grid item xs={12}>
+                      <Typography className="mb-5 font-semibold underline underline-offset-2">
+                        DATOS DE USUARIO
+                      </Typography>
+                    </Grid> */}
                     <Grid item xs={12}>
                       <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
                         <img
@@ -194,6 +202,7 @@ const UserAdminForm = () => {
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
                     <Grid item xs={6}>
+<<<<<<< HEAD
 <<<<<<< HEAD
                       <SelectWrapper2
                         multiple
@@ -229,15 +238,11 @@ const UserAdminForm = () => {
                         ) : null}
 
 >>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
+=======
+                      {/* <SelectWrapper name="role" label="Rol" options={role} /> */}
+                      <TextfieldWrapper name="role" label="Rol" />
+>>>>>>> parent of 00b5e51... select component added
                     </Grid>
-                    {/* <Grid item xs={6}>
-                      <SelectWrapper name="role" label="Rol" options={role} />
-
-                      <Typography>{typeof values.role}</Typography>
-                    </Grid> */}
-                    {/* <Grid item xs={6}>
-                      <MultipleRolesSelect />
-                    </Grid> */}
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                     </Grid>
