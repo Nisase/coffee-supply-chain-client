@@ -63,10 +63,10 @@ function App() {
     if (user && user.message === null) {
       if (isOwner) {
         user.name = 'Administrador';
-        user.role = [{key:"ADMIN", "value": "Admin User"}];
+        user.role = [{ key: 'ADMIN', value: 'Admin User' }];
         user.email = 'admincoffe@.epn.edu.ec';
       }
-      if (user.role.length<1 || user.name === '') {
+      if (user.role.length < 1 || user.name === '') {
         dispatch(setUserData(null));
         dispatch(setLoading(false));
         return;
@@ -89,9 +89,9 @@ function App() {
     // const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
     // const coffeAddress = '0x5F87cD4E112beb3AF8918Be2Eb232DdEF032f69d';
 
-    const userAddress = '0x85E5544BA93b7eac0DF4b64FE5ee0B134764D816';
-    const coffeAddress1 = '0x6596055D2fd7284AA0978778B19Cd8ab05a3FA98';
-    const coffeAddress2 = '0xCABBC0765Ccd94B34c17Bd74a03197E4760F6C6E';
+    const userAddress = '0x2c1a164D9A0F227f0A752b5F3a9bf852D42f49A5';
+    const coffeAddress1 = '0x1f0c8351e0A36F666d33837Bc1a40370Cde84DeD';
+    const coffeAddress2 = '0x50f5f7623AFB6CA2D04CF9f14B96BE606a0A06Ae';
 
     window.userAddress = userAddress;
     window.coffeAddress1 = coffeAddress1;
