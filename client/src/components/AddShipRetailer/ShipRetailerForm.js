@@ -9,6 +9,7 @@ import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
 import PendingConfirmation from '../PendingConfirmation';
+import DateTimePickerMobile from '../FormsUI/MobileDateTimePicker.js';
 
 import { addTx, removeTx } from '../../redux/txSlice';
 
@@ -18,7 +19,8 @@ import transportTypeR from '../../data/transportTypeR.json';
 const initialValues = {
   batchNo: '',
   toRetailerTransportType: '',
-  packerPickupDate: '',
+  // packerPickupDate: '',
+  packerPickupDateTime: {},
   toReatilerShippingPrice: '',
 };
 
@@ -28,7 +30,8 @@ const valSchema = Yup.object().shape({
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
   toRetailerTransportType: Yup.string().required('Obligatorio'),
-  packerPickupDate: Yup.date().required('Obligatorio'),
+  // packerPickupDate: Yup.date().required('Obligatorio'),
+  packerPickupDateTime: Yup.object().required('Obligatorio'),
   toReatilerShippingPrice: Yup.string().required('Obligatorio'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
@@ -89,7 +92,11 @@ const ShipRetailerForm = () => {
                         />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="packerPickupDate" label="Fecha Recogida en Empacador" />
+                        {/* <DateTimePicker name="packerPickupDate" label="Fecha Recogida en Empacador" /> */}
+                        <DateTimePickerMobile
+                          name="packerPickupDateTime"
+                          label="Fecha y Hora de Recogida en Empacador"
+                        />
                       </Grid>
                       <Grid item xs={6}>
                         <TextfieldWrapper name="toReatilerShippingPrice" label="Precio del Transporte" />

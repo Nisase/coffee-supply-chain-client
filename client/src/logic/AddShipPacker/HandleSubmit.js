@@ -5,7 +5,7 @@ const HandleSubmit = (values) => {
   return erc20.addShipPackerData(
     values.batchNo,
     values.toPackerTransportType,
-    values.warehousePickupDate,
+    String(values.warehousePickupDateTime),
     values.toPackerShippingPrice
   );
 };
