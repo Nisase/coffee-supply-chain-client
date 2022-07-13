@@ -1,39 +1,11 @@
-{
-<<<<<<< HEAD
-    "FARMER": "Agricultor",
-    "PROCESSOR": "Procesador",
-    "TASTER": "Catador",
-    "COFFEE SELLER": "Vendedor de Café",
-    "WAREHOUSE": "Bodega",
-    "SHIPPER TO PACKER": "Transportista a Empacador",
-    "PACKER": "Empacador",
-    "SHIPPER TO RETAILER": "Transportista a Retailer",
-    "RETAILER": "Retailer"
-<<<<<<< HEAD
-}
-=======
 [
-    {"key": "AGRICULTOR/PRODUCTOR"},
-    {"key": "PROCESADOR"},
-    {"key": "INSPECTOR DE GRANO/AGRICULTOR"},
-    {"key": "AGLOMERADOR"},
-    {"key": "TRANSPORTISTA A EMPACADORA"},
-    {"key": "EMPACADORA"},
-    {"key": "TRANSPORTISTA A RETAILER"},
-    {"key": "RETAILER"}
+    {"key": "Agricultor"},
+    {"key": "Procesador"},
+    {"key": "Catador"},
+    {"key": "Vendedor de Café"},
+    {"key": "Bodega"},
+    {"key": "Transportista a Empacador"},
+    {"key": "Empacador"},
+    {"key": "Transportista a Retailer"},
+    {"key": "Retailer"}
 ]
->>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
-=======
-    "AGRICULTOR/PRODUCTOR": "AGRICULTOR/PRODUCTOR",
-    "PROCESADOR": "PROCESADOR",
-    "INSPECTOR DE GRANO/AGRICULTOR": "INSPECTOR DE GRANO/AGRICULTOR",
-    "AGLOMERADOR": "AGLOMERADOR",
-    "TRANSPORTISTA A EMPACADORA": "TRANSPORTISTA A EMPACADORA",
-    "EMPACADORA": "EMPACADORA",
-    "TRANSPORTISTA A RETAILER": "TRANSPORTISTA A RETAILER",
-    "RETAILER": "RETAILER"
-}
->>>>>>> parent of 00b5e51... select component added
-=======
-}
->>>>>>> parent of a16193c... test

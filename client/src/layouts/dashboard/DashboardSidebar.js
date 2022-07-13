@@ -36,7 +36,7 @@ const AccountStyle = styled('div')(({ theme }) => ({
 const allOptionsNav = [
   {
     title: 'Agregar Usuario',
-    path: '/dashboard/admin_addUsers',
+    path: '/dashboard/AddUsers',
     icon: 'eva:people-fill',
     role: 'ADMIN',
   },

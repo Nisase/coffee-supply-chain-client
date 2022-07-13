@@ -10,7 +10,6 @@ import DashboardSidebar from './DashboardSidebar';
 
 import { userDataSelector } from '../../redux/appDataSlice';
 
-
 // ----------------------------------------------------------------------
 
 const APP_BAR_MOBILE = 64;
@@ -47,9 +46,8 @@ export default function DashboardLayout() {
   const batch = searchParams.get("batch")
 
   useEffect(()=>{
-    console.log(pathname)
     if(batch && batch.length===42 && (pathname==="/dashboard" || pathname==="/dashboard/")){
-      console.log(userInfo.role)
+      // console.log(userInfo.role)
       let localPathname = "/dashboard";
       if(userInfo.role==="AGRICULTOR/PRODUCTOR") localPathname += "/farmer_addHarvest";
       if(userInfo.role==="PROCESADOR") localPathname += "/processor_addProcess";

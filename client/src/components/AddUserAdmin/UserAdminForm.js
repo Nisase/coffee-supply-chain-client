@@ -4,13 +4,13 @@ import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button, FormLabel, TextField } from '@mui/material';
+import { Grid, Container, Button, FormLabel } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
-import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
+import MultipleSelectChip from '../FormsUI/Select/MultipleSelectChip';
 import PendingConfirmation from '../PendingConfirmation';
 
-import role from '../../data/roles.json';
+import roleData from '../../data/roles.json';
 import { addTx, removeTx } from '../../redux/txSlice';
 
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
@@ -24,20 +24,7 @@ const initialValues = {
   userAddress: '0xce49E1834F30fD7572F87aCf2Af38C63B604Be69',
   name: 'FARMER 4',
   email: 'farmer4test@gmail.com',
-  role: ['FARMER', 'COFFEE SELLER'],
-<<<<<<< HEAD
-  // role: 'FARMER',
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   role: [],
->>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
-=======
->>>>>>> parent of 00b5e51... select component added
-=======
->>>>>>> parent of a16193c... test
-=======
->>>>>>> parent of a16193c... test
   isActive: true,
   profileHash: null,
 };
@@ -49,30 +36,8 @@ const valSchema = Yup.object().shape({
     .min(42, 'Las direcciones de Metamask tienen 42 caracteres'),
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  // role: Yup.string().required('Obligatorio'),
-  role: Yup.array().of(Yup.string()).required('Obligatorio'),
-  // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
-=======
+
   role: Yup.array().min(1, 'Se necesita asignar al menos un rol por persona').max(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
->>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
-=======
-  role: Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
->>>>>>> parent of 00b5e51... select component added
-=======
-  // role: Yup.string().required('Obligatorio'),
-  role: Yup.array().of(Yup.string()).required('Obligatorio'),
-  // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
->>>>>>> parent of a16193c... test
-=======
-  // role: Yup.string().required('Obligatorio'),
-  role: Yup.array().of(Yup.string()).required('Obligatorio'),
-  // Yup.array().length(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
->>>>>>> parent of a16193c... test
-  // Yup.string().required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
     .test(
@@ -102,15 +67,6 @@ const UserAdminForm = () => {
     setfileUrl('');
 
     const userTemp = await getUserByAddress(values.userAddress);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of a16193c... test
-=======
->>>>>>> parent of a16193c... test
-    // ?
     for (let i = 0; i < userTemp.role.length; i += 1) {
       if (userTemp.role[i] !== '' && userTemp.message === null) {
         setLoading(false);
@@ -118,16 +74,7 @@ const UserAdminForm = () => {
         values.profileHash = null;
         return;
       }
-=======
-    // for (let i = 0; i < userTemp.role.length; i++) {
-    if (userTemp.role[0] !== '' && userTemp.message === null) {
-      setLoading(false);
-      enqueueSnackbar(`La dirección ya fue asignada al usuario ${userTemp.name}`, { variant: 'warning' });
-      values.profileHash = null;
-      return;
->>>>>>> parent of 00b5e51... select component added
     }
-    // }
 
     if (userTemp.message !== null) {
       setLoading(false);
@@ -139,6 +86,7 @@ const UserAdminForm = () => {
     if (!values.profileHash || values.profileHash.length === 0) {
       values.profileHash = '';
     }
+
     if (values.profileHash !== '') {
       enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });
       const result = await addFileToIpfs(ipfs, values.profileHash);
@@ -210,59 +158,13 @@ const UserAdminForm = () => {
                     <Grid item xs={6}>
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
-                    <Grid item xs={6}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of a16193c... test
-=======
->>>>>>> parent of a16193c... test
-                      <SelectWrapper2
-                        multiple
-                        name="role"
-                        label="Rol"
-                        PaperProps={{
-                          style: {
-                            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                            width: 250,
-                          },
-                        }}
-                        options={[
-                          'Agricultor',
-                          'Procesador',
-                          'Catador',
-                          'Vendedor de Café',
-                          'Bodega',
-                          'Transportista a Empacador',
-                          'Empacador',
-                          'Transportista a Retailer',
-                          'Retailer',
-                        ]}
-                      />
-                      <Typography>{typeof values.role}</Typography>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                      {/* <SelectWrapper name="role" label="Rol" options={role} /> 
-                      <TextfieldWrapper name="role" label="Rol" /> */}
-                      <MultipleSelectChip name="role" options={roleData}/>
+                    <Grid item xs={6}>                       
+                      <MultipleSelectChip name="role" label="Rol" options={roleData}/>
                       {touched.role && errors.role ? (
                           <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
                             {errors.role}
                           </small>
                         ) : null}
-
->>>>>>> 30dabdad55348911c444114d92efdaff57c71fb8
-=======
-                      {/* <SelectWrapper name="role" label="Rol" options={role} /> */}
-                      <TextfieldWrapper name="role" label="Rol" />
->>>>>>> parent of 00b5e51... select component added
-=======
->>>>>>> parent of a16193c... test
-=======
->>>>>>> parent of a16193c... test
                     </Grid>
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
