@@ -84,7 +84,7 @@ export default function MultipleSelectChip({ name, label, options, ...otherProps
               value={item.key}
               style={getStyles(item.key, items, theme)}
             >
-              {item.key}
+              {item.value}
             </MenuItem>
           ))}
         </Select>

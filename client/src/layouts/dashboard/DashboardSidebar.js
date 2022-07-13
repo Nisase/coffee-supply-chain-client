@@ -217,13 +217,13 @@ const allOptionsNav = [
   {
     title: 'Home',
     path: '/home',
-    icon: 'eva:file-text-fill',
+    icon: 'eva:home-outline',
     role: 'ALL',
   },
   {
     title: 'Track',
     path: '/tracking',
-    icon: 'eva:file-text-fill',
+    icon: 'eva:paper-plane-fill',
     role: 'ALL',
   },
 ];

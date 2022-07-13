@@ -55,7 +55,6 @@ const valSchema = Yup.object().shape({
 const UserAdminForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
-  const [fileUrl, setfileUrl] = useState('');
   const [txHash, setTxHash] = useState('0x');
 
   const dispatch = useDispatch();
@@ -64,7 +63,6 @@ const UserAdminForm = () => {
   const localHandleSubmit = async (values) => {
     setTxHash('0x');
     setLoading(true);
-    setfileUrl('');
 
     const userTemp = await getUserByAddress(values.userAddress);
     for (let i = 0; i < userTemp.role.length; i += 1) {
@@ -96,7 +94,6 @@ const UserAdminForm = () => {
         return;
       }
       values.profileHash = result.url;
-      setfileUrl(result.url);
     }
 
     const tx = HandleSubmit(values);
@@ -111,7 +108,6 @@ const UserAdminForm = () => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
       enqueueSnackbar(error.message, { variant: 'warning' });
       setLoading(false);
-      setfileUrl('');
     });
   };
 
@@ -208,7 +204,6 @@ const UserAdminForm = () => {
                         REGISTRAR USUARIO
                       </Button>
                     </Grid>
-                    {fileUrl && <img src={fileUrl} alt="File in IFPS" width="600px" />}
                   </Grid>
                 </Form>
               )}

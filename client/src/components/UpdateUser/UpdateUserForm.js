@@ -6,14 +6,12 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Container, Typography, Button, FormLabel } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
-import SelectWrapper from '../FormsUI/Select';
 import CheckboxWrapper from '../FormsUI/Checkbox';
 import PendingConfirmation from '../PendingConfirmation';
 
 import { addTx, removeTx } from '../../redux/txSlice';
 import { userDataSelector } from '../../redux/appDataSlice';
 
-import role from '../../data/roles.json';
 import HandleSubmit from '../../logic/UpdateUser/HandleSubmit';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
 
@@ -60,11 +58,13 @@ const UpdateUserForm = () => {
     setTxHash('0x');
     setLoading(true);
     let result = null;
+    let tempProfileHash = null;
 
     if (!values.profileHash || values.profileHash.length === 0) {
-      values.profileHash = null;
+      values.profileHash = "";
     }
-    if (values.profileHash) {
+    if (values.profileHash !== "") {
+      tempProfileHash = values.profileHash;
       enqueueSnackbar('Guardando imagen del usuario en red IPFS', { variant: 'info' });
       result = await addFileToIpfs(ipfs, values.profileHash);
       if (result.error !== null) {
@@ -72,9 +72,10 @@ const UpdateUserForm = () => {
         setLoading(false);
         return;
       }
+      values.profileHash = result.url;
     }
 
-    const tx = HandleSubmit({ ...values, profileHash: result.url });
+    const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
       dispatch(addTx({ tx: trans.hash, type: 'UserUpdate' }));
@@ -82,7 +83,8 @@ const UpdateUserForm = () => {
       enqueueSnackbar('Transacción pendiente de confirmación de red Ethereum', { variant: 'info' });
     }).catch((error) => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
-      enqueueSnackbar(error.message, { variant: 'warning' });
+      enqueueSnackbar(error.message, { variant: 'error' });
+      values.profileHash=tempProfileHash;
       setLoading(false);
     });
   };
