@@ -263,105 +263,26 @@ const TableUsers = ({ batchNo, nextActions }) => {
     //     'Completado',
     //   ];
     // }
-    if (action === 'AGRICULTOR/PRODUCTOR') {
-      arr = [
-        '-',
-        'AGRICULTOR',
-        'PROCESADOR',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-      ];
-    } else if (action === 'PROCESADOR') {
-      arr = [
-        'AGRICULTOR',
-        'PROCESADOR',
-        'INSPECTOR DE GRANO',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-      ];
-    } else if (action === 'INSPECTOR DE GRANO/AGRICULTOR') {
-      arr = [
-        'PROCESADOR',
-        'INSPECTOR DE GRANO',
-        'AGLOMERADOR',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-      ];
-    } else if (action === 'AGLOMERADOR') {
-      arr = [
-        'INSPECTOR DE GRANO',
-        'AGLOMERADOR',
-        'TRANSPORTISTA A EMPACADORA',
-        //   'En Proceso',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-      ];
-    } else if (action === 'TRANSPORTISTA A EMPACADORA') {
-      arr = [
-        'AGLOMERADOR',
-        'TRANSPORTISTA A EMPACADORA',
-        'EMPACADORA',
-        //   'Completado',
-        //   'En Proceso',
-        //   'No Disponible',
-        //   'No Disponible',
-        //   'No Disponible',
-      ];
-    } else if (action === 'EMPACADORA') {
-      arr = [
-        'TRANSPORTISTA A EMPACADORA',
-        'EMPACADORA',
-        'TRANSPORTISTA A RETAILER',
-        //   'Completado',
-        //   'Completado',
-        //   'En Proceso',
-        //   'No Disponible',
-        //   'No Disponible',
-      ];
-    } else if (action === 'TRANSPORTISTA A RETAILER') {
-      arr = [
-        'EMPACADORA',
-        'TRANSPORTISTA A RETAILER',
-        'RETAILER',
-        //   'Completado',
-        //   'Completado',
-        //   'Completado',
-        //   'En Proceso',
-        //   'No Disponible',
-      ];
+    if (action === 'FARMER') {
+      arr = ['GRANJA AGREGADA', 'COSECHA', 'PROCESADO'];
+    } else if (action === 'PROCESSOR') {
+      arr = ['COSECHA', 'PROCESADO', 'CATACIÓN'];
+    } else if (action === 'TASTER') {
+      arr = ['PROCESADO', 'CATACIÓN', 'VENTA DE CAFÉ'];
+    } else if (action === 'COFFEE SELLER') {
+      arr = ['CATACIÓN', 'VENTA DE CAFÉ', 'BODEGAJE'];
+    } else if (action === 'WAREHOUSE') {
+      arr = ['VENTA DE CAFÉ', 'BODEGAJE', 'TRANSPORTE A EMPACADOR'];
+    } else if (action === 'SHIPPER TO PACKER') {
+      arr = ['BODEGAJE', 'TRANSPORTE A EMPACADOR', 'EMPACADO'];
+    } else if (action === 'PACKER') {
+      arr = ['TRANSPORTE A EMPACADOR', 'EMPACADO', 'TRANSPORTE A RETAILER'];
+    } else if (action === 'SHIPPER TO RETAILER') {
+      arr = ['EMPACADO', 'TRANSPORTE A RETAILER', 'RETAILER'];
     } else if (action === 'RETAILER') {
-      arr = [
-        'TRANSPORTISTA A RETAILER',
-        'RETAILER',
-        '-',
-        //   'Completado',
-        //   'Completado',
-        //   'Completado',
-        //   'Completado',
-        //   'En Proceso',
-      ];
+      arr = ['TRANSPORTE A RETAILER', 'RETAILER', 'TERMINADO'];
     } else if (action === 'DONE') {
-      arr = [
-        'RETAILER',
-        '-',
-        '-',
-        //   'Completado',
-        //   'Completado',
-        //   'Completado',
-        //   'Completado',
-        //   'Completado',
-      ];
+      arr = ['RETAILER', 'TERMINADO', 'TERMINADO'];
     }
     return arr;
   };
@@ -382,9 +303,9 @@ const TableUsers = ({ batchNo, nextActions }) => {
             <TableRow>
               <StyledTableCell align="center">NO. LOTE</StyledTableCell>
               <StyledTableCell align="center">CÓDIGO QR</StyledTableCell>
-              <StyledTableCell align="center">ANTERIOR</StyledTableCell>
-              <StyledTableCell align="center">ACTUAL</StyledTableCell>
-              <StyledTableCell align="center">SIGUIENTE</StyledTableCell>
+              <StyledTableCell align="center">PROCESO ANTERIOR</StyledTableCell>
+              <StyledTableCell align="center">PROCESO ACTUAL</StyledTableCell>
+              <StyledTableCell align="center">PROCESO SIGUIENTE</StyledTableCell>
               {/* <StyledTableCell align="center">COSECHA</StyledTableCell>
               <StyledTableCell align="center">PROCESADO</StyledTableCell>
               <StyledTableCell align="center">INSPECCIÓN DEL GRANO</StyledTableCell>

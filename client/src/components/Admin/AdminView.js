@@ -27,6 +27,7 @@ const AdminView = () => {
       const erc = getCoffe1ERC20();
       const ercUsers = getUserERC20();
       const events = await erc.queryFilter(erc.filters.SetFarmDetails(walletAddress, null));
+      console.log('events: ', events);
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });
@@ -36,6 +37,8 @@ const AdminView = () => {
       const usersTemp = eventsUsers.map((event) => event.args.user);
       const newUsers = removeDuplicates(usersTemp);
 
+      console.log('batch temp: ', batchTemp);
+      console.log('next actions: ', await Promise.all(nextActionsTemp));
       setBatchNo(batchTemp);
       setNextActions(await Promise.all(nextActionsTemp));
       setUsers(newUsers);
