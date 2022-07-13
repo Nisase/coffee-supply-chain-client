@@ -61,6 +61,19 @@ export const getUserERC20 = () => {
   return new ethers.Contract(window.userAddress, supplyChainUser1ABI.abi, provider);
 };
 
+// INFURA
+export const infuraGetCoffe1ERC20 = () => {
+  const provider = new ethers.providers.InfuraProvider('rinkeby', process.env.REACT_APP_INFURA_PROJECT_ID);
+
+  return new ethers.Contract(window.coffeAddress1, coffeeSupplyChain1ABI.abi, provider);
+};
+
+export const infuraGetCoffe2ERC20 = () => {
+  const provider = new ethers.providers.InfuraProvider('rinkeby', process.env.REACT_APP_INFURA_PROJECT_ID);
+
+  return new ethers.Contract(window.coffeAddress2, coffeeSupplyChain2ABI.abi, provider);
+};
+
 export const getArgsEvent = (tx, eventName) => {
   let args = [];
   if (tx.events !== undefined)
