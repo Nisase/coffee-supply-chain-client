@@ -1,11 +1,11 @@
 [
-    {"key": "Agricultor"},
-    {"key": "Procesador"},
-    {"key": "Catador"},
-    {"key": "Vendedor de Café"},
-    {"key": "Bodega"},
-    {"key": "Transportista a Empacador"},
-    {"key": "Empacador"},
-    {"key": "Transportista a Retailer"},
-    {"key": "Retailer"}
+    {"value": "Agricultor", "key":"FARMER"},
+    {"value": "Procesador", "key":"PROCESSOR"},
+    {"value": "Catador", "key":"TASTER"},
+    {"value": "Vendedor de Café", "key":"SELLER"},
+    {"value": "Bodega", "key":"WAREHOUSE"},
+    {"value": "Transportista a Empacador", "key":"SHIPPER_PACKER"},
+    {"value": "Empacador", "key":"PACKER"},
+    {"value": "Transportista a Retailer", "key":"SHIPPER_RETAILER"},
+    {"value": "Retailer", "key":"RETAILER"}
 ]

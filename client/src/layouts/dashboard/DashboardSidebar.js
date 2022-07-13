@@ -42,7 +42,7 @@ const allOptionsNav = [
   },
   {
     title: 'Agregar Granja',
-    path: '/dashboard/admin_addFarm',
+    path: '/dashboard/AddFarm',
     icon: 'iconoir:farm',
     role: 'ADMIN',
   },
@@ -50,7 +50,7 @@ const allOptionsNav = [
     title: 'dashboard',
     path: '/dashboard/app',
     icon: 'eva:pie-chart-2-fill',
-    role: 'ADMIN',
+    role: 'ADMINS',
   },
   {
     title: 'Actualizar Perfil',
@@ -225,22 +225,24 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const theme = useTheme();
+  const [textRole, setTextRole] = useState("");
   const userInfo = useSelector(userDataSelector);
 
   const [navOptions, setNavOptions] = useState([
-    { title: 'Home', path: '/home', icon: 'eva:file-text-fill', role: 'all' },
+    { title: 'Home', path: '/home', icon: 'eva:file-text-fill', role: 'ALL' },
   ]);
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const getNavs = (role) => allOptionsNav.filter((item) => item.role === role || item.role === 'ALL');
+  const getNavs = (role) => allOptionsNav.filter((item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key===item.role) !== -1);
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
     setNavOptions(getNavs(userInfo.role));
+    userInfo.role.forEach( (item, index) => setTextRole(index===0 ? item.value :`${textRole} / ${item.value}` ))
   }, [pathname, userInfo]);
 
   const renderContent = (
@@ -264,7 +266,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                   {userInfo.name}
                 </Typography>
                 <Typography variant="body2" sx={{ color: (theme) => theme.palette.grey[400] }}>
-                  Rol: {userInfo.role}
+                  Rol: {textRole}
                 </Typography>
               </Box>
             </AccountStyle>

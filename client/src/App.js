@@ -63,10 +63,10 @@ function App() {
     if (user && user.message === null) {
       if (isOwner) {
         user.name = 'Administrador';
-        user.role = 'ADMIN';
+        user.role = [{key:"ADMIN", "value": "Admin User"}];
         user.email = 'admincoffe@.epn.edu.ec';
       }
-      if (user.role === '' || user.name === '') {
+      if (user.role.length<1 || user.name === '') {
         dispatch(setUserData(null));
         dispatch(setLoading(false));
         return;
@@ -270,7 +270,7 @@ function App() {
   }, [retailerRegistered, txList]);
 
   const getValidUserss = (userData) => {
-    if (!userData || userData.role === '') return null;
+    if (!userData || userData.role.length < 1) return null;
     return userData;
   };
 
