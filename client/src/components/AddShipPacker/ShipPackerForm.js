@@ -19,8 +19,7 @@ import transportTypeP from '../../data/transportTypeP.json';
 const initialValues = {
   batchNo: '',
   toPackerTransportType: '',
-  // warehousePickupDate: '',
-  warehousePickupDateTime: {},
+  warehousePickupDate: '',
   toPackerShippingPrice: '',
 };
 
@@ -31,7 +30,8 @@ const valSchema = Yup.object().shape({
     .min(42, 'La dirección debe tener 42 caracteres'),
   toPackerTransportType: Yup.string().required('Obligatorio'),
   // warehousePickupDate: Yup.date().required('Obligatorio'),
-  warehousePickupDateTime: Yup.object().required('Obligatorio'),
+  warehousePickupDateTime: Yup.string().required('Obligatorio'),
+  // Yup.object().required('Obligatorio'),
   toPackerShippingPrice: Yup.string().required('Obligatorio'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
@@ -66,6 +66,7 @@ const ShipPackerForm = () => {
         <Container maxWidth="md">
           <div>
             <Formik
+              enableReinitialize
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
