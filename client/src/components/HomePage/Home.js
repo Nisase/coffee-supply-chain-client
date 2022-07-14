@@ -1,17 +1,13 @@
 import React from 'react';
 import Wave from 'react-wavify';
 import { Button, Box, Typography } from '@mui/material';
-import { styled, useTheme } from '@mui/material/styles';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { walletAddressSelector } from '../../redux/appDataSlice';
+import { useTheme } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import '../../App.css';
 
 const Home = () => {
   const theme = useTheme();
-  const walletAddress = useSelector(walletAddressSelector);
-  const navigate = useNavigate();
-
+  
   return (
     <div id="who-we-are">
       <Box PaperProps={{ m: 0, p: 0 }}>
@@ -34,19 +30,15 @@ const Home = () => {
             Da seguimiento a tu café de especilidad a lo largo de toda la cadena de suministro. Permite que los
             consumidores conozcan tu producto, conecta y empodera a los participantes de tu cadena de suministro.
           </Typography>
-          <Button
+          <RouterLink to={"/dashboard"}>
+            <Button
             className="font-bold"
-            onClick={() => {
-              if (walletAddress === '0x') {
-                navigate('/login');
-              } else {
-                navigate('/dashboard');
-              }
-            }}
             id="action-btn"
+            variant='outlined'
           >
             DASHBOARD
           </Button>
+          </RouterLink>
         </Box>
       </Box>
     </div>
