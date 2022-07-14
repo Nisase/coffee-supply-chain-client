@@ -7,7 +7,7 @@ import '../../App.css';
 
 const Home = () => {
   const theme = useTheme();
-  
+
   return (
     <div id="who-we-are">
       <Box PaperProps={{ m: 0, p: 0 }}>
@@ -30,14 +30,10 @@ const Home = () => {
             Da seguimiento a tu café de especilidad a lo largo de toda la cadena de suministro. Permite que los
             consumidores conozcan tu producto, conecta y empodera a los participantes de tu cadena de suministro.
           </Typography>
-          <RouterLink to={"/dashboard"}>
-            <Button
-            className="font-bold"
-            id="action-btn"
-            variant='outlined'
-          >
-            DASHBOARD
-          </Button>
+          <RouterLink to={'/dashboard'} className="link-home">
+            <Button className="font-bold" id="action-btn" variant="outlined">
+              DASHBOARD
+            </Button>
           </RouterLink>
         </Box>
       </Box>

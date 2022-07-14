@@ -68,6 +68,8 @@ a.link-logo:focus, a.link-logo:hover {
   text-decoration: underline;
   color: #ff2f00;
 }
+
+
 #who-we-are .wave {
   height: 75vh;
   z-index: 5;
@@ -90,6 +92,15 @@ a.link-logo:focus, a.link-logo:hover {
 .wave {
   transform: rotate(180deg);
   left: 0;
+}
+
+a.link-home  {
+  text-decoration: underline;
+  color: #919EAB;
+}
+a.link-home:focus, a.link-home:hover {
+  text-decoration: none;
+  color: #DFE3E8;
 }
 
 #action-btn {
