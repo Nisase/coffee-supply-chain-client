@@ -1,17 +1,13 @@
 import React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
-  Container,
   Box,
   Typography,
   Grid,
   Card,
   CardHeader,
-  CardActions,
   CardContent,
   CardMedia,
-  IconButton,
-  Avatar,
 } from '@mui/material';
 import '../../App.css';
 
@@ -24,14 +20,10 @@ const bull = (
 const InformativeSection = () => {
   const theme = useTheme();
   return (
-    <div id="about">
+    <div id="about" className='max-w-6xl mx-auto'>
       <Grid container>
-        <Grid
-          item
-          xs={12}
-
-          // sx={{ marginTop: 5 }}
-        >
+      <div className='grid mx-16 grid-cols-1 lg:grid-cols-2 gap-x-10'>
+        <div className='lg:col-span-2'>
           <Typography
             variant="h6"
             sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
@@ -39,10 +31,9 @@ const InformativeSection = () => {
             Nuestro <span className="spanInfo">Sistema de Tracking </span> está construido sobre la tecnología{' '}
             <span className="spanInfo">Blockchain</span>
           </Typography>
-        </Grid>
-        <Grid item xs={2} />
-        <Grid item xs={3}>
-          <Card sx={{ boxShadow: 3 }} className="about-card">
+        </div>
+        <div className='p-5'>
+        <Card sx={{ boxShadow: 3 }} className="about-card">
             <CardMedia
               component="img"
               height="194"
@@ -62,10 +53,9 @@ const InformativeSection = () => {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={2} />
-        <Grid item xs={3}>
-          <Card sx={{ boxShadow: 3 }} className="about-card">
+        </div>
+        <div className='p-5'>
+        <Card sx={{ boxShadow: 3 }} className="about-card">
             <CardMedia
               component="img"
               height="218"
@@ -97,25 +87,19 @@ const InformativeSection = () => {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={2} />
-
-        <Grid
-          item
-          xs={12}
-
-          // sx={{ marginTop: 5 }}
-        >
-          <Typography
+        </div>      
+      </div>
+      <div className='mx-auto mt-20'>
+        <Typography
             variant="h6"
             sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
           >
             ¿Cómo funciona <span className="spanInfo">CoffeeTrack</span>?
           </Typography>
-        </Grid>
-        <Grid item xs={0.5} />
-        <Grid item xs={3}>
-          <Card sx={{ boxShadow: 3 }} className="about-card">
+        </div>  
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-16 gap-10 mb-20'>
+      <div>
+        <Card sx={{ boxShadow: 3 }} className="about-card">
             <CardMedia
               component="img"
               height="194"
@@ -137,10 +121,9 @@ const InformativeSection = () => {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={1} />
-        <Grid item xs={3}>
-          <Card sx={{ boxShadow: 3 }} className="about-card">
+        </div>
+        <div>
+        <Card sx={{ boxShadow: 3 }} className="about-card">
             <CardMedia
               component="img"
               height="194"
@@ -168,10 +151,9 @@ const InformativeSection = () => {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={1} />
-        <Grid item xs={3}>
-          <Card sx={{ boxShadow: 3 }} className="about-card">
+        </div>
+        <div className='md:col-span-2 lg:col-span-1 max-w-xl mx-auto'>
+        <Card sx={{ boxShadow: 3 }} className="about-card">
             <CardMedia
               component="img"
               height="194"
@@ -193,8 +175,8 @@ const InformativeSection = () => {
               </Typography>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={0.5} />
+        </div>
+      </div>
       </Grid>
     </div>
   );

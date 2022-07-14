@@ -15,7 +15,6 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { NavHashLink, HashLink } from 'react-router-hash-link';
 import Logo from '../Logo';
 import DrawerHome from './DrawerHome';
 import '../../App.css';
