@@ -60,6 +60,14 @@
   color: #ff2f00;
   
 }
+
+a.link-logo  {
+  text-decoration: none;
+}
+a.link-logo:focus, a.link-logo:hover {
+  text-decoration: underline;
+  color: #ff2f00;
+}
 #who-we-are .wave {
   height: 75vh;
   z-index: 5;
