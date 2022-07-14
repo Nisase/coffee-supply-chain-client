@@ -105,6 +105,7 @@ const SECONDARY = {
   light: '#DC5E41',
   main: '#CF4526',
   dark: '#AC3920',
+  dark2: '#ff2f00',
   darker: '#672213',
   contrastText: '#fff',
 };

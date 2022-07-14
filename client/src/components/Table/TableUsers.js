@@ -65,9 +65,9 @@ function ShareSocialMedia(batch) {
           navigator.clipboard.writeText(batch);
         }}
       >
-        <Tooltip arrow size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '0.9875rem' }}>
-          <ContentCopyRoundedIcon />
-        </Tooltip>
+        {/* <Tooltip arrow size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}> */}
+        <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
+        {/* </Tooltip> */}
       </IconButton>
       <FacebookShareButton
         url={`https://192.168.100.4:3000/tracking?batch=${batch}`}

@@ -56,6 +56,16 @@
   color: #e0ee
 } */
 
+.nav-link {
+  color: #ff2f00;
+  
+}
+
+.wave {
+  transform: rotate(180deg);
+  left: 0;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -64,3 +74,5 @@
     transform: rotate(360deg);
   }
 }
+
+

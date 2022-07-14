@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -106,10 +106,13 @@ export default function Logo({ urlLink = '/', disabledLink = false, sx }) {
   }
 
   return (
-    <RouterLink to={urlLink}>
-      <div className="flex flex-row items-center py-5">
-        {logo} <p className="ml-2 font-bold">Coffee Track</p>
-      </div>
+    <RouterLink to={urlLink} style={{ textDecoration: 'none' }}>
+      <Box className="flex flex-row items-center py-5">
+        {logo}{' '}
+        <Typography component={'span'} className="ml-2 font-bold" sx={{ color: theme.palette.secondary.dark2 }}>
+          Coffee Track
+        </Typography>
+      </Box>
     </RouterLink>
   );
 }
