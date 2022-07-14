@@ -147,11 +147,35 @@
   /* color: #ed003f; */
 }
 
+#about .about-card {
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 0.5px solid #ff2f00;
+  border-bottom: 4px solid #ff2f00;
+  position: relative;
+  display: block;
+  margin-bottom: 10px;
+  box-shadow: 0 0 0.1px rgba(0, 0, 0, 0);
+  transition-duration: 0.5s;
+  transition-prope#212B36rty: box-shadow, transform;
+}
+
+.about-card:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  /* text-decoration: none !important; */
+}
+
+.about-info {
+  color: rgb(81, 84, 88);
+}
+
 .spanInfo {
   color: #ff2f00;
   padding-left: 5px;
   padding-right: 5px;
 }
+
 
 
 @keyframes App-logo-spin {
