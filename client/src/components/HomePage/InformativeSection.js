@@ -131,7 +131,9 @@ const InformativeSection = () => {
               </Typography>
               <br />
               <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
-                {bull}Puedes consultarlos accediendo a los siguientes enlaces.
+                {bull}Puedes consultarlos accediendo a los siguientes enlaces
+                (https://rinkeby.etherscan.io/address/0x6596055d2fd7284aa0978778b19cd8ab05a3fa98)
+                (https://rinkeby.etherscan.io/address/0xCABBC0765Ccd94B34c17Bd74a03197E4760F6C6E).
               </Typography>
             </CardContent>
           </Card>
@@ -156,13 +158,13 @@ const InformativeSection = () => {
               </Typography>
               <br />
               <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
-                {bull}Si ya eres usuario de nuestra aplicación, asegúrate de instalar la extensión de Metamask en tu
-                navegador.
+                {bull}Si ya eres usuario de nuestra aplicación, asegúrate de instalar la extensión de Metamask
+                (https://metamask.io/download/) en tu navegador.
               </Typography>
               <br />
               <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
                 {bull}Si eres productor de café de especialidad y deseas dar seguimiento a tu producto, contáctanos al
-                siguiente correo, nos gustaría ayudarte.
+                siguiente correo (coffeetrackec@gmail.com), nos gustaría ayudarte.
               </Typography>
             </CardContent>
           </Card>
