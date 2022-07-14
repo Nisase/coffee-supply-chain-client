@@ -60,11 +60,99 @@
   color: #ff2f00;
   
 }
+#who-we-are .wave {
+  height: 75vh;
+  z-index: 5;
+  margin: 0;
+}
 
+
+.intro {
+  position: absolute;
+  top: 30vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /* -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */
+  padding-left: 7%;
+  padding-right: 5%;
+  width: 60%;
+}
 .wave {
   transform: rotate(180deg);
   left: 0;
 }
+
+#action-btn {
+  margin-top: 10px;
+  position: relative;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background: none;
+  color: #919EAB;
+  border-radius: 5px;
+  text-transform: uppercase;
+  outline: 0;
+  z-index: 1;
+}
+
+#action-btn:hover {
+  color: #DFE3E8;
+}
+
+#action-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #ff2f00;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+#action-btn:hover::before {
+  right: 0;
+}
+
+#who-we-are,
+#about,
+#contact,
+#details {
+  /* background-color: rgba(0, 0, 0, 0.01); */
+  background-color: transparent;
+  /* position: relative; */
+  width: 100%;
+  z-index: 0;
+  /* font-family: "Roboto", sans-serif; */
+  overflow-x: hidden;
+}
+/* #home,
+#contact {
+  color: white;
+} */
+
+#about {
+  mix-blend-mode: multiply;
+}
+#about h6 {
+  padding: 40px 0px 50px;
+  color: #042a2b;
+  /* color: #ed003f; */
+}
+
+.spanInfo {
+  color: #ff2f00;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 
 @keyframes App-logo-spin {
   from {

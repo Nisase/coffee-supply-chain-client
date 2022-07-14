@@ -108,10 +108,6 @@ const NavHome = ({ links }) => {
                       sx={{ fontSize: 'medium', color: theme.palette.secondary.dark2, opacity: 1 }}
                     />
                   </Link> */}
-
-                  {/* <Tab label="Inicio" sx={{ fontSize: 'medium' }} />
-                <Tab label="Acerca" sx={{ fontSize: 'medium' }} />
-                <Tab label="Contacto" sx={{ fontSize: 'medium' }} /> */}
                 </Tabs>
               </Grid>
               {/* <Grid item xs={1} /> */}

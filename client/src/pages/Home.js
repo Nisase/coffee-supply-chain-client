@@ -7,6 +7,7 @@ import { walletAddressSelector } from '../redux/appDataSlice';
 // components
 import Page from '../components/Page';
 import HomeSection from '../components/HomePage/Home';
+import InformativeSection from '../components/HomePage/InformativeSection';
 
 // ----------------------------------------------------------------------
 
@@ -29,6 +30,20 @@ const ContentStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 0),
 }));
 
+const BoxStyle = styled('div')(({ theme }) => ({
+  top: 0,
+  left: -80,
+  lineHeight: 0,
+  width: '100%',
+  position: 'absolute',
+  zIndex: 50,
+  padding: '0px 0px',
+  maxHeight: '30%',
+  margin: theme.spacing(0, 0),
+
+  // backgroundColor: theme.palette.primary.light,
+}));
+
 // ----------------------------------------------------------------------
 
 export default function Home() {
@@ -36,10 +51,12 @@ export default function Home() {
 
   return (
     <Page title="Login">
-      <RootStyle>
-        <Box sx={{ margin: 10 }}>
+      <RootStyle sx={{ margin: 0 }}>
+        <BoxStyle sx={{ margin: 10 }}>
           <HomeSection />
-        </Box>
+          <InformativeSection />
+        </BoxStyle>
+
         {/* <Container
         maxWidth="lg"
         > */}
