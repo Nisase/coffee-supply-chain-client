@@ -265,7 +265,7 @@ a.mail-link:hover, a.mail-link:focus {
 .contact-form {
   margin: 0;
   position: absolute;
-  width: 550px;
+  max-width: 550px;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -289,8 +289,6 @@ a.mail-link:hover, a.mail-link:focus {
   /* border: 1px solid rgba(252, 252, 252, 0.651); */
   background-color: rgba(252, 252, 252, 0.1);
   border-radius: 3px;
-  padding: 10px 15px;
-  margin: 0 auto 10px auto;
   width: 100%;
   display: block;
   text-align: center;

@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, Box, Typography, Grid, Container } from '@mui/material';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { useTheme } from '@mui/material/styles';
 import Wave from 'react-wavify';
-import emailjs, { send } from '@emailjs/browser';
+import emailjs from '@emailjs/browser';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 
 const initialValues = {
@@ -57,15 +56,12 @@ const ContactSection = () => {
           fill="#042A2B"
           paused={false}
           options={{
-            height: 20,
+            height: 30,
             amplitude: 55,
             speed: 0.17,
             points: 5,
           }}
         />
-        {/* <Grid container>
-          <Grid item xs={12}> */}
-        <Container>
           <div>
             <Formik
               innerRef={formValues}
@@ -76,53 +72,44 @@ const ContactSection = () => {
               }}
             >
               {({ dirty, isValid }) => (
-                <Form className="contact-form">
-                  <Grid container>
-                    <Grid item xs={12}>
-                      <Typography
+                <Form className="contact-form bg-slate-300 p-10 my-5 rounded-2xl">
+                  <div className='grid gap-5'>
+                    <div>
+                    <Typography
                         className="mb-5 font-semibold  underline-offset-2 "
-                        color="white"
+                        color="black"
                         sx={{ textAlign: 'center', fontSize: '2rem' }}
                       >
                         Contáctanos!
                       </Typography>
-                    </Grid>
-                    <Grid item xs={6} sx={{ paddingRight: 0.5 }}>
-                      <TextfieldWrapper className="form-input" name="userFirstname" label="Nombre" />
-                    </Grid>
-                    <Grid item xs={6} sx={{ paddingLeft: 0.5 }}>
-                      <TextfieldWrapper className="form-input" name="userLastname" label="Apellido" />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextfieldWrapper className="form-input" name="userEmail" label="Correo electrónico" />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextfieldWrapper className="form-input" name="userMessage" label="Ingresa tu Mensaje" />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography className="submitted">{submitted}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
+                    </div>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-0 lg:gap-x-5'>
+                      <div><TextfieldWrapper className="mb-5 lg:mb-0" name="userFirstname" label="Nombre"/></div>
+                      <div><TextfieldWrapper className="" name="userLastname" label="Apellido"/></div>
+                    </div>
+                    <div><TextfieldWrapper className="" name="userEmail" label="Correo electrónico"/></div>
+                    <div><TextfieldWrapper className="lg:mb-5" name="userMessage" label="Ingresa tu Mensaje" multiline/></div>
+                    <div><Typography className="submitted">{submitted}</Typography></div>
+                    <div>
                       <Button
-                        fullWidth
-                        className="font-bold"
-                        id="action-btn"
-                        variant="outlined"
-                        disabled={!dirty || !isValid}
-                        type="submit"
-                      >
-                        {' '}
-                        PONERSE EN CONTACTO
+                          fullWidth
+                          className="font-bold"
+                          id="action-btn"
+                          variant="outlined"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          PONERSE EN CONTACTO
                       </Button>
-                    </Grid>
-                  </Grid>
+                    </div>
+
+                  </div>
+                  
                 </Form>
               )}
             </Formik>
           </div>
-        </Container>
-        {/* </Grid>
-        </Grid> */}
       </Box>
     </div>
   );
