@@ -220,14 +220,13 @@ a.mail-link:hover, a.mail-link:focus {
   padding-bottom: 0px;
   box-shadow: 0 0 0.1px rgba(0, 0, 0, 0);
   transition-duration: 0.5s;
-  transition-prope#212B36rty: box-shadow, transform;
+  transition-property: box-shadow, transform;
 }
 
 .about-card:hover {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
-  /* text-decoration: none !important; */
 }
 
 .about-info {
@@ -299,6 +298,138 @@ a.mail-link:hover, a.mail-link:focus {
   font-weight: 300;
   color: white;
 }
+
+
+/* TRACKING */
+.wave-track {
+  height: 45vh;
+  z-index: 5;
+  margin: 0;
+  transform: rotate(180deg);
+  left: 0;
+
+}
+
+
+.intro-track {
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  text-align: center;
+  padding-left: 7%;
+  padding-right: 5%;
+  width: 60%;
+}
+
+#section-1 {
+  padding-top: 0px;
+  margin-top: 0px;
+  background-color: transparent;
+  width: 100%;
+  z-index: 0;
+  overflow-x: hidden;
+
+}
+
+.tracking-img {
+  transform: scale(6);
+
+}
+
+
+#section-1 .section-1-card {
+  background-color: rgba(0, 0, 0, 0.02);
+  /* rgba(89, 89, 79, 0.104); */
+  border: 0.5px solid #ff2f00;
+  border-bottom: 4px solid #ff2f00;
+  position: relative;
+  display: block;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  box-shadow: 0 0 0.1px rgba(0, 0, 0, 0);
+  transition-duration: 0.5s; 
+  transition-property: box-shadow, transform;
+
+}
+
+.section-1-card:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.02);
+   -webkit-transform: scale(1.05); 
+   transform: scale(1.05); 
+
+}
+
+.section-1-info {
+  color: rgb(74, 74, 74);
+  /* color: white; */
+  text-align: left;
+  font-weight: 500;
+  font-size: 16px;  
+
+}
+
+
+.title-track{
+    margin-top: 50px;
+}
+
+a.batch-track {
+  text-decoration: none;
+  color: #919EAB;
+}
+
+a.batch-track:hover, a.batch-track:focus {
+  text-decoration: none;
+  color: #DFE3E8;
+}
+
+
+.track-btn {
+  margin-top: 10px;
+  position: relative;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background: none;
+  color: #919EAB;
+  border-radius: 5px;
+  text-transform: uppercase;
+  outline: 0;
+  z-index: 1;
+}
+
+.track-btn:hover {
+  color: #DFE3E8;
+}
+
+.track-btn::before {
+  content: "";
+  position: absolute;
+  background: #13686e58;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.track-btn:hover::before {
+  right: 0;
+}
+
+/* a.my-batch {
+  text-decoration: none;
+  color: #042A2B;
+}
+
+a.my-batch:hover, a.my-batch:focus {
+  text-decoration: none;
+  color: #919EAB;
+} */
 
 @keyframes App-logo-spin {
   from {

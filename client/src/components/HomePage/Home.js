@@ -32,7 +32,7 @@ const Home = () => {
           </Typography>
           <RouterLink to={'/dashboard'} className="link-home">
             <Button className="font-bold" id="action-btn" variant="outlined">
-              DASHBOARD
+              EMPEZAR
             </Button>
           </RouterLink>
         </Box>

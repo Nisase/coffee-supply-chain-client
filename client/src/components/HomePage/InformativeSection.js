@@ -187,7 +187,7 @@ const InformativeSection = () => {
                 component="img"
                 height="194"
                 // image="https://cdn.techwireasia.com/wp-content/uploads/2021/01/shutterstock_1079935373-897x500.png"
-                image="/static/images/qrcoffe.png"
+                image="/static/images/supplychain1.png"
                 alt="blockchain technology"
               />
               <CardHeader title="3. Escanea el código QR de tu producto" />

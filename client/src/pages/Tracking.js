@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 // components
 import Page from '../components/Page';
 import TimeLine from '../components/Tracking/TimeLine';
+import InformativeTracking from '../components/Tracking/InformativeTracking';
 
 // ----------------------------------------------------------------------
 
@@ -30,22 +31,27 @@ export default function Tracking() {
   const [searchParams] = useSearchParams();
   const batch = searchParams.get('batch');
 
-
-
   // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
   return (
     <Page title="Login">
       <RootStyle>
         <Container>
-          <ContentStyle className='w-full'>
-            {batch && batch.length===42 ?
-            <TimeLine batchNoIn={batch} />
-            :
-            <>
-            Bach No Valido: Probar con <a href='http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197'>0x6B4964E34816C7FF32EA3787c2C615E583715197</a>
-            </>
-           }
+          <ContentStyle
+            className="w-full"
+            sx={{
+              padding: 0,
+              marginTop: 10,
+              position: 'absolute',
+            }}
+          >
+            {batch && batch.length === 42 ? (
+              <TimeLine batchNoIn={batch} />
+            ) : (
+              <>
+                <InformativeTracking />
+              </>
+            )}
           </ContentStyle>
         </Container>
       </RootStyle>
