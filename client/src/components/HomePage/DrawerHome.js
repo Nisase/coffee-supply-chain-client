@@ -46,7 +46,7 @@ const DrawerHome = ({ links }) => {
               divider
             >
               <ListItemIcon>
-                <ListItemText sx={{ color: 'white' }}>{link}</ListItemText>
+                <ListItemText sx={{ color: 'white' }}>{link.label}</ListItemText>
               </ListItemIcon>
             </ListItemButton>
           ))}

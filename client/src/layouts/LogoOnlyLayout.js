@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 import NavHome from '../components/HomePage/NavHome';
 import Home from '../components/HomePage/Home';
 
-const linksArray = ['Quienes somos', 'Acerca', 'Contacto'];
+const linksArray = [{label: 'Inicio', url:'/home'}, {label: 'Dashboard', url:'/dashboard'}, {label: 'Tracking', url:'/tracking'}];
 
 // ----------------------------------------------------------------------
 

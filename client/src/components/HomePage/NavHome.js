@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import { alpha, styled, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
-  Box,
-  Stack,
   AppBar,
   Toolbar,
-  IconButton,
-  Tooltip,
   Grid,
   Typography,
   Tabs,
   Tab,
-  Button,
   useMediaQuery,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
@@ -67,7 +62,7 @@ const NavHome = ({ links }) => {
                   }}
                 >
                   {links.map((link, index) => (
-                    <Tab key={index} label={link} sx={{ fontSize: 'medium' }} />
+                    <RouterLink key={index} to={link.url} className="text-white font-bold ml-5 p-5 rounded-xl mt-5 no-underline hover:text-gray-200 hover:bg-[#ff2f00]">{link.label}</RouterLink> 
                   ))}
                   {/* <HashLink to="/home#who-we-are" style={{ textDecoration: 'none' }}>
                     <Tab label="Inicio" sx={{ fontSize: 'medium', color: theme.palette.secondary.dark2, opacity: 1 }} />
