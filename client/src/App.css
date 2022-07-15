@@ -50,12 +50,6 @@
   height: 50vh;
 }
 
-/* .comboPopover {
-  position: absolute;
-  z-index: 10;
-  color: #e0ee
-} */
-
 .nav-link {
   color: #ff2f00;
   
@@ -75,7 +69,6 @@ a.link-logo:focus, a.link-logo:hover {
   z-index: 5;
   margin: 0;
 }
-
 
 .intro {
   position: absolute;
@@ -98,9 +91,59 @@ a.link-home  {
   text-decoration: underline;
   color: #919EAB;
 }
+
 a.link-home:focus, a.link-home:hover {
   text-decoration: none;
-  color: #DFE3E8;
+  
+}
+
+a.coffee-smart-contract-1 {
+  text-decoration: none;
+  color: #0A575C;
+}
+
+a.coffee-smart-contract-1:hover, a.coffee-smart-contract-1:focus {
+  text-decoration: underline;
+  color: #ff2f00;
+}
+
+a.coffee-smart-contract-2 {
+  text-decoration: none;
+  color: #0A575C;
+
+}
+
+a.coffee-smart-contract-2:hover, a.coffee-smart-contract-2:focus {
+  text-decoration: underline;
+  color:#ff2f00;
+}
+
+a.metamask-link {
+  padding-left: 4px;
+  padding-right: 4px;
+  text-decoration: none;
+  color:#0A575C;
+
+}
+
+a.metamask-link:hover, a.metamask-link:focus {
+  text-decoration: underline;
+  color: #ff2f00;
+
+}
+
+a.mail-link {
+  padding-left: 4px;
+  padding-right: 0px;
+  text-decoration: none;
+  color:#0A575C;
+
+}
+
+a.mail-link:hover, a.mail-link:focus {
+  text-decoration: underline;
+  color: #ff2f00;
+
 }
 
 #action-btn {
@@ -159,11 +202,12 @@ a.link-home:focus, a.link-home:hover {
 
 #about {
   mix-blend-mode: multiply;
+
 }
 #about h6 {
   padding: 40px 0px 50px;
   color: #042a2b;
-  /* color: #ed003f; */
+
 }
 
 #about .about-card {
@@ -172,7 +216,8 @@ a.link-home:focus, a.link-home:hover {
   border-bottom: 4px solid #ff2f00;
   position: relative;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
   box-shadow: 0 0 0.1px rgba(0, 0, 0, 0);
   transition-duration: 0.5s;
   transition-prope#212B36rty: box-shadow, transform;
@@ -195,7 +240,65 @@ a.link-home:focus, a.link-home:hover {
   padding-right: 5px;
 }
 
+#contact .wave {
+  height: 85vh;
+}
 
+#contact {
+  height: 85vh;
+  position: relative;
+  display: block;
+  text-align: center;
+  overflow-y: hidden;
+}
+
+#contact .wave-end {
+  height: 80vh;
+  z-index: 5;
+  margin: 0;
+}
+
+.wave-end {
+  transform: rotate(180deg);
+  left: 0;
+}
+
+.contact-form {
+  margin: 0;
+  position: absolute;
+  width: 550px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#contact button {
+  padding: 10px 15px;
+  color: #ff2f00;
+  border-color: #ff2f00;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 18px;
+  margin: 0 auto 10px auto;
+}
+
+.submitted {
+  color: #ff2f00;
+}
+
+.form-input {
+  /* border: 1px solid rgba(252, 252, 252, 0.651); */
+  background-color: rgba(252, 252, 252, 0.1);
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin: 0 auto 10px auto;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 300;
+  color: white;
+}
 
 @keyframes App-logo-spin {
   from {

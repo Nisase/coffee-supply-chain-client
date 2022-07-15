@@ -104,15 +104,11 @@ export default function Logo({ urlLink = '/', disabledLink = false, sx }) {
   }
 
   return (
-    <RouterLink
-      to={urlLink}
-      // style=     {{ textDecoration: 'none', color: '#ff0' }}
-      className="link-logo"
-    >
+    <RouterLink to={urlLink} className="link-logo">
       <Box className="flex flex-row items-center py-5">
         {logo}{' '}
         <Typography component={'span'} className="ml-2 font-bold" sx={{ color: theme.palette.secondary.dark2 }}>
-          Coffee Track
+          CoffeeTrack
         </Typography>
       </Box>
     </RouterLink>

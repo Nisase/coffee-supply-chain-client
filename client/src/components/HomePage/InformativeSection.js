@@ -1,14 +1,7 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardHeader,
-  CardContent,
-  CardMedia,
-} from '@mui/material';
+import { Box, Typography, Grid, Card, CardHeader, CardContent, CardMedia } from '@mui/material';
+import { Link } from 'react-router-dom';
 import '../../App.css';
 
 const bull = (
@@ -20,163 +13,199 @@ const bull = (
 const InformativeSection = () => {
   const theme = useTheme();
   return (
-    <div id="about" className='max-w-6xl mx-auto'>
+    <div id="about" className="max-w-6xl mx-auto">
       <Grid container>
-      <div className='grid mx-16 grid-cols-1 lg:grid-cols-2 gap-x-10'>
-        <div className='lg:col-span-2'>
+        <div className="grid mx-16 grid-cols-1 lg:grid-cols-2 gap-x-10">
+          <div className="lg:col-span-2">
+            <Typography
+              variant="h6"
+              sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
+            >
+              Nuestro <span className="spanInfo">Sistema de Tracking </span> está construido sobre la tecnología{' '}
+              <span className="spanInfo">Blockchain</span>
+            </Typography>
+          </div>
+          <div className="p-5">
+            <Card sx={{ boxShadow: 3 }} className="about-card">
+              <CardMedia
+                component="img"
+                height="270"
+                image="https://cdn.techwireasia.com/wp-content/uploads/2021/01/shutterstock_1079935373-897x500.png"
+                alt="blockchain technology"
+              />
+              <CardHeader title="¿Qué es la tecnología blockchain?" />
+
+              <CardContent>
+                <Typography variant="body2" className="about-info">
+                  La cadena de bloques o blockchain es un libro mayor digital replicado, distribuido, compartido e
+                  inmutable que permite realizar transacciones seguras entre dos participantes sin autoridad central,
+                  registrar el proceso de transacciones y el seguimiento de activos en una red de negocios. Blockchain
+                  utiliza contratos inteligentes para codificar la lógica de negocio relacionada con el intercambio de
+                  bienes o servicios, permitiendo la verificación y liquidación de promesas contractuales sin
+                  intervención humana.
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="p-5">
+            <Card sx={{ boxShadow: 3 }} className="about-card">
+              <CardMedia
+                component="img"
+                height="270"
+                image="/static/images/supplychain.png"
+                // image="https://ifssportal.nutritionconnect.org/sites/default/files/styles/teaser/public/images/S96.png?itok=s-35oeBz"
+                alt="blockchain in traceability on supply chains"
+              />
+              <CardHeader title="Blockchain en la trazabilidad de cadenas de suministro" />
+
+              <CardContent>
+                <Typography variant="body2" className="about-info">
+                  A lo largo de la cadena de suministro, blockchain facilita:
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
+                  {bull} Obtener y entregar datos de manera inmediata, compartida y transparente.
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
+                  {bull} Almacenar los datos en un libro mayor distribuido e inalterable.{' '}
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
+                  {bull} Tener una fuente de consulta única para todos los partícipes de la cadena de suministro.
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
+                  {bull}La confianza entre las partes de una cadena de suministro y del cliente final con el proceso.
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+        <div className="mx-auto mt-5">
           <Typography
-            variant="h6"
-            sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
-          >
-            Nuestro <span className="spanInfo">Sistema de Tracking </span> está construido sobre la tecnología{' '}
-            <span className="spanInfo">Blockchain</span>
-          </Typography>
-        </div>
-        <div className='p-5'>
-        <Card sx={{ boxShadow: 3 }} className="about-card">
-            <CardMedia
-              component="img"
-              height="194"
-              image="https://cdn.techwireasia.com/wp-content/uploads/2021/01/shutterstock_1079935373-897x500.png"
-              alt="blockchain technology"
-            />
-            <CardHeader title="¿Qué es la tecnología blockchain?" />
-
-            <CardContent>
-              <Typography variant="body2" className="about-info">
-                La cadena de bloques o blockchain es un libro mayor digital replicado, distribuido, compartido e
-                inmutable que permite realizar transacciones seguras entre dos participantes sin autoridad central,
-                registrar el proceso de transacciones y el seguimiento de activos en una red de negocios. Blockchain
-                utiliza contratos inteligentes para codificar la lógica de negocio relacionada con el intercambio de
-                bienes o servicios, permitiendo la verificación y liquidación de promesas contractuales sin intervención
-                humana.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
-        <div className='p-5'>
-        <Card sx={{ boxShadow: 3 }} className="about-card">
-            <CardMedia
-              component="img"
-              height="218"
-              image="/static/images/supplychain.png"
-              // image="https://ifssportal.nutritionconnect.org/sites/default/files/styles/teaser/public/images/S96.png?itok=s-35oeBz"
-              alt="blockchain in traceability on supply chains"
-            />
-            <CardHeader title="Blockchain en la trazabilidad de cadenas de suministro" />
-
-            <CardContent>
-              <Typography variant="body2" className="about-info">
-                A lo largo de la cadena de suministro, blockchain facilita:
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
-                {bull} Obtener y entregar datos de manera inmediata, compartida y transparente.
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
-                {bull} Almacenar los datos en un libro mayor distribuido e inalterable.{' '}
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
-                {bull} Tener una fuente de consulta única para todos los partícipes de la cadena de suministro.
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1.5 }}>
-                {bull}La confianza entre las partes de una cadena de suministro y del cliente final con el proceso.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>      
-      </div>
-      <div className='mx-auto mt-20'>
-        <Typography
             variant="h6"
             sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
           >
             ¿Cómo funciona <span className="spanInfo">CoffeeTrack</span>?
           </Typography>
-        </div>  
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-16 gap-10 mb-20'>
-      <div>
-        <Card sx={{ boxShadow: 3 }} className="about-card">
-            <CardMedia
-              component="img"
-              height="194"
-              image="https://www.godfatherstyle.com/wp-content/uploads/2022/01/Blockchain-3.png"
-              // image="/static/images/smart-contract1.jpg"
-            />
-            <CardHeader title="1. Contratos inteligentes desplegados en la blockchain" />
-
-            <CardContent>
-              <Typography variant="body2" className="about-info">
-                Los contratos inteligentes que permiten realizar el seguimiento del café de especialidad por su cadena
-                de suministro fueron desplegados en la blockchain de prueba de Rinkeby.
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
-                {bull}Puedes consultarlos accediendo a los siguientes enlaces
-                (https://rinkeby.etherscan.io/address/0x6596055d2fd7284aa0978778b19cd8ab05a3fa98)
-                (https://rinkeby.etherscan.io/address/0xCABBC0765Ccd94B34c17Bd74a03197E4760F6C6E).
-              </Typography>
-            </CardContent>
-          </Card>
         </div>
-        <div>
-        <Card sx={{ boxShadow: 3 }} className="about-card">
-            <CardMedia
-              component="img"
-              height="194"
-              image="https://images.ctfassets.net/9sy2a0egs6zh/6ngCUoU36ABPjs6cDNnuoK/a4b9e978595248dbb685aa2c53e3f4dc/download-extension.png"
-              // image="/static/images/metamask.png"
-              alt="blockchain technology"
-            />
-            <CardHeader title="2. Usa la billetera digital de Metamask para interactuar con los contratos inteligentes" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-16 gap-10 mb-20">
+          <div>
+            <Card sx={{ boxShadow: 3 }} className="about-card">
+              <CardMedia
+                component="img"
+                height="194"
+                image="https://www.godfatherstyle.com/wp-content/uploads/2022/01/Blockchain-3.png"
+                // image="/static/images/smart-contract1.jpg"
+              />
+              <CardHeader title="1. Contratos inteligentes desplegados en la blockchain" />
 
-            <CardContent>
-              <Typography variant="body2" className="about-info">
-                La billetera digital de Metamask permite interactuar con los contratos inteligentes a través de nuestra
-                aplicación. Todos los usuarios que interactúan con los contratos inteligentes deben ser previamente
-                habilitados para hacerlo.
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
-                {bull}Si ya eres usuario de nuestra aplicación, asegúrate de instalar la extensión de Metamask
-                (https://metamask.io/download/) en tu navegador.
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
-                {bull}Si eres productor de café de especialidad y deseas dar seguimiento a tu producto, contáctanos al
-                siguiente correo (coffeetrackec@gmail.com), nos gustaría ayudarte.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
-        <div className='md:col-span-2 lg:col-span-1 max-w-xl mx-auto'>
-        <Card sx={{ boxShadow: 3 }} className="about-card">
-            <CardMedia
-              component="img"
-              height="194"
-              // image="https://cdn.techwireasia.com/wp-content/uploads/2021/01/shutterstock_1079935373-897x500.png"
-              image="/static/images/qrcoffe.png"
-              alt="blockchain technology"
-            />
-            <CardHeader title="3. Escanea el código QR de tu producto" />
+              <CardContent>
+                <Typography variant="body2" className="about-info">
+                  Los contratos inteligentes que permiten realizar el seguimiento del café de especialidad por su cadena
+                  de suministro fueron desplegados en la blockchain de prueba de Rinkeby.
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
+                  {bull}Puedes consultarlos accediendo a los siguientes enlaces:{' '}
+                </Typography>
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
+                  <a
+                    className="coffee-smart-contract-1 font-bold"
+                    href="https://rinkeby.etherscan.io/address/0x6596055d2fd7284aa0978778b19cd8ab05a3fa98"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    CoffeeSupplyChain1
+                  </a>
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
+                  <a
+                    className="coffee-smart-contract-2 font-bold"
+                    href="https://rinkeby.etherscan.io/address/0xCABBC0765Ccd94B34c17Bd74a03197E4760F6C6E"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    CoffeeSupplyChain2
+                  </a>
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+          <div>
+            <Card sx={{ boxShadow: 3 }} className="about-card">
+              <CardMedia
+                component="img"
+                height="194"
+                image="https://images.ctfassets.net/9sy2a0egs6zh/6ngCUoU36ABPjs6cDNnuoK/a4b9e978595248dbb685aa2c53e3f4dc/download-extension.png"
+                // image="/static/images/metamask.png"
+                alt="blockchain technology"
+              />
+              <CardHeader title="2. Usa la billetera digital de Metamask para interactuar con los contratos inteligentes" />
 
-            <CardContent>
-              <Typography variant="body2" className="about-info">
-                El producto de venta al público contiene un código QR que al ser escaneado, redirije a una página de
-                nuestra aplicación correspondiente al historial del producto a lo largo de su cadena de suministro.
-              </Typography>
-              <br />
-              <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
-                {bull}Si eres consumidor de café de especialidad, escanea tu código y empodera a quienes permitieron que
-                el producto llegue a tu manos.
-              </Typography>
-            </CardContent>
-          </Card>
+              <CardContent>
+                <Typography variant="body2" className="about-info">
+                  La billetera digital de Metamask permite interactuar con los contratos inteligentes a través de
+                  nuestra aplicación. Todos los usuarios que interactúan con los contratos inteligentes deben ser
+                  previamente habilitados para hacerlo.
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
+                  {bull}Si ya eres usuario de nuestra aplicación, asegúrate de instalar la extensión de
+                  <a
+                    href="https://metamask.io/download/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="metamask-link font-bold"
+                  >
+                    Metamask
+                  </a>
+                  en tu navegador.
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
+                  {bull}Si eres productor de café de especialidad y deseas dar seguimiento a tu producto, contáctanos al
+                  siguiente{' '}
+                  <a
+                    target="_blank"
+                    href="mailto:coffeetrackec@gmail.com"
+                    rel="noreferrer"
+                    className="mail-link font-bold"
+                  >
+                    correo
+                  </a>
+                  . Nos gustaría ayudarte.
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="md:col-span-2 lg:col-span-1 max-w-xl mx-auto">
+            <Card sx={{ boxShadow: 3 }} className="about-card">
+              <CardMedia
+                component="img"
+                height="194"
+                // image="https://cdn.techwireasia.com/wp-content/uploads/2021/01/shutterstock_1079935373-897x500.png"
+                image="/static/images/qrcoffe.png"
+                alt="blockchain technology"
+              />
+              <CardHeader title="3. Escanea el código QR de tu producto" />
+
+              <CardContent>
+                <Typography variant="body2" className="about-info">
+                  El producto de venta al público contiene un código QR que al ser escaneado, redirije a una página de
+                  nuestra aplicación correspondiente al historial del producto a lo largo de su cadena de suministro.
+                </Typography>
+                <br />
+                <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
+                  {bull}Si eres consumidor de café de especialidad, escanea tu código y empodera a quienes permitieron
+                  que el producto llegue a tu manos.
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </div>
       </Grid>
     </div>
   );

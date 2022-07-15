@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import Page from '../components/Page';
 import HomeSection from '../components/HomePage/Home';
 import InformativeSection from '../components/HomePage/InformativeSection';
+import ContactSection from '../components/HomePage/ContactSection';
 
 // ----------------------------------------------------------------------
 
@@ -28,13 +29,13 @@ const BoxStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Home() {
-
   return (
     <Page title="Login">
       <RootStyle sx={{ margin: 0 }}>
         <BoxStyle sx={{ margin: 10 }}>
           <HomeSection />
           <InformativeSection />
+          <ContactSection />
         </BoxStyle>
       </RootStyle>
     </Page>
