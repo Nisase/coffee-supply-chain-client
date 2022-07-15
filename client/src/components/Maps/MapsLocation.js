@@ -231,7 +231,7 @@ function Search({ panTo, setMarker, setLocation }) {
     <Box className="search">
       <Combobox onSelect={handleSelect}>
         <ComboboxInput value={value} onChange={handleInput} disabled={!ready} placeholder="Ingresa la dirección" />
-        <ComboboxPopover className="comboPopover">
+        <ComboboxPopover className="comboPopover" style={{ zIndex: 9999999999 }}>
           <ComboboxList>
             {status === 'OK' && data.map(({ id, description }) => <ComboboxOption key={uuid()} value={description} />)}
           </ComboboxList>

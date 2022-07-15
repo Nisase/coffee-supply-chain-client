@@ -46,6 +46,8 @@ import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRound
 import RunningWithErrorsRoundedIcon from '@mui/icons-material/RunningWithErrorsRounded';
 
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
@@ -53,22 +55,37 @@ import { Link as RouterLink } from 'react-router-dom';
 function ShareSocialMedia(batch) {
   return (
     <Stack direction="row" spacing={1}>
+      <IconButton
+        aria-label="copy"
+        // color="comp5"
+        color="quaternary"
+        sixe="small"
+        sx={{ p: 0, m: 0 }}
+        onClick={() => {
+          navigator.clipboard.writeText(batch);
+        }}
+      >
+        {/* <Tooltip arrow size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}> */}
+        <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
+        {/* </Tooltip> */}
+      </IconButton>
+      {/* `https://192.168.100.4:3000/tracking?batch=${batch}` */}
       <FacebookShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`http://localhost:3000/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
         <FacebookIcon size={20} round />
       </FacebookShareButton>
       <WhatsappShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`http://localhost:3000/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
         <WhatsappIcon size={20} round />
       </WhatsappShareButton>
       <EmailShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`http://localhost:3000/tracking?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -76,13 +93,13 @@ function ShareSocialMedia(batch) {
         <EmailIcon size={20} round />
       </EmailShareButton>
       <TelegramShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`http://localhost:3000/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
       </TelegramShareButton>
       <TwitterShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`http://localhost:3000/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -131,6 +148,7 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
 ))(({ theme }) => ({
   [`& .${tooltipClasses.arrow}`]: {
     color: theme.palette.grey[900],
+    // .grey[900],
   },
   [`& .${tooltipClasses.tooltip}`]: {
     backgroundColor: theme.palette.grey[900],
@@ -340,7 +358,19 @@ const TableUsers = ({ batchNo, nextActions }) => {
                       enterDelay={300}
                       leaveDelay={200}
                     >
-                      <Typography variant="body2">{batch} </Typography>
+                      {/* <Tooltip title="Copiar" placement="bottom">
+                        <div
+                          className="mr-10 text-black hover:cursor-pointer"
+                          onClick={() => {
+                            navigator.clipboard.writeText(batch);
+                          }}
+                          aria-hidden="true"
+                        > */}
+                      <Typography variant="body2">
+                        {batch.slice(0, 8).concat('...').concat(batch.slice(-8))}{' '}
+                      </Typography>
+                      {/* </div>
+                      </Tooltip> */}
                     </BootstrapTooltip>
                   </Stack>
                 </StyledTableCell>
@@ -350,7 +380,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                       <QRCode
                         bgColor="#FFFFFF"
                         id={batch}
-                        value={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+                        value={`http://localhost:3000/tracking?batch=${batch}`}
                         size="40"
                         includeMargin
                         renderAs="svg"
@@ -386,7 +416,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                 ))}
                 <StyledTableCell align="center">
                   <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <RouterLink to={`https://localhost:3000/tracking?batch=${batch}`}>
+                    <RouterLink to={`http://localhost:3000/tracking?batch=${batch}`}>
                       <IconButton aria-label="tracking-batch" sx={{ color: 'grey[800]' }} size="small">
                         <RemoveRedEyeRoundedIcon />
                       </IconButton>

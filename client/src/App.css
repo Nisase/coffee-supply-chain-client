@@ -50,10 +50,383 @@
   height: 50vh;
 }
 
-/* .comboPopover {
+.nav-link {
+  color: #ff2f00;
+  
+}
+
+a.link-logo  {
+  text-decoration: none;
+}
+a.link-logo:focus, a.link-logo:hover {
+  text-decoration: underline;
+  color: #ff2f00;
+}
+
+
+#who-we-are .wave {
+  height: 75vh;
+  z-index: 5;
+  margin: 0;
+}
+
+.intro {
   position: absolute;
-  z-index: 10;
-  color: #e0ee
+  top: 30vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /* -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */
+  padding-left: 7%;
+  padding-right: 5%;
+  width: 60%;
+}
+.wave {
+  transform: rotate(180deg);
+  left: 0;
+}
+
+a.link-home  {
+  text-decoration: underline;
+  color: #919EAB;
+}
+
+a.link-home:focus, a.link-home:hover {
+  text-decoration: none;
+  
+}
+
+a.coffee-smart-contract-1 {
+  text-decoration: none;
+  color: #0A575C;
+}
+
+a.coffee-smart-contract-1:hover, a.coffee-smart-contract-1:focus {
+  text-decoration: underline;
+  color: #ff2f00;
+}
+
+a.coffee-smart-contract-2 {
+  text-decoration: none;
+  color: #0A575C;
+
+}
+
+a.coffee-smart-contract-2:hover, a.coffee-smart-contract-2:focus {
+  text-decoration: underline;
+  color:#ff2f00;
+}
+
+a.metamask-link {
+  padding-left: 4px;
+  padding-right: 4px;
+  text-decoration: none;
+  color:#0A575C;
+
+}
+
+a.metamask-link:hover, a.metamask-link:focus {
+  text-decoration: underline;
+  color: #ff2f00;
+
+}
+
+a.mail-link {
+  padding-left: 4px;
+  padding-right: 0px;
+  text-decoration: none;
+  color:#0A575C;
+
+}
+
+a.mail-link:hover, a.mail-link:focus {
+  text-decoration: underline;
+  color: #ff2f00;
+
+}
+
+#action-btn {
+  margin-top: 10px;
+  position: relative;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background: none;
+  color: #919EAB;
+  border-radius: 5px;
+  text-transform: uppercase;
+  outline: 0;
+  z-index: 1;
+}
+
+#action-btn:hover {
+  color: #DFE3E8;
+}
+
+#action-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #ff2f00;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+#action-btn:hover::before {
+  right: 0;
+}
+
+#who-we-are,
+#about,
+#contact,
+#details {
+  /* background-color: rgba(0, 0, 0, 0.01); */
+  background-color: transparent;
+  /* position: relative; */
+  width: 100%;
+  z-index: 0;
+  /* font-family: "Roboto", sans-serif; */
+  overflow-x: hidden;
+}
+/* #home,
+#contact {
+  color: white;
+} */
+
+#about {
+  mix-blend-mode: multiply;
+
+}
+#about h6 {
+  padding: 40px 0px 50px;
+  color: #042a2b;
+
+}
+
+#about .about-card {
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 0.5px solid #ff2f00;
+  border-bottom: 4px solid #ff2f00;
+  position: relative;
+  display: block;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  box-shadow: 0 0 0.1px rgba(0, 0, 0, 0);
+  transition-duration: 0.5s;
+  transition-property: box-shadow, transform;
+}
+
+.about-card:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.about-info {
+  color: rgb(81, 84, 88);
+}
+
+.spanInfo {
+  color: #ff2f00;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#contact .wave {
+  height: 85vh;
+}
+
+#contact {
+  height: 85vh;
+  position: relative;
+  display: block;
+  text-align: center;
+  overflow-y: hidden;
+}
+
+#contact .wave-end {
+  height: 80vh;
+  z-index: 5;
+  margin: 0;
+}
+
+.wave-end {
+  transform: rotate(180deg);
+  left: 0;
+}
+
+.contact-form {
+  margin: 0;
+  position: absolute;
+  max-width: 550px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#contact button {
+  padding: 10px 15px;
+  color: #ff2f00;
+  border-color: #ff2f00;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 18px;
+  margin: 0 auto 10px auto;
+}
+
+.submitted {
+  color: #ff2f00;
+}
+
+.form-input {
+  /* border: 1px solid rgba(252, 252, 252, 0.651); */
+  background-color: rgba(252, 252, 252, 0.1);
+  border-radius: 3px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 300;
+  color: white;
+}
+
+
+/* TRACKING */
+.wave-track {
+  height: 45vh;
+  z-index: 5;
+  margin: 0;
+  transform: rotate(180deg);
+  left: 0;
+
+}
+
+
+.intro-track {
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  text-align: center;
+  padding-left: 7%;
+  padding-right: 5%;
+  width: 60%;
+}
+
+#section-1 {
+  padding-top: 0px;
+  margin-top: 0px;
+  background-color: transparent;
+  width: 100%;
+  z-index: 0;
+  overflow-x: hidden;
+
+}
+
+.tracking-img {
+  transform: scale(6);
+
+}
+
+
+#section-1 .section-1-card {
+  background-color: rgba(0, 0, 0, 0.02);
+  /* rgba(89, 89, 79, 0.104); */
+  border: 0.5px solid #ff2f00;
+  border-bottom: 4px solid #ff2f00;
+  position: relative;
+  display: block;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  box-shadow: 0 0 0.1px rgba(0, 0, 0, 0);
+  transition-duration: 0.5s; 
+  transition-property: box-shadow, transform;
+
+}
+
+.section-1-card:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.02);
+   -webkit-transform: scale(1.05); 
+   transform: scale(1.05); 
+
+}
+
+.section-1-info {
+  color: rgb(74, 74, 74);
+  /* color: white; */
+  text-align: left;
+  font-weight: 500;
+  font-size: 16px;  
+
+}
+
+
+.title-track{
+    margin-top: 50px;
+}
+
+a.batch-track {
+  text-decoration: none;
+  color: #919EAB;
+}
+
+a.batch-track:hover, a.batch-track:focus {
+  text-decoration: none;
+  color: #DFE3E8;
+}
+
+
+.track-btn {
+  margin-top: 10px;
+  position: relative;
+  padding: 10px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background: none;
+  color: #919EAB;
+  border-radius: 5px;
+  text-transform: uppercase;
+  outline: 0;
+  z-index: 1;
+}
+
+.track-btn:hover {
+  color: #DFE3E8;
+}
+
+.track-btn::before {
+  content: "";
+  position: absolute;
+  background: #13686e58;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.track-btn:hover::before {
+  right: 0;
+}
+
+/* a.my-batch {
+  text-decoration: none;
+  color: #042A2B;
+}
+
+a.my-batch:hover, a.my-batch:focus {
+  text-decoration: none;
+  color: #919EAB;
 } */
 
 @keyframes App-logo-spin {
@@ -64,3 +437,5 @@
     transform: rotate(360deg);
   }
 }
+
+

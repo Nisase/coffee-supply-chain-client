@@ -5,15 +5,10 @@ import { useSearchParams } from 'react-router-dom';
 // components
 import Page from '../components/Page';
 import TimeLine from '../components/Tracking/TimeLine';
+import InformativeTracking from '../components/Tracking/InformativeTracking';
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
-  },
-  zIndex: 10,
-}));
 
 const ContentStyle = styled('div')(({ theme }) => ({
   margin: 'auto',
@@ -30,25 +25,21 @@ export default function Tracking() {
   const [searchParams] = useSearchParams();
   const batch = searchParams.get('batch');
 
-
-
   // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
   return (
     <Page title="Login">
-      <RootStyle>
-        <Container>
-          <ContentStyle className='w-full'>
-            {batch && batch.length===42 ?
-            <TimeLine batchNoIn={batch} />
-            :
-            <>
-            Bach No Valido: Probar con <a href='http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197'>0x6B4964E34816C7FF32EA3787c2C615E583715197</a>
-            </>
-           }
+          <ContentStyle
+            className="w-full mt-0 p-0"
+          >
+            {batch && batch.length === 42 ? (
+              <TimeLine batchNoIn={batch} />
+            ) : (
+              <>
+                <InformativeTracking />
+              </>
+            )}
           </ContentStyle>
-        </Container>
-      </RootStyle>
     </Page>
   );
 }
