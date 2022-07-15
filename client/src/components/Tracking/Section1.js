@@ -93,10 +93,9 @@ const Section1 = () => {
   };
 
   return (
-    <div id="section-1">
-      <Box>
+    <div id="section-1 mb-20">
         <Wave
-          className="wave-track"
+          className="wave-track mt-20 mb-20"
           fill="#042A2B"
           paused={false}
           options={{
@@ -106,41 +105,31 @@ const Section1 = () => {
             points: 5,
           }}
         />
-        <Grid container className="intro-track">
-          <Grid item xs={12}>
-            <Typography
-              className=" font-semibold title-track"
+        <div className='absolute top-0 right-0 left-0 grid mx-auto max-w-4xl mt-20'>
+          <div className='mx-auto my-5'>
+          <Typography
+              className=" font-semibold title-track text-2xl lg:text-4xl"
               sx={{
-                textAlign: 'left',
-                fontSize: '2rem',
+                textAlign: 'center',
                 color: theme.palette.secondary.dark2,
               }}
             >
               Escanea el Código QR de tu Café
             </Typography>
-          </Grid>
-
-          <Grid item xs={6}>
-            <Box
+          </div>
+          <div>
+          <Box
               component="img"
-              className="tracking-img"
-              sx={{
-                height: 105,
-                width: 130,
-                maxHeight: { xs: 55, md: 85 },
-                maxWidth: { xs: 80, md: 100 },
-                marginTop: 15,
-                marginLeft: 68,
-              }}
+              className="w-full max-w-lg h-auto mx-auto"
+              
               alt="Scan the QR of your coffee product"
               src="/static/images/track4.svg"
             />
-          </Grid>
-        </Grid>
-
-        <Grid container maxWidth="600px">
-          <Grid item xs={12} sx={{ marginBottom: 2, marginLeft: 5, marginTop: 0 }}>
-            <Card className="section-1-card">
+          </div>
+        </div>
+        <div className='grid mx-auto max-w-4xl my-20'>
+          <div className='px-5'>
+          <Card className="section-1-card max-w-4xl mx-auto">
               <CardContent>
                 <Typography className="section-1-info">
                   Tu producto ha sido identificado a través de su lote de origen, el mismo que ha sido modificado
@@ -154,35 +143,23 @@ const Section1 = () => {
                 </Typography>
               </CardContent>
             </Card>
-          </Grid>
-
-          <Grid item xs={12} sx={{ marginBottom: 5, marginLeft: 5 }}>
+          </div>
+          <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-10 mt-4 max-w-2xl mx-auto'>
             <Button
-              className="font-bold track-btn"
+              href="http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197"
+              className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
               variant="contained"
-              size="medium"
-              color="primary"
-              sx={{ marginRigth: 2 }}
             >
-              <a
-                className="font-bold batch-track"
-                href="http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197"
-                target="_blank"
-                rel="noreferrer"
-              >
                 LOTE DE EJEMPLO
-              </a>
             </Button>
             <Button
-              className="font-bold track-btn"
+              className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
               variant="contained"
               size="medium"
-              color="primary"
-              sx={{ marginLeft: 2 }}
               onClick={handleClickOpenLectorQR}
             >
               ESCANEAR QR
-            </Button>
+            </Button>         
             <BootstrapDialog
               PaperProps={{ sx: { width: '40%' } }}
               aria-labelledby="customized-dialog-title"
@@ -243,9 +220,8 @@ const Section1 = () => {
                 </Grid>
               </DialogContent>
             </BootstrapDialog>
-          </Grid>
-        </Grid>
-      </Box>
+          </div>
+        </div>
     </div>
   );
 };

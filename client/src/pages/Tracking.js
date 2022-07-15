@@ -9,12 +9,6 @@ import InformativeTracking from '../components/Tracking/InformativeTracking';
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
-  },
-  zIndex: 10,
-}));
 
 const ContentStyle = styled('div')(({ theme }) => ({
   margin: 'auto',
@@ -35,15 +29,8 @@ export default function Tracking() {
 
   return (
     <Page title="Login">
-      <RootStyle>
-        <Container>
           <ContentStyle
-            className="w-full"
-            sx={{
-              padding: 0,
-              marginTop: 10,
-              position: 'absolute',
-            }}
+            className="w-full mt-0 p-0"
           >
             {batch && batch.length === 42 ? (
               <TimeLine batchNoIn={batch} />
@@ -53,8 +40,6 @@ export default function Tracking() {
               </>
             )}
           </ContentStyle>
-        </Container>
-      </RootStyle>
     </Page>
   );
 }

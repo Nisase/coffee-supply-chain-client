@@ -30,9 +30,9 @@ const Home = () => {
             Da seguimiento a tu café de especilidad a lo largo de toda la cadena de suministro. Permite que los
             consumidores conozcan tu producto, conecta y empodera a los participantes de tu cadena de suministro.
           </Typography>
-          <RouterLink to={'/dashboard'} className="link-home">
+          <RouterLink to={'/tracking'} className="link-home">
             <Button className="font-bold" id="action-btn" variant="outlined">
-              EMPEZAR
+              Tracking
             </Button>
           </RouterLink>
         </Box>
