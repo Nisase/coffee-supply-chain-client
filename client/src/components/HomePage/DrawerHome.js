@@ -19,7 +19,9 @@ import {
   ListItemButton,
 } from '@mui/material';
 import { alpha, styled, useTheme } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import '../../App.css';
 
 const DrawerHome = ({ links }) => {
   const theme = useTheme();
@@ -46,7 +48,22 @@ const DrawerHome = ({ links }) => {
               divider
             >
               <ListItemIcon>
-                <ListItemText sx={{ color: 'white' }}>{link.label}</ListItemText>
+                <ListItemText
+                // sx={{ color: 'white' }}
+                >
+                  {/* {link.label} */}
+
+                  {/* text-white font-bold ml-5 p-5 rounded-xl mt-5 no-underline hover:text-gray-200 hover:bg-[#F9D2B4] */}
+                  <RouterLink
+                    key={index}
+                    to={link.url}
+                    // style={{ textDecoration: 'none' }}
+                    className=" text-white
+                    drawer-link"
+                  >
+                    {link.label}
+                  </RouterLink>
+                </ListItemText>
               </ListItemIcon>
             </ListItemButton>
           ))}

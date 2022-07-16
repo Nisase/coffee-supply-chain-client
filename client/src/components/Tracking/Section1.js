@@ -94,134 +94,133 @@ const Section1 = () => {
 
   return (
     <div id="section-1 mb-20">
-        <Wave
-          className="wave-track mt-20 mb-20"
-          fill="#042A2B"
-          paused={false}
-          options={{
-            height: 50,
-            amplitude: 75,
-            speed: 0.1,
-            points: 5,
-          }}
-        />
-        <div className='absolute top-0 right-0 left-0 grid mx-auto max-w-4xl mt-20'>
-          <div className='mx-auto my-5'>
+      <Wave
+        className="wave-track mt-20 mb-20"
+        fill="#042A2B"
+        paused={false}
+        options={{
+          height: 50,
+          amplitude: 75,
+          speed: 0.1,
+          points: 5,
+        }}
+      />
+      <div className="absolute top-0 right-0 left-0 grid mx-auto max-w-4xl mt-20">
+        <div className="mx-auto my-5">
           <Typography
-              className=" font-semibold title-track text-2xl lg:text-4xl"
+            className=" font-semibold title-track text-2xl lg:text-4xl"
+            sx={{
+              textAlign: 'center',
+              color: theme.palette.secondary.dark2,
+            }}
+          >
+            Escanea el Código QR de tu Café
+          </Typography>
+        </div>
+        <div>
+          <Box
+            component="img"
+            className="w-full max-w-lg h-auto mx-auto"
+            alt="Scan the QR of your coffee product"
+            src="/static/images/track4.svg"
+          />
+        </div>
+      </div>
+      <div className="grid mx-auto max-w-4xl my-20">
+        <div className="px-5">
+          <Card className="section-1-card max-w-4xl mx-auto">
+            <CardContent>
+              <Typography className="section-1-info">
+                Tu producto ha sido identificado a través de su lote de origen, el mismo que ha sido modificado durante
+                las siguientes etapas:
+                <br />
+                {bull} Cosecha
+                {bull} Procesado {bull} Catación {bull} Venta del Grano
+                {bull} Bodegaje {bull} Transporte a Empacador
+                {bull} Empacado {bull} Transporte a Retailer
+                {bull} Retailer
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 mt-4 max-w-2xl mx-auto">
+          <Button
+            href="http://localhost:3000/tracking?batch=0x186850e2259c7fa162be1f961aa0fd28be10cdf5"
+            className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
+            variant="contained"
+          >
+            LOTE DE EJEMPLO
+          </Button>
+          <Button
+            className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
+            variant="contained"
+            size="medium"
+            onClick={handleClickOpenLectorQR}
+          >
+            ESCANEAR QR
+          </Button>
+          <BootstrapDialog
+            PaperProps={{ sx: { width: '40%' } }}
+            aria-labelledby="customized-dialog-title"
+            open={openLectorQR}
+          >
+            <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLectorQR}>
+              Lector QR
+            </BootstrapDialogTitle>
+            <DialogContent
+              dividers
+              // PaperProps={{ sx: { width: '80%' } }}
               sx={{
-                textAlign: 'center',
-                color: theme.palette.secondary.dark2,
+                margin: 0,
+                padding: 0,
+                //   display: 'flex',
+                //   flexDirection: 'column',
+                //   alignContent: 'space-around',
+                //   flexWrap: 'wrap',
+                //   alignItems: 'flex-end',
               }}
             >
-              Escanea el Código QR de tu Café
-            </Typography>
-          </div>
-          <div>
-          <Box
-              component="img"
-              className="w-full max-w-lg h-auto mx-auto"
-              
-              alt="Scan the QR of your coffee product"
-              src="/static/images/track4.svg"
-            />
-          </div>
-        </div>
-        <div className='grid mx-auto max-w-4xl my-20'>
-          <div className='px-5'>
-          <Card className="section-1-card max-w-4xl mx-auto">
-              <CardContent>
-                <Typography className="section-1-info">
-                  Tu producto ha sido identificado a través de su lote de origen, el mismo que ha sido modificado
-                  durante las siguientes etapas:
-                  <br />
-                  {bull} Cosecha
-                  {bull} Procesado {bull} Catación {bull} Venta del Grano
-                  {bull} Bodegaje {bull} Transporte a Empacador
-                  {bull} Empacado {bull} Transporte a Retailer
-                  {bull} Retailer
-                </Typography>
-              </CardContent>
-            </Card>
-          </div>
-          <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-10 mt-4 max-w-2xl mx-auto'>
-            <Button
-              href="http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197"
-              className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
-              variant="contained"
-            >
-                LOTE DE EJEMPLO
-            </Button>
-            <Button
-              className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
-              variant="contained"
-              size="medium"
-              onClick={handleClickOpenLectorQR}
-            >
-              ESCANEAR QR
-            </Button>         
-            <BootstrapDialog
-              PaperProps={{ sx: { width: '40%' } }}
-              aria-labelledby="customized-dialog-title"
-              open={openLectorQR}
-            >
-              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLectorQR}>
-                Lector QR
-              </BootstrapDialogTitle>
-              <DialogContent
-                dividers
-                // PaperProps={{ sx: { width: '80%' } }}
-                sx={{
-                  margin: 0,
-                  padding: 0,
-                  //   display: 'flex',
-                  //   flexDirection: 'column',
-                  //   alignContent: 'space-around',
-                  //   flexWrap: 'wrap',
-                  //   alignItems: 'flex-end',
-                }}
-              >
-                <Grid container sx={{ justifyContent: 'center' }}>
-                  <Grid item>
-                    <QrReader
-                      onResult={(result, error) => {
-                        if (result) {
-                          setDataQR(result?.text);
-                          setStateLectorQR(true);
-                        }
-                      }}
-                      containerStyle={{
-                        marginTop: '0px',
-                        paddingTop: '0px',
-                        width: '450px',
-                      }}
-                    />
-                  </Grid>
-                  {stateLectorQR ? (
-                    <Grid item>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: 'grey.700' }}
-                        // color="text.secondary"
-                      >
-                        Puede consultar la trazabilidad de su café a través del siguiente enlace:{' '}
-                        <a href={dataQR} className="my-batch">
-                          {dataQR}
-                        </a>
-                      </Typography>
-                    </Grid>
-                  ) : (
-                    <Grid item sx={{ paddingTop: '0px', marginTop: '0px' }}>
-                      <Typography variant="body2" sx={{ fontSize: 14 }} color="text.secondary">
-                        Coloque su código QR frente a la cámara.
-                      </Typography>
-                    </Grid>
-                  )}
+              <Grid container sx={{ justifyContent: 'center' }}>
+                <Grid item>
+                  <QrReader
+                    onResult={(result, error) => {
+                      if (result) {
+                        setDataQR(result?.text);
+                        setStateLectorQR(true);
+                      }
+                    }}
+                    containerStyle={{
+                      marginTop: '0px',
+                      paddingTop: '0px',
+                      width: '450px',
+                    }}
+                  />
                 </Grid>
-              </DialogContent>
-            </BootstrapDialog>
-          </div>
+                {stateLectorQR ? (
+                  <Grid item>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: 'grey.700' }}
+                      // color="text.secondary"
+                    >
+                      Puede consultar la trazabilidad de su café a través del siguiente enlace:{' '}
+                      <a href={dataQR} className="my-batch">
+                        {dataQR}
+                      </a>
+                    </Typography>
+                  </Grid>
+                ) : (
+                  <Grid item sx={{ paddingTop: '0px', marginTop: '0px' }}>
+                    <Typography variant="body2" sx={{ fontSize: 14 }} color="text.secondary">
+                      Coloque su código QR frente a la cámara.
+                    </Typography>
+                  </Grid>
+                )}
+              </Grid>
+            </DialogContent>
+          </BootstrapDialog>
         </div>
+      </div>
     </div>
   );
 };
