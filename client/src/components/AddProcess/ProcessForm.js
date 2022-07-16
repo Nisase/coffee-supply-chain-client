@@ -1,13 +1,28 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useRef } from 'react';
 import { useSnackbar } from 'notistack';
-
+import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Typography, Button, FormLabel } from '@mui/material';
+import {
+  Grid,
+  Container,
+  Typography,
+  Button,
+  FormLabel,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
+} from '@mui/material';
+import { useTheme, styled } from '@mui/material/styles';
+import CloseIcon from '@mui/icons-material/Close';
+import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
+import DateTimePickerMobile from '../FormsUI/MobileDateTimePicker.js';
 import PendingConfirmation from '../PendingConfirmation';
 
 import { addTx, removeTx } from '../../redux/txSlice';
@@ -16,6 +31,17 @@ import HandleSubmit from '../../logic/AddProcess/HandleSubmit';
 import typeDrying from '../../data/typeDrying.json';
 import typeRoasting from '../../data/typeRoasting.json';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
+import MapsLocation from '../Maps/MapsLocation';
+import {
+  directionDataSelector,
+  latitudeDataSelector,
+  longitudeDataSelector,
+  locReadyToAddDataSelector,
+  setDirectionData,
+  setLatitudeData,
+  setLongitudeData,
+  setLocReadyToAddData,
+} from '../../redux/locationDataSlice';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
 const FILE_SIZE = 650 * 1024;
@@ -65,14 +91,58 @@ const valSchema = Yup.object().shape({
   // processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
+
 const ProcessForm = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
   const [fileUrl, setfileUrl] = useState('');
+  const [openMap, setOpenMap] = useState(false);
   const formikRef = useRef();
 
   const dispatch = useDispatch();
+
+  const directionData = String(useSelector(directionDataSelector));
+  const latitudeData = String(useSelector(latitudeDataSelector));
+  const longitudeData = String(useSelector(longitudeDataSelector));
+  const locReadyToAddData = useSelector(locReadyToAddDataSelector);
 
   const ipfs = createIpfs();
   const localHandleSubmit = async (values) => {
@@ -109,11 +179,37 @@ const ProcessForm = (props) => {
     });
   };
 
+  const handleClickOpenMap = () => {
+    setOpenMap(true);
+  };
+  const handleCloseMap = () => {
+    setOpenMap(false);
+  };
+
   useEffect(() => {
     if (props.batchValue) {
       formikRef.current.setFieldValue('batchNo', props.batchValue);
     }
-  }, [props.batchValue]);
+
+    if (locReadyToAddData) {
+      formikRef.current.setFieldValue('processorAddress', directionData);
+      // console.log('formik ref: ', formikRef.current);
+      // console.log('AQUI 1');
+    } else {
+      formikRef.current.setFieldValue('processorAddress', '');
+      // console.log('AQUI 2');
+    }
+  }, [props.batchValue, latitudeData, longitudeData, directionData]);
+
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+    dispatch(setDirectionData(''));
+    dispatch(setLatitudeData(''));
+    dispatch(setLongitudeData(''));
+    dispatch(setLocReadyToAddData(false));
+    // }
+  };
 
   return (
     <Grid container>
@@ -122,6 +218,7 @@ const ProcessForm = (props) => {
         <Container maxWidth="md">
           <div>
             <Formik
+              enableReinitialize
               innerRef={formikRef}
               initialValues={initialValues}
               validationSchema={valSchema}
@@ -129,30 +226,98 @@ const ProcessForm = (props) => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => {
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values, resetForm }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DE PROCESAMIENTO
+                      {props.batchValue ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="batchNo" label="No. Lote" />
+                        </Grid>
+                      )}
+                      <Grid
+                        item
+                        xs={12}
+                        sx={{
+                          marginBottom: 2,
+                          marginLeft: 0,
+                          paddingLeft: 0,
+                        }}
+                      >
+                        <Typography
+                          variant="subtitle2"
+                          sx={{
+                            color: 'grey.600',
+                          }}
+                        >
+                          Ubicación de la Granja
                         </Typography>
                       </Grid>
-                      <Grid item xs={6}>
-                        {props.batchNo ? (
-                          <TextfieldWrapper name="batchNo" label="No. Lote" />
-                        ) : (
-                          <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
-                        )}
+
+                      <Grid item xs={6} sx={{ marginBottom: 3 }}>
+                        <Button
+                          size="small"
+                          color="secondary"
+                          // color="comp5"
+                          variant="contained"
+                          startIcon={<AddLocationAltIcon />}
+                          onClick={handleClickOpenMap}
+                          sx={{ boxShadow: 2 }}
+                        >
+                          Buscar en Mapa
+                        </Button>
+                        <BootstrapDialog
+                          aria-labelledby="customized-dialog-title"
+                          open={openMap}
+                          PaperProps={{ sx: { width: '100%', height: '100%' } }}
+                        >
+                          <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseMap}>
+                            Ubica el marcador en la dirección deseada
+                          </BootstrapDialogTitle>
+                          <DialogContent dividers>
+                            <MapsLocation svg="/static/illustrations/Farm.svg" />
+                          </DialogContent>
+                        </BootstrapDialog>
                       </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="processorAddress" label="Dirección del Procesador" />
-                      </Grid>
+
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="processorAddress"
+                            label="Dirección del Procesador"
+                            disabled
+                            sx={{
+                              boxShadow: 0,
+                              borderRadius: '0%',
+                              borderBottom: 'none',
+                              marginBottom: 2,
+                            }}
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="processorAddress"
+                            label="Dirección del Procesador"
+                            sx={{
+                              boxShadow: 0,
+                              borderRadius: '0%',
+                              borderBottom: 'none',
+                              marginBottom: 2,
+                            }}
+                          />
+                        </Grid>
+                      )}
+
                       <Grid item xs={6}>
                         <SelectWrapper name="typeOfDrying" label="Tipo de Secado" options={typeDrying} />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="humidityAfterDrying" label="Humedad después del Secado" />
+                        <TextfieldWrapper name="humidityAfterDrying" label="Humedad después del Secado [%]" />
                       </Grid>
                       <Grid item xs={6} justifyContent="space-between" alignItems="center">
                         <div className="flex flex-col">
@@ -182,27 +347,43 @@ const ProcessForm = (props) => {
                         </div>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="roastTemp" label="Temperatura de Tueste" />
+                        <TextfieldWrapper name="roastTemp" label="Temperatura de Tueste [ºC]" />
                       </Grid>
                       <Grid item xs={6}>
                         <SelectWrapper name="typeOfRoast" label="Tipo de Tueste" options={typeRoasting} />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="roastDate" label="Fecha de Tostado" />
+                        {/* <DateTimePicker name="roastDate" label="Fecha de Tostado" /> */}
+                        <DateTimePickerMobile name="roastDate" label="Fecha de Tostado" />
                       </Grid>
                       <Grid item xs={6}>
-                        <DateTimePicker name="millDate" label="Fecha de Molienda" />
+                        <DateTimePickerMobile name="millDate" label="Fecha de Molienda" />
+                        {/* <DateTimePicker name="millDate" label="Fecha de Molienda" /> */}
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="processorPricePerKilo" label="Precio del Procesado" />
+                        <TextfieldWrapper name="processorPricePerKilo" label="Precio del Procesado [$]" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="processBatchWeight" label="Peso del Lote Procesado" />
+                        <TextfieldWrapper name="processBatchWeight" label="Peso del Lote Procesado [kg]" />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={6}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
                           AGREGAR DATOS
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          //  disabled={dirty || isValid}
+                          type="reset"
+                          onClick={() => {
+                            handleResetForm(resetForm);
+                          }}
+                        >
+                          {' '}
+                          RESETEAR FORMULARIO
                         </Button>
                       </Grid>
                     </Grid>

@@ -6,9 +6,10 @@ const HandleSubmit = (values) => {
     values.batchNo,
     values.processorAddress,
     values.typeOfDrying,
+    values.humidityAfterDrying,
     values.roastImageHash,
     [values.roastTemp, values.typeOfRoast],
-    [values.roastDate, values.millDate],
+    [String(values.roastDate), String(values.millDate)],
     values.processorPricePerKilo,
     values.processBatchWeight
   );

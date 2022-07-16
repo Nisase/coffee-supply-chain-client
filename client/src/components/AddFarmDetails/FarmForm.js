@@ -39,6 +39,10 @@ import {
   latitudeDataSelector,
   longitudeDataSelector,
   locReadyToAddDataSelector,
+  setDirectionData,
+  setLatitudeData,
+  setLongitudeData,
+  setLocReadyToAddData,
 } from '../../redux/locationDataSlice';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -137,6 +141,7 @@ const FarmForm = () => {
       formikRef.current.setFieldValue('latitude', latitudeData);
       formikRef.current.setFieldValue('longitude', longitudeData);
       formikRef.current.setFieldValue('farmAddress', directionData);
+      formikRef.current.setFieldValue('farmName', formikRef.current.values.farmName);
       console.log('formik ref: ', formikRef.current);
       console.log('AQUI 1');
     } else {
@@ -152,6 +157,16 @@ const FarmForm = () => {
     console.log('long:', longitudeData);
   }, [latitudeData, longitudeData, directionData]);
 
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+    dispatch(setDirectionData(''));
+    dispatch(setLatitudeData(''));
+    dispatch(setLongitudeData(''));
+    dispatch(setLocReadyToAddData(false));
+    // }
+  };
+
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -159,6 +174,7 @@ const FarmForm = () => {
         <Container maxWidth="md">
           <div>
             <Formik
+              enableReinitialize
               innerRef={formikRef}
               initialValues={initialValues}
               validationSchema={valSchema}
@@ -166,7 +182,7 @@ const FarmForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => (
+              {({ dirty, isValid, resetForm }) => (
                 <Form>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sx={{ marginTop: 2 }}>
@@ -307,11 +323,8 @@ const FarmForm = () => {
                         )}
                       </Container>
                     </Grid>
-                    {/* <Grid item xs={12}>
-                      <Typography>dirty: {dirty}</Typography>
-                      <Typography>dirty: {isValid}</Typography>
-                    </Grid> */}
-                    <Grid item xs={12}>
+
+                    <Grid item xs={6}>
                       <Button
                         fullWidth
                         variant="contained"
@@ -322,6 +335,20 @@ const FarmForm = () => {
                       >
                         {' '}
                         REGISTRAR GRANJA
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        //  disabled={dirty || isValid}
+                        type="reset"
+                        onClick={() => {
+                          handleResetForm(resetForm);
+                        }}
+                      >
+                        {' '}
+                        RESETEAR FORMULARIO
                       </Button>
                     </Grid>
                   </Grid>

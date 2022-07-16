@@ -172,8 +172,18 @@ export default function AppWidgetQR({
     if (batchNoUrl.includes('?batch=0x')) {
       str = batchNoUrl.split('?batch=');
       res = await AskNextAction({ batchNo: str[1] });
+      // console.log('rol: ', res);
       if (str[1].length === 42) {
-        if (res.data === userData.role) {
+        // console.log('str[1].length: ', str[1].length);
+        // console.log('42');
+        // console.log('user.role', userData.role);
+
+        const items = userData.role.filter((item) => item.key === res.data);
+
+        // const prue = items.filter((item, index) => items.findIndex((iItem) => iItem.key === res.data) === index);
+
+        if (items.length > 0 && items[0].key === res.data) {
+          // console.log('rol');
           setBatchNew(str[1]);
           setNextActionNew(res.data);
           dispatch(setMessageExternal(`Código QR válido. Proceda a agregar información de cosecha.`));

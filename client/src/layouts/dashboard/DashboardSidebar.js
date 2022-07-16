@@ -237,7 +237,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const theme = useTheme();
-  const [textRole, setTextRole] = useState("");
+  const [textRole, setTextRole] = useState('');
   const userInfo = useSelector(userDataSelector);
 
   const [navOptions, setNavOptions] = useState([
@@ -248,8 +248,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const isDesktop = useResponsive('up', 'lg');
 
   const getNavs = (role) => {
-    const items = allOptionsNav.filter((item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key===item.role) !== -1)
-    return items.filter((item, index) => items.findIndex((iItem) => iItem.path===item.path) === index)
+    const items = allOptionsNav.filter(
+      (item) => item.role === 'ALL' || role.findIndex((iRole) => iRole.key === item.role) !== -1
+    );
+    return items.filter((item, index) => items.findIndex((iItem) => iItem.path === item.path) === index);
   };
 
   useEffect(() => {
@@ -257,13 +259,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       onCloseSidebar();
     }
     setNavOptions(getNavs(userInfo.role));
+    console.log('getnav: ', getNavs(userInfo.role));
   }, [pathname, userInfo]);
 
   useEffect(() => {
-    let textRoletemp = ""
-    userInfo.role.forEach( (item, index) => {textRoletemp = index===0 ? item.value :`${textRoletemp} / ${item.value}`; return "";})
-    setTextRole(textRoletemp)
-  }, [userInfo])
+    let textRoletemp = '';
+    userInfo.role.forEach((item, index) => {
+      textRoletemp = index === 0 ? item.value : `${textRoletemp} / ${item.value}`;
+      return '';
+    });
+    setTextRole(textRoletemp);
+  }, [userInfo]);
 
   const renderContent = (
     <Scrollbar

@@ -61,9 +61,9 @@ const UpdateUserForm = () => {
     let tempProfileHash = null;
 
     if (!values.profileHash || values.profileHash.length === 0) {
-      values.profileHash = "";
+      values.profileHash = '';
     }
-    if (values.profileHash !== "") {
+    if (values.profileHash !== '') {
       tempProfileHash = values.profileHash;
       enqueueSnackbar('Guardando imagen del usuario en red IPFS', { variant: 'info' });
       result = await addFileToIpfs(ipfs, values.profileHash);
@@ -84,9 +84,15 @@ const UpdateUserForm = () => {
     }).catch((error) => {
       dispatch(removeTx({ tx: txHash, type: 'UserUpdate' }));
       enqueueSnackbar(error.message, { variant: 'error' });
-      values.profileHash=tempProfileHash;
+      values.profileHash = tempProfileHash;
       setLoading(false);
     });
+  };
+
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+    // }
   };
 
   return (
@@ -102,14 +108,9 @@ const UpdateUserForm = () => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values, resetForm }) => (
                 <Form>
                   <Grid container spacing={2}>
-                    {/* <Grid item xs={12}>
-                      <Typography className="mb-5 font-semibold underline underline-offset-2">
-                        DATOS DE USUARIO
-                      </Typography>
-                    </Grid> */}
                     <Grid item xs={12}>
                       <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
                         <img
@@ -150,16 +151,27 @@ const UpdateUserForm = () => {
                         ) : null}
                       </div>
                     </Grid>
-                    {/* <Grid item xs={6}>
-                        <TextfieldWrapper name="profileHash" label="Imagen de Perfil" />
-                      </Grid> */}
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Estado" label="Usuario Activo" />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                       <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                         {' '}
                         ACTUALIZAR USUARIO
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        //  disabled={dirty || isValid}
+                        type="reset"
+                        onClick={() => {
+                          handleResetForm(resetForm);
+                        }}
+                      >
+                        {' '}
+                        RESETEAR FORMULARIO
                       </Button>
                     </Grid>
                   </Grid>

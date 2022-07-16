@@ -8,6 +8,7 @@ import { Grid, Container, Typography, Button } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield';
 import SelectWrapper from '../FormsUI/Select';
 import DateTimePicker from '../FormsUI/DateTimePicker';
+import DateTimePickerMobile from '../FormsUI/MobileDateTimePicker.js';
 import PendingConfirmation from '../PendingConfirmation';
 
 import { addTx, removeTx } from '../../redux/txSlice';
@@ -36,8 +37,8 @@ const valSchema = Yup.object().shape({
   coffeeFamily: Yup.string().required('Obligatorio'),
   fertilizerUsed: Yup.string().required('Obligatorio'),
   harvestDate: Yup.date().required('Obligatorio'),
-  humidityPercentage: Yup.date().required('Obligatorio'),
-  batchWeight: Yup.date().required('Obligatorio'),
+  humidityPercentage: Yup.string().required('Obligatorio'),
+  batchWeight: Yup.string().required('Obligatorio'),
 });
 
 const HarvestForm = (props) => {
@@ -70,6 +71,12 @@ const HarvestForm = (props) => {
     }
   }, [props.batchValue]);
 
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+    // }
+  };
+
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -85,7 +92,7 @@ const HarvestForm = (props) => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid, errors, handleChange, values, setFieldValue }) => (
+              {({ dirty, isValid, errors, handleChange, values, setFieldValue, resetForm }) => (
                 <Form>
                   <Grid container spacing={2}>
                     {props.batchValue ? (
@@ -110,18 +117,36 @@ const HarvestForm = (props) => {
                       <TextfieldWrapper name="fertilizerUsed" label="Fertilizante Utilizado" />
                     </Grid>
                     <Grid item xs={6}>
-                      <DateTimePicker name="harvestDate" label="Fecha de Cosecha" />
+                      {/* <DateTimePicker name="harvestDate" label="Fecha de Cosecha" /> */}
+                      <DateTimePickerMobile name="harvestDate" label="Fecha de Cosecha" />
                     </Grid>
                     <Grid item xs={6}>
-                      <TextfieldWrapper name="humidityPercentage" label="Porcentaje de Humedad del Grano Cosechado" />
+                      <TextfieldWrapper
+                        name="humidityPercentage"
+                        label="Porcentaje de Humedad del Grano Cosechado [%]"
+                      />
                     </Grid>
                     <Grid item xs={6}>
                       <TextfieldWrapper name="batchWeight" label="Peso del Lote Cosechado [kg]" />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                       <Button fullWidth variant="contained" disabled={!isValid || !dirty} type="submit">
                         {' '}
                         AGREGAR DATOS
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        //  disabled={dirty || isValid}
+                        type="reset"
+                        onClick={() => {
+                          handleResetForm(resetForm);
+                        }}
+                      >
+                        {' '}
+                        RESETEAR FORMULARIO
                       </Button>
                     </Grid>
                   </Grid>

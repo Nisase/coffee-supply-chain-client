@@ -1,6 +1,7 @@
 import { useState } from 'react';
 // @mui
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import { alpha, styled } from '@mui/material/styles';
 import {
   Card,
@@ -18,6 +19,16 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import InputIcon from '@mui/icons-material/Input';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import {
+  directionDataSelector,
+  latitudeDataSelector,
+  longitudeDataSelector,
+  locReadyToAddDataSelector,
+  setDirectionData,
+  setLatitudeData,
+  setLongitudeData,
+  setLocReadyToAddData,
+} from '../../redux/locationDataSlice';
 // ----------------------------------------------------------------------
 
 const IconWrapperStyle = styled('div')(({ theme }) => ({
@@ -94,11 +105,16 @@ export default function AppWidgetCoffee({
   ...other
 }) {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    dispatch(setDirectionData(''));
+    dispatch(setLatitudeData(''));
+    dispatch(setLongitudeData(''));
+    dispatch(setLocReadyToAddData(false));
   };
 
   return (

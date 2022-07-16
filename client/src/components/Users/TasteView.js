@@ -21,7 +21,7 @@ const TasteView = () => {
   useEffect(() => {
     const getBatch = async () => {
       const erc = getCoffe1ERC20();
-      const events = await erc.queryFilter(erc.filters.SetGrainData(walletAddress, null));
+      const events = await erc.queryFilter(erc.filters.DoneTasting(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });

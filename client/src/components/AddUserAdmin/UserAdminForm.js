@@ -37,7 +37,11 @@ const valSchema = Yup.object().shape({
   name: Yup.string().required('Obligatorio').min(2, 'Ingresa un nombre completo'),
   email: Yup.string().email('Email inválido').required('Obligatorio'),
 
-  role: Yup.array().min(1, 'Se necesita asignar al menos un rol por persona').max(2, 'Puede asignar máximo dos roles por persona').of(Yup.string()).required('Obligatorio'),
+  role: Yup.array()
+    .min(1, 'Se necesita asignar al menos un rol por persona')
+    .max(2, 'Puede asignar máximo dos roles por persona')
+    .of(Yup.string())
+    .required('Obligatorio'),
   isActive: Yup.boolean().required('Obligatorio'),
   profileHash: Yup.mixed()
     .test(
@@ -111,6 +115,13 @@ const UserAdminForm = () => {
     });
   };
 
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+
+    // }
+  };
+
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -118,20 +129,16 @@ const UserAdminForm = () => {
         <Container maxWidth="md">
           <div>
             <Formik
+              enableReinitialize
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values }) => (
+              {({ dirty, isValid, setTouched, setFieldValue, touched, errors, values, resetForm }) => (
                 <Form>
                   <Grid container spacing={2}>
-                    {/* <Grid item xs={12}>
-                      <Typography className="mb-5 font-semibold underline underline-offset-2">
-                        DATOS DE USUARIO
-                      </Typography>
-                    </Grid> */}
                     <Grid item xs={12}>
                       <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
                         <img
@@ -154,13 +161,13 @@ const UserAdminForm = () => {
                     <Grid item xs={6}>
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
-                    <Grid item xs={6}>                       
-                      <MultipleSelectChip name="role" label="Rol" options={roleData}/>
+                    <Grid item xs={6}>
+                      <MultipleSelectChip name="role" label="Rol" options={roleData} />
                       {touched.role && errors.role ? (
-                          <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
-                            {errors.role}
-                          </small>
-                        ) : null}
+                        <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
+                          {errors.role}
+                        </small>
+                      ) : null}
                     </Grid>
                     <Grid item xs={6}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
@@ -192,7 +199,7 @@ const UserAdminForm = () => {
                         ) : null}
                       </div>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={6}>
                       <Button
                         // sx={{ backgroundColor: 'error.darker' }}
                         fullWidth
@@ -202,6 +209,20 @@ const UserAdminForm = () => {
                       >
                         {' '}
                         REGISTRAR USUARIO
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        //  disabled={dirty || isValid}
+                        type="reset"
+                        onClick={() => {
+                          handleResetForm(resetForm);
+                        }}
+                      >
+                        {' '}
+                        RESETEAR FORMULARIO
                       </Button>
                     </Grid>
                   </Grid>
