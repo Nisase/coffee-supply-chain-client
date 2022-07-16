@@ -57,7 +57,7 @@ const TimeLine = ({ batchNoIn }) => {
 
       // console.log(retailerData )
       if(nextAction && nextAction.data!=='DONE'){
-        setMessage("No Disponibles")
+        setMessage("No disponible")
         return;
       }
 
@@ -86,7 +86,7 @@ const TimeLine = ({ batchNoIn }) => {
 }
 
   return (
-      <Grid className='cursor-default relative'>
+      <div className='cursor-default max-w-5xl mx-auto'>
         <p className='text-center font-bold text-xl'>Tracking Coffe</p>
         <p className='text-center my-4 mb-10 break-all'>Bach #: <span className='underline '>{batchNoIn}</span></p>
         <div style={{backgroundImage:"url(static/icons/data_shapes.svg)"}} className="w-full h-full absolute opacity-10 none"><br/></div>
@@ -95,7 +95,7 @@ const TimeLine = ({ batchNoIn }) => {
         <PhaseCard title={"Cosecha"} className={"bg-green-100"} icon={"cosecha.png"} date={harversData.data ? dateToYMD(new Date(harversData.data.harvestDate)) : message}>
               <div className='flex flex-col text-sm'>
               <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Fecha de cosecha</div>{harversData.data ? dateToYMD(new Date(harversData.data.harvestDate)) : message}</div>
-              <div className='flex flex-col'><div className='mt-0 mb-1 font-semibold'>Familia</div>{harversData.data ? harversData.data.coffeeFamily : message}</div>
+              <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Familia</div>{harversData.data ? harversData.data.coffeeFamily : message}</div>
               <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Tipo de Semilla</div>{harversData.data ? harversData.data.typeOfSeed : message}</div>
               <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Fertilizantes</div>{harversData.data ? harversData.data.fertilizerUsed : message}</div>
               </div>
@@ -103,7 +103,7 @@ const TimeLine = ({ batchNoIn }) => {
 
         <PhaseCard title={"Procesado"} className={"bg-red-100"} icon={"proccess.png"} date={processData.data ? dateToYMD(new Date(processData.data.millDate)) : message}>
               <div className='flex flex-col text-sm'>
-                <div className='bg-gray-100 rounded-lg'><img src={processData.data ? processData.data.roastImageHash : ""} alt="Imagen del café Tostado" className='h-48 mx-auto'/></div>
+                <div className='bg-gray-100 rounded-lg'><img src={processData.data ? processData.data.roastImageHash : "static/images/no-imagen.gif"} alt="Imagen del café Tostado" className='h-48 mx-auto'/></div>
                 <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Dirección del Procesado</div>{processData.data ? processData.data.procAddress : message}</div>
                 <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Tipo de Secado</div>{processData.data ? processData.data.typeOfDrying : message}</div>
                 <div className='flex flex-col'><div className='mt-5 mb-1 font-semibold'>Fecha de Tostado</div>{processData.data ? dateToYMD(new Date(processData.data.roastDate)) : message}</div>
@@ -169,7 +169,7 @@ const TimeLine = ({ batchNoIn }) => {
         </PhaseCard>
 
         </div>
-        </Grid>
+        </div>
 
   );
 };

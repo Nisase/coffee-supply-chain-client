@@ -4,7 +4,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // material
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
@@ -16,7 +16,7 @@ import NavSection from '../../components/NavSection';
 
 // ----------------------------------------------------------------------
 
-const DRAWER_WIDTH = 280;
+const DRAWER_WIDTH = 250;
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -50,7 +50,7 @@ const allOptionsNav = [
     title: 'dashboard',
     path: '/dashboard/app',
     icon: 'eva:pie-chart-2-fill',
-    role: 'ADMINS',
+    role: 'ADMIN',
   },
   {
     title: 'Actualizar Perfil',
@@ -236,7 +236,10 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
+<<<<<<< HEAD
   const theme = useTheme();
+=======
+>>>>>>> ce7271fc2a60fe8c737078381806c2161beb91a3
   const [textRole, setTextRole] = useState('');
   const userInfo = useSelector(userDataSelector);
 
@@ -306,17 +309,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
   return (
     <RootStyle>
-      {!isDesktop && (
-        <Drawer
-          open={isOpenSidebar}
-          onClose={onCloseSidebar}
-          PaperProps={{
-            sx: { width: DRAWER_WIDTH },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
+      {/* {!isDesktop && ( */}
+      <Drawer
+        open={isOpenSidebar}
+        onClose={onCloseSidebar}
+        PaperProps={{
+          sx: { width: DRAWER_WIDTH },
+        }}
+      >
+        {renderContent}
+      </Drawer>
+      {/* )} */}
 
       {isDesktop && (
         <Drawer

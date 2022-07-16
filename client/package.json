@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.6.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@faker-js/faker": "^6.1.2",
@@ -38,6 +39,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "react-share": "^4.4.0",
+    "react-wavify": "^1.6.1",
     "save-svg-as-png": "^1.4.17",
     "simplebar": "^5.3.6",
     "simplebar-react": "^2.3.6",
