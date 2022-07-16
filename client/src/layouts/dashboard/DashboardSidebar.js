@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 // material
 import { styled } from '@mui/material/styles';
-import { Box, Link, Drawer, Typography, Avatar } from '@mui/material';
+import { Box, Link, Drawer, Typography, Avatar, useTheme } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 import { userDataSelector } from '../../redux/appDataSlice';
@@ -236,10 +236,7 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
-<<<<<<< HEAD
   const theme = useTheme();
-=======
->>>>>>> ce7271fc2a60fe8c737078381806c2161beb91a3
   const [textRole, setTextRole] = useState('');
   const userInfo = useSelector(userDataSelector);
 

@@ -54,13 +54,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
-<<<<<<< HEAD
 import ZoomOutMapRoundedIcon from '@mui/icons-material/ZoomOutMapRounded';
 import OpenWithRoundedIcon from '@mui/icons-material/OpenWithRounded';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded';
-=======
->>>>>>> ce7271fc2a60fe8c737078381806c2161beb91a3
 
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
@@ -78,15 +75,9 @@ function ShareSocialMedia(batch) {
           navigator.clipboard.writeText(batch);
         }}
       >
-<<<<<<< HEAD
         <Tooltip size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
           <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
-=======
-        {/* <Tooltip arrow size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}> */}
-        <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
-        {/* </Tooltip> */}
->>>>>>> ce7271fc2a60fe8c737078381806c2161beb91a3
       </IconButton>
       {/* `https://192.168.100.4:3000/tracking?batch=${batch}` */}
       <FacebookShareButton
@@ -400,7 +391,6 @@ const TableUsers = ({ batchNo, nextActions }) => {
                 <StyledTableCell align="center" spacing={2}>
                   <Grid item xs={2}>
                     <Stack direction="column" spacing={1}>
-<<<<<<< HEAD
                       <Grid container justifyItems="center" sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
                           <QRCode
@@ -478,36 +468,6 @@ const TableUsers = ({ batchNo, nextActions }) => {
                           </Grid>
                         </Grid>
                       </Grid>
-=======
-                      <QRCode
-                        bgColor="#FFFFFF"
-                        id={batch}
-                        value={`http://localhost:3000/tracking?batch=${batch}`}
-                        size="40"
-                        includeMargin
-                        renderAs="svg"
-                      />
-                      <div>
-                        <Chip
-                          onClick={() => {
-                            saveSvgAsPng(document.getElementById(`${batch}`), `QR_lote_${batch}.png`, {
-                              scale: 60,
-                            });
-                          }}
-                          style={{ marginLeft: 2 }}
-                          color="comp7"
-                          size="small"
-                          label="descargar"
-                          sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            // color: (theme) => theme.palette.primary,
-                            // bgcolor: theme.palete.warning.darker,
-                          }}
-                          icon={<DownloadForOfflineRoundedIcon />}
-                        />
-                      </div>
->>>>>>> ce7271fc2a60fe8c737078381806c2161beb91a3
                     </Stack>
                   </Grid>
                 </StyledTableCell>
