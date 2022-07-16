@@ -145,7 +145,7 @@ const defColor = (myState) => {
   let color = '';
   let icon = '';
   if (myState === 'GRANJA AGREGADA') {
-    color = 'primary';
+    color = 'secondary';
     icon = '/static/icons/cosecha.png';
   } else if (myState === 'COSECHA') {
     color = 'warning';
@@ -182,15 +182,15 @@ const defColor = (myState) => {
     <Stack>
       <StyledChip
         label={myState}
-        color={color}
+        sx={{ color: 'green' }}
         // icon={icon}
-        avatar={
-          <Avatar
-            alt="Natacha"
-            src="/static/illustrations/retailer.svg
-        "
-          />
-        }
+        // avatar={
+        //   <Avatar
+        //     alt="Natacha"
+        //     src="/static/illustrations/retailer.svg
+        // "
+        //   />
+        // }
         // avartar={<Avatar alt={myState} src="/static/illustrations/transport2.png" />}
         // sx={{ backgroundColor: { color } }}
       />
@@ -203,7 +203,7 @@ const StyledChip = styled(Chip)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   [`&.${chipClasses.colorSecondary}`]: {
-    backgroundColor: theme.palette.success.dark,
+    backgroundColor: theme.palette.tertiary.dark,
   },
 }));
 

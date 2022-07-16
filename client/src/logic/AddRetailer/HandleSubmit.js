@@ -4,7 +4,7 @@ const HandleSubmit = (values) => {
   const erc20 = getCoffeWriter2ERC20();
   return erc20.addRetailerData(
     values.batchNo,
-    [values.warehouseArrivalDate, values.salepointArrivalDate],
+    [String(values.warehouseArrivalDate), String(values.salepointArrivalDate)],
     values.warehouseRetailerName,
     values.salepointRetailerName,
     values.warehouseRetailerAddress,

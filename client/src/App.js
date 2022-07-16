@@ -185,7 +185,7 @@ function App() {
   useEffect(() => {
     if (tastingRegistered !== undefined && txIsContain(tastingRegistered.tx, 'DoneTasting')) {
       enqueueSnackbar(
-        `Datos de inspección del grano correspondientes al lote de café ${tastingRegistered.batchNo} agregados correctamente`,
+        `Datos de catación correspondientes al lote de café ${tastingRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
@@ -194,11 +194,11 @@ function App() {
     }
   }, [tastingRegistered, txList]);
 
-  const { coffeeSellerRegistered } = TastingListener();
+  const { coffeeSellerRegistered } = CoffeeSellListener();
   useEffect(() => {
     if (coffeeSellerRegistered !== undefined && txIsContain(coffeeSellerRegistered.tx, 'DoneCoffeeSelling')) {
       enqueueSnackbar(
-        `Datos de inspección del grano correspondientes al lote de café ${coffeeSellerRegistered.batchNo} agregados correctamente`,
+        `Datos de venta del grano correspondientes al lote de café ${coffeeSellerRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }
@@ -209,11 +209,11 @@ function App() {
 
   const { warehouseRegistered } = WarehouseListener();
   useEffect(() => {
-    if (warehouseRegistered !== undefined && txIsContain(warehouseRegistered.tx, 'DoneAgglomeration')) {
-      enqueueSnackbar(`Datos de aglomerado del lote de café ${warehouseRegistered.batchNo} agregados correctamente`, {
+    if (warehouseRegistered !== undefined && txIsContain(warehouseRegistered.tx, 'DoneWarehousing')) {
+      enqueueSnackbar(`Datos de bodegaje del lote de café ${warehouseRegistered.batchNo} agregados correctamente`, {
         variant: 'success',
       });
-      dispatch(removeTx({ tx: warehouseRegistered.tx, type: 'DoneAgglomeration' }));
+      dispatch(removeTx({ tx: warehouseRegistered.tx, type: 'DoneWarehousing' }));
     }
   }, [warehouseRegistered, txList]);
 
@@ -221,7 +221,7 @@ function App() {
   useEffect(() => {
     if (shipPackerRegistered !== undefined && txIsContain(shipPackerRegistered.tx, 'DoneShippingPacker')) {
       enqueueSnackbar(
-        `Datos de transporte hacia empacadora correspondientes al lote de café ${shipPackerRegistered.batchNo} agregados correctamente`,
+        `Datos de transporte hacia empacador correspondientes al lote de café ${shipPackerRegistered.batchNo} agregados correctamente`,
         {
           variant: 'success',
         }

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
@@ -35,12 +35,13 @@ const valSchema = Yup.object().shape({
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 
-const ShipRetailerForm = () => {
+const ShipRetailerForm = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
 
   const dispatch = useDispatch();
+  const formikRef = useRef();
 
   const localHandleSubmit = async (values) => {
     setTxHash('0x');
@@ -58,6 +59,18 @@ const ShipRetailerForm = () => {
     });
   };
 
+  useEffect(() => {
+    if (props.batchValue) {
+      formikRef.current.setFieldValue('batchNo', props.batchValue);
+    }
+  }, [props.batchValue]);
+
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+    // }
+  };
+
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -66,24 +79,27 @@ const ShipRetailerForm = () => {
           <div>
             <Formik
               enableReinitialize
+              innerRef={formikRef}
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, resetForm }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DE TRANSPORTE HACIA RETAILER
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="No. Lote" />
-                      </Grid>
+                      {props.batchValue ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="batchNo" label="No. Lote" />
+                        </Grid>
+                      )}
+
                       <Grid item xs={6}>
                         <SelectWrapper
                           name="toRetailerTransportType"
@@ -99,12 +115,26 @@ const ShipRetailerForm = () => {
                         />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="toReatilerShippingPrice" label="Precio del Transporte" />
+                        <TextfieldWrapper name="toReatilerShippingPrice" label="Precio del Transporte [$]" />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={6}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
                           AGREGAR DATOS
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          //  disabled={dirty || isValid}
+                          type="reset"
+                          onClick={() => {
+                            handleResetForm(resetForm);
+                          }}
+                        >
+                          {' '}
+                          RESETEAR FORMULARIO
                         </Button>
                       </Grid>
                     </Grid>

@@ -29,7 +29,7 @@ import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardHarvest from './pages/DashboardHarvest';
 import DashboardProcess from './pages/DashboardProcess';
 import DashboardTaster from './pages/DashboardTaster';
-// import DashboardCoffeeSell from "./pages/dashboardco"
+import DashboardCoffeeSell from './pages/DashboardCoffeeSell';
 import DashboardWarehouse from './pages/DashboardWarehouse';
 import DashboardShipToPacker from './pages/DashboardShipToPacker';
 import DashboardPacker from './pages/DashboardPacker';
@@ -72,7 +72,7 @@ const routes = (loading, userData, isOwner, batch) => {
             { path: 'AddHarvest', element: <DashboardAddHarvest /> },
             { path: 'AddProcess', element: <DashboardAddProcess /> },
             { path: 'AddTasting', element: <DashboardAddTasting /> },
-            { path: 'AddCoffeeSelling', element: <DashboardAddTasting /> },
+            { path: 'AddCoffeeSelling', element: <DashboardAddCoffeeSell /> },
             { path: 'AddWarehouse', element: <DashboardAddWarehouse /> },
             { path: 'AddShippingToPacker', element: <DashboardAddShipPacker /> },
             { path: 'AddPackaging', element: <DashboardAddPacker /> },
@@ -82,6 +82,7 @@ const routes = (loading, userData, isOwner, batch) => {
             { path: 'Farmer', element: <DashboardHarvest /> },
             { path: 'Processor', element: <DashboardProcess /> },
             { path: 'Taster', element: <DashboardTaster /> },
+            { path: 'Seller', element: <DashboardCoffeeSell /> },
             { path: 'Warehouse', element: <DashboardWarehouse /> },
             { path: 'ShipperToPacker', element: <DashboardShipToPacker /> },
             { path: 'Packer', element: <DashboardPacker /> },
