@@ -6,7 +6,7 @@ const AskCoffeeSeller = async (values) => {
 
   try {
     // const info = await erc20.callStatic.getCoffeeSellData(values.batchNo);
-    const info = await erc20Infura.callStatic.getCoffeeSellData(values.batchNo);
+    const info = await erc20.callStatic.getCoffeeSellData(values.batchNo);
     return { data: info, error: null };
   } catch (err) {
     return { data: null, error: err };

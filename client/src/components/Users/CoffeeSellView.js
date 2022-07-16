@@ -7,7 +7,7 @@ import { walletAddressSelector } from '../../redux/appDataSlice';
 import { getCoffe1ERC20 } from '../../logic/erc20';
 import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import UpdateUserForm from '../UpdateUser/UpdateUserForm';
-import TasterForm from '../AddTaster/TasterForm';
+import CoffeeSellForm from '../AddCoffeeSell/CoffeeSellForm';
 
 import AppWidgetCoffee from '../coffeeWidgets/AppWidgetCoffee';
 import AppWidgetQR from '../coffeeWidgets/AppWidgetQR';
@@ -54,7 +54,7 @@ const CoffeeSellView = () => {
               image="/static/images/lote1.jpg"
               buttonText="AGREGAR VENTA DE CAFÉ"
               dialogTitle="Agregar Datos de Venta de Café"
-              Form={TasterForm}
+              Form={CoffeeSellForm}
               altImg="Lotes de café"
             />
           </Grid>
@@ -67,7 +67,7 @@ const CoffeeSellView = () => {
               image="/static/images/lote1.jpg"
               buttonText="AGREGAR VENTA DE CAFÉ CON CÓDIGO QR"
               dialogTitle="Agregar Venta de Café con Código QR"
-              Form={TasterForm}
+              Form={CoffeeSellForm}
             />
           </Grid>
         </Grid>

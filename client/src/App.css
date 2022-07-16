@@ -64,6 +64,17 @@ a.link-logo:focus, a.link-logo:hover {
 }
 
 
+a.drawer-link  {
+  text-decoration: none;
+  color: "white";
+  
+  
+}
+a.drawer-link:focus, a.drawer-link:hover {
+  text-decoration: underline;
+  color: white;
+}
+
 #who-we-are .wave {
   height: 75vh;
   z-index: 5;
