@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { Grid } from '@mui/material';
+import moment from 'moment';
 import PhaseCard from './PhaseCard';
 
 import { infuraGetCoffe1ERC20, infuraGetCoffe2ERC20, getCoffe1ERC20 } from '../../logic/erc20';
@@ -16,6 +17,20 @@ import AskShipPacker from '../../logic/GetShipPacker/AskShipPacker';
 import AskPacker from '../../logic/GetPacker/AskPacker';
 import AskShipRetailer from '../../logic/GetShipRetailer/AskShipRetailer';
 import AskRetailer from '../../logic/GetRetailer/AskRetailer';
+import {
+  getFarmTx,
+  getHarvestTx,
+  getProcessTx,
+  getTasteTx,
+  getSellTx,
+  getWarehouseTx,
+  getShipPackerTx,
+  getPackerTx,
+  getShipRetailerTx,
+  getRetailerTx,
+} from '../../logic/getBatchTx';
+import getUserByAddress from '../../logic/GetUser';
+import getOwner from '../../logic/GetOwner';
 
 const TimeLine = ({ batchNoIn }) => {
   const [message, setMessage] = useState('Loading..');
@@ -34,13 +49,13 @@ const TimeLine = ({ batchNoIn }) => {
   // https://docs.ethers.io/v5/concepts/events/
   // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
 
-  const parseFloat = (str, radix) => {
-    const parts = str.split('.');
-    if (parts.length > 1) {
-      return parseInt(parts[0], radix) + parseInt(parts[1], radix) / radix ** parts[1].length;
-    }
-    return parseInt(parts[0], radix);
-  };
+  // const parseFloat = (str, radix) => {
+  //   const parts = str.split('.');
+  //   if (parts.length > 1) {
+  //     return parseInt(parts[0], radix) + parseInt(parts[1], radix) / radix ** parts[1].length;
+  //   }
+  //   return parseInt(parts[0], radix);
+  // };
 
   const parsePrice = (price) => `$ ${parseFloat(price)}`;
 
@@ -84,6 +99,15 @@ const TimeLine = ({ batchNoIn }) => {
         console.log('pack: ', packdat);
         console.log('retship: ', shiretailerdat);
         console.log('ret: ', retailerdat);
+
+        // const dateP = moment(harvestdat.data.harvestDate).format('DD-MM-YYYY || HH:mm:ss');
+        const dateP = moment(harvestdat.data.harvestDate).format('DD-MM-YYYY');
+        const timeP = moment(harvestdat.data.harvestDate).format('HH:mm:ss');
+
+        const utc = moment(harvestdat.data.harvestDate).utcOffset();
+
+        console.log('dateP: ', dateP, 'time1: ', timeP, 'utc', utc);
+
         setNextAction(await AskNextActionInfura({ batchNo: batchNoIn }));
 
         // console.log(retailerData )
@@ -119,15 +143,70 @@ const TimeLine = ({ batchNoIn }) => {
     ]
   );
 
+  useEffect(() => {
+    const getPaticipants = async () => {
+      const farmTx = await getFarmTx(batchNoIn);
+      const harvestTx = await getHarvestTx(batchNoIn);
+      const processTx = await getProcessTx(batchNoIn);
+      const tasteTx = await getTasteTx(batchNoIn);
+      const sellTx = await getSellTx(batchNoIn);
+      const warehouseTx = await getWarehouseTx(batchNoIn);
+      const shipPackerTx = await getShipPackerTx(batchNoIn);
+      const packerTx = await getPackerTx(batchNoIn);
+      const shipRetailerTx = await getShipRetailerTx(batchNoIn);
+      const retailerTx = await getRetailerTx(batchNoIn);
+      console.log('harvest tx: ', harvestTx);
+
+      const ds = moment.unix(harvestTx[2]).format('DD-MM-YYYY');
+      const ts = moment.unix(harvestTx[2]).format('HH:mm:ss');
+
+      const utc = moment.unix(harvestTx[2]).utcOffset();
+
+      console.log('dateP: ', ds, 'time : ', ts, 'utc', utc);
+
+      const admin = await getOwner();
+      const userHarvest = await getUserByAddress(harvestTx[0]);
+      const userProcess = await getUserByAddress(processTx[0]);
+      console.log('owner:', admin);
+      console.log('harvester: ', userHarvest);
+
+      const txScan = `https://rinkeby.etherscan.io/tx/${harvestTx[1]}`;
+      console.log('scan: ', txScan);
+    };
+
+    getPaticipants();
+  }, []);
+
+  function padTo2Digits(num) {
+    return String(num).padStart(2, '0');
+  }
   function dateToYMD(dateIN) {
     // eslint-disable-next-line no-self-compare
-    if (dateIN.getTime() !== dateIN.getTime()) {
+    const date = new Date(dateIN);
+
+    if (date.getTime() !== dateIN.getTime()) {
       return 'No disponible';
     }
-    const d = dateIN.getDate();
-    const m = dateIN.getMonth() + 1; // Month from 0 to 11
-    const y = dateIN.getFullYear();
-    return `${d < 9 ? `0${d}` : d}-${m + 1 < 10 ? `0${m + 1}` : m + 1}-${y}`;
+
+    console.log('datein : ', dateIN);
+    const ds = moment.unix(dateIN).format('DD-MM-YYYY');
+    const ts = moment.unix(dateIN).format('HH:mm:ss');
+
+    // console.log('dateIN.getTime', dateIN.getTime());
+    // const d = dateIN.getDate();
+    // const m = dateIN.getMonth() + 1; // Month from 0 to 11
+    // const y = dateIN.getFullYear();
+    // const h = dateIN.getHours();
+    // const min = dateIN.getMinutes();
+    // const seg = dateIN.getSeconds();
+    // const tz = dateIN.getTimezoneOffset().toString;
+
+    // console.log('tz: ', tz);
+    // return `${d < 9 ? `0${d}` : d}-${m + 1 < 10 ? `0${m + 1}` : m + 1}-${y} || ${padTo2Digits(h)}:${padTo2Digits(
+    //   min
+    // )}:${padTo2Digits(seg)}`;
+
+    return `${ds} || ${ts}`;
   }
 
   return (
@@ -149,7 +228,7 @@ const TimeLine = ({ batchNoIn }) => {
           className={'bg-green-100'}
           icon={'cosecha.png'}
           date={farmData.data ? farmData.data.farmDate : message}
-          // date={farmData.data ? dateToYMD(new Date(farmData.data.farmDate)) : message}
+          // date={farmData.data ? dateToYMD(farmData.data.farmDate)) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -163,11 +242,11 @@ const TimeLine = ({ batchNoIn }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {farmData.data ? farmData.data.latitude : message}
+              {farmData.data ? `${parseFloat(farmData.data.latitude)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
-              {farmData.data ? farmData.data.longitude : message}
+              {farmData.data ? `${parseFloat(farmData.data.longitude)}` : message}
             </div>
           </div>
         </PhaseCard>
@@ -176,7 +255,7 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Cosecha'}
           className={'bg-green-100'}
           icon={'cosecha.png'}
-          date={harverstData.data ? dateToYMD(new Date(harverstData.data.harvestDate)) : message}
+          date={harverstData.data ? dateToYMD(harverstData.data.harvestDate) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -196,16 +275,16 @@ const TimeLine = ({ batchNoIn }) => {
               {harverstData.data ? harverstData.data.fertilizerUsed : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de cosecha</div>
-              {harverstData.data ? dateToYMD(new Date(harverstData.data.harvestDate)) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de cosecha</div>
+              {harverstData.data ? dateToYMD(harverstData.data.harvestDate) : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Humedad del Grano Cosechado</div>
-              {harverstData.data ? `${harverstData.data.humidityPercentage} [%]` : message}
+              {harverstData.data ? `${parseFloat(harverstData.data.humidityPercentage)} [%]` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Peso del Lote Cosechado</div>
-              {harverstData.data ? `${harverstData.data.batchWeight} [kg]` : message}
+              {harverstData.data ? `${parseFloat(harverstData.data.batchWeight)} [kg]` : message}
             </div>
           </div>
         </PhaseCard>
@@ -214,7 +293,7 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Procesado'}
           className={'bg-red-100'}
           icon={'proccess.png'}
-          date={processData.data ? dateToYMD(new Date(processData.data.millDate)) : message}
+          date={processData.data ? dateToYMD(processData.data.millDate) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="bg-gray-100 rounded-lg">
@@ -234,23 +313,23 @@ const TimeLine = ({ batchNoIn }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Humedad del Grano Secado</div>
-              {processData.data ? `${processData.data.humidityAfterDrying} [%]` : message}
+              {processData.data ? `${parseFloat(processData.data.humidityAfterDrying)} [%]` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Temp. de Tostado</div>
-              {processData.data ? `${processData.data.tempTypeRoast[0]} [ºC]` : message}
+              {processData.data ? `${parseFloat(processData.data.tempTypeRoast[0])} [ºC]` : message}
             </div>{' '}
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Tipo de Tostado</div>
               {processData.data ? processData.data.tempTypeRoast[1] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de Tostado</div>
-              {processData.data ? dateToYMD(new Date(processData.data.roastMillDates[0])) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Tostado</div>
+              {processData.data ? dateToYMD(processData.data.roastMillDates[0]) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de Molienda</div>
-              {processData.data ? dateToYMD(new Date(processData.data.roastMillDates[1])) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Molienda</div>
+              {processData.data ? dateToYMD(processData.data.roastMillDates[1]) : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Precio de Procesado por Kilo</div>
@@ -258,7 +337,7 @@ const TimeLine = ({ batchNoIn }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Peso del Lote Procesado</div>
-              {processData.data ? `${processData.data.processBatchWeight} [kg]` : message}
+              {processData.data ? `${parseFloat(processData.data.processBatchWeight)} [kg]` : message}
             </div>
           </div>
         </PhaseCard>
@@ -267,7 +346,7 @@ const TimeLine = ({ batchNoIn }) => {
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Puntaje de Catación</div>
-              {tasteData.data ? tasteData.data.tastingScore : message}
+              {tasteData.data ? `${parseFloat(tasteData.data.tastingScore)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Precio del Servicio</div>
@@ -290,7 +369,7 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Bodega'}
           className={'bg-blue-200'}
           icon={'aglomerado.png'}
-          date={warehouseData.data ? dateToYMD(new Date(warehouseData.data.warehouseArrivalDate)) : message}
+          date={warehouseData.data ? dateToYMD(warehouseData.data.warehouseArrivalDate) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -298,8 +377,8 @@ const TimeLine = ({ batchNoIn }) => {
               {warehouseData.data ? warehouseData.data.warehouseAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de Ingreso</div>
-              {warehouseData.data ? dateToYMD(new Date(warehouseData.data.warehouseArrivalDate)) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Ingreso</div>
+              {warehouseData.data ? dateToYMD(warehouseData.data.warehouseArrivalDate) : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Precio de Almacenamiento por Kilo</div>
@@ -312,12 +391,12 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Transporte hacia Empacador'}
           className={'bg-blue-200'}
           icon={'transporte.png'}
-          date={shipPackerData.data ? dateToYMD(new Date(shipPackerData.data.warehousePickupDate)) : message}
+          date={shipPackerData.data ? dateToYMD(shipPackerData.data.warehousePickupDate) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Salida</div>
-              {shipPackerData.data ? dateToYMD(new Date(shipPackerData.data.warehousePickupDate)) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
+              {shipPackerData.data ? dateToYMD(shipPackerData.data.warehousePickupDate) : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Tipo de Transporte</div>
@@ -338,7 +417,7 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Empacado'}
           className={'bg-blue-200'}
           icon={'empacado.png'}
-          date={packerData.data ? dateToYMD(new Date(packerData.data.packDate)) : message}
+          date={packerData.data ? dateToYMD(packerData.data.packDate) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -346,12 +425,12 @@ const TimeLine = ({ batchNoIn }) => {
               {packerData.data ? packerData.data.packerAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de llegada</div>
-              {packerData.data ? dateToYMD(new Date(packerData.data.packerArrivalDate)) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de llegada</div>
+              {packerData.data ? dateToYMD(packerData.data.packerArrivalDate) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha empacado</div>
-              {packerData.data ? dateToYMD(new Date(packerData.data.packingDate)) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora empacado</div>
+              {packerData.data ? dateToYMD(packerData.data.packingDate) : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Precio de empacado por Kilo</div>
@@ -364,12 +443,12 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Transporte hacia Retailer'}
           className={'bg-blue-200'}
           icon={'transporte.png'}
-          date={shipRetailerData.data ? dateToYMD(new Date(shipRetailerData.data.packerPickupDate)) : message}
+          date={shipRetailerData.data ? dateToYMD(shipRetailerData.data.packerPickupDate) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Salida</div>
-              {shipRetailerData.data ? dateToYMD(new Date(shipRetailerData.data.packerPickupDate)) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
+              {shipRetailerData.data ? dateToYMD(shipRetailerData.data.packerPickupDate) : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Tipo de Transporte</div>
@@ -390,7 +469,7 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Retailer'}
           className={'bg-blue-200'}
           icon={'retailer.png'}
-          date={retailerData.data ? dateToYMD(new Date(retailerData.data.warehouseSalepointArrivalDate[0])) : message}
+          date={retailerData.data ? dateToYMD(retailerData.data.warehouseSalepointArrivalDate[0]) : message}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -402,8 +481,8 @@ const TimeLine = ({ batchNoIn }) => {
               {retailerData.data ? retailerData.data.warehouseRetailerAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de Llegada al Almacén</div>
-              {retailerData.data ? dateToYMD(new Date(retailerData.data.warehouseSalepointArrivalDate[0])) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Almacén</div>
+              {retailerData.data ? dateToYMD(retailerData.data.warehouseSalepointArrivalDate[0]) : message}
             </div>
 
             <div className="flex flex-col">
@@ -415,8 +494,8 @@ const TimeLine = ({ batchNoIn }) => {
               {retailerData.data ? retailerData.data.salepointRetailerAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha de Llegada al Punto de Venta</div>
-              {retailerData.data ? dateToYMD(new Date(retailerData.data.warehouseSalepointArrivalDate[1])) : message}
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Punto de Venta</div>
+              {retailerData.data ? dateToYMD(retailerData.data.warehouseSalepointArrivalDate[1]) : message}
             </div>
 
             <div className="flex flex-col">
