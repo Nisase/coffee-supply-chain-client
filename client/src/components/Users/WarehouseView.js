@@ -21,7 +21,7 @@ const WarehouseView = () => {
   useEffect(() => {
     const getBatch = async () => {
       const erc = getCoffe2ERC20();
-      const events = await erc.queryFilter(erc.filters.DoneAgglomeration(walletAddress, null));
+      const events = await erc.queryFilter(erc.filters.DoneWarehousing(walletAddress, null));
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });

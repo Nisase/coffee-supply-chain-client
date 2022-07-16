@@ -8,7 +8,7 @@ const HandleSubmit = (values) => {
     values.typeOfSeed,
     values.coffeeFamily,
     values.fertilizerUsed,
-    values.harvestDate,
+    String(values.harvestDate),
     values.humidityPercentage,
     values.batchWeight
   );

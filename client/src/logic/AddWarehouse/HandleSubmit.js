@@ -5,7 +5,7 @@ const HandleSubmit = (values) => {
   return erc20.addWarehousingData(
     values.batchNo,
     values.warehouseAddress,
-    values.warehouseArrivalDate,
+    String(values.warehouseArrivalDate),
     values.storagePricePerKiloPerTime
   );
 };

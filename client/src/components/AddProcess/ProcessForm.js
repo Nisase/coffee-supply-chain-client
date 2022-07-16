@@ -254,7 +254,7 @@ const ProcessForm = (props) => {
                             color: 'grey.600',
                           }}
                         >
-                          Ubicación de la Granja
+                          Ubicación del Procesador
                         </Typography>
                       </Grid>
 

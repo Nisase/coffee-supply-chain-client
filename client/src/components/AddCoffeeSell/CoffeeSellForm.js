@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
@@ -25,10 +25,11 @@ const valSchema = Yup.object().shape({
   beanPricePerKilo: Yup.string().required('Obligatorio'),
 });
 
-const CoffeeSellForm = () => {
+const CoffeeSellForm = (props) => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
+  const formikRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -48,6 +49,18 @@ const CoffeeSellForm = () => {
     });
   };
 
+  useEffect(() => {
+    if (props.batchValue) {
+      formikRef.current.setFieldValue('batchNo', props.batchValue);
+    }
+  }, [props.batchValue]);
+
+  const handleResetForm = (resetForm) => {
+    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    resetForm();
+    // }
+  };
+
   return (
     <Grid container>
       <PendingConfirmation loading={loading} />
@@ -55,31 +68,49 @@ const CoffeeSellForm = () => {
         <Container maxWidth="md">
           <div>
             <Formik
+              enableReinitialize
+              innerRef={formikRef}
               initialValues={initialValues}
               validationSchema={valSchema}
               onSubmit={(values) => {
                 localHandleSubmit(values);
               }}
             >
-              {({ dirty, isValid }) => {
+              {({ dirty, isValid, resetForm }) => {
                 return (
                   <Form>
                     <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Typography className="mb-5 font-semibold underline underline-offset-2">
-                          DATOS DE VENTA DEL GRANO
-                        </Typography>
+                      {props.batchValue ? (
+                        <Grid item xs={6}>
+                          <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={6}>
+                          <TextfieldWrapper name="batchNo" label="No. Lote" />
+                        </Grid>
+                      )}
+
+                      <Grid item xs={6}>
+                        <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta de Grano por Kilo [$]" />
                       </Grid>
                       <Grid item xs={6}>
-                        <TextfieldWrapper name="batchNo" label="No. Lote" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta del Grano por Kilo" />
-                      </Grid>
-                      <Grid item xs={12}>
                         <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
                           {' '}
                           AGREGAR DATOS
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          //  disabled={dirty || isValid}
+                          type="reset"
+                          onClick={() => {
+                            handleResetForm(resetForm);
+                          }}
+                        >
+                          {' '}
+                          RESETEAR FORMULARIO
                         </Button>
                       </Grid>
                     </Grid>

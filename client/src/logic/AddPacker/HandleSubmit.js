@@ -5,8 +5,8 @@ const HandleSubmit = (values) => {
   return erc20.addPackData(
     values.batchNo,
     values.packerAddress,
-    values.packerArrivalDate,
-    values.packingDate,
+    String(values.packerArrivalDate),
+    String(values.packingDate),
     values.packingPricePerKilo
   );
 };
