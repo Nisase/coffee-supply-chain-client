@@ -373,7 +373,7 @@ const TimeLine = ({ batchNoIn }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Tipo de Transporte</div>
-              {shipRetailerData.data ? shipRetailerData.data.transportTypeR : message}
+              {shipRetailerData.data ? shipRetailerData.data.toRetailerTransportType : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Precio de transporte</div>
