@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import { Grid, Typography, IconButton } from '@mui/material';
-
 import moment from 'moment';
 import PhaseCard from './PhaseCard';
 
-import { infuraGetCoffe1ERC20, infuraGetCoffe2ERC20, getCoffe1ERC20 } from '../../logic/erc20';
 import AskNextActionInfura from '../../logic/GetNextAction/AskNextActionInfura';
 import AskFarm from '../../logic/GetFarmDetails/AskFarm';
-import AskNextAction from '../../logic/GetNextAction/AskNextAction';
 import AskHarvest from '../../logic/GetHavest/AskHarvest';
 import AskProcess from '../../logic/GetProcess/AskProcess';
 import AskTasting from '../../logic/GetTasting/AskTasting';
@@ -30,17 +26,15 @@ import {
   getShipRetailerTx,
   getRetailerTx,
 } from '../../logic/getBatchTx';
-import getUserByAddress from '../../logic/GetUser';
 
 import getUserInfura from '../../logic/GetUserInfura';
 import getOwnerInfura from '../../logic/GetOwnerInfura';
 
-import getOwner from '../../logic/GetOwner';
 import '../../App.css';
 
 const TimeLine = ({ batchNoIn }) => {
   const [message, setMessage] = useState('Loading..');
-  const [nextAction, setNextAction] = useState({});
+  let nextAction = {};
   const [farmData, setFarmData] = useState({});
   const [harverstData, setHarverstData] = useState({});
   const [processData, setProcessData] = useState({});
@@ -63,7 +57,7 @@ const TimeLine = ({ batchNoIn }) => {
   const [shipRetailerTx, setShipRetailerTx] = useState({});
   const [retailerTx, setRetailerTx] = useState({});
 
-  const [userAdmin, setUserAdmin] = useState({});
+  const [userAdmin, setUserAdmin] = useState(null);
   const [userHarvest, setUserHarvest] = useState({});
   const [userProcess, setUserProcess] = useState({});
   const [userTaste, setUserTaste] = useState({});
@@ -74,70 +68,20 @@ const TimeLine = ({ batchNoIn }) => {
   const [userShipRetailer, setUserShipRetailer] = useState({});
   const [userRetailer, setUserRetailer] = useState({});
 
-  // https://docs.ethers.io/v5/concepts/events/
-  // http://localhost:3000/tracking?batch=0x6B4964E34816C7FF32EA3787c2C615E583715197
-
   const parsePrice = (price) => `$ ${parseFloat(price)}`;
 
   useEffect(() => {
-    const de = async () => {
-      const nAction = await AskNextActionInfura({ batchNo: batchNoIn });
-      const farmdat = await AskFarm({ batchNo: batchNoIn });
-      const harvestdat = await AskHarvest({ batchNo: batchNoIn });
-      const procdat = await AskProcess({ batchNo: batchNoIn });
-      const tastedat = await AskTasting({ batchNo: batchNoIn });
-      const selldat = await AskCoffeeSeller({ batchNo: batchNoIn });
-      const warehousedat = await AskWarehouse({ batchNo: batchNoIn });
-      const shipackdat = await AskShipPacker({ batchNo: batchNoIn });
-      const packdat = await AskPacker({ batchNo: batchNoIn });
-      const shiretailerdat = await AskShipRetailer({ batchNo: batchNoIn });
-      const retailerdat = await AskRetailer({ batchNo: batchNoIn });
-
-      // console.log('n action: ', nAction);
-      // console.log('farm: ', farmdat);
-      // console.log('harvest: ', harvestdat);
-      // console.log('procs: ', procdat);
-      // console.log('taste: ', tastedat);
-      // console.log('sell: ', selldat);
-      // console.log('warehouse: ', warehousedat);
-      // console.log('shippack: ', shipackdat);
-      // console.log('pack: ', packdat);
-      // console.log('retship: ', shiretailerdat);
-      // console.log('ret: ', retailerdat);
-
-      const dateP = moment(harvestdat.data.harvestDate).format('DD-MM-YYYY');
-      const timeP = moment(harvestdat.data.harvestDate).format('HH:mm:ss');
-
-      const utc = moment(harvestdat.data.harvestDate).utcOffset();
-
-      // console.log('dateP: ', dateP, 'time1: ', timeP, 'utc', utc);
-
-      setNextAction(await AskNextActionInfura({ batchNo: batchNoIn }));
-
-      // console.log(retailerData )
-      if (nextAction && nextAction.data !== 'DONE') {
+    const getPaticipants = async () => {
+      
+      const nextActionLocal = await AskNextActionInfura({ batchNo: batchNoIn });
+      console.log('GET DATA INFURA');
+      
+      if (nextActionLocal && nextActionLocal.data !== 'sDONE') {
         console.log('NO DONE');
         setMessage('No disponible');
         return;
       }
-
-      setFarmData(await AskFarm({ batchNo: batchNoIn }));
-      setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
-      setProcessData(await AskProcess({ batchNo: batchNoIn }));
-      setTasteData(await AskTasting({ batchNo: batchNoIn }));
-      setSellData(await AskCoffeeSeller({ batchNo: batchNoIn }));
-      setWarehouseData(await AskWarehouse({ batchNo: batchNoIn }));
-      setShipPackerData(await AskShipPacker({ batchNo: batchNoIn }));
-      setPackerData(await AskPacker({ batchNo: batchNoIn }));
-      setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
-      setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
-    };
-    de();
-  }, []);
-
-  useEffect(() => {
-    const getPaticipants = async () => {
-      const farmTx = await getFarmTx(batchNoIn);
+      
       const harvestTx = await getHarvestTx(batchNoIn);
       const processTx = await getProcessTx(batchNoIn);
       const tasteTx = await getTasteTx(batchNoIn);
@@ -147,31 +91,7 @@ const TimeLine = ({ batchNoIn }) => {
       const packerTx = await getPackerTx(batchNoIn);
       const shipRetailerTx = await getShipRetailerTx(batchNoIn);
       const retailerTx = await getRetailerTx(batchNoIn);
-      console.log('harvest tx : ', harvestTx);
-
-      const ds = moment.unix(harvestTx[2]).format('DD-MM-YYYY');
-      const ts = moment.unix(harvestTx[2]).format('HH:mm:ss');
-
-      const utc = moment.unix(harvestTx[2]).utcOffset();
-
-      // console.log('dateP: ', ds, 'time: ', ts, 'utc', utc);
-
-      const admin = await getOwner();
-      const userHarvest = await getUserInfura(harvestTx[0]);
-      const userProcess = await getUserInfura(processTx[0]);
-      const userTaste = await getUserInfura(tasteTx[0]);
-      const userSell = await getUserInfura(sellTx[0]);
-      const userWarehouse = await getUserInfura(warehouseTx[0]);
-      const userShipPacker = await getUserInfura(shipPackerTx[0]);
-      const userPacker = await getUserInfura(packerTx[0]);
-      const userShipRetailer = await getUserInfura(shipRetailerTx[0]);
-      const userRetailer = await getUserInfura(retailerTx[0]);
-      // console.log(' owner:', admin);
-      // console.log('harvester: ', userHarvest);
-      console.log('seller: ', userSell);
-
-      const txScan = `https://rinkeby.etherscan.io/tx/${harvestTx[1]}`;
-      console.log('scan: ', txScan);
+      
 
       setFarmTx(await getFarmTx(batchNoIn));
       setHarvestTx(await getHarvestTx(batchNoIn));
@@ -197,6 +117,32 @@ const TimeLine = ({ batchNoIn }) => {
     };
 
     getPaticipants();
+  }, []);
+
+  useEffect(() => {
+    const getDataInfura = async () => {
+      nextAction = await AskNextActionInfura({ batchNo: batchNoIn });
+      console.log('GET DATA INFURA');
+      console.log(nextAction);
+      
+      if (nextAction && nextAction.data !== 'sDONE') {
+        console.log('NO DONE');
+        setMessage('No disponible');
+        return;
+      }
+
+      setFarmData(await AskFarm({ batchNo: batchNoIn }));
+      setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
+      setProcessData(await AskProcess({ batchNo: batchNoIn }));
+      setTasteData(await AskTasting({ batchNo: batchNoIn }));
+      setSellData(await AskCoffeeSeller({ batchNo: batchNoIn }));
+      setWarehouseData(await AskWarehouse({ batchNo: batchNoIn }));
+      setShipPackerData(await AskShipPacker({ batchNo: batchNoIn }));
+      setPackerData(await AskPacker({ batchNo: batchNoIn }));
+      setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
+      setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
+    };
+    getDataInfura();
   }, []);
 
   function unixToYMD(unixData) {
@@ -236,10 +182,13 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'cosecha.png'}
           date={farmTx[2] ? unixToYMD(farmTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${farmTx[1]}`}
+          verificate = {farmData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              { userAdmin ? 
+              <>
               <div>Administrador</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${userAdmin}`}
@@ -251,7 +200,10 @@ const TimeLine = ({ batchNoIn }) => {
               </a>
               <a target="_blank" href="mailto:coffeetrackec@gmail.com" rel="noreferrer" className="mail-track">
                 coffeetrackec@gmail.com
-              </a>
+              </a></> : <>
+              <p>{message}</p>
+              </>}
+
               {/* <div>coffeetrackec@gmail.com</div> */}
             </div>
             <div className="flex flex-col">
@@ -280,6 +232,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'cosecha.png'}
           date={harvestTx[2] ? unixToYMD(harvestTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${harvestTx[1]}`}
+          verificate = {harverstData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -293,10 +246,9 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(harvestTx[0]).slice(0, 8).concat('...').concat(String(harvestTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userHarvest.email}.com`} rel="noreferrer" className="mail-track ">
+              <a target="_blank" href={`mailto:${userHarvest.email}`} rel="noreferrer" className="mail-track ">
                 {userHarvest.email ? userHarvest.email : message}
               </a>
-              {/* <div>{userHarvest.email ? userHarvest.email : message}</div> */}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Proveedor de Semilla</div>
@@ -335,6 +287,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'proccess.png'}
           date={processTx[2] ? unixToYMD(processTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${processTx[1]}`}
+          verificate = {processData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="bg-gray-100 rounded-lg">
@@ -356,7 +309,7 @@ const TimeLine = ({ batchNoIn }) => {
                 {String(processTx[0]).slice(0, 8).concat('...').concat(String(processTx[0]).slice(-8))}
               </a>
 
-              <a target="_blank" href={`mailto:${userProcess.email}.com`} rel="noreferrer" className="mail-track ">
+              <a target="_blank" href={`mailto:${userProcess.email}`} rel="noreferrer" className="mail-track ">
                 {userProcess.email ? userProcess.email : message}
               </a>
               {/* <div>{userProcess.email ? userProcess.email : message}</div> */}
@@ -406,7 +359,8 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'inspeccion.png'}
           date={tasteTx[2] ? unixToYMD(tasteTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${tasteTx[1]}`}
-        >
+          verificate = {tasteData.data != null}
+          >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
@@ -419,7 +373,7 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(tasteTx[0]).slice(0, 8).concat('...').concat(String(tasteTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userTaste.email}.com`} rel="noreferrer" className="mail-track">
+              <a target="_blank" href={`mailto:${userTaste.email}`} rel="noreferrer" className="mail-track">
                 {userTaste.email ? userTaste.email : message}
               </a>
               {/* <div>{userTaste.email ? userTaste.email : message}</div> */}
@@ -440,6 +394,8 @@ const TimeLine = ({ batchNoIn }) => {
           className={'bg-blue-200'}
           icon={'inspeccion.png'}
           date={sellTx[2] ? unixToYMD(sellTx[2]) : message}
+          url={`https://rinkeby.etherscan.io/tx/${sellTx[1]}`}
+          verificate = {sellData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -455,7 +411,7 @@ const TimeLine = ({ batchNoIn }) => {
                   {/* Cuenta:  */}
                   {String(sellTx[0]).slice(0, 8).concat('...').concat(String(sellTx[0]).slice(-8))}
                 </a>
-                <a target="_blank" href={`mailto:${userSell.email}.com`} rel="noreferrer" className="mail-track ">
+                <a target="_blank" href={`mailto:${userSell.email}`} rel="noreferrer" className="mail-track ">
                   {userSell.email ? userSell.email : message}
                 </a>
                 {/* <div>{userSell.email ? userSell.email : message}</div> */}
@@ -472,6 +428,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'aglomerado.png'}
           date={warehouseTx[2] ? unixToYMD(warehouseTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${warehouseTx[1]}`}
+          verificate = {warehouseData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -485,7 +442,7 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(warehouseTx[0]).slice(0, 8).concat('...').concat(String(warehouseTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userWarehouse.email}.com`} rel="noreferrer" className="mail-track ">
+              <a target="_blank" href={`mailto:${userWarehouse.email}`} rel="noreferrer" className="mail-track ">
                 {userWarehouse.email ? userWarehouse.email : message}
               </a>
               {/* <div>{userWarehouse.email ? userWarehouse.email : message}</div> */}
@@ -511,6 +468,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'transporte.png'}
           date={shipPackerTx[2] ? unixToYMD(shipPackerTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}`}
+          verificate = {shipPackerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -524,7 +482,7 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(shipPackerTx[0]).slice(0, 8).concat('...').concat(String(shipPackerTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userShipPacker.email}.com`} rel="noreferrer" className="mail-track">
+              <a target="_blank" href={`mailto:${userShipPacker.email}`} rel="noreferrer" className="mail-track">
                 {userShipPacker.email ? userShipPacker.email : message}
               </a>
               {/* <div>{userShipPacker.email ? userShipPacker.email : message}</div> */}
@@ -554,6 +512,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'empacado.png'}
           date={packerTx[2] ? unixToYMD(packerTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${packerTx[1]}`}
+          verificate = {packerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -567,7 +526,7 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(packerTx[0]).slice(0, 8).concat('...').concat(String(packerTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userPacker.email}.com`} rel="noreferrer" className="mail-track">
+              <a target="_blank" href={`mailto:${userPacker.email}`} rel="noreferrer" className="mail-track">
                 {userPacker.email ? userPacker.email : message}
               </a>
               {/* <div>{userPacker.email ? userPacker.email : message}</div> */}
@@ -597,6 +556,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'transporte.png'}
           date={shipRetailerTx[2] ? unixToYMD(shipRetailerTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}`}
+          verificate = {shipRetailerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -610,7 +570,7 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(shipRetailerTx[0]).slice(0, 8).concat('...').concat(String(shipRetailerTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userShipRetailer.email}.com`} rel="noreferrer" className="mail-track ">
+              <a target="_blank" href={`mailto:${userShipRetailer.email}`} rel="noreferrer" className="mail-track ">
                 {userShipRetailer.email ? userShipRetailer.email : message}
               </a>
               {/* <div>{userShipRetailer.email ? userShipRetailer.email : message}</div> */}
@@ -640,6 +600,7 @@ const TimeLine = ({ batchNoIn }) => {
           icon={'retailer.png'}
           date={retailerTx[2] ? unixToYMD(retailerTx[2]) : message}
           url={`https://rinkeby.etherscan.io/tx/${retailerTx[1]}`}
+          verificate = {retailerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -653,7 +614,7 @@ const TimeLine = ({ batchNoIn }) => {
               >
                 {String(retailerTx[0]).slice(0, 8).concat('...').concat(String(retailerTx[0]).slice(-8))}
               </a>
-              <a target="_blank" href={`mailto:${userRetailer.email}.com`} rel="noreferrer" className="mail-track">
+              <a target="_blank" href={`mailto:${userRetailer.email}`} rel="noreferrer" className="mail-track">
                 {userRetailer.email ? userRetailer.email : message}
               </a>
               {/* <div>{userRetailer.email ? userRetailer.email : message}</div> */}

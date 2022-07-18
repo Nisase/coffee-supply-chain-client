@@ -454,7 +454,6 @@ a.mail-track  {
 }
 a.mail-track:focus, a.mail-track:hover {
   text-decoration: underline;
-
   color: #ff2f00;
 }
 

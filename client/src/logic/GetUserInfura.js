@@ -1,4 +1,3 @@
-import React from 'react';
 import { infuraGetUserERC20 } from './erc20';
 import roleData from '../data/roles.json';
 
@@ -8,7 +7,7 @@ const getUserInfura = async (address) => {
     const userTemp = await erc20.callStatic.getUser(address);
 
     const roleApp = [];
-    console.log(userTemp);
+    // console.log(userTemp);
     if (userTemp && userTemp.role.length > 0) {
       userTemp.role.forEach((iRol) => {
         roleData.forEach((jRol) => {
@@ -16,7 +15,7 @@ const getUserInfura = async (address) => {
         });
       });
     }
-    console.log(roleApp);
+    // console.log(roleApp);
 
     return {
       name: userTemp.name,

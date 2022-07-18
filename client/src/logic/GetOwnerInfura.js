@@ -1,4 +1,3 @@
-import React from 'react';
 import { infuraGetUserERC20 } from './erc20';
 
 const getOwnerInfura = async () => {
