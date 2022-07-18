@@ -247,7 +247,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {userAdmin.slice(0, 8).concat('...').concat(userAdmin.slice(-8))}
+                {String(userAdmin).slice(0, 8).concat('...').concat(String(userAdmin).slice(-8))}
               </a>
               <a target="_blank" href="mailto:coffeetrackec@gmail.com" rel="noreferrer" className="mail-track">
                 coffeetrackec@gmail.com
@@ -291,7 +291,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {harvestTx[0].slice(0, 8).concat('...').concat(harvestTx[0].slice(-8))}
+                {String(harvestTx[0]).slice(0, 8).concat('...').concat(String(harvestTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userHarvest.email}.com`} rel="noreferrer" className="mail-track ">
                 {userHarvest.email ? userHarvest.email : message}
@@ -353,7 +353,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {processTx[0].slice(0, 8).concat('...').concat(processTx[0].slice(-8))}
+                {String(processTx[0]).slice(0, 8).concat('...').concat(String(processTx[0]).slice(-8))}
               </a>
 
               <a target="_blank" href={`mailto:${userProcess.email}.com`} rel="noreferrer" className="mail-track ">
@@ -417,7 +417,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {tasteTx[0].slice(0, 8).concat('...').concat(tasteTx[0].slice(-8))}
+                {String(tasteTx[0]).slice(0, 8).concat('...').concat(String(tasteTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userTaste.email}.com`} rel="noreferrer" className="mail-track">
                 {userTaste.email ? userTaste.email : message}
@@ -453,7 +453,7 @@ const TimeLine = ({ batchNoIn }) => {
                   className="user-link"
                 >
                   {/* Cuenta:  */}
-                  {sellTx[0].slice(0, 8).concat('...').concat(sellTx[0].slice(-8))}
+                  {String(sellTx[0]).slice(0, 8).concat('...').concat(String(sellTx[0]).slice(-8))}
                 </a>
                 <a target="_blank" href={`mailto:${userSell.email}.com`} rel="noreferrer" className="mail-track ">
                   {userSell.email ? userSell.email : message}
@@ -483,7 +483,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {warehouseTx[0].slice(0, 8).concat('...').concat(warehouseTx[0].slice(-8))}
+                {String(warehouseTx[0]).slice(0, 8).concat('...').concat(String(warehouseTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userWarehouse.email}.com`} rel="noreferrer" className="mail-track ">
                 {userWarehouse.email ? userWarehouse.email : message}
@@ -522,7 +522,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {shipPackerTx[0].slice(0, 8).concat('...').concat(shipPackerTx[0].slice(-8))}
+                {String(shipPackerTx[0]).slice(0, 8).concat('...').concat(String(shipPackerTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userShipPacker.email}.com`} rel="noreferrer" className="mail-track">
                 {userShipPacker.email ? userShipPacker.email : message}
@@ -565,7 +565,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {packerTx[0].slice(0, 8).concat('...').concat(packerTx[0].slice(-8))}
+                {String(packerTx[0]).slice(0, 8).concat('...').concat(String(packerTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userPacker.email}.com`} rel="noreferrer" className="mail-track">
                 {userPacker.email ? userPacker.email : message}
@@ -608,7 +608,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {shipRetailerTx[0].slice(0, 8).concat('...').concat(shipRetailerTx[0].slice(-8))}
+                {String(shipRetailerTx[0]).slice(0, 8).concat('...').concat(String(shipRetailerTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userShipRetailer.email}.com`} rel="noreferrer" className="mail-track ">
                 {userShipRetailer.email ? userShipRetailer.email : message}
@@ -643,7 +643,7 @@ const TimeLine = ({ batchNoIn }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
               <div>{userRetailer.name && retailerTx[0] ? `${userRetailer.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${retailerTx[0]}`}
@@ -651,7 +651,7 @@ const TimeLine = ({ batchNoIn }) => {
                 rel="noopener noreferrer"
                 className="user-link"
               >
-                {retailerTx[0].slice(0, 8).concat('...').concat(retailerTx[0].slice(-8))}
+                {String(retailerTx[0]).slice(0, 8).concat('...').concat(String(retailerTx[0]).slice(-8))}
               </a>
               <a target="_blank" href={`mailto:${userRetailer.email}.com`} rel="noreferrer" className="mail-track">
                 {userRetailer.email ? userRetailer.email : message}
