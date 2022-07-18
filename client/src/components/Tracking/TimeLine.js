@@ -76,7 +76,7 @@ const TimeLine = ({ batchNoIn }) => {
       const nextActionLocal = await AskNextActionInfura({ batchNo: batchNoIn });
       console.log('GET DATA INFURA');
       
-      if (nextActionLocal && nextActionLocal.data !== 'sDONE') {
+      if (nextActionLocal && nextActionLocal.data !== 'DONE') {
         console.log('NO DONE');
         setMessage('No disponible');
         return;
@@ -125,7 +125,7 @@ const TimeLine = ({ batchNoIn }) => {
       console.log('GET DATA INFURA');
       console.log(nextAction);
       
-      if (nextAction && nextAction.data !== 'sDONE') {
+      if (nextAction && nextAction.data !== 'DONE') {
         console.log('NO DONE');
         setMessage('No disponible');
         return;
