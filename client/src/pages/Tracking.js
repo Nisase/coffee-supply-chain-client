@@ -33,7 +33,7 @@ export default function Tracking() {
             className="w-full mt-0 p-0"
           >
             {batch && batch.length === 42 ? (
-              <TimeLine batchNoIn={batch} />
+              <TimeLine batchNo={batch} />
             ) : (
               <>
                 <InformativeTracking />

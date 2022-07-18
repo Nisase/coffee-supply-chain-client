@@ -47,10 +47,17 @@ export default function DashboardLayout() {
 
   useEffect(()=>{
     if(batch && batch.length===42 && (pathname==="/dashboard" || pathname==="/dashboard/")){
-      // console.log(userInfo.role)
       let localPathname = "/dashboard";
-      if(userInfo.role==="AGRICULTOR/PRODUCTOR") localPathname += "/farmer_addHarvest";
-      if(userInfo.role==="PROCESADOR") localPathname += "/processor_addProcess";
+      if( userInfo.role.findIndex((iRole) => iRole.key === 'FARMER') !== -1 ) localPathname += "/AddHarvest";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'PROCESSOR') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'TASTER') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'SELLER') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'WAREHOUSE') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'SHIPPER_PACKER') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'PACKER') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'SHIPPER_RETAILER') !== -1 ) localPathname += "/AddProcess";
+      else if( userInfo.role.findIndex((iRole) => iRole.key === 'RETAILER') !== -1 ) localPathname += "/AddProcess";
+      
       if(localPathname !== "/dashboard" ) navigate(`${localPathname}?batch=${batch}`)
     } 
   })

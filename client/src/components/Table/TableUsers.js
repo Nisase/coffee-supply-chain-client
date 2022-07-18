@@ -43,7 +43,7 @@ import {
   TelegramIcon,
 } from 'react-share';
 import { v4 as uuid } from 'uuid';
-import { saveSvgAsPng } from 'save-svg-as-png';
+import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';
 import QRCode from 'qrcode.react';
 import DownloadForOfflineRoundedIcon from '@mui/icons-material/DownloadForOfflineRounded';
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
@@ -54,6 +54,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
+import LinkIcon from '@mui/icons-material/Link';
 import ZoomOutMapRoundedIcon from '@mui/icons-material/ZoomOutMapRounded';
 import OpenWithRoundedIcon from '@mui/icons-material/OpenWithRounded';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
@@ -77,6 +78,20 @@ function ShareSocialMedia(batch) {
       >
         <Tooltip size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
           <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
+        </Tooltip>
+      </IconButton>
+      <IconButton
+        aria-label="copy URL"
+        // color="comp5"
+        color="quaternary"
+        sixe="small"
+        sx={{ p: 0, m: 0 }}
+        onClick={() => {
+          navigator.clipboard.writeText(`http://localhost:3000/tracking?batch=${batch}`);
+        }}
+      >
+        <Tooltip size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
+          <LinkIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
       </IconButton>
       {/* `https://192.168.100.4:3000/tracking?batch=${batch}` */}
@@ -278,7 +293,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const TableUsers = ({ batchNo, nextActions }) => {
-  const theme = useTheme();
+  const [qrImage, setQrImage] = useState(null); 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   const [openZoom, setOpenZoom] = useState(false);
@@ -432,7 +447,12 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               color="secondary"
                               sixe="small"
                               sx={{ p: 0, m: 0 }}
-                              onClick={handleClickOpenZoon}
+                              onClick={() => {
+                                handleClickOpenZoon();
+                                svgAsPngUri(document.getElementById(batch), {
+                                  scale: 100,
+                                }).then(uri => setQrImage(uri))
+                              }}
                             >
                               <Tooltip
                                 size="small"
@@ -449,21 +469,17 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               open={openZoom}
                             >
                               <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseZoom}>
-                                Código QR del lote # {batch}
+                                <p className='break-all !important text-green-500'>Código QR del lote #<br/>{batch}</p>
                               </BootstrapDialogTitle>
                               <DialogContent
-                                dividers
                                 // PaperProps={{ sx: { width: '80%' } }}
                                 sx={{ margin: 0, padding: 0 }}
                               >
-                                {/* <Box
-                                  component="svg"
-                                  alt="QR Code for every coffee batch"
-                                  src={document.getElementById(`${batch}`)}
-                                  sx={{ width: 48, height: 48, borderRadius: 1.5, flexShrink: 0 }}
-                                /> */}
-                                <Typography>{batch}</Typography>
-                              </DialogContent>
+                                  <img  className='w-48 h-auto' src={qrImage} alt='QR Code' />
+                                {/*
+                                  svgAsPngUri(document.getElementById("diagram"), options).then(uri => )
+                                */}
+                                </DialogContent>
                             </BootstrapDialog>
                           </Grid>
                         </Grid>
@@ -479,7 +495,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                 ))}
                 <StyledTableCell align="center">
                   <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <RouterLink to={`http://localhost:3000/tracking?batch=${batch}`}>
+                    <RouterLink to={`/tracking?batch=${batch}`}>
                       <IconButton aria-label="tracking-batch" sx={{ color: 'grey[800]' }} size="small">
                         <RemoveRedEyeRoundedIcon />
                       </IconButton>

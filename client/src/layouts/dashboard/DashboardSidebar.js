@@ -242,7 +242,6 @@ DashboardSidebar.propTypes = {
 };
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
-  const theme = useTheme();
   const [textRole, setTextRole] = useState('');
   const userInfo = useSelector(userDataSelector);
 

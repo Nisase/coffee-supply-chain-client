@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
 import PhaseCard from './PhaseCard';
@@ -32,7 +33,10 @@ import getOwnerInfura from '../../logic/GetOwnerInfura';
 
 import '../../App.css';
 
-const TimeLine = ({ batchNoIn }) => {
+const TimeLine = ({ batchNo }) => {
+
+  const [batchNoIn, setBatchNoIn] = useState(batchNo);
+  const navigate = useNavigate();
   const [message, setMessage] = useState('Loading..');
   const [txMessage, setTxMessage] = useState('Loading..');
   let nextAction = {};
@@ -75,11 +79,10 @@ const TimeLine = ({ batchNoIn }) => {
     const getPaticipants = async () => {
       
       const nextActionLocal = await AskNextActionInfura({ batchNo: batchNoIn });
-      console.log('GET DATA INFURA');
       
       if (nextActionLocal && nextActionLocal.data !== 'DONE') {
-        console.log('NO DONE');
         setTxMessage('No disponible');
+        navigate(`/dashboard?batch=${batchNoIn}`)
         return;
       }
       
