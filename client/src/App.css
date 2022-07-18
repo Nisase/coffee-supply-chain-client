@@ -308,6 +308,9 @@ a.mail-link:hover, a.mail-link:focus {
   color: white;
 }
 
+/* .users-track {
+  background-color: rgba(202, 60, 38, 0.438);
+} */
 
 /* TRACKING */
 .wave-track {
@@ -428,6 +431,31 @@ a.batch-track:hover, a.batch-track:focus {
 
 .track-btn:hover::before {
   right: 0;
+}
+
+a.user-link  {
+  text-decoration: none;
+  /* color: #637381; */
+  color: #161C24  ;
+
+}
+a.user-link:focus, a.user-link:hover {
+  text-decoration: underline;
+
+  color: #ff2f00;
+}
+
+
+a.mail-track  {
+  text-decoration: none;
+  /* color: #637381; */
+  color: #161C24  ;
+
+}
+a.mail-track:focus, a.mail-track:hover {
+  text-decoration: underline;
+
+  color: #ff2f00;
 }
 
 /* a.my-batch {
