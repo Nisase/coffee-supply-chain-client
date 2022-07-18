@@ -62,6 +62,11 @@ export const getUserERC20 = () => {
 };
 
 // INFURA
+export const infuraGetUserERC20 = () => {
+  const provider = new ethers.providers.InfuraProvider('rinkeby', process.env.REACT_APP_INFURA_PROJECT_ID);
+  return new ethers.Contract(window.userAddress, supplyChainUser1ABI.abi, provider);
+};
+
 export const infuraGetCoffe1ERC20 = () => {
   const provider = new ethers.providers.InfuraProvider('rinkeby', process.env.REACT_APP_INFURA_PROJECT_ID);
 

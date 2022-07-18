@@ -22,6 +22,7 @@ const HarvestView = () => {
     const getBatch = async () => {
       const erc = getCoffe1ERC20();
       const events = await erc.queryFilter(erc.filters.DoneHarvesting(walletAddress, null));
+      console.log('events: ', events);
       const batchTemp = events.map((event) => event.args.batchNo);
       const nextActionsTemp = batchTemp.map(async (item) => {
         const res = await AskNextAction({ batchNo: item });
