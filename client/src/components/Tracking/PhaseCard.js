@@ -43,7 +43,7 @@ export default function PhaseCard(props) {
         )}
       </div>
       <div className="bg-[#042A2B] h-1 w-[85%] mx-auto" />
-      {props.verificate && 
+      {props.url && 
       <CardActions>
         <a href={props.url} target="_blank" rel="noopener noreferrer" className='w-full flex justify-center mt-2 text-gray-500 hover:text-[#ff2f00]'>
           <div className='flex'>

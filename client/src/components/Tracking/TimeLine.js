@@ -34,6 +34,7 @@ import '../../App.css';
 
 const TimeLine = ({ batchNoIn }) => {
   const [message, setMessage] = useState('Loading..');
+  const [txMessage, setTxMessage] = useState('Loading..');
   let nextAction = {};
   const [farmData, setFarmData] = useState({});
   const [harverstData, setHarverstData] = useState({});
@@ -46,16 +47,16 @@ const TimeLine = ({ batchNoIn }) => {
   const [shipRetailerData, setShipRetailerData] = useState({});
   const [retailerData, setRetailerData] = useState({});
 
-  const [farmTx, setFarmTx] = useState({});
-  const [harvestTx, setHarvestTx] = useState({});
-  const [processTx, setProcessTx] = useState({});
-  const [tasteTx, setTasteTx] = useState({});
-  const [sellTx, setSellTx] = useState({});
-  const [warehouseTx, setWarehouseTx] = useState({});
-  const [shipPackerTx, setShipPackerTx] = useState({});
-  const [packerTx, setPackerTx] = useState({});
-  const [shipRetailerTx, setShipRetailerTx] = useState({});
-  const [retailerTx, setRetailerTx] = useState({});
+  const [farmTx, setFarmTx] = useState(null);
+  const [harvestTx, setHarvestTx] = useState(null);
+  const [processTx, setProcessTx] = useState(null);
+  const [tasteTx, setTasteTx] = useState(null);
+  const [sellTx, setSellTx] = useState(null);
+  const [warehouseTx, setWarehouseTx] = useState(null);
+  const [shipPackerTx, setShipPackerTx] = useState(null);
+  const [packerTx, setPackerTx] = useState(null);
+  const [shipRetailerTx, setShipRetailerTx] = useState(null);
+  const [retailerTx, setRetailerTx] = useState(null);
 
   const [userAdmin, setUserAdmin] = useState(null);
   const [userHarvest, setUserHarvest] = useState({});
@@ -78,10 +79,11 @@ const TimeLine = ({ batchNoIn }) => {
       
       if (nextActionLocal && nextActionLocal.data !== 'DONE') {
         console.log('NO DONE');
-        setMessage('No disponible');
+        setTxMessage('No disponible');
         return;
       }
       
+      const farmTx = await getFarmTx(batchNoIn)
       const harvestTx = await getHarvestTx(batchNoIn);
       const processTx = await getProcessTx(batchNoIn);
       const tasteTx = await getTasteTx(batchNoIn);
@@ -93,27 +95,28 @@ const TimeLine = ({ batchNoIn }) => {
       const retailerTx = await getRetailerTx(batchNoIn);
       
 
-      setFarmTx(await getFarmTx(batchNoIn));
-      setHarvestTx(await getHarvestTx(batchNoIn));
-      setProcessTx(await getProcessTx(batchNoIn));
-      setTasteTx(await getTasteTx(batchNoIn));
-      setSellTx(await getSellTx(batchNoIn));
-      setWarehouseTx(await getWarehouseTx(batchNoIn));
-      setShipPackerTx(await getShipPackerTx(batchNoIn));
-      setPackerTx(await getPackerTx(batchNoIn));
-      setShipRetailerTx(await getShipRetailerTx(batchNoIn));
-      setRetailerTx(await getRetailerTx(batchNoIn));
+      setFarmTx(farmTx);
+      setHarvestTx(harvestTx);
+      setProcessTx(processTx);
+      setTasteTx(tasteTx);
+      setSellTx(sellTx);
+      setWarehouseTx(warehouseTx);
+      setShipPackerTx(shipPackerTx);
+      setPackerTx(packerTx);
+      setShipRetailerTx(shipRetailerTx);
+      setRetailerTx(retailerTx);
 
       setUserAdmin(await getOwnerInfura());
-      setUserHarvest(await getUserInfura(harvestTx[0]));
-      setUserProcess(await getUserInfura(processTx[0]));
-      setUserTaste(await getUserInfura(tasteTx[0]));
-      setUserSell(await getUserInfura(sellTx[0]));
-      setUserWarehouse(await getUserInfura(warehouseTx[0]));
-      setUserShipPacker(await getUserInfura(shipPackerTx[0]));
-      setUserPacker(await getUserInfura(packerTx[0]));
-      setUserShipRetailer(await getUserInfura(shipRetailerTx[0]));
-      setUserRetailer(await getUserInfura(retailerTx[0]));
+      setUserHarvest(await getUserInfura(harvestTx ? harvestTx[0] : null));
+      setUserProcess(await getUserInfura(processTx ? processTx[0] : null));
+      setUserTaste(await getUserInfura(tasteTx ? tasteTx[0] : null));
+      setUserSell(await getUserInfura(sellTx ? sellTx[0] : null));
+      setUserWarehouse(await getUserInfura(warehouseTx ? warehouseTx[0] : null));
+      setUserShipPacker(await getUserInfura(shipPackerTx ? shipPackerTx[0] : null));
+      setUserPacker(await getUserInfura(packerTx ? packerTx[0] : null));
+      setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
+      setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
+      setTxMessage('No disponible')
     };
 
     getPaticipants();
@@ -141,6 +144,7 @@ const TimeLine = ({ batchNoIn }) => {
       setPackerData(await AskPacker({ batchNo: batchNoIn }));
       setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
       setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
+      setMessage('No disponible')
     };
     getDataInfura();
   }, []);
@@ -180,8 +184,8 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Datos de la Granja'}
           className={'bg-green-100'}
           icon={'cosecha.png'}
-          date={farmTx[2] ? unixToYMD(farmTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${farmTx[1]}`}
+          date={farmTx ? unixToYMD(farmTx[2]) : txMessage}
+          url={farmTx ? `https://rinkeby.etherscan.io/tx/${farmTx[1]}` : null}
           verificate = {farmData.data != null}
         >
           <div className="flex flex-col text-sm">
@@ -200,11 +204,9 @@ const TimeLine = ({ batchNoIn }) => {
               </a>
               <a target="_blank" href="mailto:coffeetrackec@gmail.com" rel="noreferrer" className="mail-track">
                 coffeetrackec@gmail.com
-              </a></> : <>
-              <p>{message}</p>
-              </>}
-
-              {/* <div>coffeetrackec@gmail.com</div> */}
+              </a></> : 
+              <p>{txMessage}</p>
+              }
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Nombre</div>
@@ -230,25 +232,27 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Cosecha'}
           className={'bg-green-100'}
           icon={'cosecha.png'}
-          date={harvestTx[2] ? unixToYMD(harvestTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${harvestTx[1]}`}
+          date={harvestTx ? unixToYMD(harvestTx[2]) : txMessage}
+          url={harvestTx ? `https://rinkeby.etherscan.io/tx/${harvestTx[1]}`: null}
           verificate = {harverstData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
-              <div>{userHarvest.name && harvestTx[0] ? `${userHarvest.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${harvestTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(harvestTx[0]).slice(0, 8).concat('...').concat(String(harvestTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userHarvest.email}`} rel="noreferrer" className="mail-track ">
-                {userHarvest.email ? userHarvest.email : message}
-              </a>
+              { harvestTx ? <>
+                  <div>{userHarvest.name ? `${userHarvest.name}` : message}</div>
+                <a
+                  href={`https://rinkeby.etherscan.io/address/${harvestTx[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="user-link"
+                >
+                  {String(harvestTx[0]).slice(0, 8).concat('...').concat(String(harvestTx[0]).slice(-8))}
+                </a>
+                <a target="_blank" href={`mailto:${userHarvest.email}`} rel="noreferrer" className="mail-track ">
+                  {userHarvest.email ? userHarvest.email : message}
+                </a>
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Proveedor de Semilla</div>
@@ -285,8 +289,8 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Procesado'}
           className={'bg-red-100'}
           icon={'proccess.png'}
-          date={processTx[2] ? unixToYMD(processTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${processTx[1]}`}
+          date={processTx ? unixToYMD(processTx[2]) : txMessage}
+          url={processTx ? `https://rinkeby.etherscan.io/tx/${processTx[1]}`: null}
           verificate = {processData.data != null}
         >
           <div className="flex flex-col text-sm">
@@ -299,6 +303,7 @@ const TimeLine = ({ batchNoIn }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold ">Información del Editor: </div>
+              { processTx ? <>
               <div>{userProcess.name && processTx[0] ? `${userProcess.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${processTx[0]}`}
@@ -312,7 +317,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userProcess.email}`} rel="noreferrer" className="mail-track ">
                 {userProcess.email ? userProcess.email : message}
               </a>
-              {/* <div>{userProcess.email ? userProcess.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
@@ -357,13 +362,14 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Catación'}
           className={'bg-blue-200'}
           icon={'inspeccion.png'}
-          date={tasteTx[2] ? unixToYMD(tasteTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${tasteTx[1]}`}
+          date={tasteTx ? unixToYMD(tasteTx[2]) : message}
+          url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}`: txMessage}
           verificate = {tasteData.data != null}
           >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              { tasteTx ? <>
               <div>{userTaste.name && tasteTx[0] ? `${userTaste.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${tasteTx[0]}`}
@@ -376,7 +382,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userTaste.email}`} rel="noreferrer" className="mail-track">
                 {userTaste.email ? userTaste.email : message}
               </a>
-              {/* <div>{userTaste.email ? userTaste.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Puntaje de Catación</div>
@@ -393,14 +399,15 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Venta del Grano'}
           className={'bg-blue-200'}
           icon={'inspeccion.png'}
-          date={sellTx[2] ? unixToYMD(sellTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${sellTx[1]}`}
+          date={sellTx ? unixToYMD(sellTx[2]) : txMessage}
+          url={sellTx ? `https://rinkeby.etherscan.io/tx/${sellTx[1]}` : null}
           verificate = {sellData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="flex flex-col">
                 <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+                { sellTx ? <>
                 <div>{userSell.name && sellTx[0] ? `${userSell.name}` : message}</div>
                 <a
                   href={`https://rinkeby.etherscan.io/address/${sellTx[0]}`}
@@ -414,7 +421,7 @@ const TimeLine = ({ batchNoIn }) => {
                 <a target="_blank" href={`mailto:${userSell.email}`} rel="noreferrer" className="mail-track ">
                   {userSell.email ? userSell.email : message}
                 </a>
-                {/* <div>{userSell.email ? userSell.email : message}</div> */}
+                </>: <p>{txMessage}</p>}
               </div>
               <div className="mt-5 mb-1 font-semibold">Precio del Grano por Kilo</div>
               {sellData.data ? `${parsePrice(sellData.data)}` : message}
@@ -426,13 +433,14 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Bodega'}
           className={'bg-blue-200'}
           icon={'aglomerado.png'}
-          date={warehouseTx[2] ? unixToYMD(warehouseTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${warehouseTx[1]}`}
+          date={warehouseTx ? unixToYMD(warehouseTx[2]) : txMessage}
+          url={warehouseTx ? `https://rinkeby.etherscan.io/tx/${warehouseTx[1]}` : null}
           verificate = {warehouseData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              { warehouseTx ? <>
               <div>{userWarehouse.name && warehouseTx[0] ? `${userWarehouse.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${warehouseTx[0]}`}
@@ -445,7 +453,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userWarehouse.email}`} rel="noreferrer" className="mail-track ">
                 {userWarehouse.email ? userWarehouse.email : message}
               </a>
-              {/* <div>{userWarehouse.email ? userWarehouse.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
@@ -466,13 +474,14 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Transporte hacia Empacador'}
           className={'bg-blue-200'}
           icon={'transporte.png'}
-          date={shipPackerTx[2] ? unixToYMD(shipPackerTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}`}
+          date={shipPackerTx ? unixToYMD(shipPackerTx[2]) : txMessage}
+          url={shipPackerTx ? `https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}` : null}
           verificate = {shipPackerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              { shipPackerTx ? <>
               <div>{userShipPacker.name && shipPackerTx[0] ? `${userShipPacker.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${shipPackerTx[0]}`}
@@ -485,7 +494,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userShipPacker.email}`} rel="noreferrer" className="mail-track">
                 {userShipPacker.email ? userShipPacker.email : message}
               </a>
-              {/* <div>{userShipPacker.email ? userShipPacker.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
@@ -510,13 +519,14 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Empacado'}
           className={'bg-blue-200'}
           icon={'empacado.png'}
-          date={packerTx[2] ? unixToYMD(packerTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${packerTx[1]}`}
+          date={packerTx ? unixToYMD(packerTx[2]) : txMessage}
+          url={packerTx ? `https://rinkeby.etherscan.io/tx/${packerTx[1]}` : null}
           verificate = {packerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              { packerTx ? <>
               <div>{userPacker.name && packerTx[0] ? `${userPacker.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${packerTx[0]}`}
@@ -529,7 +539,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userPacker.email}`} rel="noreferrer" className="mail-track">
                 {userPacker.email ? userPacker.email : message}
               </a>
-              {/* <div>{userPacker.email ? userPacker.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
@@ -554,13 +564,14 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Transporte hacia Retailer'}
           className={'bg-blue-200'}
           icon={'transporte.png'}
-          date={shipRetailerTx[2] ? unixToYMD(shipRetailerTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}`}
+          date={shipRetailerTx ? unixToYMD(shipRetailerTx[2]) : txMessage}
+          url={shipRetailerTx ? `https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}` : null}
           verificate = {shipRetailerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              { shipRetailerTx ? <>
               <div>{userShipRetailer.name && shipRetailerTx[0] ? `${userShipRetailer.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${shipRetailerTx[0]}`}
@@ -573,7 +584,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userShipRetailer.email}`} rel="noreferrer" className="mail-track ">
                 {userShipRetailer.email ? userShipRetailer.email : message}
               </a>
-              {/* <div>{userShipRetailer.email ? userShipRetailer.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
@@ -598,13 +609,14 @@ const TimeLine = ({ batchNoIn }) => {
           title={'Retailer'}
           className={'bg-blue-200'}
           icon={'retailer.png'}
-          date={retailerTx[2] ? unixToYMD(retailerTx[2]) : message}
-          url={`https://rinkeby.etherscan.io/tx/${retailerTx[1]}`}
+          date={retailerTx ? unixToYMD(retailerTx[2]) : txMessage}
+          url={retailerTx ? `https://rinkeby.etherscan.io/tx/${retailerTx[1]}` : null}
           verificate = {retailerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
+              { retailerTx ? <>
               <div>{userRetailer.name && retailerTx[0] ? `${userRetailer.name}` : message}</div>
               <a
                 href={`https://rinkeby.etherscan.io/address/${retailerTx[0]}`}
@@ -617,7 +629,7 @@ const TimeLine = ({ batchNoIn }) => {
               <a target="_blank" href={`mailto:${userRetailer.email}`} rel="noreferrer" className="mail-track">
                 {userRetailer.email ? userRetailer.email : message}
               </a>
-              {/* <div>{userRetailer.email ? userRetailer.email : message}</div> */}
+              </>: <p>{txMessage}</p>}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Almacén</div>
