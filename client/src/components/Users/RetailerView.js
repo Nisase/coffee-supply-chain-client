@@ -41,7 +41,7 @@ const RetailerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="https://www.webretail.com.ar/v2/wp-content/uploads/2020/10/Dark-Store-Retailer.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -51,7 +51,8 @@ const RetailerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="https://readlagom.com/images/image00012.jpg"
+              // image="https://mtpak.coffee/wp-content/uploads/2021/10/New-Project-2021-10-07T124632.015.jpg"
               buttonText="AGREGAR RETAILER"
               dialogTitle="Agregar Datos de Retailer"
               Form={RetailerForm}
@@ -64,7 +65,7 @@ const RetailerView = () => {
               innerButtonText="AGREGAR RETAILER"
               innerDialogText="Agregar Datos de Retailer"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR RETAILER CON CÓDIGO QR"
               dialogTitle="Agregar Retailer de Lote de Café con Código QR"
               Form={RetailerForm}

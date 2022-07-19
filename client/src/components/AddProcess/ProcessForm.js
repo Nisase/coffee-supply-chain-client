@@ -279,7 +279,7 @@ const ProcessForm = (props) => {
                             Ubica el marcador en la dirección deseada
                           </BootstrapDialogTitle>
                           <DialogContent dividers>
-                            <MapsLocation svg="/static/illustrations/Farm.svg" />
+                            <MapsLocation svg="/static/illustrations/location.png" />
                           </DialogContent>
                         </BootstrapDialog>
                       </Grid>

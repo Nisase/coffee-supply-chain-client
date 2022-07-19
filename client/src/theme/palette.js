@@ -96,7 +96,7 @@ const PRIMARY = {
   light: '#0A575C',
   main: '#042A2B',
   dark: '#042325',
-  darker: '021112',
+  darker: '#021112',
   contrastText: '#fff',
 };
 
@@ -104,6 +104,7 @@ const SECONDARY = {
   lighter: '#E37B64',
   light: '#DC5E41',
   main: '#CF4526',
+  main2: '#F96B13',
   dark: '#AC3920',
   dark2: '#ff2f00',
   darker: '#672213',

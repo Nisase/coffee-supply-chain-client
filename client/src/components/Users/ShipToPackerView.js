@@ -41,7 +41,8 @@ const ShipToPackerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              // image="/static/images/farmer2.jpg"
+              image="https://k5v9s2e6.stackpathcdn.com/wp-content/uploads/2020/03/Coffee-Terroir-in-Latin-America.png"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -51,7 +52,7 @@ const ShipToPackerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="https://perfectdailygrind.com/wp-content/uploads/2017/05/andes5.jpg"
               buttonText="AGREGAR TRANSPORTE"
               dialogTitle="Agregar Datos de Transporte"
               Form={ShipPackerForm}
@@ -64,7 +65,7 @@ const ShipToPackerView = () => {
               innerButtonText="AGREGAR TRANSPORTE"
               innerDialogText="Agregar Datos de Transporte"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR TRANSPORTE CON CÓDIGO QR"
               dialogTitle="Agregar Transporte de Lote de Café con Código QR"
               Form={ShipPackerForm}

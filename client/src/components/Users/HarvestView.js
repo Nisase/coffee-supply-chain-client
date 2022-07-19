@@ -42,7 +42,8 @@ const HarvestView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="/static/images/farmer-coffee.jpg"
+              // image="https://www.3blmedia.com/sites/www.3blmedia.com/files/images/Nespresso_Zimbabwe_small.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -52,7 +53,7 @@ const HarvestView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="/static/images/login.jpg"
               buttonText="AGREGAR COSECHA"
               dialogTitle="Agregar Datos de Cosecha"
               Form={HarvestForm}
@@ -65,7 +66,8 @@ const HarvestView = () => {
               innerButtonText="AGREGAR COSECHA"
               innerDialogText="Agregar Datos de Cosecha"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
+              // image="/static/images/lote1.jpg"
               buttonText="AGREGAR COSECHA CON CÓDIGO QR"
               dialogTitle="Agregar Cosecha de Lote de Café con Código QR"
               Form={HarvestForm}

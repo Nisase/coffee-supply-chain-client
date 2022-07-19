@@ -111,8 +111,8 @@ const MapsLocation = ({ svg }) => {
           icon={{
             url: svg,
             origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(10, 10),
-            scaledSize: new window.google.maps.Size(60, 60),
+            anchor: new window.google.maps.Point(5, 5),
+            scaledSize: new window.google.maps.Size(40, 40),
           }}
         />
 

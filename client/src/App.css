@@ -457,6 +457,45 @@ a.mail-track:focus, a.mail-track:hover {
   color: #ff2f00;
 }
 
+.widget {
+  /* margin-top: 10px; */
+  position: relative;
+  /* padding: 10px 20px; */
+  font-weight: 900;
+  font-size: 12px;
+  /* letter-spacing: 1px; */
+  background: none;
+  /* color: #919EAB; */
+  color: #ff2f00;
+  border-radius: 5px;
+  text-transform: uppercase;
+  /* outline: 0; */
+  z-index: 1;
+}
+
+.widget:hover {
+  /* color: #DFE3E8; */
+  color: #042A2B
+}
+
+.widget::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #cdd5dd4d;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.widget:hover::before {
+  right: 0;
+}
+
 /* a.my-batch {
   text-decoration: none;
   color: #042A2B;

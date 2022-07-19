@@ -41,7 +41,8 @@ const TasteView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="https://cdn.shopify.com/s/files/1/0015/7528/8887/products/Roasters1_2000x.jpg?v=1605135805"
+              // image="/static/images/farmer2.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -51,7 +52,7 @@ const TasteView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="https://cafemalist.com/wp-content/uploads/2020/08/Catador-de-Cafe-Que-es-y-como-probar-Cafe-Profesional-cafemalist.jpg"
               buttonText="AGREGAR CATACIÓN"
               dialogTitle="Agregar Datos de Catación"
               Form={TasterForm}
@@ -64,7 +65,7 @@ const TasteView = () => {
               innerButtonText="AGREGAR CATACIÓN"
               innerDialogText="Agregar Datos de Catación"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR CATACIÓN CON CÓDIGO QR"
               dialogTitle="Agregar Catación de Lote de Café con Código QR"
               Form={TasterForm}

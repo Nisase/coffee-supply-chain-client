@@ -221,11 +221,12 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.secondary.main2,
     color: theme.palette.common.white,
+    fontSize: '14px',
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 12,
   },
 }));
 
@@ -329,7 +330,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
 
   return (
     <Grid item xs={12} sx={{ marginTop: '50px' }}>
-      <TableContainer sx={{ maxHeight: '1000px', boxShadow: 2, borderRadius: 1 }} component={Paper}>
+      <TableContainer sx={{ maxHeight: '1000px', boxShadow: 5, borderRadius: 1 }} component={Paper}>
         <Table sx={{ minWidth: '1000px' }} aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>

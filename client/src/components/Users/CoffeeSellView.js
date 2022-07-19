@@ -41,7 +41,7 @@ const CoffeeSellView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="/static/images/farmer-coffee.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -64,7 +64,7 @@ const CoffeeSellView = () => {
               innerButtonText="AGREGAR VENTA DE CAFÉ"
               innerDialogText="Agregar Datos de Venta de Café"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR VENTA DE CAFÉ CON CÓDIGO QR"
               dialogTitle="Agregar Venta de Café con Código QR"
               Form={CoffeeSellForm}

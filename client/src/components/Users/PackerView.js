@@ -41,7 +41,7 @@ const PackerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="https://img.etimg.com/thumb/msid-90989042,width-1015,height-761,imgsize-100362,resizemode-8,quality-100/prime/economy-and-policy/indias-packaging-industry-is-unboxing-double-digit-growth-key-protagonists-e-commerce-and-you-.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -51,7 +51,8 @@ const PackerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="https://www.moritaec.com/wp-content/uploads/2020/03/cafe-de-especialidad-0010-600x600.jpg"
+              // image="/static/images/coffee-oack.webp"
               buttonText="AGREGAR EMPACADO"
               dialogTitle="Agregar Datos de Empacado"
               Form={PackerForm}
@@ -64,7 +65,7 @@ const PackerView = () => {
               innerButtonText="AGREGAR EMPACADO"
               innerDialogText="Agregar Datos de Empacado"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR EMPACADO CON CÓDIGO QR"
               dialogTitle="Agregar Empacado de Lote de Café con Código QR"
               Form={PackerForm}

@@ -41,7 +41,7 @@ const ShipToRetailerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="https://dmn-dallas-news-prod.cdn.arcpublishing.com/resizer/kQhtTFpDFALCI8rYMh37iHEvtxA=/1660x934/smart/filters:no_upscale()/arc-anglerfish-arc2-prod-dmn.s3.amazonaws.com/public/TEJWOTM3PJAHDA7RMD4AHB2CXE.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -51,7 +51,7 @@ const ShipToRetailerView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="https://www.elcolombiano.com/documents/10157/0/848x565/34c0/780d565/none/11101/AMCA/image_content_35565390_20200416122023.jpg"
               buttonText="AGREGAR TRANSPORTE"
               dialogTitle="Agregar Datos de Transporte"
               Form={ShipRetailerForm}
@@ -64,7 +64,7 @@ const ShipToRetailerView = () => {
               innerButtonText="AGREGAR TRANSPORTE"
               innerDialogText="Agregar Datos de Transporte"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR TRANSPORTE CON CÓDIGO QR"
               dialogTitle="Agregar Transporte de Lote de Café con Código QR"
               Form={ShipRetailerForm}
