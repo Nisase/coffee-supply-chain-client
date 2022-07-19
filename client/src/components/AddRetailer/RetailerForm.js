@@ -64,7 +64,7 @@ const initialValues = {
   toSalepointShippingPrice: '',
   retailerPricePerKilo: '',
 };
-
+const digitsRegex = /^[\d.]+$/;
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
     .required('Obligatorio')
@@ -77,9 +77,13 @@ const valSchema = Yup.object().shape({
   warehouseRetailerAddress: Yup.string().required('Obligatorio'),
   salepointRetailerAddress: Yup.string().required('Obligatorio'),
   toSalepointTransportType: Yup.string().required('Obligatorio'),
-  toSalepointShippingPrice: Yup.string().required('Obligatorio'),
+  toSalepointShippingPrice: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
-  retailerPricePerKilo: Yup.string().required('Obligatorio'),
+  retailerPricePerKilo: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 

@@ -322,7 +322,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         open={isOpenSidebar}
         onClose={onCloseSidebar}
         PaperProps={{
-          sx: { width: DRAWER_WIDTH },
+          sx: { width: DRAWER_WIDTH, backgroundColor: '#042A2B', borderRightStyle: 'dashed' },
         }}
       >
         {renderContent}

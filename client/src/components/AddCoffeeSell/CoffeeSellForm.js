@@ -16,13 +16,15 @@ const initialValues = {
   batchNo: '',
   beanPricePerKilo: '',
 };
-
+const digitsRegex = /^[\d.]+$/;
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  beanPricePerKilo: Yup.string().required('Obligatorio'),
+  beanPricePerKilo: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
 });
 
 const CoffeeSellForm = (props) => {

@@ -27,6 +27,8 @@ const initialValues = {
   batchWeight: '',
 };
 
+const digitsRegex = /^[\d.]+$/;
+
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
     .required('Obligatorio')
@@ -37,8 +39,12 @@ const valSchema = Yup.object().shape({
   coffeeFamily: Yup.string().required('Obligatorio'),
   fertilizerUsed: Yup.string().required('Obligatorio'),
   harvestDate: Yup.date().required('Obligatorio'),
-  humidityPercentage: Yup.string().required('Obligatorio'),
-  batchWeight: Yup.string().required('Obligatorio'),
+  humidityPercentage: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
+  batchWeight: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
 });
 
 const HarvestForm = (props) => {

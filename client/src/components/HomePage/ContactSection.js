@@ -62,54 +62,68 @@ const ContactSection = () => {
             points: 5,
           }}
         />
-          <div>
-            <Formik
-              innerRef={formValues}
-              initialValues={initialValues}
-              validationSchema={valSchema}
-              onSubmit={(values, { resetForm }) => {
-                localHandleSubmit(values, { resetForm });
-              }}
-            >
-              {({ dirty, isValid }) => (
-                <Form className="contact-form bg-slate-300 p-10 my-5 rounded-2xl">
-                  <div className='grid gap-5'>
-                    <div>
+        <div>
+          <Formik
+            innerRef={formValues}
+            initialValues={initialValues}
+            validationSchema={valSchema}
+            onSubmit={(values, { resetForm }) => {
+              localHandleSubmit(values, { resetForm });
+            }}
+          >
+            {/* bg-slate-300 */}
+            {({ dirty, isValid }) => (
+              <Form className="contact-form  p-5 my-14 rounded-2xl">
+                <div className="grid gap-5">
+                  <div>
                     <Typography
-                        className="mb-5 font-semibold  underline-offset-2 "
-                        color="black"
-                        sx={{ textAlign: 'center', fontSize: '2rem' }}
-                      >
-                        Contáctanos!
-                      </Typography>
-                    </div>
-                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-0 lg:gap-x-5'>
-                      <div><TextfieldWrapper className="mb-5 lg:mb-0" name="userFirstname" label="Nombre"/></div>
-                      <div><TextfieldWrapper className="" name="userLastname" label="Apellido"/></div>
-                    </div>
-                    <div><TextfieldWrapper className="" name="userEmail" label="Correo electrónico"/></div>
-                    <div><TextfieldWrapper className="lg:mb-5" name="userMessage" label="Ingresa tu Mensaje" multiline/></div>
-                    <div><Typography className="submitted">{submitted}</Typography></div>
-                    <div>
-                      <Button
-                          fullWidth
-                          className="font-bold"
-                          id="action-btn"
-                          variant="outlined"
-                          disabled={!dirty || !isValid}
-                          type="submit"
-                        >
-                          {' '}
-                          PONERSE EN CONTACTO
-                      </Button>
-                    </div>
-
+                      className="mb-2 mt-2 font-semibold  underline-offset-2 "
+                      color="white"
+                      sx={{ textAlign: 'center', fontSize: '2rem' }}
+                    >
+                      Contáctanos!
+                    </Typography>
                   </div>
-                  
-                </Form>
-              )}
-            </Formik>
-          </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-0 lg:gap-x-5">
+                    <div>
+                      <TextfieldWrapper className="mb-5 lg:mb-0 form-input" name="userFirstname" label="Nombre" />
+                    </div>
+                    <div>
+                      <TextfieldWrapper className="form-input" name="userLastname" label="Apellido" />
+                    </div>
+                  </div>
+                  <div>
+                    <TextfieldWrapper className="form-input" name="userEmail" label="Correo electrónico" />
+                  </div>
+                  <div>
+                    <TextfieldWrapper
+                      className="lg:mb-1 form-input"
+                      name="userMessage"
+                      label="Ingresa tu Mensaje"
+                      multiline
+                    />
+                  </div>
+                  <div>
+                    <Typography className="submitted">{submitted}</Typography>
+                  </div>
+                  <div>
+                    <Button
+                      fullWidth
+                      className="font-bold"
+                      id="action-btn"
+                      variant="outlined"
+                      disabled={!dirty || !isValid}
+                      type="submit"
+                    >
+                      {' '}
+                      PONERSE EN CONTACTO
+                    </Button>
+                  </div>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </Box>
     </div>
   );
