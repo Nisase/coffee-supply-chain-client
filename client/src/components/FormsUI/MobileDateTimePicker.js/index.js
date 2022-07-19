@@ -12,6 +12,7 @@ const DateTimePickerMobile = ({ name, label, ...otherProps }) => {
 
   const minDate = new Date();
   const maxDate = new Date();
+  minDate.setDate(minDate.getDate() - 30);
   maxDate.setDate(maxDate.getDate() + 90);
 
   const configDatePicker = {
@@ -39,9 +40,9 @@ const DateTimePickerMobile = ({ name, label, ...otherProps }) => {
   }
 
   const iterate = (vals) => {
-    console.log('aquiiiii');
-    console.log('type: ', typeof vals);
-    console.log('val: ', vals);
+    // console.log('aquiiiii');
+    // console.log('type: ', typeof vals);
+    // console.log('val: ', vals);
     // Object.keys(vals).map((val) => console.log('aqui', val));
     // Object.entries(vals).forEach((val) => {
     //   console.log(val);

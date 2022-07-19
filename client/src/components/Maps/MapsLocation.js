@@ -67,10 +67,11 @@ const MapsLocation = ({ svg }) => {
     });
   }, []);
 
-  useEffect(()=>{console.log('location')
-  console.log(location)
-  console.log(markers)
-}, [location, markers])
+  useEffect(() => {
+    console.log('location');
+    console.log(location);
+    console.log(markers);
+  }, [location, markers]);
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -113,12 +114,12 @@ const MapsLocation = ({ svg }) => {
             setSelected(markers);
             setSelectedLoc(location);
           }}
-          /* icon={{
+          icon={{
             url: svg,
             origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(10, 10),
-            scaledSize: new window.google.maps.Size(60, 60),
-          }} */
+            anchor: new window.google.maps.Point(5, 5),
+            scaledSize: new window.google.maps.Size(40, 40),
+          }}
         />
 
         {selected && selectedLoc ? (
@@ -144,6 +145,7 @@ function Locate({ panTo, setMarker, setLocation }) {
   const { enqueueSnackbar } = useSnackbar();
   return (
     <IconButton
+      sx={{ borderRadius: '2px' }}
       aria-label="compass"
       onClick={() => {
         if (!navigator.geolocation) {
@@ -185,8 +187,10 @@ function Locate({ panTo, setMarker, setLocation }) {
         }
       }}
     >
-      <ExploreIcon />
-      <Typography variant="body2">Ubicación Actual</Typography>
+      <ExploreIcon sx={{ color: '#ff2f00', marginRight: '5px' }} />
+      <Typography variant="body2" sx={{ color: '#ff2f00', fontWeight: 700 }}>
+        Ubicación Actual
+      </Typography>
     </IconButton>
   );
 }
@@ -264,13 +268,14 @@ function SendLocation({ marker, location }) {
     <>
       <Button
         variant="contained"
+        className="inner-map-btn"
         color="secondary"
         size="small"
-        disabled={!marker.lat } // || location===''}
+        disabled={!marker.lat} // || location===''}
         sx={{
           // transform: 'translateY(1130%);'
           bottom: '-92%',
-          left: '-11%',
+          left: '-14%',
           boxShadow: 2,
         }}
         onClick={sendLoc}

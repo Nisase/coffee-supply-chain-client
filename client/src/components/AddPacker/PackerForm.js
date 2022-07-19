@@ -189,7 +189,7 @@ const PackerForm = (props) => {
                         item
                         xs={12}
                         sx={{
-                          marginBottom: 2,
+                          marginBottom: 0,
                           marginLeft: 0,
                           paddingLeft: 0,
                         }}
@@ -204,9 +204,10 @@ const PackerForm = (props) => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={6} sx={{ marginBottom: 3 }}>
+                      <Grid item xs={6} sx={{ marginBottom: 0 }}>
                         <Button
                           size="small"
+                          className="map-btn"
                           color="secondary"
                           // color="comp5"
                           variant="contained"
@@ -225,7 +226,7 @@ const PackerForm = (props) => {
                             Ubica el marcador en la dirección deseada
                           </BootstrapDialogTitle>
                           <DialogContent dividers>
-                            <MapsLocation svg="/static/illustrations/Farm.svg" />
+                            <MapsLocation svg="/static/icons/marker2.png" />
                           </DialogContent>
                         </BootstrapDialog>
                       </Grid>
@@ -240,26 +241,22 @@ const PackerForm = (props) => {
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <DateTimePickerMobile name="packerArrivalDate" label="Fecha de Llegada al Empacador" />
                         {/* <DateTimePicker name="packerArrivalDate" label="Fecha de Llegada al Empacador" /> */}
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <DateTimePickerMobile name="packingDate" label="Fecha de Empacado" />
                         {/* <DateTimePicker name="packingDate" label="Fecha de Empacado" /> */}
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="packingPricePerKilo" label="Precio de Empacado por Kilo [$]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -269,6 +266,18 @@ const PackerForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

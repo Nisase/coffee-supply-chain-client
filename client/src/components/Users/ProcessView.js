@@ -41,7 +41,8 @@ const ProcessView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              // image="https://cafealtura.com/wp-content/uploads/2015/07/Finca-Pastoral2.jpg.webp"
+              image="/static/images/proc3.png"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -51,7 +52,7 @@ const ProcessView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Lotes de Café"
-              image="/static/images/lote1.jpg"
+              image="https://ictcoffee.com/wp-content/uploads/2018/11/coffee_processing.jpg.webp"
               buttonText="AGREGAR PROCESADO"
               dialogTitle="Agregar Datos de Procesamiento"
               Form={ProcessForm}
@@ -64,7 +65,9 @@ const ProcessView = () => {
               innerButtonText="AGREGAR PROCESADO"
               innerDialogText="Agregar Datos de Procesamiento"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
+              // image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/QR_code_for_mobile_English_Wikipedia.svg/444px-QR_code_for_mobile_English_Wikipedia.svg.png"
+              // image="/static/images/lote1.jpg"
               buttonText="AGREGAR PROCESADO CON CÓDIGO QR"
               dialogTitle="Agregar Procesamiento de Lote de Café con Código QR"
               Form={ProcessForm}

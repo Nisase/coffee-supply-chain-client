@@ -22,10 +22,7 @@ const MenuProps = {
 
 function getStyles(item, items, theme) {
   return {
-    fontWeight:
-      items.indexOf(item) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
+    fontWeight: items.indexOf(item) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
   };
 }
 
@@ -37,14 +34,11 @@ export default function MultipleSelectChip({ name, label, options, ...otherProps
   const [items, setItems] = React.useState([]);
 
   const handleChange = (event) => {
-
     const {
       target: { value },
     } = event;
     setFieldValue(name, typeof value === 'string' ? value.split(',') : value);
-    setItems(
-      typeof value === 'string' ? value.split(',') : value,
-    );
+    setItems(typeof value === 'string' ? value.split(',') : value);
   };
 
   const configSelect = {
@@ -57,15 +51,15 @@ export default function MultipleSelectChip({ name, label, options, ...otherProps
   if (meta && meta.touched && meta.error) {
     configSelect.error = true;
     configSelect.helperText = meta.error;
-  }  
+  }
 
   return (
     <div>
-      <FormControl sx={{ m: 0, width: 300 }}>
+      <FormControl sx={{ m: 0, minWidth: '200px' }}>
         <InputLabel id="multiple-chip-label">{label}</InputLabel>
         <Select
           labelId="multiple-chip-label"
-          id="multiple-chip"          
+          id="multiple-chip"
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -75,15 +69,10 @@ export default function MultipleSelectChip({ name, label, options, ...otherProps
             </Box>
           )}
           MenuProps={MenuProps}
-
           {...configSelect}
         >
           {options.map((item) => (
-            <MenuItem
-              key={item.key}
-              value={item.key}
-              style={getStyles(item.key, items, theme)}
-            >
+            <MenuItem key={item.key} value={item.key} style={getStyles(item.key, items, theme)}>
               {item.value}
             </MenuItem>
           ))}

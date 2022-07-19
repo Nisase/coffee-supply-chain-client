@@ -123,6 +123,7 @@ export default function AppWidgetCoffee({
         py: 0,
         boxShadow: 2,
         color: (theme) => theme.palette[color].darker,
+        borderRadius: '4%',
         // textAlign: 'center',
         // bgcolor: (theme) => theme.palette[color].lighter,
         // background: (theme) =>
@@ -140,8 +141,9 @@ export default function AppWidgetCoffee({
           startIcon={<AddCircleOutlineIcon />}
           size="small"
           onClick={handleClickOpen}
+          className="widget"
           sx={{
-            color: (theme) => theme.palette.error.darker,
+            color: (theme) => theme.palette.secondary.dark2,
           }}
         >
           {buttonText}

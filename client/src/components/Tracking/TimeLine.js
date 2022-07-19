@@ -34,7 +34,6 @@ import getOwnerInfura from '../../logic/GetOwnerInfura';
 import '../../App.css';
 
 const TimeLine = ({ batchNo }) => {
-
   const [batchNoIn, setBatchNoIn] = useState(batchNo);
   const navigate = useNavigate();
   const [message, setMessage] = useState('Loading..');
@@ -77,16 +76,15 @@ const TimeLine = ({ batchNo }) => {
 
   useEffect(() => {
     const getPaticipants = async () => {
-      
       const nextActionLocal = await AskNextActionInfura({ batchNo: batchNoIn });
-      
+
       if (nextActionLocal && nextActionLocal.data !== 'DONE') {
         setTxMessage('No disponible');
-        navigate(`/dashboard?batch=${batchNoIn}`)
+        navigate(`/dashboard?batch=${batchNoIn}`);
         return;
       }
-      
-      const farmTx = await getFarmTx(batchNoIn)
+
+      const farmTx = await getFarmTx(batchNoIn);
       const harvestTx = await getHarvestTx(batchNoIn);
       const processTx = await getProcessTx(batchNoIn);
       const tasteTx = await getTasteTx(batchNoIn);
@@ -96,7 +94,6 @@ const TimeLine = ({ batchNo }) => {
       const packerTx = await getPackerTx(batchNoIn);
       const shipRetailerTx = await getShipRetailerTx(batchNoIn);
       const retailerTx = await getRetailerTx(batchNoIn);
-      
 
       setFarmTx(farmTx);
       setHarvestTx(harvestTx);
@@ -119,7 +116,7 @@ const TimeLine = ({ batchNo }) => {
       setUserPacker(await getUserInfura(packerTx ? packerTx[0] : null));
       setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
       setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
-      setTxMessage('No disponible')
+      setTxMessage('No disponible');
     };
 
     getPaticipants();
@@ -130,7 +127,7 @@ const TimeLine = ({ batchNo }) => {
       nextAction = await AskNextActionInfura({ batchNo: batchNoIn });
       console.log('GET DATA INFURA');
       console.log(nextAction);
-      
+
       if (nextAction && nextAction.data !== 'DONE') {
         console.log('NO DONE');
         setMessage('No disponible');
@@ -147,7 +144,7 @@ const TimeLine = ({ batchNo }) => {
       setPackerData(await AskPacker({ batchNo: batchNoIn }));
       setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
       setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
-      setMessage('No disponible')
+      setMessage('No disponible');
     };
     getDataInfura();
   }, []);
@@ -186,30 +183,32 @@ const TimeLine = ({ batchNo }) => {
         <PhaseCard
           title={'Datos de la Granja'}
           className={'bg-green-100'}
-          icon={'cosecha.png'}
+          icon={'farm3.png'}
           date={farmTx ? unixToYMD(farmTx[2]) : txMessage}
           url={farmTx ? `https://rinkeby.etherscan.io/tx/${farmTx[1]}` : null}
-          verificate = {farmData.data != null}
+          verificate={farmData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-              { userAdmin ? 
-              <>
-              <div>Administrador</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${userAdmin}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(userAdmin).slice(0, 8).concat('...').concat(String(userAdmin).slice(-8))}
-              </a>
-              <a target="_blank" href="mailto:coffeetrackec@gmail.com" rel="noreferrer" className="mail-track">
-                coffeetrackec@gmail.com
-              </a></> : 
-              <p>{txMessage}</p>
-              }
+              {userAdmin ? (
+                <>
+                  <div>Administrador</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${userAdmin}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(userAdmin).slice(0, 8).concat('...').concat(String(userAdmin).slice(-8))}
+                  </a>
+                  <a target="_blank" href="mailto:coffeetrackec@gmail.com" rel="noreferrer" className="mail-track">
+                    coffeetrackec@gmail.com
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Nombre</div>
@@ -236,26 +235,30 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-green-100'}
           icon={'cosecha.png'}
           date={harvestTx ? unixToYMD(harvestTx[2]) : txMessage}
-          url={harvestTx ? `https://rinkeby.etherscan.io/tx/${harvestTx[1]}`: null}
-          verificate = {harverstData.data != null}
+          url={harvestTx ? `https://rinkeby.etherscan.io/tx/${harvestTx[1]}` : null}
+          verificate={harverstData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
-              { harvestTx ? <>
+              {harvestTx ? (
+                <>
                   <div>{userHarvest.name ? `${userHarvest.name}` : message}</div>
-                <a
-                  href={`https://rinkeby.etherscan.io/address/${harvestTx[0]}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="user-link"
-                >
-                  {String(harvestTx[0]).slice(0, 8).concat('...').concat(String(harvestTx[0]).slice(-8))}
-                </a>
-                <a target="_blank" href={`mailto:${userHarvest.email}`} rel="noreferrer" className="mail-track ">
-                  {userHarvest.email ? userHarvest.email : message}
-                </a>
-              </>: <p>{txMessage}</p>}
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${harvestTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(harvestTx[0]).slice(0, 8).concat('...').concat(String(harvestTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userHarvest.email}`} rel="noreferrer" className="mail-track ">
+                    {userHarvest.email ? userHarvest.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Proveedor de Semilla</div>
@@ -293,8 +296,8 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-red-100'}
           icon={'proccess.png'}
           date={processTx ? unixToYMD(processTx[2]) : txMessage}
-          url={processTx ? `https://rinkeby.etherscan.io/tx/${processTx[1]}`: null}
-          verificate = {processData.data != null}
+          url={processTx ? `https://rinkeby.etherscan.io/tx/${processTx[1]}` : null}
+          verificate={processData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="bg-gray-100 rounded-lg">
@@ -306,21 +309,25 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold ">Información del Editor: </div>
-              { processTx ? <>
-              <div>{userProcess.name && processTx[0] ? `${userProcess.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${processTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(processTx[0]).slice(0, 8).concat('...').concat(String(processTx[0]).slice(-8))}
-              </a>
+              {processTx ? (
+                <>
+                  <div>{userProcess.name && processTx[0] ? `${userProcess.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${processTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(processTx[0]).slice(0, 8).concat('...').concat(String(processTx[0]).slice(-8))}
+                  </a>
 
-              <a target="_blank" href={`mailto:${userProcess.email}`} rel="noreferrer" className="mail-track ">
-                {userProcess.email ? userProcess.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+                  <a target="_blank" href={`mailto:${userProcess.email}`} rel="noreferrer" className="mail-track ">
+                    {userProcess.email ? userProcess.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
@@ -335,7 +342,7 @@ const TimeLine = ({ batchNo }) => {
               {processData.data ? `${parseFloat(processData.data.humidityAfterDrying)} [%]` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Temp. de Tostado</div>
+              <div className="mt-5 mb-1 font-semibold">Temperatura de Tostado</div>
               {processData.data ? `${parseFloat(processData.data.tempTypeRoast[0])} [ºC]` : message}
             </div>{' '}
             <div className="flex flex-col">
@@ -366,26 +373,30 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'inspeccion.png'}
           date={tasteTx ? unixToYMD(tasteTx[2]) : message}
-          url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}`: txMessage}
-          verificate = {tasteData.data != null}
-          >
+          url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}` : txMessage}
+          verificate={tasteData.data != null}
+        >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-              { tasteTx ? <>
-              <div>{userTaste.name && tasteTx[0] ? `${userTaste.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${tasteTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(tasteTx[0]).slice(0, 8).concat('...').concat(String(tasteTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userTaste.email}`} rel="noreferrer" className="mail-track">
-                {userTaste.email ? userTaste.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+              {tasteTx ? (
+                <>
+                  <div>{userTaste.name && tasteTx[0] ? `${userTaste.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${tasteTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(tasteTx[0]).slice(0, 8).concat('...').concat(String(tasteTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userTaste.email}`} rel="noreferrer" className="mail-track">
+                    {userTaste.email ? userTaste.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Puntaje de Catación</div>
@@ -401,30 +412,34 @@ const TimeLine = ({ batchNo }) => {
         <PhaseCard
           title={'Venta del Grano'}
           className={'bg-blue-200'}
-          icon={'inspeccion.png'}
+          icon={'sell1.png'}
           date={sellTx ? unixToYMD(sellTx[2]) : txMessage}
           url={sellTx ? `https://rinkeby.etherscan.io/tx/${sellTx[1]}` : null}
-          verificate = {sellData.data != null}
+          verificate={sellData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="flex flex-col">
                 <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-                { sellTx ? <>
-                <div>{userSell.name && sellTx[0] ? `${userSell.name}` : message}</div>
-                <a
-                  href={`https://rinkeby.etherscan.io/address/${sellTx[0]}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="user-link"
-                >
-                  {/* Cuenta:  */}
-                  {String(sellTx[0]).slice(0, 8).concat('...').concat(String(sellTx[0]).slice(-8))}
-                </a>
-                <a target="_blank" href={`mailto:${userSell.email}`} rel="noreferrer" className="mail-track ">
-                  {userSell.email ? userSell.email : message}
-                </a>
-                </>: <p>{txMessage}</p>}
+                {sellTx ? (
+                  <>
+                    <div>{userSell.name && sellTx[0] ? `${userSell.name}` : message}</div>
+                    <a
+                      href={`https://rinkeby.etherscan.io/address/${sellTx[0]}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="user-link"
+                    >
+                      {/* Cuenta:  */}
+                      {String(sellTx[0]).slice(0, 8).concat('...').concat(String(sellTx[0]).slice(-8))}
+                    </a>
+                    <a target="_blank" href={`mailto:${userSell.email}`} rel="noreferrer" className="mail-track ">
+                      {userSell.email ? userSell.email : message}
+                    </a>
+                  </>
+                ) : (
+                  <p>{txMessage}</p>
+                )}
               </div>
               <div className="mt-5 mb-1 font-semibold">Precio del Grano por Kilo</div>
               {sellData.data ? `${parsePrice(sellData.data)}` : message}
@@ -438,25 +453,29 @@ const TimeLine = ({ batchNo }) => {
           icon={'aglomerado.png'}
           date={warehouseTx ? unixToYMD(warehouseTx[2]) : txMessage}
           url={warehouseTx ? `https://rinkeby.etherscan.io/tx/${warehouseTx[1]}` : null}
-          verificate = {warehouseData.data != null}
+          verificate={warehouseData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-              { warehouseTx ? <>
-              <div>{userWarehouse.name && warehouseTx[0] ? `${userWarehouse.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${warehouseTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(warehouseTx[0]).slice(0, 8).concat('...').concat(String(warehouseTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userWarehouse.email}`} rel="noreferrer" className="mail-track ">
-                {userWarehouse.email ? userWarehouse.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+              {warehouseTx ? (
+                <>
+                  <div>{userWarehouse.name && warehouseTx[0] ? `${userWarehouse.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${warehouseTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(warehouseTx[0]).slice(0, 8).concat('...').concat(String(warehouseTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userWarehouse.email}`} rel="noreferrer" className="mail-track ">
+                    {userWarehouse.email ? userWarehouse.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
@@ -479,25 +498,29 @@ const TimeLine = ({ batchNo }) => {
           icon={'transporte.png'}
           date={shipPackerTx ? unixToYMD(shipPackerTx[2]) : txMessage}
           url={shipPackerTx ? `https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}` : null}
-          verificate = {shipPackerData.data != null}
+          verificate={shipPackerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-              { shipPackerTx ? <>
-              <div>{userShipPacker.name && shipPackerTx[0] ? `${userShipPacker.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${shipPackerTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(shipPackerTx[0]).slice(0, 8).concat('...').concat(String(shipPackerTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userShipPacker.email}`} rel="noreferrer" className="mail-track">
-                {userShipPacker.email ? userShipPacker.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+              {shipPackerTx ? (
+                <>
+                  <div>{userShipPacker.name && shipPackerTx[0] ? `${userShipPacker.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${shipPackerTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(shipPackerTx[0]).slice(0, 8).concat('...').concat(String(shipPackerTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userShipPacker.email}`} rel="noreferrer" className="mail-track">
+                    {userShipPacker.email ? userShipPacker.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
@@ -524,40 +547,44 @@ const TimeLine = ({ batchNo }) => {
           icon={'empacado.png'}
           date={packerTx ? unixToYMD(packerTx[2]) : txMessage}
           url={packerTx ? `https://rinkeby.etherscan.io/tx/${packerTx[1]}` : null}
-          verificate = {packerData.data != null}
+          verificate={packerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-              { packerTx ? <>
-              <div>{userPacker.name && packerTx[0] ? `${userPacker.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${packerTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(packerTx[0]).slice(0, 8).concat('...').concat(String(packerTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userPacker.email}`} rel="noreferrer" className="mail-track">
-                {userPacker.email ? userPacker.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+              {packerTx ? (
+                <>
+                  <div>{userPacker.name && packerTx[0] ? `${userPacker.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${packerTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(packerTx[0]).slice(0, 8).concat('...').concat(String(packerTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userPacker.email}`} rel="noreferrer" className="mail-track">
+                    {userPacker.email ? userPacker.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
               {packerData.data ? packerData.data.packerAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de llegada</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada</div>
               {packerData.data ? dateToYMD2(new Date(packerData.data.packerArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora empacado</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora Empacado</div>
               {packerData.data ? dateToYMD2(new Date(packerData.data.packingDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de empacado por Kilo</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de Empacado por Kilo</div>
               {packerData.data ? `${parsePrice(packerData.data.packingPricePerKilo)}` : message}
             </div>
           </div>
@@ -569,25 +596,29 @@ const TimeLine = ({ batchNo }) => {
           icon={'transporte.png'}
           date={shipRetailerTx ? unixToYMD(shipRetailerTx[2]) : txMessage}
           url={shipRetailerTx ? `https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}` : null}
-          verificate = {shipRetailerData.data != null}
+          verificate={shipRetailerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
-              { shipRetailerTx ? <>
-              <div>{userShipRetailer.name && shipRetailerTx[0] ? `${userShipRetailer.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${shipRetailerTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(shipRetailerTx[0]).slice(0, 8).concat('...').concat(String(shipRetailerTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userShipRetailer.email}`} rel="noreferrer" className="mail-track ">
-                {userShipRetailer.email ? userShipRetailer.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+              {shipRetailerTx ? (
+                <>
+                  <div>{userShipRetailer.name && shipRetailerTx[0] ? `${userShipRetailer.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${shipRetailerTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(shipRetailerTx[0]).slice(0, 8).concat('...').concat(String(shipRetailerTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userShipRetailer.email}`} rel="noreferrer" className="mail-track ">
+                    {userShipRetailer.email ? userShipRetailer.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
@@ -614,25 +645,29 @@ const TimeLine = ({ batchNo }) => {
           icon={'retailer.png'}
           date={retailerTx ? unixToYMD(retailerTx[2]) : txMessage}
           url={retailerTx ? `https://rinkeby.etherscan.io/tx/${retailerTx[1]}` : null}
-          verificate = {retailerData.data != null}
+          verificate={retailerData.data != null}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
-              { retailerTx ? <>
-              <div>{userRetailer.name && retailerTx[0] ? `${userRetailer.name}` : message}</div>
-              <a
-                href={`https://rinkeby.etherscan.io/address/${retailerTx[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="user-link"
-              >
-                {String(retailerTx[0]).slice(0, 8).concat('...').concat(String(retailerTx[0]).slice(-8))}
-              </a>
-              <a target="_blank" href={`mailto:${userRetailer.email}`} rel="noreferrer" className="mail-track">
-                {userRetailer.email ? userRetailer.email : message}
-              </a>
-              </>: <p>{txMessage}</p>}
+              {retailerTx ? (
+                <>
+                  <div>{userRetailer.name && retailerTx[0] ? `${userRetailer.name}` : message}</div>
+                  <a
+                    href={`https://rinkeby.etherscan.io/address/${retailerTx[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="user-link"
+                  >
+                    {String(retailerTx[0]).slice(0, 8).concat('...').concat(String(retailerTx[0]).slice(-8))}
+                  </a>
+                  <a target="_blank" href={`mailto:${userRetailer.email}`} rel="noreferrer" className="mail-track">
+                    {userRetailer.email ? userRetailer.email : message}
+                  </a>
+                </>
+              ) : (
+                <p>{txMessage}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Almacén</div>

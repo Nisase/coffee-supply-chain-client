@@ -100,32 +100,25 @@ const ShipRetailerForm = (props) => {
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <SelectWrapper
                           name="toRetailerTransportType"
                           label="Tipo de Transporte"
                           options={transportTypeR}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         {/* <DateTimePicker name="packerPickupDate" label="Fecha Recogida en Empacador" /> */}
-                        <DateTimePickerMobile
-                          name="packerPickupDateTime"
-                          label="Fecha y Hora de Recogida en Empacador"
-                        />
+                        <DateTimePickerMobile name="packerPickupDateTime" label="Fecha y Hora de Recogida" />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="toReatilerShippingPrice" label="Precio del Transporte [$]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -135,6 +128,18 @@ const ShipRetailerForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

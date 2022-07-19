@@ -41,7 +41,7 @@ const WarehouseView = () => {
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetCoffee
               title="Perfil"
-              image="/static/images/farmer2.jpg"
+              image="https://www.agriculturayganaderia.com/website/wp-content/uploads/2020/12/wsi-imageoptim-1-cafe-cafe-2-640x426.jpg"
               buttonText="ACTUALIZAR PERFIL"
               dialogTitle="Editar Datos de Perfil"
               Form={UpdateUserForm}
@@ -64,7 +64,7 @@ const WarehouseView = () => {
               innerButtonText="AGREGAR BODEGAJE"
               innerDialogText="Agregar Datos de Bodegaje"
               altImg="Lector QR"
-              image="/static/images/lote1.jpg"
+              image="/static/images/qr-code.png"
               buttonText="AGREGAR BODEGAJE CON CÓDIGO QR"
               dialogTitle="Agregar Bodegaje de Lote de Café con Código QR"
               Form={WarehouseForm}

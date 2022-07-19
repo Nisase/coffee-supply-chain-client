@@ -239,27 +239,11 @@ const RetailerForm = (props) => {
                           <TextfieldWrapper name="batchNo" label="No. Lote" />
                         </Grid>
                       )}
-
-                      <Grid item xs={6}>
-                        <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" />
-                        {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" /> */}
-                      </Grid>
-                      <Grid item xs={6}>
-                        <DateTimePickerMobile name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" />
-                        {/* <DateTimePicker name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" /> */}
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="warehouseRetailerName" label="Nombre del Almacén" />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextfieldWrapper name="salepointRetailerName" label="Nombre del Punto de Venta" />
-                      </Grid>
-
                       <Grid
                         item
                         xs={12}
                         sx={{
-                          marginBottom: 2,
+                          marginBottom: 0,
                           marginLeft: 0,
                           paddingLeft: 0,
                         }}
@@ -270,16 +254,16 @@ const RetailerForm = (props) => {
                             color: 'grey.600',
                           }}
                         >
-                          Ubicación del Almacén y del Punto de Venta
+                          Ubicación del Almacén
                         </Typography>
                       </Grid>
-
-                      <Grid item xs={6} sx={{ marginBottom: 3 }}>
+                      <Grid item xs={12} sx={{ marginBottom: 0 }}>
                         <Button
                           size="small"
                           color="secondary"
                           // color="comp5"
                           variant="contained"
+                          className="map-btn"
                           startIcon={<AddLocationAltIcon />}
                           onClick={handleClickOpenMap}
                           sx={{ boxShadow: 2 }}
@@ -295,11 +279,10 @@ const RetailerForm = (props) => {
                             Ubica el marcador en la dirección deseada
                           </BootstrapDialogTitle>
                           <DialogContent dividers>
-                            <MapsLocation svg="/static/illustrations/Farm.svg" />
+                            <MapsLocation svg="/static/icons/marker2.png" />
                           </DialogContent>
                         </BootstrapDialog>
                       </Grid>
-
                       {locReadyToAddData ? (
                         <Grid item xs={12}>
                           <TextfieldWrapper name="warehouseRetailerAddress" label="Dirección del Almacén" disabled />
@@ -308,12 +291,37 @@ const RetailerForm = (props) => {
                         <Grid item xs={12}>
                           <TextfieldWrapper name="warehouseRetailerAddress" label="Dirección del Almacén" />
                         </Grid>
-                      )}
-
-                      <Grid item xs={6} sx={{ marginBottom: 3 }}>
+                      )}{' '}
+                      <Grid item xs={12}>
+                        <TextfieldWrapper name="warehouseRetailerName" label="Nombre del Almacén" />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" />
+                        {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" /> */}
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sx={{
+                          marginBottom: 0,
+                          marginLeft: 0,
+                          paddingLeft: 0,
+                        }}
+                      >
+                        <Typography
+                          variant="subtitle2"
+                          sx={{
+                            color: 'grey.600',
+                          }}
+                        >
+                          Ubicación del Punto de Venta
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sx={{ marginBottom: 0 }}>
                         <Button
                           size="small"
                           color="secondary"
+                          className="map-btn"
                           // color="comp5"
                           variant="contained"
                           startIcon={<AddLocationAltIcon />}
@@ -331,11 +339,10 @@ const RetailerForm = (props) => {
                             Ubica el marcador en la dirección deseada
                           </BootstrapDialogTitle>
                           <DialogContent dividers>
-                            <MapsLocationSec svg="/static/illustrations/Farm.svg" />
+                            <MapsLocationSec svg="/static/icons/marker2.png" />
                           </DialogContent>
                         </BootstrapDialog>
                       </Grid>
-
                       {locReadyToAddDataSec ? (
                         <Grid item xs={12}>
                           <TextfieldWrapper
@@ -349,35 +356,36 @@ const RetailerForm = (props) => {
                           <TextfieldWrapper name="salepointRetailerAddress" label="Dirección del Punto de Venta" />
                         </Grid>
                       )}
-
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
+                        <TextfieldWrapper name="salepointRetailerName" label="Nombre del Punto de Venta" />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <DateTimePickerMobile name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" />
+                        {/* <DateTimePicker name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" /> */}
+                      </Grid>
+                      <Grid item xs={12}>
                         <SelectWrapper
                           name="toSalepointTransportType"
                           label="Tipo de Transporte"
                           options={transportTypeP}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper
                           name="toSalepointShippingPrice"
                           label="Precio de Transporte del Almacén al Punto de Venta [$]"
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper
                           name="retailerPricePerKilo"
                           label="Precio por Kilo del Producto en el Retailer [$]"
                         />
                       </Grid>
                       <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
-                      <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -387,6 +395,18 @@ const RetailerForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

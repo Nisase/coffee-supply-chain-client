@@ -120,10 +120,10 @@ const UpdateUserForm = () => {
                         />
                       </Grid>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sx={{ marginTop: 2 }}>
                       <TextfieldWrapper name="name" label="Nombre" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
                     {/* <Grid item xs={6}>
@@ -131,7 +131,9 @@ const UpdateUserForm = () => {
                       </Grid> */}
                     <Grid item xs={12} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
-                        <FormLabel component="legend">Cargar imagen de perfil</FormLabel>
+                        <FormLabel component="legend" sx={{ paddingBottom: '3px', paddingTop: 0 }}>
+                          Cargar imagen de perfil
+                        </FormLabel>
                         <input
                           className="mt-2 text-sm"
                           name="profileHash"
@@ -151,18 +153,14 @@ const UpdateUserForm = () => {
                         ) : null}
                       </div>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <CheckboxWrapper name="isActive" legend="Estado" label="Usuario Activo" />
                     </Grid>
-                    <Grid item xs={6}>
-                      <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                        {' '}
-                        ACTUALIZAR USUARIO
-                      </Button>
-                    </Grid>
+
                     <Grid item xs={6}>
                       <Button
                         fullWidth
+                        className="form-btn"
                         variant="contained"
                         //  disabled={dirty || isValid}
                         type="reset"
@@ -172,6 +170,18 @@ const UpdateUserForm = () => {
                       >
                         {' '}
                         RESETEAR FORMULARIO
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        className="form-btn"
+                        variant="contained"
+                        disabled={!dirty || !isValid}
+                        type="submit"
+                      >
+                        {' '}
+                        ACTUALIZAR USUARIO
                       </Button>
                     </Grid>
                   </Grid>

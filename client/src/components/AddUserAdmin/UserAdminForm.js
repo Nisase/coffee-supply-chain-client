@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { Grid, Container, Button, FormLabel } from '@mui/material';
+import { Grid, Container, Button, FormLabel, Typography } from '@mui/material';
 import TextfieldWrapper from '../FormsUI/Textfield/index';
 import CheckboxWrapper from '../FormsUI/Checkbox';
 import MultipleSelectChip from '../FormsUI/Select/MultipleSelectChip';
@@ -16,14 +16,15 @@ import { addTx, removeTx } from '../../redux/txSlice';
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
 import { getUserByAddress } from '../../logic/GetUser';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
+import '../../App.css';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
 const FILE_SIZE = 650 * 1024;
 
 const initialValues = {
-  userAddress: '0xce49E1834F30fD7572F87aCf2Af38C63B604Be69',
-  name: 'FARMER 4',
-  email: 'farmer4test@gmail.com',
+  userAddress: '',
+  name: '',
+  email: '',
   role: [],
   isActive: true,
   profileHash: null,
@@ -100,6 +101,7 @@ const UserAdminForm = () => {
       values.profileHash = result.url;
     }
 
+    console.log('img: ', values.profileHash);
     const tx = HandleSubmit(values);
     tx.then((trans) => {
       setTxHash(trans.hash);
@@ -147,21 +149,23 @@ const UserAdminForm = () => {
                           src={
                             values.profileHash
                               ? URL.createObjectURL(values.profileHash)
-                              : '/static/mock-images/avatars/farmer2.png'
+                              : // URL.createObjectURL(values.profileHash)
+                                '/static/mock-images/avatars/farmer2.png'
                           }
                         />
+                        {/* <Typography>{values.profileHash}</Typography> */}
                       </Grid>
                     </Grid>
                     <Grid item xs={12}>
                       <TextfieldWrapper name="userAddress" label="Dirección de Metamask" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="name" label="Nombre" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="email" label="Email" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <MultipleSelectChip name="role" label="Rol" options={roleData} />
                       {touched.role && errors.role ? (
                         <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
@@ -169,14 +173,16 @@ const UserAdminForm = () => {
                         </small>
                       ) : null}
                     </Grid>
-                    <Grid item xs={6}>
+                    {/* <Grid item xs={12}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
-                        <FormLabel component="legend">Imagen de Perfil</FormLabel>
+                        <FormLabel component="legend" sx={{ paddingBottom: '3px' }}>
+                          Imagen de Perfil
+                        </FormLabel>
                         <input
-                          className="mt-2 text-sm"
+                          className="mt-2 text-sm "
                           name="profileHash"
                           type="file"
                           onClick={(event) => {
@@ -199,22 +205,15 @@ const UserAdminForm = () => {
                         ) : null}
                       </div>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Button
-                        // sx={{ backgroundColor: 'error.darker' }}
-                        fullWidth
-                        variant="contained"
-                        disabled={!dirty || !isValid}
-                        type="submit"
-                      >
-                        {' '}
-                        REGISTRAR USUARIO
-                      </Button>
+                    <Grid item xs={12}>
+                      <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                     </Grid>
+
                     <Grid item xs={6}>
                       <Button
                         fullWidth
                         variant="contained"
+                        className="form-btn"
                         //  disabled={dirty || isValid}
                         type="reset"
                         onClick={() => {
@@ -223,6 +222,19 @@ const UserAdminForm = () => {
                       >
                         {' '}
                         RESETEAR FORMULARIO
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        // sx={{ backgroundColor: 'error.darker' }}
+                        className="form-btn"
+                        fullWidth
+                        variant="contained"
+                        disabled={!dirty || !isValid}
+                        type="submit"
+                      >
+                        {' '}
+                        REGISTRAR USUARIO
                       </Button>
                     </Grid>
                   </Grid>
