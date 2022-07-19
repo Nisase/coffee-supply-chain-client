@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
@@ -50,6 +50,7 @@ import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
 import RunningWithErrorsRoundedIcon from '@mui/icons-material/RunningWithErrorsRounded';
 import CloseIcon from '@mui/icons-material/Close';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
 
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -62,6 +63,8 @@ import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRou
 
 import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
+
+import TimelineProcess from './TimelineProcess';
 
 function ShareSocialMedia(batch) {
   return (
@@ -76,7 +79,7 @@ function ShareSocialMedia(batch) {
           navigator.clipboard.writeText(batch);
         }}
       >
-        <Tooltip size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
+        <Tooltip size="small" placement="top" title="Copiar #Lote" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
           <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
       </IconButton>
@@ -90,7 +93,7 @@ function ShareSocialMedia(batch) {
           navigator.clipboard.writeText(`http://localhost:3000/tracking?batch=${batch}`);
         }}
       >
-        <Tooltip size="small" placement="top" title="Copiar" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
+        <Tooltip size="small" placement="top" title="Copiar Url" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
           <LinkIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
       </IconButton>
@@ -134,65 +137,7 @@ function ShareSocialMedia(batch) {
   );
 }
 
-// if (action === 'FARMER') {
-//   arr = ['GRANJA AGREGADA', 'COSECHA', 'PROCESADO'];
-// } else if (action === 'PROCESSOR') {
-//   arr = ['COSECHA', 'PROCESADO', 'CATACIÓN'];
-// } else if (action === 'TASTER') {
-//   arr = ['PROCESADO', 'CATACIÓN', 'VENTA DE GRANO'];
-// } else if (action === 'COFFEE SELLER') {
-//   arr = ['CATACIÓN', 'VENTA DE GRANO', 'BODEGAJE'];
-// } else if (action === 'WAREHOUSE') {
-//   arr = ['VENTA DE GRANO', 'BODEGAJE', 'TRANSPORTE A EMPACADOR'];
-// } else if (action === 'SHIPPER TO PACKER') {
-//   arr = ['BODEGAJE', 'TRANSPORTE A EMPACADOR', 'EMPACADO'];
-// } else if (action === 'PACKER') {
-//   arr = ['TRANSPORTE A EMPACADOR', 'EMPACADO', 'TRANSPORTE A RETAILER'];
-// } else if (action === 'SHIPPER TO RETAILER') {
-//   arr = ['EMPACADO', 'TRANSPORTE A RETAILER', 'RETAILER'];
-// } else if (action === 'RETAILER') {
-//   arr = ['TRANSPORTE A RETAILER', 'RETAILER', 'TERMINADO'];
-// } else if (action === 'DONE') {
-//   arr = ['RETAILER', 'TERMINADO', 'TERMINADO'];
-// }
-
 const defColor = (myState) => {
-  let color = '';
-  let icon = '';
-  if (myState === 'GRANJA AGREGADA') {
-    color = 'secondary';
-    icon = '/static/icons/cosecha.png';
-  } else if (myState === 'COSECHA') {
-    color = 'warning';
-    icon = <DoNotDisturbAltRoundedIcon />;
-  } else if (myState === 'PROCESADO') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'CATACIÓN') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'VENTA DE GRANO') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'BODEGAJE') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'TRANSPORTE A EMPACADOR') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'EMPACADOR') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'TRANSPORTE A RETAILER') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'RETAILER') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  } else if (myState === 'TERMINADO') {
-    color = 'secondary';
-    icon = <CheckRoundedIcon />;
-  }
   return (
     <Stack>
       <StyledChip
@@ -294,34 +239,35 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const TableUsers = ({ batchNo, nextActions }) => {
-  const [qrImage, setQrImage] = useState(null); 
+  const [qrImage, setQrImage] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(2);
   const [openZoom, setOpenZoom] = useState(false);
+  const [openLook, setOpenLook] = useState(false);
 
   const assignState = (action) => {
     let arr = [];
 
     if (action === 'FARMER') {
-      arr = ['GRANJA AGREGADA', 'COSECHA', 'PROCESADO'];
+      arr = ['GRANJA AGREGADA', 'COSECHA'];
     } else if (action === 'PROCESSOR') {
-      arr = ['COSECHA', 'PROCESADO', 'CATACIÓN'];
+      arr = ['COSECHA', 'PROCESADO'];
     } else if (action === 'TASTER') {
-      arr = ['PROCESADO', 'CATACIÓN', 'VENTA DE GRANO'];
-    } else if (action === 'COFFEE SELLER') {
-      arr = ['CATACIÓN', 'VENTA DE GRANO', 'BODEGAJE'];
+      arr = ['PROCESADO', 'CATACIÓN'];
+    } else if (action === 'SELLER') {
+      arr = ['CATACIÓN', 'VENTA DE GRANO'];
     } else if (action === 'WAREHOUSE') {
-      arr = ['VENTA DE GRANO', 'BODEGAJE', 'TRANSPORTE A EMPACADOR'];
-    } else if (action === 'SHIPPER TO PACKER') {
-      arr = ['BODEGAJE', 'TRANSPORTE A EMPACADOR', 'EMPACADO'];
+      arr = ['VENTA DE GRANO', 'BODEGAJE'];
+    } else if (action === 'SHIPPER_PACKER') {
+      arr = ['BODEGAJE', 'TRANSPORTE A EMPACADOR'];
     } else if (action === 'PACKER') {
-      arr = ['TRANSPORTE A EMPACADOR', 'EMPACADO', 'TRANSPORTE A RETAILER'];
-    } else if (action === 'SHIPPER TO RETAILER') {
-      arr = ['EMPACADO', 'TRANSPORTE A RETAILER', 'RETAILER'];
+      arr = ['TRANSPORTE A EMPACADOR', 'EMPACADO'];
+    } else if (action === 'SHIPPER_RETAILER') {
+      arr = ['EMPACADO', 'TRANSPORTE A RETAILER'];
     } else if (action === 'RETAILER') {
-      arr = ['TRANSPORTE A RETAILER', 'RETAILER', 'TERMINADO'];
+      arr = ['TRANSPORTE A RETAILER', 'RETAILER'];
     } else if (action === 'DONE') {
-      arr = ['RETAILER', 'TERMINADO', 'TERMINADO'];
+      arr = ['RETAILER', 'TERMINADO'];
     }
     return arr;
   };
@@ -336,24 +282,34 @@ const TableUsers = ({ batchNo, nextActions }) => {
     setPage(0);
   };
 
-  const handleClickOpenZoon = () => {
+  const handleClickOpenZoom = () => {
     setOpenZoom(true);
   };
   const handleCloseZoom = () => {
     setOpenZoom(false);
   };
 
+  const handleClickOpenLook = () => {
+    setOpenLook(true);
+  };
+  const handleCloseLook = () => {
+    setOpenLook(false);
+  };
+
+  useEffect(() => {
+    console.log('nextACTIONS:', nextActions);
+  }, []);
   return (
     <Grid item xs={12} sx={{ marginTop: '50px' }}>
       <TableContainer sx={{ maxHeight: '1000px', boxShadow: 5, borderRadius: 1 }} component={Paper}>
-        <Table sx={{ minWidth: '1000px' }} aria-label="customized table" stickyHeader>
+        <Table sx={{ minWidth: '900px' }} aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>
               <StyledTableCell align="center">NO. LOTE</StyledTableCell>
               <StyledTableCell align="center">CÓDIGO QR</StyledTableCell>
               <StyledTableCell align="center">PROCESO ANTERIOR</StyledTableCell>
               <StyledTableCell align="center">PROCESO ACTUAL</StyledTableCell>
-              <StyledTableCell align="center">PROCESO SIGUIENTE</StyledTableCell>
+              <StyledTableCell align="center">VER TODO</StyledTableCell>
               {/* <StyledTableCell align="center">COSECHA</StyledTableCell>
               <StyledTableCell align="center">PROCESADO</StyledTableCell>
               <StyledTableCell align="center">INSPECCIÓN DEL GRANO</StyledTableCell>
@@ -420,7 +376,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                         </Grid>
 
                         <Grid container item xs={12}>
-                          <Grid item xs={6} sx={{ transform: 'translate(10%, -50%)' }}>
+                          <Grid item xs={6} sx={{ transform: 'translate(6%, -45%)' }}>
                             <IconButton
                               aria-label="descargar"
                               color="primary"
@@ -442,17 +398,17 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               </Tooltip>
                             </IconButton>
                           </Grid>
-                          <Grid item xs={6} sx={{ transform: 'translate(-10%, -250%)' }}>
+                          <Grid item xs={6} sx={{ transform: 'translate(-6%, -250%)' }}>
                             <IconButton
                               aria-label="zoom"
                               color="secondary"
                               sixe="small"
                               sx={{ p: 0, m: 0 }}
                               onClick={() => {
-                                handleClickOpenZoon();
+                                handleClickOpenZoom();
                                 svgAsPngUri(document.getElementById(batch), {
                                   scale: 100,
-                                }).then(uri => setQrImage(uri))
+                                }).then((uri) => setQrImage(uri));
                               }}
                             >
                               <Tooltip
@@ -470,17 +426,20 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               open={openZoom}
                             >
                               <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseZoom}>
-                                <p className='break-all !important text-green-500'>Código QR del lote #<br/>{batch}</p>
+                                <p className="break-all !important text-green-500">
+                                  Código QR del lote #<br />
+                                  {batch}
+                                </p>
                               </BootstrapDialogTitle>
                               <DialogContent
                                 // PaperProps={{ sx: { width: '80%' } }}
                                 sx={{ margin: 0, padding: 0 }}
                               >
-                                  <img  className='w-48 h-auto' src={qrImage} alt='QR Code' />
+                                <img className="w-48 h-auto" src={qrImage} alt="QR Code" />
                                 {/*
                                   svgAsPngUri(document.getElementById("diagram"), options).then(uri => )
                                 */}
-                                </DialogContent>
+                              </DialogContent>
                             </BootstrapDialog>
                           </Grid>
                         </Grid>
@@ -494,11 +453,39 @@ const TableUsers = ({ batchNo, nextActions }) => {
                     {/* {myState} */}
                   </StyledTableCell>
                 ))}
+                {/* {nextActions.map((nextAction, index) => ( */}
+
                 <StyledTableCell align="center">
+                  <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
+                    {/* <RouterLink to={`/tracking?batch=${batch}`}> */}
+                    <IconButton
+                      aria-label="tracking-batch"
+                      sx={{ color: 'grey[800]' }}
+                      size="small"
+                      onClick={handleClickOpenLook}
+                    >
+                      <RemoveRedEyeRoundedIcon />
+                    </IconButton>
+                    <BootstrapDialog aria-labelledby="customized-dialog-title" open={openLook}>
+                      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLook}>
+                        Línea de tiempo de los procesos del lote # {batch}
+                      </BootstrapDialogTitle>
+                      <DialogContent dividers>
+                        <Typography>{nextActions[index]}</Typography>
+                        <TimelineProcess nextAction={nextActions[index]} />
+                      </DialogContent>
+                    </BootstrapDialog>
+                    {/* </RouterLink> */}
+                  </Stack>
+                </StyledTableCell>
+
+                {/* ))} */}
+
+                <StyledTableCell align="center" key={index}>
                   <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
                     <RouterLink to={`/tracking?batch=${batch}`}>
                       <IconButton aria-label="tracking-batch" sx={{ color: 'grey[800]' }} size="small">
-                        <RemoveRedEyeRoundedIcon />
+                        <SendRoundedIcon />
                       </IconButton>
                     </RouterLink>
                   </Stack>
@@ -506,7 +493,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
               </StyledTableRow>
             ))}
             {emptyRows > 0 && (
-              <StyledTableRow style={{ height: 200 * emptyRows }}>
+              <StyledTableRow style={{ height: 70 * emptyRows }}>
                 <StyledTableCell colSpan={3} />
               </StyledTableRow>
             )}

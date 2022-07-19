@@ -249,11 +249,11 @@ const PackerForm = (props) => {
                         <DateTimePickerMobile name="packingDate" label="Fecha de Empacado" />
                         {/* <DateTimePicker name="packingDate" label="Fecha de Empacado" /> */}
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="packingPricePerKilo" label="Precio de Empacado por Kilo [$]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -268,7 +268,7 @@ const PackerForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

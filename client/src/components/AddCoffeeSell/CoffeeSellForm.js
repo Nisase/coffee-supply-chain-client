@@ -90,11 +90,11 @@ const CoffeeSellForm = (props) => {
                         </Grid>
                       )}
 
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta de Grano por Kilo [$]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -109,7 +109,7 @@ const CoffeeSellForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

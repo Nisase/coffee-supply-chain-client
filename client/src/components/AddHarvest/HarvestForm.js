@@ -126,11 +126,11 @@ const HarvestForm = (props) => {
                         label="Porcentaje de Humedad del Grano Cosechado [%]"
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ marginBottom: 2 }}>
                       <TextfieldWrapper name="batchWeight" label="Peso del Lote Cosechado [kg]" />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={6} sx={{ marginBottom: 2 }}>
                       <Button
                         fullWidth
                         className="form-btn"
@@ -145,7 +145,7 @@ const HarvestForm = (props) => {
                         RESETEAR FORMULARIO
                       </Button>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={6} sx={{ marginBottom: 2 }}>
                       <Button
                         fullWidth
                         variant="contained"

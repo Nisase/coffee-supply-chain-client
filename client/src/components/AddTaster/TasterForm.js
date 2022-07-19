@@ -98,11 +98,11 @@ const TasterForm = (props) => {
                       <Grid item xs={12}>
                         <TextfieldWrapper name="tastingScore" label="Puntuación de Catación" />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="tastingServicePrice" label="Precio del Servicio de Catación [$]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -117,7 +117,7 @@ const TasterForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

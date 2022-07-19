@@ -242,11 +242,11 @@ const WarehouseForm = (props) => {
                         {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Bodegaje" /> */}
                         <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Bodegaje" />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="storagePricePerKiloPerTime" label="Precio del Bodegaje [$]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -261,7 +261,7 @@ const WarehouseForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

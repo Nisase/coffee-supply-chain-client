@@ -116,7 +116,8 @@ const UpdateUserForm = () => {
                         <img
                           alt="Profile"
                           className="rounded-full w-40 h-40"
-                          src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
+                          // src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
+                          src={values.profileHash ? values.profileHash : userData.profileHash}
                         />
                       </Grid>
                     </Grid>
@@ -153,11 +154,11 @@ const UpdateUserForm = () => {
                         ) : null}
                       </div>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{ marginBottom: 1 }}>
                       <CheckboxWrapper name="isActive" legend="Estado" label="Usuario Activo" />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={6} sx={{ marginBottom: 2 }}>
                       <Button
                         fullWidth
                         className="form-btn"
@@ -172,7 +173,7 @@ const UpdateUserForm = () => {
                         RESETEAR FORMULARIO
                       </Button>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={6} sx={{ marginBottom: 2 }}>
                       <Button
                         fullWidth
                         className="form-btn"
