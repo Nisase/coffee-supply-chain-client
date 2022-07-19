@@ -16,6 +16,7 @@ import { addTx, removeTx } from '../../redux/txSlice';
 import HandleSubmit from '../../logic/AddUserAdmin/HandleSubmit';
 import { getUserByAddress } from '../../logic/GetUser';
 import { createIpfs, addFileToIpfs } from '../../logic/ipfs';
+import '../../App.css';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/png', 'image/jpeg'];
 const FILE_SIZE = 650 * 1024;
@@ -148,7 +149,8 @@ const UserAdminForm = () => {
                           src={
                             values.profileHash
                               ? URL.createObjectURL(values.profileHash)
-                              : '/static/mock-images/avatars/farmer2.png'
+                              : // URL.createObjectURL(values.profileHash)
+                                '/static/mock-images/avatars/farmer2.png'
                           }
                         />
                         {/* <Typography>{values.profileHash}</Typography> */}
@@ -171,14 +173,16 @@ const UserAdminForm = () => {
                         </small>
                       ) : null}
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} justifyContent="space-between" alignItems="center">
                       <div className="flex flex-col">
-                        <FormLabel component="legend">Imagen de Perfil</FormLabel>
+                        <FormLabel component="legend" sx={{ paddingBottom: '3px' }}>
+                          Imagen de Perfil
+                        </FormLabel>
                         <input
-                          className="mt-2 text-sm"
+                          className="mt-2 text-sm "
                           name="profileHash"
                           type="file"
                           onClick={(event) => {
@@ -201,11 +205,15 @@ const UserAdminForm = () => {
                         ) : null}
                       </div>
                     </Grid>
+                    <Grid item xs={12}>
+                      <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
+                    </Grid>
 
                     <Grid item xs={6}>
                       <Button
                         fullWidth
                         variant="contained"
+                        className="form-btn"
                         //  disabled={dirty || isValid}
                         type="reset"
                         onClick={() => {
@@ -219,6 +227,7 @@ const UserAdminForm = () => {
                     <Grid item xs={6}>
                       <Button
                         // sx={{ backgroundColor: 'error.darker' }}
+                        className="form-btn"
                         fullWidth
                         variant="contained"
                         disabled={!dirty || !isValid}

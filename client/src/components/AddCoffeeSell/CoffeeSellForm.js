@@ -81,27 +81,23 @@ const CoffeeSellForm = (props) => {
                   <Form>
                     <Grid container spacing={2}>
                       {props.batchValue ? (
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                           <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
                         </Grid>
                       ) : (
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                           <TextfieldWrapper name="batchNo" label="No. Lote" />
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta de Grano por Kilo [$]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -111,6 +107,18 @@ const CoffeeSellForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

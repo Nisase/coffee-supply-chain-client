@@ -104,40 +104,36 @@ const HarvestForm = (props) => {
                         <TextfieldWrapper name="batchNo" label="No. Lote" />
                       </Grid>
                     )}
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="seedSupplier" label="Proveedor de Semilla" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <SelectWrapper name="typeOfSeed" label="Tipo de Semilla" options={typeSeeds} />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="coffeeFamily" label="Familia del Café" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="fertilizerUsed" label="Fertilizante Utilizado" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       {/* <DateTimePicker name="harvestDate" label="Fecha de Cosecha" /> */}
                       <DateTimePickerMobile name="harvestDate" label="Fecha de Cosecha" />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper
                         name="humidityPercentage"
                         label="Porcentaje de Humedad del Grano Cosechado [%]"
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <TextfieldWrapper name="batchWeight" label="Peso del Lote Cosechado [kg]" />
                     </Grid>
-                    <Grid item xs={6}>
-                      <Button fullWidth variant="contained" disabled={!isValid || !dirty} type="submit">
-                        {' '}
-                        AGREGAR DATOS
-                      </Button>
-                    </Grid>
+
                     <Grid item xs={6}>
                       <Button
                         fullWidth
+                        className="form-btn"
                         variant="contained"
                         //  disabled={dirty || isValid}
                         type="reset"
@@ -147,6 +143,18 @@ const HarvestForm = (props) => {
                       >
                         {' '}
                         RESETEAR FORMULARIO
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        className="form-btn"
+                        disabled={!isValid || !dirty}
+                        type="submit"
+                      >
+                        {' '}
+                        AGREGAR DATOS
                       </Button>
                     </Grid>
                   </Grid>

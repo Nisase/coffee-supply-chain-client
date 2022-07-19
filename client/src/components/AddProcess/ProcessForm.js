@@ -243,7 +243,7 @@ const ProcessForm = (props) => {
                         item
                         xs={12}
                         sx={{
-                          marginBottom: 2,
+                          marginBottom: 0,
                           marginLeft: 0,
                           paddingLeft: 0,
                         }}
@@ -258,10 +258,11 @@ const ProcessForm = (props) => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={6} sx={{ marginBottom: 3 }}>
+                      <Grid item xs={6} sx={{ marginBottom: 0 }}>
                         <Button
                           size="small"
                           color="secondary"
+                          className="map-btn"
                           // color="comp5"
                           variant="contained"
                           startIcon={<AddLocationAltIcon />}
@@ -279,7 +280,7 @@ const ProcessForm = (props) => {
                             Ubica el marcador en la dirección deseada
                           </BootstrapDialogTitle>
                           <DialogContent dividers>
-                            <MapsLocation svg="/static/illustrations/location.png" />
+                            <MapsLocation svg="/static/icons/marker2.png" />
                           </DialogContent>
                         </BootstrapDialog>
                       </Grid>
@@ -307,21 +308,23 @@ const ProcessForm = (props) => {
                               boxShadow: 0,
                               borderRadius: '0%',
                               borderBottom: 'none',
-                              marginBottom: 2,
+                              marginBottom: 0,
                             }}
                           />
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <SelectWrapper name="typeOfDrying" label="Tipo de Secado" options={typeDrying} />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="humidityAfterDrying" label="Humedad después del Secado [%]" />
                       </Grid>
-                      <Grid item xs={6} justifyContent="space-between" alignItems="center">
+                      <Grid item xs={12} justifyContent="space-between" alignItems="center">
                         <div className="flex flex-col">
-                          <FormLabel component="legend">Imagen de Tueste</FormLabel>
+                          <FormLabel component="legend" sx={{ paddingBottom: '3px' }}>
+                            Imagen de Tueste
+                          </FormLabel>
                           <input
                             className="mt-2 text-sm"
                             name="roastImageHash"
@@ -346,35 +349,31 @@ const ProcessForm = (props) => {
                           ) : null}
                         </div>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="roastTemp" label="Temperatura de Tueste [ºC]" />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <SelectWrapper name="typeOfRoast" label="Tipo de Tueste" options={typeRoasting} />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         {/* <DateTimePicker name="roastDate" label="Fecha de Tostado" /> */}
                         <DateTimePickerMobile name="roastDate" label="Fecha de Tostado" />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <DateTimePickerMobile name="millDate" label="Fecha de Molienda" />
                         {/* <DateTimePicker name="millDate" label="Fecha de Molienda" /> */}
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="processorPricePerKilo" label="Precio del Procesado [$]" />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="processBatchWeight" label="Peso del Lote Procesado [kg]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -384,6 +383,18 @@ const ProcessForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

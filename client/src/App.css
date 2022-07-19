@@ -496,6 +496,125 @@ a.mail-track:focus, a.mail-track:hover {
   right: 0;
 }
 
+.form-btn {
+  /* margin-top: 10px; */
+  position: relative;
+  /* padding: 10px 20px; */
+  font-weight: 900;
+  font-size: 12px;
+  /* letter-spacing: 1px; */
+  background: #042A2B;
+  /* color: #919EAB; */
+  /* color: #ff2f00; */
+  color: #DFE3E8;
+  border-radius: 5px;
+  text-transform: uppercase;
+  /* outline: 0; */
+  z-index: 1;
+}
+
+.form-btn:hover {
+  /* color: #DFE3E8; */
+  /* color: #042A2B */
+  background: #163d34;
+  /* color: #ff2f00; */
+}
+
+.form-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #bbd2e92c;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.form-btn:hover::before {
+  right: 0;
+}
+
+.map-btn {
+  margin-top: 5px;
+  position: relative;
+  padding: 5px 10px;
+  font-weight: 900;
+  /* font-size: 16px; */
+  /* letter-spacing: 2px; */
+  background: none;
+  color: #ff2f00;
+  /* #919EAB; */
+  border-radius: 5px;
+  text-transform: uppercase;
+  outline: 0;
+  z-index: 1;
+}
+
+.map-btn:hover {
+  color: #DFE3E8;
+}
+
+.map-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #ff2f00;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.map-btn:hover::before {
+  right: 0;
+}
+
+.inner-map-btn {
+  margin-top: 0px;
+  position: relative;
+  padding: 4px 8px;
+  font-weight: 700;
+  /* font-size: 16px; */
+  /* letter-spacing: 2px; */
+  background: white;
+  color: #919EAB;
+  /* #ff2f00; */
+  /* #919EAB; */
+  border-radius: 5px;
+  text-transform: uppercase; 
+  outline: 0;
+  z-index: 1;
+}
+
+.inner-map-btn:hover {
+  color: #DFE3E8;
+}
+
+.inner-map-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #ff2f00;
+  border-radius: 5px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.inner-map-btn:hover::before {
+  right: 0;
+}
+
 /* a.my-batch {
   text-decoration: none;
   color: #042A2B;

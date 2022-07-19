@@ -139,6 +139,7 @@ function Locate({ panTo, setMarker, setLocation }) {
   const { enqueueSnackbar } = useSnackbar();
   return (
     <IconButton
+      sx={{ borderRadius: '2px' }}
       aria-label="compass"
       onClick={() => {
         if (!navigator.geolocation) {
@@ -180,8 +181,10 @@ function Locate({ panTo, setMarker, setLocation }) {
         }
       }}
     >
-      <ExploreIcon />
-      <Typography variant="body2">Ubicación Actual</Typography>
+      <ExploreIcon sx={{ color: '#ff2f00', marginRight: '5px' }} />
+      <Typography variant="body2" sx={{ color: '#ff2f00', fontWeight: 700 }}>
+        Ubicación Actual
+      </Typography>
     </IconButton>
   );
 }
@@ -259,13 +262,14 @@ function SendLocation({ marker, location }) {
     <>
       <Button
         variant="contained"
+        className="inner-map-btn"
         color="secondary"
         size="small"
         disabled={!marker || !location}
         sx={{
           // transform: 'translateY(1130%);'
           bottom: '-92%',
-          left: '-11%',
+          left: '-14%',
           boxShadow: 2,
         }}
         onClick={sendLoc}

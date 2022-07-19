@@ -221,6 +221,7 @@ const FarmForm = () => {
                         <Grid item sx={{ marginBottom: 3 }}>
                           <Button
                             size="small"
+                            className="map-btn"
                             color="secondary"
                             // color="comp5"
                             variant="contained"
@@ -239,7 +240,7 @@ const FarmForm = () => {
                               Ubica el marcador en la dirección deseada
                             </BootstrapDialogTitle>
                             <DialogContent dividers>
-                              <MapsLocation svg="/static/illustrations/Farm.svg" />
+                              <MapsLocation svg="/static/icons/marker2.png" />
                             </DialogContent>
                           </BootstrapDialog>
                         </Grid>
@@ -301,7 +302,7 @@ const FarmForm = () => {
                         ) : (
                           <Grid item xs={12} sx={{ marginBottom: 2 }}>
                             <Grid container spacing={2}>
-                              <Grid item xs={6}>
+                              <Grid item xs={12}>
                                 <TextfieldWrapper
                                   name="latitude"
                                   label="Latitud"
@@ -310,7 +311,7 @@ const FarmForm = () => {
                                   }}
                                 />
                               </Grid>
-                              <Grid item xs={6}>
+                              <Grid item xs={12}>
                                 {' '}
                                 <TextfieldWrapper
                                   name="longitude"
@@ -329,19 +330,7 @@ const FarmForm = () => {
                     <Grid item xs={6}>
                       <Button
                         fullWidth
-                        variant="contained"
-                        disabled={!dirty || !isValid}
-                        type="submit"
-                        color="secondary"
-                        sx={{ marginBottom: 2, boxShadow: 2 }}
-                      >
-                        {' '}
-                        REGISTRAR GRANJA
-                      </Button>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Button
-                        fullWidth
+                        className="form-btn"
                         variant="contained"
                         //  disabled={dirty || isValid}
                         type="reset"
@@ -351,6 +340,20 @@ const FarmForm = () => {
                       >
                         {' '}
                         RESETEAR FORMULARIO
+                      </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Button
+                        fullWidth
+                        className="form-btn"
+                        variant="contained"
+                        disabled={!dirty || !isValid}
+                        type="submit"
+                        color="secondary"
+                        sx={{ marginBottom: 2, boxShadow: 2 }}
+                      >
+                        {' '}
+                        REGISTRAR GRANJA
                       </Button>
                     </Grid>
                   </Grid>

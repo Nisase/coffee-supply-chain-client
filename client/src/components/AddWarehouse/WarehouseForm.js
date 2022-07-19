@@ -186,7 +186,7 @@ const WarehouseForm = (props) => {
                         item
                         xs={12}
                         sx={{
-                          marginBottom: 2,
+                          marginBottom: 0,
                           marginLeft: 0,
                           paddingLeft: 0,
                         }}
@@ -201,10 +201,11 @@ const WarehouseForm = (props) => {
                         </Typography>
                       </Grid>
 
-                      <Grid item xs={6} sx={{ marginBottom: 3 }}>
+                      <Grid item xs={6} sx={{ marginBottom: 0 }}>
                         <Button
                           size="small"
                           color="secondary"
+                          className="map-btn"
                           // color="comp5"
                           variant="contained"
                           startIcon={<AddLocationAltIcon />}
@@ -222,7 +223,7 @@ const WarehouseForm = (props) => {
                             Ubica el marcador en la dirección deseada
                           </BootstrapDialogTitle>
                           <DialogContent dividers>
-                            <MapsLocation svg="/static/illustrations/Farm.svg" />
+                            <MapsLocation svg="/static/icons/marker2.png" />
                           </DialogContent>
                         </BootstrapDialog>
                       </Grid>
@@ -237,22 +238,18 @@ const WarehouseForm = (props) => {
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Bodegaje" /> */}
                         <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Bodegaje" />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="storagePricePerKiloPerTime" label="Precio del Bodegaje [$]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -262,6 +259,18 @@ const WarehouseForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

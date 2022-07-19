@@ -95,21 +95,17 @@ const TasterForm = (props) => {
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="tastingScore" label="Puntuación de Catación" />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="tastingServicePrice" label="Precio del Servicio de Catación [$]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -119,6 +115,18 @@ const TasterForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>

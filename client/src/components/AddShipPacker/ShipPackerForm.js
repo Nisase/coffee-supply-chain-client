@@ -101,32 +101,28 @@ const ShipPackerForm = (props) => {
                         </Grid>
                       )}
 
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <SelectWrapper
                           name="toPackerTransportType"
                           label="Tipo de Transporte"
                           options={transportTypeP}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         {/* <DateTimePicker name="warehousePickupDate" label="Fecha de Recogida en Aglomerador" /> */}
                         <DateTimePickerMobile
                           name="warehousePickupDateTime"
                           label="Fecha y Hora de Recogida en Bodega"
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <TextfieldWrapper name="toPackerShippingPrice" label="Precio del Transporte [$]" />
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button fullWidth variant="contained" disabled={!dirty || !isValid} type="submit">
-                          {' '}
-                          AGREGAR DATOS
-                        </Button>
-                      </Grid>
+
                       <Grid item xs={6}>
                         <Button
                           fullWidth
+                          className="form-btn"
                           variant="contained"
                           //  disabled={dirty || isValid}
                           type="reset"
@@ -136,6 +132,18 @@ const ShipPackerForm = (props) => {
                         >
                           {' '}
                           RESETEAR FORMULARIO
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          fullWidth
+                          className="form-btn"
+                          variant="contained"
+                          disabled={!dirty || !isValid}
+                          type="submit"
+                        >
+                          {' '}
+                          AGREGAR DATOS
                         </Button>
                       </Grid>
                     </Grid>
