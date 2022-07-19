@@ -60,6 +60,7 @@ const initialValues = {
   processorPricePerKilo: '',
   processBatchWeight: '',
 };
+const digitsRegex = /^[\d.]+$/;
 
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
@@ -68,7 +69,9 @@ const valSchema = Yup.object().shape({
     .min(42, 'La dirección debe tener 42 caracteres'),
   processorAddress: Yup.string().required('Obligatorio'),
   typeOfDrying: Yup.string().required('Obligatorio'),
-  humidityAfterDrying: Yup.string().required('Obligatorio'),
+  humidityAfterDrying: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   // roastImageHash: Yup.string().required('Obligatorio'),
   roastImageHash: Yup.mixed()
     .required('Obligatorio')
@@ -82,12 +85,18 @@ const valSchema = Yup.object().shape({
       'Los archivos soportados son: jpg, jpeg y png',
       (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
     ),
-  roastTemp: Yup.string().required('Obligatorio'),
+  roastTemp: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   typeOfRoast: Yup.string().required('Obligatorio'),
   roastDate: Yup.date().required('Obligatorio'),
   millDate: Yup.date().required('Obligatorio'),
-  processorPricePerKilo: Yup.date().required('Obligatorio'),
-  processBatchWeight: Yup.date().required('Obligatorio'),
+  processorPricePerKilo: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
+  processBatchWeight: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   // processorPrice: Yup.number().typeError('Por favor ingrese un número').required('Requerido'),
 });
 

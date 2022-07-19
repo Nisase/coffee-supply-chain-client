@@ -45,6 +45,7 @@ const initialValues = {
   warehouseArrivalDate: '',
   storagePricePerKiloPerTime: '',
 };
+const digitsRegex = /^[\d.]+$/;
 
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
@@ -53,7 +54,9 @@ const valSchema = Yup.object().shape({
     .min(42, 'La dirección debe tener 42 caracteres'),
   warehouseAddress: Yup.string().required('Obligatorio'),
   warehouseArrivalDate: Yup.date().required('Obligatorio'),
-  storagePricePerKiloPerTime: Yup.string().required('Obligatorio'),
+  storagePricePerKiloPerTime: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
 });
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

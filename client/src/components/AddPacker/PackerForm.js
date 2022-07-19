@@ -46,7 +46,7 @@ const initialValues = {
   packingDate: '',
   packingPricePerKilo: '',
 };
-
+const digitsRegex = /^[\d.]+$/;
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
     .required('Obligatorio')
@@ -55,7 +55,9 @@ const valSchema = Yup.object().shape({
   packerAddress: Yup.string().required('Obligatorio'),
   packerArrivalDate: Yup.date().required('Obligatorio'),
   packingDate: Yup.date().required('Obligatorio'),
-  packingPricePerKilo: Yup.string().required('Obligatorio'),
+  packingPricePerKilo: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   // Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
 

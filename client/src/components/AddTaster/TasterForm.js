@@ -17,14 +17,19 @@ const initialValues = {
   tastingScore: '',
   tastingServicePrice: '',
 };
+const digitsRegex = /^[\d.]+$/;
 
 const valSchema = Yup.object().shape({
   batchNo: Yup.string()
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
-  tastingScore: Yup.string().required('Obligatorio'),
-  tastingServicePrice: Yup.string().required('Obligatorio'),
+  tastingScore: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
+  tastingServicePrice: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   // tastingScore: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
   // grainPrice: Yup.number().typeError('Por favor ingrese un número').required('Obligatorio'),
 });
