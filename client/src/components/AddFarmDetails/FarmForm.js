@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack';
-import { useTheme, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -11,19 +11,11 @@ import {
   Container,
   Typography,
   Button,
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CardHeader,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   IconButton,
 } from '@mui/material';
-import MyLocationIcon from '@mui/icons-material/MyLocation';
 import CloseIcon from '@mui/icons-material/Close';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import TextfieldWrapper from '../FormsUI/Textfield';
@@ -98,11 +90,9 @@ const valSchema = Yup.object().shape({
 });
 
 const FarmForm = () => {
-  const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
-  const [farmNameTemp, setFarmNameTemp] = useState('');
 
   const [openMap, setOpenMap] = useState(false);
   const formikRef = useRef();

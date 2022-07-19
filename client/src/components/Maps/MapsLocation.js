@@ -61,11 +61,16 @@ const MapsLocation = ({ svg }) => {
     console.log('locdir: ', locDir);
 
     locDir.then((response) => {
-      if (response.results[0]) {
+      if (response.results && response.results[0]) {
         setLocation(response.results[0].formatted_address);
       }
     });
   }, []);
+
+  useEffect(()=>{console.log('location')
+  console.log(location)
+  console.log(markers)
+}, [location, markers])
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -108,12 +113,12 @@ const MapsLocation = ({ svg }) => {
             setSelected(markers);
             setSelectedLoc(location);
           }}
-          icon={{
+          /* icon={{
             url: svg,
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(10, 10),
             scaledSize: new window.google.maps.Size(60, 60),
-          }}
+          }} */
         />
 
         {selected && selectedLoc ? (
@@ -261,7 +266,7 @@ function SendLocation({ marker, location }) {
         variant="contained"
         color="secondary"
         size="small"
-        disabled={!marker || !location}
+        disabled={!marker.lat } // || location===''}
         sx={{
           // transform: 'translateY(1130%);'
           bottom: '-92%',
