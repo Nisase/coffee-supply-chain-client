@@ -366,11 +366,11 @@ const ProcessForm = (props) => {
                       <Grid item xs={12}>
                         <TextfieldWrapper name="processorPricePerKilo" label="Precio del Procesado [$]" />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="processBatchWeight" label="Peso del Lote Procesado [kg]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -385,7 +385,7 @@ const ProcessForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

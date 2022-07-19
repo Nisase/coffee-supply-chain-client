@@ -111,11 +111,11 @@ const ShipRetailerForm = (props) => {
                         {/* <DateTimePicker name="packerPickupDate" label="Fecha Recogida en Empacador" /> */}
                         <DateTimePickerMobile name="packerPickupDateTime" label="Fecha y Hora de Recogida" />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="toReatilerShippingPrice" label="Precio del Transporte [$]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -130,7 +130,7 @@ const ShipRetailerForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

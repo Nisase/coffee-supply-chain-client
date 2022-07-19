@@ -376,13 +376,13 @@ const RetailerForm = (props) => {
                           label="Precio de Transporte del Almacén al Punto de Venta [$]"
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper
                           name="retailerPricePerKilo"
                           label="Precio por Kilo del Producto en el Retailer [$]"
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -397,7 +397,7 @@ const RetailerForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

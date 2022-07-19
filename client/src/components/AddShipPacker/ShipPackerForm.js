@@ -115,11 +115,11 @@ const ShipPackerForm = (props) => {
                           label="Fecha y Hora de Recogida en Bodega"
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="toPackerShippingPrice" label="Precio del Transporte [$]" />
                       </Grid>
 
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"
@@ -134,7 +134,7 @@ const ShipPackerForm = (props) => {
                           RESETEAR FORMULARIO
                         </Button>
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
                           className="form-btn"

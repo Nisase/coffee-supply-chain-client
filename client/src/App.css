@@ -615,6 +615,17 @@ a.mail-track:focus, a.mail-track:hover {
   right: 0;
 }
 
+.icon-success {
+  color: #54D62C;
+}
+.icon-error {
+  color: #FF4842;
+}
+.icon-warning {
+  color: #FFC107;
+}
+
+
 /* a.my-batch {
   text-decoration: none;
   color: #042A2B;
