@@ -88,7 +88,7 @@ const MapsLocation = ({ svg }) => {
   console.log('svg: ', svg);
 
   if (loadError) return 'Error';
-  if (!isLoaded) return 'Loading ...';
+  if (!isLoaded) return 'Cargando ...';
 
   return (
     <>
