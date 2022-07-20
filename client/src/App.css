@@ -338,17 +338,6 @@ a.mail-link:hover, a.mail-link:focus {
   right: 0;
 }
 
-
-/* #contact button {
-  padding: 8px 12px;
-  color: #ff2f00;
-  border-color: #ff2f00;
-  border-radius: 5px;
-  width: 80%;
-  font-size: 16px;
-  margin: 0 auto 10px auto;
-} */
-
 .submitted {
   color: #ff2f00;
 }
@@ -683,16 +672,89 @@ a.mail-track:focus, a.mail-track:hover {
   color: #FFC107;
 }
 
-
-/* a.my-batch {
-  text-decoration: none;
-  color: #042A2B;
+.login-page {
+  margin-top: 120px ;
 }
 
-a.my-batch:hover, a.my-batch:focus {
-  text-decoration: none;
-  color: #919EAB;
-} */
+.metamask-btn {
+  margin-top: 20px;
+  position: relative;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 16px;
+  /* letter-spacing: 2px; */
+  background: #ff2f00;
+  color: white;
+  /* #ff2f00; */
+  /* #919EAB; */
+  border-radius: 8px;
+  /* text-transform: uppercase;  */
+  outline: 0;
+  z-index: 1;
+  width: 60%;
+}
+
+.metamask-btn:hover {
+  color: #DFE3E8;
+}
+
+.metamask-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #ff7a5cc3; 
+  border-radius: 8px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.metamask-btn:hover::before {
+  right: 0;
+}
+
+.install-btn {
+  margin-top: 0px;
+  position: relative;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 16px;
+  /* letter-spacing: 2px; */
+  background: #042A2B;
+  color: white;
+  /* #ff2f00; */
+  /* #919EAB; */
+  border-radius: 8px;
+  /* text-transform: uppercase;  */
+  outline: 0;
+  z-index: 1;
+  width: 30%;
+}
+
+.install-btn:hover {
+  color: #DFE3E8;
+}
+
+.install-btn::before {
+  content: "";
+  /* background abs relative to action-btn */
+  position: absolute;
+  background: #637879aa;
+  border-radius: 8px;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.3s ease-in;
+}
+
+.install-btn:hover::before {
+  right: 0;
+}
 
 @keyframes App-logo-spin {
   from {

@@ -28,6 +28,7 @@ const LoginMetamask = () => {
           </Typography>
           <LoadingButton
             onClick={requestAccount}
+            className="metamask-btn"
             variant="contained"
             fullWidth
             size="large"
@@ -41,6 +42,7 @@ const LoginMetamask = () => {
           <div className="w-full h-1 my-3" />
           <LoadingButton
             onClick={handleClickMetamask}
+            className="install-btn"
             // color="secondary"
             color="primary"
             variant="contained"
