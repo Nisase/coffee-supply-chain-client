@@ -241,7 +241,7 @@ BootstrapDialogTitle.propTypes = {
 const TableUsers = ({ batchNo, nextActions }) => {
   const [qrImage, setQrImage] = useState(null);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openZoom, setOpenZoom] = useState(false);
   const [openLook, setOpenLook] = useState(false);
 
@@ -493,7 +493,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
               </StyledTableRow>
             ))}
             {emptyRows > 0 && (
-              <StyledTableRow style={{ height: 70 * emptyRows }}>
+              <StyledTableRow style={{ height: 110 * emptyRows, backgroundColor: 'white', opacity: '8%' }}>
                 <StyledTableCell colSpan={3} />
               </StyledTableRow>
             )}

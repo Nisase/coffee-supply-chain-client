@@ -242,7 +242,7 @@ const TableAdmin = () => {
   const [openBatch, setOpenBatch] = useState(false);
   const walletAddress = useSelector(walletAddressSelector);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(2);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // const zip = (a1, a2) => a1.map((x, i) => [x, a2[i]]);
 
