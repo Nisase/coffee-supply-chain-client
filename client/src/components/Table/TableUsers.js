@@ -239,6 +239,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 const TableUsers = ({ batchNo, nextActions }) => {
+  const [indexSelect, setIndexSelect] = useState(0);
   const [qrImage, setQrImage] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -282,18 +283,26 @@ const TableUsers = ({ batchNo, nextActions }) => {
     setPage(0);
   };
 
-  const handleClickOpenZoom = () => {
+  const handleClickOpenZoom = (index) => {
+    setIndexSelect(index)
     setOpenZoom(true);
   };
   const handleCloseZoom = () => {
     setOpenZoom(false);
   };
 
-  const handleClickOpenLook = () => {
+  const handleClickOpenLook = (index) => {
+    setIndexSelect(index)
     setOpenLook(true);
   };
   const handleCloseLook = () => {
     setOpenLook(false);
+  };
+
+  const getBacthList = (batchNo, rowsPerPage, page) => {
+    return batchNo.length > 0 && rowsPerPage > 0
+                ? batchNo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                : batchNo
   };
 
   useEffect(() => {
@@ -322,9 +331,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(batchNo.length > 0 && rowsPerPage > 0
-              ? batchNo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : batchNo
+            {(getBacthList(batchNo, rowsPerPage, page)
             ).map((batch, index) => (
               <StyledTableRow key={index} sx={{ '&:last-child td, &:last-child th': { borderBottom: 0 } }}>
                 <StyledTableCell
@@ -405,10 +412,10 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               sixe="small"
                               sx={{ p: 0, m: 0 }}
                               onClick={() => {
-                                handleClickOpenZoom();
                                 svgAsPngUri(document.getElementById(batch), {
                                   scale: 100,
                                 }).then((uri) => setQrImage(uri));
+                                handleClickOpenZoom(index);
                               }}
                             >
                               <Tooltip
@@ -419,28 +426,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               >
                                 <ExpandCircleDownRoundedIcon sx={{ transform: 'rotate(225deg)' }} />
                               </Tooltip>
-                            </IconButton>
-                            <BootstrapDialog
-                              PaperProps={{ sx: { width: '40%' } }}
-                              aria-labelledby="customized-dialog-title"
-                              open={openZoom}
-                            >
-                              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseZoom}>
-                                <p className="break-all !important text-green-500">
-                                  Código QR del lote #<br />
-                                  {batch}
-                                </p>
-                              </BootstrapDialogTitle>
-                              <DialogContent
-                                // PaperProps={{ sx: { width: '80%' } }}
-                                sx={{ margin: 0, padding: 0 }}
-                              >
-                                <img className="w-48 h-auto" src={qrImage} alt="QR Code" />
-                                {/*
-                                  svgAsPngUri(document.getElementById("diagram"), options).then(uri => )
-                                */}
-                              </DialogContent>
-                            </BootstrapDialog>
+                            </IconButton>                            
                           </Grid>
                         </Grid>
                       </Grid>
@@ -462,19 +448,10 @@ const TableUsers = ({ batchNo, nextActions }) => {
                       aria-label="tracking-batch"
                       sx={{ color: 'grey[800]' }}
                       size="small"
-                      onClick={handleClickOpenLook}
+                      onClick={()=>{handleClickOpenLook(index)}}
                     >
                       <RemoveRedEyeRoundedIcon />
-                    </IconButton>
-                    <BootstrapDialog aria-labelledby="customized-dialog-title" open={openLook}>
-                      <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLook}>
-                        Línea de tiempo de los procesos del lote # {batch}
-                      </BootstrapDialogTitle>
-                      <DialogContent dividers>
-                        <Typography>{nextActions[index]}</Typography>
-                        <TimelineProcess nextAction={nextActions[index]} />
-                      </DialogContent>
-                    </BootstrapDialog>
+                    </IconButton>                    
                     {/* </RouterLink> */}
                   </Stack>
                 </StyledTableCell>
@@ -497,6 +474,36 @@ const TableUsers = ({ batchNo, nextActions }) => {
                 <StyledTableCell colSpan={3} />
               </StyledTableRow>
             )}
+            <BootstrapDialog aria-labelledby="customized-dialog-title" open={openLook}>
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLook}>
+                Línea de tiempo de los procesos del lote # {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
+              </BootstrapDialogTitle>
+              <DialogContent dividers>
+                <TimelineProcess nextAction={nextActions[indexSelect]} />
+              </DialogContent>
+            </BootstrapDialog>
+
+            <BootstrapDialog
+                PaperProps={{ sx: { width: '40%' } }}
+                aria-labelledby="customized-dialog-title"
+                open={openZoom}
+              >
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseZoom}>
+                  <p className="break-all !important text-green-500">
+                    Código QR del lote #<br />
+                    {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
+                  </p>
+                </BootstrapDialogTitle>
+                <DialogContent
+                  // PaperProps={{ sx: { width: '80%' } }}
+                  sx={{ margin: 0, padding: 0 }}
+                >
+                  <img className="w-48 h-auto" src={qrImage} alt="QR Code" />
+                  {/*
+                    svgAsPngUri(document.getElementById("diagram"), options).then(uri => )
+                  */}
+                </DialogContent>
+              </BootstrapDialog>
           </TableBody>
           <TableFooter>
             <TableRow>

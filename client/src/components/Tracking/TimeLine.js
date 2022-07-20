@@ -41,6 +41,18 @@ const TimeLine = ({ batchNo }) => {
   const [message, setMessage] = useState('Loading..');
   const [txMessage, setTxMessage] = useState('Loading..');
   let nextAction = {};
+  const [statusList, setStatusList] = useState([
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+    'No Disponible',
+  ]);
   const [farmData, setFarmData] = useState({});
   const [harverstData, setHarverstData] = useState({});
   const [processData, setProcessData] = useState({});
@@ -76,15 +88,152 @@ const TimeLine = ({ batchNo }) => {
 
   const parsePrice = (price) => `$ ${parseFloat(price)}`;
 
+  const assignState = (action) => {
+    let arr = [];
+    if (action === 'FARMER') {
+      arr = [
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'PROCESSOR') {
+      arr = [
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'TASTER') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'SELLER') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'WAREHOUSE') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'SHIPPER_PACKER') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'PACKER') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+        'No Disponible',
+      ];
+    } else if (action === 'SHIPPER_RETAILER') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+        'No Disponible',
+      ];
+    } else if (action === 'RETAILER') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'En Proceso',
+      ];
+    } else if (action === 'DONE') {
+      arr = [
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+        'Completado',
+      ];
+    }
+    return arr;
+  };
+
   useEffect(() => {
     const getPaticipants = async () => {
       const nextActionLocal = await AskNextActionInfura({ batchNo: batchNoIn });
-
-      if (nextActionLocal && nextActionLocal.data !== 'DONE') {
+      
+      if (nextActionLocal.data === null) {
         setTxMessage('No disponible');
-        navigate(`/dashboard?batch=${batchNoIn}`);
+        // navigate(`/dashboard?batch=${batchNoIn}`);
         return;
       }
+      const statusListLocal = assignState(nextActionLocal.data);
 
       const farmTx = await getFarmTx(batchNoIn);
       const harvestTx = await getHarvestTx(batchNoIn);
@@ -119,6 +268,7 @@ const TimeLine = ({ batchNo }) => {
       setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
       setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
       setTxMessage('No disponible');
+      setStatusList(statusListLocal)
     };
 
     getPaticipants();
@@ -127,13 +277,11 @@ const TimeLine = ({ batchNo }) => {
   useEffect(() => {
     const getDataInfura = async () => {
       nextAction = await AskNextActionInfura({ batchNo: batchNoIn });
-      console.log('GET DATA INFURA');
-      console.log(nextAction);
 
       if (nextAction && nextAction.data !== 'DONE') {
-        console.log('NO DONE');
-        setMessage('No disponible');
-        return;
+        // console.log('NO DONE');
+        // setMessage('No disponible');
+        // return;
       }
 
       setFarmData(await AskFarm({ batchNo: batchNoIn }));
@@ -188,7 +336,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'farm3.png'}
           date={farmTx ? unixToYMD(farmTx[2]) : txMessage}
           url={farmTx ? `https://rinkeby.etherscan.io/tx/${farmTx[1]}` : null}
-          verificate={farmData.data != null}
+          status={ statusList[0] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -238,7 +386,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'cosecha.png'}
           date={harvestTx ? unixToYMD(harvestTx[2]) : txMessage}
           url={harvestTx ? `https://rinkeby.etherscan.io/tx/${harvestTx[1]}` : null}
-          verificate={harverstData.data != null}
+          status={ statusList[1] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -299,7 +447,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'proccess.png'}
           date={processTx ? unixToYMD(processTx[2]) : txMessage}
           url={processTx ? `https://rinkeby.etherscan.io/tx/${processTx[1]}` : null}
-          verificate={processData.data != null}
+          status={ statusList[2] }
         >
           <div className="flex flex-col text-sm">
             <div className="bg-gray-100 rounded-lg">
@@ -376,7 +524,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'inspeccion.png'}
           date={tasteTx ? unixToYMD(tasteTx[2]) : message}
           url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}` : txMessage}
-          verificate={tasteData.data != null}
+          status={ statusList[3] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -417,7 +565,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'sell1.png'}
           date={sellTx ? unixToYMD(sellTx[2]) : txMessage}
           url={sellTx ? `https://rinkeby.etherscan.io/tx/${sellTx[1]}` : null}
-          verificate={sellData.data != null}
+          status={ statusList[4] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -455,7 +603,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'aglomerado.png'}
           date={warehouseTx ? unixToYMD(warehouseTx[2]) : txMessage}
           url={warehouseTx ? `https://rinkeby.etherscan.io/tx/${warehouseTx[1]}` : null}
-          verificate={warehouseData.data != null}
+          status={ statusList[5] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -500,7 +648,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'transporte.png'}
           date={shipPackerTx ? unixToYMD(shipPackerTx[2]) : txMessage}
           url={shipPackerTx ? `https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}` : null}
-          verificate={shipPackerData.data != null}
+          status={ statusList[6] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -549,7 +697,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'empacado.png'}
           date={packerTx ? unixToYMD(packerTx[2]) : txMessage}
           url={packerTx ? `https://rinkeby.etherscan.io/tx/${packerTx[1]}` : null}
-          verificate={packerData.data != null}
+          status={ statusList[7] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -598,7 +746,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'transporte.png'}
           date={shipRetailerTx ? unixToYMD(shipRetailerTx[2]) : txMessage}
           url={shipRetailerTx ? `https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}` : null}
-          verificate={shipRetailerData.data != null}
+          status={ statusList[8] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -647,7 +795,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'retailer.png'}
           date={retailerTx ? unixToYMD(retailerTx[2]) : txMessage}
           url={retailerTx ? `https://rinkeby.etherscan.io/tx/${retailerTx[1]}` : null}
-          verificate={retailerData.data != null}
+          status={ statusList[9] }
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -713,14 +861,15 @@ const TimeLine = ({ batchNo }) => {
         </PhaseCard>
       </div>
       <div>
-        <MapsTracking
+        {// <MapsTracking
         // farmAddress={farmData.data[4]}
         // processAddress={processData.data[0]}
         // warehouseAddress={warehouseData.data[0]}
         // packerAddress={packerData.data[0]}
         // warehouseRetAddress={retailerData.data[3]}
         // salepointRetAddress={retailerData.data[4]}
-        />
+        // />
+      }
       </div>
     </div>
   );
