@@ -99,7 +99,7 @@ const ContactSection = () => {
                     <TextfieldWrapper
                       className="lg:mb-1 form-input"
                       name="userMessage"
-                      label="Ingresa tu Mensaje"
+                      label="Ingresa tu mensaje"
                       multiline
                     />
                   </div>
