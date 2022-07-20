@@ -268,7 +268,6 @@ const TimeLine = ({ batchNo }) => {
       setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
       setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
       setTxMessage('No disponible');
-      setStatusList(statusListLocal)
     };
 
     getPaticipants();
@@ -278,11 +277,13 @@ const TimeLine = ({ batchNo }) => {
     const getDataInfura = async () => {
       nextAction = await AskNextActionInfura({ batchNo: batchNoIn });
 
-      if (nextAction && nextAction.data !== 'DONE') {
-        // console.log('NO DONE');
-        // setMessage('No disponible');
-        // return;
+      if (nextAction.data === null) {
+        setTxMessage('No disponible');
+        // navigate(`/dashboard?batch=${batchNoIn}`);
+        return;
       }
+
+      const statusListLocal = assignState(nextAction.data);
 
       setFarmData(await AskFarm({ batchNo: batchNoIn }));
       setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
@@ -295,6 +296,7 @@ const TimeLine = ({ batchNo }) => {
       setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
       setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
       setMessage('No disponible');
+      setStatusList(statusListLocal)
     };
     getDataInfura();
   }, []);
