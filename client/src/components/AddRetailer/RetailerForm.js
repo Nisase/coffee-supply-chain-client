@@ -389,8 +389,8 @@ const RetailerForm = (props) => {
                       <Grid item xs={6} sx={{ marginBottom: 2 }}>
                         <Button
                           fullWidth
-                          className="form-btn"
-                          variant="contained"
+                          className="reset-btn"
+                          variant="outlined"
                           //  disabled={dirty || isValid}
                           type="reset"
                           onClick={() => {

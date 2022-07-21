@@ -14,7 +14,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  padding: theme.spacing(12, 0)
+  padding: theme.spacing(12, 0),
 }));
 
 // ----------------------------------------------------------------------
@@ -25,12 +25,12 @@ export default function Page404() {
       <Container>
         <ContentStyle sx={{ textAlign: 'center', alignItems: 'center' }}>
           <Typography variant="h3" paragraph>
-            Sorry, page not found!
+            Lo sentimos, página no encontrada!
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be
-            sure to check your spelling.
+            Lo sentimos, no pudimos encontrar la página que estás buscando. ¿Quizás has escrito mal la URL? Asegúrese de
+            revisar su escritura.
           </Typography>
 
           <Box
@@ -39,8 +39,8 @@ export default function Page404() {
             sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
           />
 
-          <Button to="/" size="large" variant="contained" component={RouterLink}>
-            Go to Home
+          <Button to="/" size="large" variant="contained" component={RouterLink} className="error-btn">
+            Ir a Inicio
           </Button>
         </ContentStyle>
       </Container>

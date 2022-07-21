@@ -46,12 +46,14 @@ const allOptionsNav = [
   //   icon: 'iconoir:farm',
   //   role: 'ADMIN',
   // },
-  {
-    title: 'dashboard',
-    path: '/dashboard/app',
-    icon: 'eva:pie-chart-2-fill',
-    role: 'ADMIN',
-  },
+
+  // {
+  //   title: 'dashboard',
+  //   path: '/dashboard/app',
+  //   icon: 'eva:pie-chart-2-fill',
+  //   role: 'ADMIN',
+  // },
+
   // {
   //   title: 'Actualizar Perfil',
   //   path: '/dashboard/UpdateUser',

@@ -6,16 +6,7 @@ import { styled } from '@mui/material/styles';
 
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import {
-  Grid,
-  Container,
-  Typography,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  IconButton,
-} from '@mui/material';
+import { Grid, Container, Typography, Button, Dialog, DialogTitle, DialogContent, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import TextfieldWrapper from '../FormsUI/Textfield';
@@ -320,8 +311,9 @@ const FarmForm = () => {
                     <Grid item xs={6}>
                       <Button
                         fullWidth
-                        className="form-btn"
-                        variant="contained"
+                        className="reset-btn"
+                        sx={{ marginBottom: 2 }}
+                        variant="outlined"
                         //  disabled={dirty || isValid}
                         type="reset"
                         onClick={() => {
@@ -340,7 +332,7 @@ const FarmForm = () => {
                         disabled={!dirty || !isValid}
                         type="submit"
                         color="secondary"
-                        sx={{ marginBottom: 2, boxShadow: 2 }}
+                        sx={{ marginBottom: 2 }}
                       >
                         {' '}
                         REGISTRAR GRANJA

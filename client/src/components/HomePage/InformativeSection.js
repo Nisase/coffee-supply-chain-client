@@ -162,7 +162,7 @@ const InformativeSection = () => {
                   >
                     Metamask
                   </a>
-                  en tu navegador.
+                  en tu navegador, así como de habilitar la red de prueba de Rinkeby.
                 </Typography>
                 <br />
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>

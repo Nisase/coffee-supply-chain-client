@@ -209,11 +209,11 @@ const UserAdminForm = () => {
                       <CheckboxWrapper name="isActive" legend="Actividad" label="Usuario Activo" />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={6} sx={{ marginBottom: 2 }}>
                       <Button
                         fullWidth
-                        variant="contained"
-                        className="form-btn"
+                        variant="outlined"
+                        className="reset-btn"
                         //  disabled={dirty || isValid}
                         type="reset"
                         onClick={() => {
@@ -232,6 +232,7 @@ const UserAdminForm = () => {
                         variant="contained"
                         disabled={!dirty || !isValid}
                         type="submit"
+                        sx={{ marginBottom: 2 }}
                       >
                         {' '}
                         REGISTRAR USUARIO
