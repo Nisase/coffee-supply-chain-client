@@ -1,7 +1,11 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/jsx-no-comment-textnodes */
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
+import { Button } from '@mui/material';
 import PhaseCard from './PhaseCard';
 
 import AskNextActionInfura from '../../logic/GetNextAction/AskNextActionInfura';
@@ -31,7 +35,7 @@ import {
 import getUserInfura from '../../logic/GetUserInfura';
 import getOwnerInfura from '../../logic/GetOwnerInfura';
 
-import MapsTracking from '../Maps/MapsTracking';
+// import MapsTracking from '../Maps/MapsTracking';
 
 import '../../App.css';
 
@@ -86,7 +90,7 @@ const TimeLine = ({ batchNo }) => {
   const [userShipRetailer, setUserShipRetailer] = useState({});
   const [userRetailer, setUserRetailer] = useState({});
 
-  const parsePrice = (price) => `$ ${parseFloat(price)}`;
+  const parsePrice = (price) => price ? `$ ${parseFloat(price)}` : "No disponible";
 
   const assignState = (action) => {
     let arr = [];
@@ -234,39 +238,69 @@ const TimeLine = ({ batchNo }) => {
         return;
       }
       const statusListLocal = assignState(nextActionLocal.data);
-
-      const farmTx = await getFarmTx(batchNoIn);
-      const harvestTx = await getHarvestTx(batchNoIn);
+      console.log("statusListLocal")
+      console.log(statusListLocal)
+      
+      if(statusListLocal[0]==="Completado"){
+        const farmTx = await getFarmTx(batchNoIn);      
+        setFarmTx(farmTx);
+        setUserAdmin(await getOwnerInfura());
+      }
+      
+      if(statusListLocal[1]==="Completado"){
+        const harvestTx = await getHarvestTx(batchNoIn);
+        setHarvestTx(harvestTx);
+        setUserHarvest(await getUserInfura(harvestTx ? harvestTx[0] : null));
+      }
+      
+      if(statusListLocal[2]==="Completado"){
       const processTx = await getProcessTx(batchNoIn);
-      const tasteTx = await getTasteTx(batchNoIn);
-      const sellTx = await getSellTx(batchNoIn);
-      const warehouseTx = await getWarehouseTx(batchNoIn);
-      const shipPackerTx = await getShipPackerTx(batchNoIn);
-      const packerTx = await getPackerTx(batchNoIn);
-      const shipRetailerTx = await getShipRetailerTx(batchNoIn);
-      const retailerTx = await getRetailerTx(batchNoIn);
-
-      setFarmTx(farmTx);
-      setHarvestTx(harvestTx);
       setProcessTx(processTx);
-      setTasteTx(tasteTx);
-      setSellTx(sellTx);
-      setWarehouseTx(warehouseTx);
-      setShipPackerTx(shipPackerTx);
-      setPackerTx(packerTx);
-      setShipRetailerTx(shipRetailerTx);
-      setRetailerTx(retailerTx);
-
-      setUserAdmin(await getOwnerInfura());
-      setUserHarvest(await getUserInfura(harvestTx ? harvestTx[0] : null));
       setUserProcess(await getUserInfura(processTx ? processTx[0] : null));
-      setUserTaste(await getUserInfura(tasteTx ? tasteTx[0] : null));
+      }
+
+      if(statusListLocal[3]==="Completado"){
+        const tasteTx = await getTasteTx(batchNoIn);
+        setTasteTx(tasteTx);
+        setUserTaste(await getUserInfura(tasteTx ? tasteTx[0] : null));
+      }
+      
+      if(statusListLocal[4]==="Completado"){
+      const sellTx = await getSellTx(batchNoIn);
+      setSellTx(sellTx);
       setUserSell(await getUserInfura(sellTx ? sellTx[0] : null));
-      setUserWarehouse(await getUserInfura(warehouseTx ? warehouseTx[0] : null));
-      setUserShipPacker(await getUserInfura(shipPackerTx ? shipPackerTx[0] : null));
-      setUserPacker(await getUserInfura(packerTx ? packerTx[0] : null));
-      setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
-      setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
+      }
+      
+      if(statusListLocal[5]==="Completado"){
+        const warehouseTx = await getWarehouseTx(batchNoIn);
+        setWarehouseTx(warehouseTx);
+        setUserWarehouse(await getUserInfura(warehouseTx ? warehouseTx[0] : null));
+      }
+
+      if(statusListLocal[6]==="Completado"){
+        const shipPackerTx = await getShipPackerTx(batchNoIn);
+        setShipPackerTx(shipPackerTx);
+        setUserShipPacker(await getUserInfura(shipPackerTx ? shipPackerTx[0] : null));
+      }
+      
+      if(statusListLocal[7]==="Completado"){
+        const packerTx = await getPackerTx(batchNoIn);
+        setPackerTx(packerTx);
+        setUserPacker(await getUserInfura(packerTx ? packerTx[0] : null));
+      }
+      
+      if(statusListLocal[8]==="Completado"){
+        const shipRetailerTx = await getShipRetailerTx(batchNoIn);
+        setShipRetailerTx(shipRetailerTx);
+        setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
+      }
+      
+      if(statusListLocal[9]==="Completado"){
+        const retailerTx = await getRetailerTx(batchNoIn);
+        setRetailerTx(retailerTx);
+        setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
+      }
+      
       setTxMessage('No disponible');
     };
 
@@ -279,25 +313,27 @@ const TimeLine = ({ batchNo }) => {
 
       if (nextAction.data === null) {
         setTxMessage('No disponible');
+        setMessage('No disponible');
         // navigate(`/dashboard?batch=${batchNoIn}`);
         return;
       }
 
       const statusListLocal = assignState(nextAction.data);
-
-      setFarmData(await AskFarm({ batchNo: batchNoIn }));
-      setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
-      setProcessData(await AskProcess({ batchNo: batchNoIn }));
-      setTasteData(await AskTasting({ batchNo: batchNoIn }));
-      setSellData(await AskCoffeeSeller({ batchNo: batchNoIn }));
-      setWarehouseData(await AskWarehouse({ batchNo: batchNoIn }));
-      setShipPackerData(await AskShipPacker({ batchNo: batchNoIn }));
-      setPackerData(await AskPacker({ batchNo: batchNoIn }));
-      setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
-      setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
+      
+      if(statusListLocal[0]==="Completado") setFarmData(await AskFarm({ batchNo: batchNoIn }));
+      if(statusListLocal[1]==="Completado") setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
+      if(statusListLocal[2]==="Completado") setProcessData(await AskProcess({ batchNo: batchNoIn }));
+      if(statusListLocal[3]==="Completado") setTasteData(await AskTasting({ batchNo: batchNoIn }));
+      if(statusListLocal[4]==="Completado") setSellData(await AskCoffeeSeller({ batchNo: batchNoIn }));
+      if(statusListLocal[5]==="Completado") setWarehouseData(await AskWarehouse({ batchNo: batchNoIn }));
+      if(statusListLocal[6]==="Completado") setShipPackerData(await AskShipPacker({ batchNo: batchNoIn }));
+      if(statusListLocal[7]==="Completado") setPackerData(await AskPacker({ batchNo: batchNoIn }));
+      if(statusListLocal[8]==="Completado") setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
+      if(statusListLocal[9]==="Completado") setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
       setMessage('No disponible');
       setStatusList(statusListLocal)
     };
+    
     getDataInfura();
   }, []);
 
@@ -379,6 +415,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {farmData.data ? `${parseFloat(farmData.data.longitude)}` : message}
             </div>
+            {statusList[0] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -440,6 +487,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Peso del Lote Cosechado</div>
               {harverstData.data ? `${parseFloat(harverstData.data.batchWeight)} [kg]` : message}
             </div>
+            {statusList[1] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -517,6 +575,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Peso del Lote Procesado</div>
               {processData.data ? `${parseFloat(processData.data.processBatchWeight)} [kg]` : message}
             </div>
+            {statusList[2] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -525,7 +594,7 @@ const TimeLine = ({ batchNo }) => {
           className={'bg-blue-200'}
           icon={'inspeccion.png'}
           date={tasteTx ? unixToYMD(tasteTx[2]) : message}
-          url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}` : txMessage}
+          url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}` : null}
           status={ statusList[3] }
         >
           <div className="flex flex-col text-sm">
@@ -558,6 +627,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio del Servicio</div>
               {tasteData.data ? `${parsePrice(tasteData.data.tastingServicePrice)}` : message}
             </div>
+            {statusList[3] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -596,6 +676,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio del Grano por Kilo</div>
               {sellData.data ? `${parsePrice(sellData.data)}` : message}
             </div>
+            {statusList[4] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -641,6 +732,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio de Almacenamiento por Kilo</div>
               {warehouseData.data ? `${parsePrice(warehouseData.data.storagePricePerKiloPerTime)}` : message}
             </div>
+            {statusList[5] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -686,6 +788,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio de Transporte</div>
               {shipPackerData.data ? `${parsePrice(shipPackerData.data.toPackerShippingPrice)}` : message}
             </div>
+            {statusList[6] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
             {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Destino</div>
               {shipPackerData.data ? 'Empacadora' : message}
@@ -739,6 +852,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio de Empacado por Kilo</div>
               {packerData.data ? `${parsePrice(packerData.data.packingPricePerKilo)}` : message}
             </div>
+            {statusList[7] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -788,6 +912,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Destino</div>
               {shipRetailerData.data ? 'Retailer' : message}
             </div> */}
+            {statusList[8] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
 
@@ -859,6 +994,17 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio por Kilo</div>
               {retailerData.data ? `${parsePrice(retailerData.data.retailerPricePerKilo)}` : message}
             </div>
+            {statusList[9] === "En Proceso" &&
+              <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
+                <Button
+                  className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
+                  variant="contained"
+                  size="small"
+                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                >
+                  Registrar
+                </Button>
+            </div>}
           </div>
         </PhaseCard>
       </div>
