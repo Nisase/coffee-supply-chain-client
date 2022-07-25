@@ -90,7 +90,7 @@ function ShareSocialMedia(batch) {
         sixe="small"
         sx={{ p: 0, m: 0 }}
         onClick={() => {
-          navigator.clipboard.writeText(`http://localhost:3000/tracking?batch=${batch}`);
+          navigator.clipboard.writeText(`https://coffeetrack.vercel.app/tracking?batch=${batch}`);
         }}
       >
         <Tooltip size="small" placement="top" title="Copiar Url" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
@@ -99,21 +99,21 @@ function ShareSocialMedia(batch) {
       </IconButton>
       {/* `https://192.168.100.4:3000/tracking?batch=${batch}` */}
       <FacebookShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
         <FacebookIcon size={20} round />
       </FacebookShareButton>
       <WhatsappShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
         <WhatsappIcon size={20} round />
       </WhatsappShareButton>
       <EmailShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -121,13 +121,13 @@ function ShareSocialMedia(batch) {
         <EmailIcon size={20} round />
       </EmailShareButton>
       <TelegramShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
       </TelegramShareButton>
       <TwitterShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -284,7 +284,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
   };
 
   const handleClickOpenZoom = (index) => {
-    setIndexSelect(index)
+    setIndexSelect(index);
     setOpenZoom(true);
   };
   const handleCloseZoom = () => {
@@ -292,7 +292,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
   };
 
   const handleClickOpenLook = (index) => {
-    setIndexSelect(index)
+    setIndexSelect(index);
     setOpenLook(true);
   };
   const handleCloseLook = () => {
@@ -301,8 +301,8 @@ const TableUsers = ({ batchNo, nextActions }) => {
 
   const getBacthList = (batchNo, rowsPerPage, page) => {
     return batchNo.length > 0 && rowsPerPage > 0
-                ? batchNo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : batchNo
+      ? batchNo.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      : batchNo;
   };
 
   useEffect(() => {
@@ -331,8 +331,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(getBacthList(batchNo, rowsPerPage, page)
-            ).map((batch, index) => (
+            {getBacthList(batchNo, rowsPerPage, page).map((batch, index) => (
               <StyledTableRow key={index} sx={{ '&:last-child td, &:last-child th': { borderBottom: 0 } }}>
                 <StyledTableCell
                   align="center"
@@ -375,7 +374,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                           <QRCode
                             bgColor="#FFFFFF"
                             id={batch}
-                            value={`http://localhost:3000/tracking?batch=${batch}`}
+                            value={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
                             size="50"
                             includeMargin
                             renderAs="svg"
@@ -426,7 +425,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                               >
                                 <ExpandCircleDownRoundedIcon sx={{ transform: 'rotate(225deg)' }} />
                               </Tooltip>
-                            </IconButton>                            
+                            </IconButton>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -448,10 +447,12 @@ const TableUsers = ({ batchNo, nextActions }) => {
                       aria-label="tracking-batch"
                       sx={{ color: 'grey[800]' }}
                       size="small"
-                      onClick={()=>{handleClickOpenLook(index)}}
+                      onClick={() => {
+                        handleClickOpenLook(index);
+                      }}
                     >
                       <RemoveRedEyeRoundedIcon />
-                    </IconButton>                    
+                    </IconButton>
                     {/* </RouterLink> */}
                   </Stack>
                 </StyledTableCell>
@@ -484,26 +485,26 @@ const TableUsers = ({ batchNo, nextActions }) => {
             </BootstrapDialog>
 
             <BootstrapDialog
-                PaperProps={{ sx: { width: '40%' } }}
-                aria-labelledby="customized-dialog-title"
-                open={openZoom}
+              PaperProps={{ sx: { width: '40%' } }}
+              aria-labelledby="customized-dialog-title"
+              open={openZoom}
+            >
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseZoom}>
+                <p className="break-all !important text-green-500">
+                  Código QR del lote #<br />
+                  {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
+                </p>
+              </BootstrapDialogTitle>
+              <DialogContent
+                // PaperProps={{ sx: { width: '80%' } }}
+                sx={{ margin: 0, padding: 0 }}
               >
-                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseZoom}>
-                  <p className="break-all !important text-green-500">
-                    Código QR del lote #<br />
-                    {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
-                  </p>
-                </BootstrapDialogTitle>
-                <DialogContent
-                  // PaperProps={{ sx: { width: '80%' } }}
-                  sx={{ margin: 0, padding: 0 }}
-                >
-                  <img className="w-48 h-auto" src={qrImage} alt="QR Code" />
-                  {/*
+                <img className="w-48 h-auto" src={qrImage} alt="QR Code" />
+                {/*
                     svgAsPngUri(document.getElementById("diagram"), options).then(uri => )
                   */}
-                </DialogContent>
-              </BootstrapDialog>
+              </DialogContent>
+            </BootstrapDialog>
           </TableBody>
           <TableFooter>
             <TableRow>

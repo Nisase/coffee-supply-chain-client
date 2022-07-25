@@ -331,7 +331,7 @@ const FarmForm = () => {
                         variant="contained"
                         disabled={!dirty || !isValid}
                         type="submit"
-                        color="secondary"
+                        // color="secondary"
                         sx={{ marginBottom: 2 }}
                       >
                         {' '}
