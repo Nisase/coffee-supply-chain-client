@@ -61,7 +61,7 @@ export default function DashboardLayout() {
       }
       navigate(`${localPathname}/${pathnameAdmin}`);
       enqueueSnackbar(
-        `Estimado usuario ya se ha ingresado la información correspondiente al lote de café seleccionado`,
+        `Estimado usuario su rol ya ha ingresado la información correspondiente al lote de café seleccionado`,
         { variant: 'success' }
       );
       return true;
