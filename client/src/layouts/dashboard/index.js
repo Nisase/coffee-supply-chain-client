@@ -59,6 +59,8 @@ export default function DashboardLayout() {
         });
         return true;
       }
+      if(roleUser && roleUser.length>1) return false;
+
       navigate(`${localPathname}/${pathnameAdmin}`);
       enqueueSnackbar(
         `Estimado usuario su rol ya ha ingresado la información correspondiente al lote de café seleccionado`,
