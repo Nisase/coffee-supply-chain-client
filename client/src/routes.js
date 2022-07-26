@@ -37,6 +37,9 @@ import DashboardShipToRetailer from './pages/DashboardShipToRetailer';
 import DashboardRetailer from './pages/DashboardRetailer';
 // ----------------------------------------------------------------------
 
+
+const goToPath = (userData, roleRequired, element)=> (userData && userData.role.findIndex((iRole) => iRole.key === roleRequired) !== -1) ? element : <Navigate to="/dashboard" />
+
 const routes = (loading, userData, isOwner, batch) => {
   const route = loading
     ? [
@@ -66,28 +69,28 @@ const routes = (loading, userData, isOwner, batch) => {
           children: [
             // { path: '/', element: userData && userData.role === 'ADMIN' ? <DashboardAddUserAdmin /> : <></> },
             { path: 'App', element: <DashboardApp /> },
-            { path: 'AddUsers', element: isOwner ? <DashboardAddUserAdmin /> : <Navigate to="/home" /> },
-            { path: 'AddFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/home" /> },
+            { path: 'AddUsers', element: isOwner ? <DashboardAddUserAdmin /> : <Navigate to="/dashboard" /> },
+            { path: 'AddFarm', element: isOwner ? <DashboardAddFarm /> : <Navigate to="/dashboard" /> },
             { path: 'UpdateUser', element: <DashboardUpdateUser /> },
-            { path: 'AddHarvest', element: <DashboardAddHarvest /> },
-            { path: 'AddProcess', element: <DashboardAddProcess /> },
-            { path: 'AddTasting', element: <DashboardAddTasting /> },
-            { path: 'AddCoffeeSelling', element: <DashboardAddCoffeeSell /> },
-            { path: 'AddWarehouse', element: <DashboardAddWarehouse /> },
-            { path: 'AddShippingToPacker', element: <DashboardAddShipPacker /> },
-            { path: 'AddPackaging', element: <DashboardAddPacker /> },
-            { path: 'AddShippingToRetailer', element: <DashboardAddShipRetailer /> },
-            { path: 'AddRetailer', element: <DashboardAddRetailer /> },
-            { path: 'Admin', element: <DashboardAdmin /> },
-            { path: 'Farmer', element: <DashboardHarvest /> },
-            { path: 'Processor', element: <DashboardProcess /> },
-            { path: 'Taster', element: <DashboardTaster /> },
-            { path: 'Seller', element: <DashboardCoffeeSell /> },
-            { path: 'Warehouse', element: <DashboardWarehouse /> },
-            { path: 'ShipperToPacker', element: <DashboardShipToPacker /> },
-            { path: 'Packer', element: <DashboardPacker /> },
-            { path: 'ShipperToRetailer', element: <DashboardShipToRetailer /> },
-            { path: 'Retailer', element: <DashboardRetailer /> },
+            { path: 'AddHarvest', element: goToPath(userData, 'FARMER', <DashboardAddHarvest />) },
+            { path: 'AddProcess', element: goToPath(userData, 'PROCESSOR', <DashboardAddProcess />)},
+            { path: 'AddTasting', element: goToPath(userData, 'TASTER', <DashboardAddTasting />) },
+            { path: 'AddCoffeeSelling', element: goToPath(userData, 'SELLER', <DashboardAddCoffeeSell />) },
+            { path: 'AddWarehouse', element: goToPath(userData, 'WAREHOUSE', <DashboardAddWarehouse />) },
+            { path: 'AddShippingToPacker', element: goToPath(userData, 'SHIPPER_PACKER', <DashboardAddShipPacker />) },
+            { path: 'AddPackaging', element: goToPath(userData, 'PACKER', <DashboardAddPacker />) },
+            { path: 'AddShippingToRetailer', element: goToPath(userData, 'SHIPPER_RETAILER', <DashboardAddShipRetailer />) },
+            { path: 'AddRetailer', element: goToPath(userData, 'RETAILER', <DashboardAddRetailer />) },
+            { path: 'Admin', element: isOwner ? <DashboardAdmin /> : <Navigate to="/dashboard" /> },
+            { path: 'Farmer', element: goToPath(userData, 'FARMER', <DashboardHarvest />) },
+            { path: 'Processor', element: goToPath(userData, 'PROCESSOR', <DashboardProcess />) },
+            { path: 'Taster', element: goToPath(userData, 'TASTER', <DashboardTaster />) },
+            { path: 'Seller', element: goToPath(userData, 'SELLER', <DashboardCoffeeSell />) },
+            { path: 'Warehouse', element: goToPath(userData, 'WAREHOUSE', <DashboardWarehouse />) },
+            { path: 'ShipperToPacker', element: goToPath(userData, 'SHIPPER_PACKER', <DashboardShipToPacker />) },
+            { path: 'Packer', element: goToPath(userData, 'PACKER', <DashboardPacker />) },
+            { path: 'ShipperToRetailer', element: goToPath(userData, 'SHIPPER_RETAILER', <DashboardShipToRetailer />) },
+            { path: 'Retailer', element: goToPath(userData, 'RETAILER', <DashboardRetailer />) },
             { path: 'user', element: <User /> },
             { path: 'products', element: <Products /> },
             { path: 'blog', element: <Blog /> },
