@@ -11,11 +11,11 @@ const DashboardAddProcess = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="Processor">
+    <Page title="Formulario Procesado">
       <Container maxWidth="xl">
         {/* <UserAdminForm /> */}
         <div className="mt-20">
-          <ProcessForm batchValue={!batchIN ? '': batchIN} />
+          <ProcessForm batchValue={!batchIN ? '' : batchIN} />
         </div>
       </Container>
     </Page>

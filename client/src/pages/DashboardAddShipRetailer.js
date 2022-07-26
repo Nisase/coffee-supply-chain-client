@@ -10,7 +10,7 @@ const DashboardAddShipRetailer = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="ShipperRetailer">
+    <Page title="Formulario Transporte">
       <Container maxWidth="xl">
         <div className="mt-20">
           <ShipRetailerForm batchValue={!batchIN ? '' : batchIN} />

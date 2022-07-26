@@ -10,7 +10,7 @@ const DashboardAddTasting = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="GrainInspector">
+    <Page title="Formulario Catación">
       <Container maxWidth="xl">
         <div className="mt-20">
           <TasterFormForm batchValue={!batchIN ? '' : batchIN} />

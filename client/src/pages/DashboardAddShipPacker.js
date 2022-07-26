@@ -11,7 +11,7 @@ const DashboardAddShipPacker = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="ShipperPacker">
+    <Page title="Formulario Empacado">
       <Container maxWidth="xl">
         <div className="mt-20">
           <ShipPackerForm batchValue={!batchIN ? '' : batchIN} />

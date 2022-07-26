@@ -6,7 +6,7 @@ import ShipToPackerView from '../components/Users/ShipToPackerView';
 
 const DashboardShipToPacker = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Transportista">
       <Container maxWidth="xl">
         <div className="mt-5">
           <ShipToPackerView />

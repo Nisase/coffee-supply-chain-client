@@ -10,7 +10,7 @@ const DashboardAddCoffeeSell = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="GrainInspector">
+    <Page title="Formulario Venta de Café">
       <Container maxWidth="xl">
         <div className="mt-20">
           <CoffeeSellForm batchValue={!batchIN ? '' : batchIN} />

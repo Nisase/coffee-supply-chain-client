@@ -6,7 +6,7 @@ import RetailerView from '../components/Users/RetailerView';
 
 const DashboardRetailer = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Retailer">
       <Container maxWidth="xl">
         <div className="mt-5">
           <RetailerView />

@@ -855,6 +855,9 @@ a.mail-track:focus, a.mail-track:hover {
   right: 0;
 }
 
+.error-img{
+  color: #FF4842;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

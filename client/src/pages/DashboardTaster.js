@@ -6,7 +6,7 @@ import TasterView from '../components/Users/TasteView';
 
 const DashboardTaster = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Catador">
       <Container maxWidth="xl">
         <div className="mt-5">
           <TasterView />

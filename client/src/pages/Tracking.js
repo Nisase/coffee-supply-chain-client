@@ -9,7 +9,6 @@ import InformativeTracking from '../components/Tracking/InformativeTracking';
 
 // ----------------------------------------------------------------------
 
-
 const ContentStyle = styled('div')(({ theme }) => ({
   margin: 'auto',
   minHeight: '100vh',
@@ -26,18 +25,16 @@ export default function Tracking() {
   const batch = searchParams.get('batch');
 
   return (
-    <Page title="Login">
-          <ContentStyle
-            className="w-full mt-0 p-0"
-          >
-            {batch && batch.length === 42 ? (
-              <TimeLine batchNo={batch} />
-            ) : (
-              <>
-                <InformativeTracking />
-              </>
-            )}
-          </ContentStyle>
+    <Page title="Tracking">
+      <ContentStyle className="w-full mt-0 p-0">
+        {batch && batch.length === 42 ? (
+          <TimeLine batchNo={batch} />
+        ) : (
+          <>
+            <InformativeTracking />
+          </>
+        )}
+      </ContentStyle>
     </Page>
   );
 }

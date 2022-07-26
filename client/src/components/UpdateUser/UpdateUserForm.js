@@ -27,12 +27,12 @@ const valSchema = Yup.object().shape({
   profileHash: Yup.mixed()
     .test(
       'fileSize',
-      `Solo se admite archivos menores a ${FILE_SIZE}`,
+      `Solo se admite archivos menores a ${FILE_SIZE} bytes`,
       (value) => value === null || (value && value?.size <= FILE_SIZE)
     )
     .test(
       'type',
-      'Los archivos soportados son: jpg, jpeg y png',
+      'Los formatos soportados para los archivos son: jpg, jpeg y png',
       (value) => !value || (value && SUPPORTED_FORMATS.includes(value?.type))
     ),
 });
@@ -41,6 +41,7 @@ const UpdateUserForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [txHash, setTxHash] = useState('0x');
+  const [enableIpfs, setEnableIpfs] = useState(false);
 
   const dispatch = useDispatch();
   const userData = useSelector(userDataSelector);
@@ -73,6 +74,7 @@ const UpdateUserForm = () => {
         return;
       }
       values.profileHash = result.url;
+      setEnableIpfs(true);
     }
 
     const tx = HandleSubmit(values);
@@ -86,13 +88,13 @@ const UpdateUserForm = () => {
       enqueueSnackbar(error.message, { variant: 'error' });
       values.profileHash = tempProfileHash;
       setLoading(false);
+      setEnableIpfs(false);
     });
   };
 
   const handleResetForm = (resetForm) => {
-    // if (window.confirm('¿Está seguro que desea resetear las entradas de su formulario?')) {
+    setEnableIpfs(false);
     resetForm();
-    // }
   };
 
   return (
@@ -113,12 +115,21 @@ const UpdateUserForm = () => {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <Grid item xs={6} className="bg-gray-200 max-w-fit p-2 rounded-xl mb-5">
-                        <img
-                          alt="Profile"
-                          className="rounded-full w-40 h-40"
-                          // src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
-                          src={values.profileHash ? values.profileHash : userData.profileHash}
-                        />
+                        {enableIpfs ? (
+                          <img
+                            alt="Profile"
+                            className="rounded-full w-40 h-40"
+                            // src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
+                            src={values.profileHash ? values.profileHash : userData.profileHash}
+                          />
+                        ) : (
+                          <img
+                            alt="Profile"
+                            className="rounded-full w-40 h-40"
+                            // src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
+                            src={values.profileHash ? URL.createObjectURL(values.profileHash) : userData.profileHash}
+                          />
+                        )}
                       </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{ marginTop: 2 }}>
@@ -147,8 +158,9 @@ const UpdateUserForm = () => {
                             setFieldValue('profileHash', event.target.files[0]);
                           }}
                         />
+                        <br />
                         {touched.profileHash && errors.profileHash ? (
-                          <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled">
+                          <small className="text-red-500 pt-0 MuiFormHelperText-root Mui-error MuiFormHelperText-sizeMedium MuiFormHelperText-contained MuiFormHelperText-filled error-img">
                             {errors.profileHash}
                           </small>
                         ) : null}

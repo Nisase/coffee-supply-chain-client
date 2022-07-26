@@ -3,12 +3,17 @@
   "name": "Coffee Tracking App",
   "icons": [
     {
-      "src": "favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "favicon/favicon.ico",
+      "sizes": "128x128",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "favicon/android-chrome-128x128-coffee.png",
+      "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "favicon/android-chrome-512x512.png",
+      "src": "favicon/android-chrome-512x512-coffee.png",
       "sizes": "512x512",
       "type": "image/png"
     }

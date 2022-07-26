@@ -11,7 +11,7 @@ const DashboardAddWarehouse = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="Processor">
+    <Page title="Formulario Bodegaje">
       <Container maxWidth="xl">
         <div className="mt-20">
           <WarehouseForm batchValue={!batchIN ? '' : batchIN} />

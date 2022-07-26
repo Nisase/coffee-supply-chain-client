@@ -7,7 +7,7 @@ import AdminView from '../components/Admin/AdminView';
 
 const DashboardAdmin = () => {
   return (
-    <Page title="TableAdmin">
+    <Page title="Tablero Administrador">
       <Container maxWidth="xl">
         <div className="mt-5">
           {/* <TableAdmin /> */}

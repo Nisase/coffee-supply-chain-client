@@ -6,7 +6,7 @@ import WarehouseView from '../components/Users/WarehouseView';
 
 const DashboardWarehouse = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Bodega">
       <Container maxWidth="xl">
         <div className="mt-5">
           <WarehouseView />

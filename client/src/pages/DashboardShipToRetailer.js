@@ -6,7 +6,7 @@ import ShipToRetailerView from '../components/Users/ShipToRetailerView';
 
 const DashboardShipToRetailer = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Transportista">
       <Container maxWidth="xl">
         <div className="mt-5">
           <ShipToRetailerView />

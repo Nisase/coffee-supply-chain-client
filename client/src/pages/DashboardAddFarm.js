@@ -8,7 +8,7 @@ import FarmForm from '../components/AddFarmDetails/FarmForm';
 
 export default function DashboardAdmin() {
   return (
-    <Page title="Administrator">
+    <Page title="Formulario Granja">
       <Container maxWidth="xl">
         {/* <UserAdminForm /> */}
         <div className="mt-20">

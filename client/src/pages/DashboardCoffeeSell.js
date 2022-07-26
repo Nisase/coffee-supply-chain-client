@@ -6,7 +6,7 @@ import CoffeeSellView from '../components/Users/CoffeeSellView';
 
 const DashboardCoffeeSell = () => {
   return (
-    <Page title="TableCoffeeSell">
+    <Page title="Tablero Vendedor de Café">
       <Container maxWidth="xl">
         <div className="mt-5">
           <CoffeeSellView />

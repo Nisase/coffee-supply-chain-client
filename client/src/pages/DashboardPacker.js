@@ -6,7 +6,7 @@ import PackerView from '../components/Users/PackerView';
 
 const DashboardPacker = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Empacador">
       <Container maxWidth="xl">
         <div className="mt-5">
           <PackerView />

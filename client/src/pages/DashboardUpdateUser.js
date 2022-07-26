@@ -8,7 +8,7 @@ import UpdateUserForm from '../components/UpdateUser/UpdateUserForm';
 
 export default function DashboardUpdateUser() {
   return (
-    <Page title="Update User">
+    <Page title="Actualizar Usuario">
       <Container maxWidth="xl">
         <UpdateUserForm />
       </Container>

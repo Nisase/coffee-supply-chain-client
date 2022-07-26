@@ -30,7 +30,7 @@ const BoxStyle = styled('div')(({ theme }) => ({
 
 export default function Home() {
   return (
-    <Page title="Login">
+    <Page title="Home">
       <RootStyle sx={{ margin: 0 }}>
         <BoxStyle sx={{ margin: 10 }}>
           <HomeSection />

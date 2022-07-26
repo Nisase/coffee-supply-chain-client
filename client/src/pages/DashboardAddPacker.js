@@ -11,7 +11,7 @@ const DashboardAddPacker = () => {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="Packer">
+    <Page title="Formulario Empacado">
       <Container maxWidth="xl">
         <div className="mt-20">
           <PackerForm batchValue={!batchIN ? '' : batchIN} />

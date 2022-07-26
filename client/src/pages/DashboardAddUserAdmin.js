@@ -7,7 +7,7 @@ import UserAdminForm from '../components/AddUserAdmin/UserAdminForm';
 
 export default function DashboardAddUserAdmin() {
   return (
-    <Page title="Administrator">
+    <Page title="Formulario Usuarios">
       <Container maxWidth="xl">
         <UserAdminForm />
       </Container>

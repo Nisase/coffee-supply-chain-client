@@ -6,7 +6,7 @@ import ProcessView from '../components/Users/ProcessView';
 
 const DashboardProcess = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Procesador">
       <Container maxWidth="xl">
         <div className="mt-5">
           <ProcessView />

@@ -7,7 +7,7 @@ import HarvestView from '../components/Users/HarvestView';
 
 const DashboardHarvest = () => {
   return (
-    <Page title="TableHarvest">
+    <Page title="Tablero Agricultor">
       <Container maxWidth="xl">
         <div className="mt-5">
           {/* <TableHarvest /> */}

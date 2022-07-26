@@ -1,7 +1,6 @@
 import { Container } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
-
 // components
 import Page from '../components/Page';
 
@@ -14,9 +13,9 @@ export default function DashboardAddHarvest() {
   const batchIN = searchParams.get('batch');
 
   return (
-    <Page title="Farmer">
+    <Page title="Formulario Cosecha">
       <Container maxWidth="xl">
-        <HarvestForm batchValue={!batchIN ? '': batchIN} />
+        <HarvestForm batchValue={!batchIN ? '' : batchIN} />
       </Container>
     </Page>
   );
