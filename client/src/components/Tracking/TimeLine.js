@@ -1037,33 +1037,25 @@ const TimeLine = ({ batchNo }) => {
             )}
           </div>
         </PhaseCard>
-        <PhaseCard
-          title={'Ubicación en el Mapa'}
-          className={'bg-blue-200'}
-          icon={'retailer.png'}
-          // date={retailerTx ? unixToYMD(retailerTx[2]) : txMessage}
-          // url={retailerTx ? `https://rinkeby.etherscan.io/tx/${retailerTx[1]}` : null}
-          // status={statusList[9]}
-        >
-          <div className="flex flex-col text-sm">
-            <div className="flex flex-col">
-              {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
-                <MapsTracking
-                  farmAddress={farmData.data[4]}
-                  processAddress={processData.data[0]}
-                  warehouseAddress={warehouseData.data[0]}
-                  packerAddress={packerData.data[0]}
-                  warehouseRetAddress={retailerData.data[3]}
-                  salepointRetAddress={retailerData.data[4]}
-                />
-              )}
-            </div>
-          </div>
-        </PhaseCard>
+        {/* <PhaseCard title={'Ubicación en el Mapa'} className={'bg-blue-200'} icon={'retailer.png'}>
+          <div className="flex flex-col text-sm"> */}
+
+        {/* </div>
+        </PhaseCard> */}
       </div>
-      {/* <div>
-        
-      </div> */}
+
+      <div>
+        {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
+          <MapsTracking
+            farmAddress={farmData.data[4]}
+            processAddress={processData.data[0]}
+            warehouseAddress={warehouseData.data[0]}
+            packerAddress={packerData.data[0]}
+            warehouseRetAddress={retailerData.data[3]}
+            salepointRetAddress={retailerData.data[4]}
+          />
+        )}
+      </div>
     </div>
   );
 };
