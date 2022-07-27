@@ -23,10 +23,16 @@ const options = {
   zoomControl: true,
 };
 
-const center = {
-  lat: 0.06218317633464823,
-  lng: -78.6820212451912,
-};
+// const center = {
+//   lat: 0.06218317633464823,
+//   lng: -78.6820212451912,
+//   // lat: -1.831239,
+//   // lng: -78.183406,
+// };
+// const center2 = {
+//   lat: -1.831239,
+//   lng: -78.183403,
+// };
 
 const getCoordinates = async (val) => {
   const results = await getGeocode({ address: val });
@@ -70,6 +76,8 @@ const MapsTracking = ({
   const [wareRetPackerRoute, setWareRetPackerRoute] = useState();
   const [salepointWareRoute, setSalepointWareRoute] = useState();
 
+  const [center, setCenter] = useState(null);
+
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -111,6 +119,10 @@ const MapsTracking = ({
     console.log('lat: ', farmRes.lat);
   };
 
+  const defineCenter = async () => {
+    const farmRes = await getCoordinates(farmDir);
+    setCenter(farmRes);
+  };
   const routes = () => {
     routeDirection(farmDir, processorDir, setFarmProcRoute);
     routeDirection(processorDir, warehouseDir, setProcWarehouseRoute);
@@ -120,12 +132,7 @@ const MapsTracking = ({
   };
 
   useEffect(() => {
-    // setFarmDir('5223+H3V, Cuenca 010106, Ecuador');
-    // setProcessorDir('Del Cedron 1-52, Cuenca, Ecuador');
-    // setWarehouseDir('29PG+Q7 Latacunga, Ecuador');
-    // setPackerDir('Alcantarillas 366, Quito 170131, Ecuador');
-    // setWarehouseRetDir('JGVX+PMW, Sangolquí, Ecuador');
-    // setSalepointRetDir('17O521 Edmundo Carvajal N24-52 y Av. La Gasca, Interior C.C, Quito 170129, Ecuador');
+    defineCenter();
     setFarmDir(farmAddress);
     setProcessorDir(processAddress);
     setWarehouseDir(warehouseAddress);
@@ -135,7 +142,20 @@ const MapsTracking = ({
 
     // latLng();
     if (window.google) routes();
-  }, [window.google]);
+  }, [
+    window.google,
+    farmDir,
+    processorDir,
+    warehouseDir,
+    packerDir,
+    warehouseRetDir,
+    salepointRetDir,
+    farmProcRoute,
+    procWarehouseRoute,
+    warehousePackerRoute,
+    wareRetPackerRoute,
+    salepointWareRoute,
+  ]);
 
   if (loadError) return 'Error';
   if (!isLoaded) return 'Cargando...';
@@ -223,6 +243,7 @@ const MapsTracking = ({
                 zIndex: 50,
                 strokeColor: '#F96B13',
                 strokeWeight: 5,
+                // strokeOpacity: 0.5,
               },
             }}
           />
@@ -236,6 +257,7 @@ const MapsTracking = ({
                 zIndex: 50,
                 strokeColor: '#042A2B',
                 strokeWeight: 5,
+                // strokeOpacity: 0.5,
               },
             }}
           />
@@ -249,6 +271,7 @@ const MapsTracking = ({
                 zIndex: 50,
                 strokeColor: '#F96B13',
                 strokeWeight: 5,
+                // strokeOpacity: 0.5,
               },
             }}
           />
@@ -262,6 +285,7 @@ const MapsTracking = ({
                 zIndex: 50,
                 strokeColor: '#042A2B',
                 strokeWeight: 5,
+                // strokeOpacity: 0.5,
               },
             }}
           />
@@ -276,6 +300,7 @@ const MapsTracking = ({
                 zIndex: 50,
                 strokeColor: '#F96B13',
                 strokeWeight: 5,
+                strokeOpacity: 0.5,
               },
             }}
           />
