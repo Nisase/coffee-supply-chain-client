@@ -35,7 +35,7 @@ import {
 import getUserInfura from '../../logic/GetUserInfura';
 import getOwnerInfura from '../../logic/GetOwnerInfura';
 
- import MapsTracking from '../Maps/MapsTracking';
+import MapsTracking from '../Maps/MapsTracking';
 
 import '../../App.css';
 
@@ -90,7 +90,7 @@ const TimeLine = ({ batchNo }) => {
   const [userShipRetailer, setUserShipRetailer] = useState({});
   const [userRetailer, setUserRetailer] = useState({});
 
-  const parsePrice = (price) => price ? `$ ${parseFloat(price)}` : "No disponible";
+  const parsePrice = (price) => (price ? `$ ${parseFloat(price)}` : 'No disponible');
 
   const assignState = (action) => {
     let arr = [];
@@ -231,76 +231,76 @@ const TimeLine = ({ batchNo }) => {
   useEffect(() => {
     const getPaticipants = async () => {
       const nextActionLocal = await AskNextActionInfura({ batchNo: batchNoIn });
-      
+
       if (nextActionLocal.data === null) {
         setTxMessage('No disponible');
         // navigate(`/dashboard?batch=${batchNoIn}`);
         return;
       }
       const statusListLocal = assignState(nextActionLocal.data);
-      console.log("statusListLocal")
-      console.log(statusListLocal)
-      
-      if(statusListLocal[0]==="Completado"){
-        const farmTx = await getFarmTx(batchNoIn);      
+      console.log('statusListLocal');
+      console.log(statusListLocal);
+
+      if (statusListLocal[0] === 'Completado') {
+        const farmTx = await getFarmTx(batchNoIn);
         setFarmTx(farmTx);
         setUserAdmin(await getOwnerInfura());
       }
-      
-      if(statusListLocal[1]==="Completado"){
+
+      if (statusListLocal[1] === 'Completado') {
         const harvestTx = await getHarvestTx(batchNoIn);
         setHarvestTx(harvestTx);
         setUserHarvest(await getUserInfura(harvestTx ? harvestTx[0] : null));
       }
-      
-      if(statusListLocal[2]==="Completado"){
-      const processTx = await getProcessTx(batchNoIn);
-      setProcessTx(processTx);
-      setUserProcess(await getUserInfura(processTx ? processTx[0] : null));
+
+      if (statusListLocal[2] === 'Completado') {
+        const processTx = await getProcessTx(batchNoIn);
+        setProcessTx(processTx);
+        setUserProcess(await getUserInfura(processTx ? processTx[0] : null));
       }
 
-      if(statusListLocal[3]==="Completado"){
+      if (statusListLocal[3] === 'Completado') {
         const tasteTx = await getTasteTx(batchNoIn);
         setTasteTx(tasteTx);
         setUserTaste(await getUserInfura(tasteTx ? tasteTx[0] : null));
       }
-      
-      if(statusListLocal[4]==="Completado"){
-      const sellTx = await getSellTx(batchNoIn);
-      setSellTx(sellTx);
-      setUserSell(await getUserInfura(sellTx ? sellTx[0] : null));
+
+      if (statusListLocal[4] === 'Completado') {
+        const sellTx = await getSellTx(batchNoIn);
+        setSellTx(sellTx);
+        setUserSell(await getUserInfura(sellTx ? sellTx[0] : null));
       }
-      
-      if(statusListLocal[5]==="Completado"){
+
+      if (statusListLocal[5] === 'Completado') {
         const warehouseTx = await getWarehouseTx(batchNoIn);
         setWarehouseTx(warehouseTx);
         setUserWarehouse(await getUserInfura(warehouseTx ? warehouseTx[0] : null));
       }
 
-      if(statusListLocal[6]==="Completado"){
+      if (statusListLocal[6] === 'Completado') {
         const shipPackerTx = await getShipPackerTx(batchNoIn);
         setShipPackerTx(shipPackerTx);
         setUserShipPacker(await getUserInfura(shipPackerTx ? shipPackerTx[0] : null));
       }
-      
-      if(statusListLocal[7]==="Completado"){
+
+      if (statusListLocal[7] === 'Completado') {
         const packerTx = await getPackerTx(batchNoIn);
         setPackerTx(packerTx);
         setUserPacker(await getUserInfura(packerTx ? packerTx[0] : null));
       }
-      
-      if(statusListLocal[8]==="Completado"){
+
+      if (statusListLocal[8] === 'Completado') {
         const shipRetailerTx = await getShipRetailerTx(batchNoIn);
         setShipRetailerTx(shipRetailerTx);
         setUserShipRetailer(await getUserInfura(shipRetailerTx ? shipRetailerTx[0] : null));
       }
-      
-      if(statusListLocal[9]==="Completado"){
+
+      if (statusListLocal[9] === 'Completado') {
         const retailerTx = await getRetailerTx(batchNoIn);
         setRetailerTx(retailerTx);
         setUserRetailer(await getUserInfura(retailerTx ? retailerTx[0] : null));
       }
-      
+
       setTxMessage('No disponible');
     };
 
@@ -319,21 +319,21 @@ const TimeLine = ({ batchNo }) => {
       }
 
       const statusListLocal = assignState(nextAction.data);
-      
-      if(statusListLocal[0]==="Completado") setFarmData(await AskFarm({ batchNo: batchNoIn }));
-      if(statusListLocal[1]==="Completado") setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
-      if(statusListLocal[2]==="Completado") setProcessData(await AskProcess({ batchNo: batchNoIn }));
-      if(statusListLocal[3]==="Completado") setTasteData(await AskTasting({ batchNo: batchNoIn }));
-      if(statusListLocal[4]==="Completado") setSellData(await AskCoffeeSeller({ batchNo: batchNoIn }));
-      if(statusListLocal[5]==="Completado") setWarehouseData(await AskWarehouse({ batchNo: batchNoIn }));
-      if(statusListLocal[6]==="Completado") setShipPackerData(await AskShipPacker({ batchNo: batchNoIn }));
-      if(statusListLocal[7]==="Completado") setPackerData(await AskPacker({ batchNo: batchNoIn }));
-      if(statusListLocal[8]==="Completado") setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
-      if(statusListLocal[9]==="Completado") setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
+
+      if (statusListLocal[0] === 'Completado') setFarmData(await AskFarm({ batchNo: batchNoIn }));
+      if (statusListLocal[1] === 'Completado') setHarverstData(await AskHarvest({ batchNo: batchNoIn }));
+      if (statusListLocal[2] === 'Completado') setProcessData(await AskProcess({ batchNo: batchNoIn }));
+      if (statusListLocal[3] === 'Completado') setTasteData(await AskTasting({ batchNo: batchNoIn }));
+      if (statusListLocal[4] === 'Completado') setSellData(await AskCoffeeSeller({ batchNo: batchNoIn }));
+      if (statusListLocal[5] === 'Completado') setWarehouseData(await AskWarehouse({ batchNo: batchNoIn }));
+      if (statusListLocal[6] === 'Completado') setShipPackerData(await AskShipPacker({ batchNo: batchNoIn }));
+      if (statusListLocal[7] === 'Completado') setPackerData(await AskPacker({ batchNo: batchNoIn }));
+      if (statusListLocal[8] === 'Completado') setShipRetailerData(await AskShipRetailer({ batchNo: batchNoIn }));
+      if (statusListLocal[9] === 'Completado') setRetailerData(await AskRetailer({ batchNo: batchNoIn }));
       setMessage('No disponible');
-      setStatusList(statusListLocal)
+      setStatusList(statusListLocal);
     };
-    
+
     getDataInfura();
   }, []);
 
@@ -371,10 +371,10 @@ const TimeLine = ({ batchNo }) => {
         <PhaseCard
           title={'Datos de la Granja'}
           className={'bg-green-100'}
-          icon={'farm3.png'}
+          icon={'farm1.png'}
           date={farmTx ? unixToYMD(farmTx[2]) : txMessage}
           url={farmTx ? `https://rinkeby.etherscan.io/tx/${farmTx[1]}` : null}
-          status={ statusList[0] }
+          status={statusList[0]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -415,17 +415,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {farmData.data ? `${parseFloat(farmData.data.longitude)}` : message}
             </div>
-            {statusList[0] === "En Proceso" &&
+            {statusList[0] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -435,7 +438,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'cosecha.png'}
           date={harvestTx ? unixToYMD(harvestTx[2]) : txMessage}
           url={harvestTx ? `https://rinkeby.etherscan.io/tx/${harvestTx[1]}` : null}
-          status={ statusList[1] }
+          status={statusList[1]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -487,17 +490,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Peso del Lote Cosechado</div>
               {harverstData.data ? `${parseFloat(harverstData.data.batchWeight)} [kg]` : message}
             </div>
-            {statusList[1] === "En Proceso" &&
+            {statusList[1] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -507,7 +513,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'proccess.png'}
           date={processTx ? unixToYMD(processTx[2]) : txMessage}
           url={processTx ? `https://rinkeby.etherscan.io/tx/${processTx[1]}` : null}
-          status={ statusList[2] }
+          status={statusList[2]}
         >
           <div className="flex flex-col text-sm">
             <div className="bg-gray-100 rounded-lg">
@@ -575,17 +581,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Peso del Lote Procesado</div>
               {processData.data ? `${parseFloat(processData.data.processBatchWeight)} [kg]` : message}
             </div>
-            {statusList[2] === "En Proceso" &&
+            {statusList[2] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -595,7 +604,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'inspeccion.png'}
           date={tasteTx ? unixToYMD(tasteTx[2]) : message}
           url={tasteTx ? `https://rinkeby.etherscan.io/tx/${tasteTx[1]}` : null}
-          status={ statusList[3] }
+          status={statusList[3]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -627,17 +636,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio del Servicio</div>
               {tasteData.data ? `${parsePrice(tasteData.data.tastingServicePrice)}` : message}
             </div>
-            {statusList[3] === "En Proceso" &&
+            {statusList[3] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -647,7 +659,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'sell1.png'}
           date={sellTx ? unixToYMD(sellTx[2]) : txMessage}
           url={sellTx ? `https://rinkeby.etherscan.io/tx/${sellTx[1]}` : null}
-          status={ statusList[4] }
+          status={statusList[4]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -676,17 +688,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio del Grano por Kilo</div>
               {sellData.data ? `${parsePrice(sellData.data)}` : message}
             </div>
-            {statusList[4] === "En Proceso" &&
+            {statusList[4] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -696,7 +711,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'aglomerado.png'}
           date={warehouseTx ? unixToYMD(warehouseTx[2]) : txMessage}
           url={warehouseTx ? `https://rinkeby.etherscan.io/tx/${warehouseTx[1]}` : null}
-          status={ statusList[5] }
+          status={statusList[5]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -732,17 +747,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio de Almacenamiento por Kilo</div>
               {warehouseData.data ? `${parsePrice(warehouseData.data.storagePricePerKiloPerTime)}` : message}
             </div>
-            {statusList[5] === "En Proceso" &&
+            {statusList[5] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -752,7 +770,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'transporte.png'}
           date={shipPackerTx ? unixToYMD(shipPackerTx[2]) : txMessage}
           url={shipPackerTx ? `https://rinkeby.etherscan.io/tx/${shipPackerTx[1]}` : null}
-          status={ statusList[6] }
+          status={statusList[6]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -788,17 +806,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio de Transporte</div>
               {shipPackerData.data ? `${parsePrice(shipPackerData.data.toPackerShippingPrice)}` : message}
             </div>
-            {statusList[6] === "En Proceso" &&
+            {statusList[6] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
             {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Destino</div>
               {shipPackerData.data ? 'Empacadora' : message}
@@ -812,7 +833,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'empacado.png'}
           date={packerTx ? unixToYMD(packerTx[2]) : txMessage}
           url={packerTx ? `https://rinkeby.etherscan.io/tx/${packerTx[1]}` : null}
-          status={ statusList[7] }
+          status={statusList[7]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -852,17 +873,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio de Empacado por Kilo</div>
               {packerData.data ? `${parsePrice(packerData.data.packingPricePerKilo)}` : message}
             </div>
-            {statusList[7] === "En Proceso" &&
+            {statusList[7] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -872,7 +896,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'transporte.png'}
           date={shipRetailerTx ? unixToYMD(shipRetailerTx[2]) : txMessage}
           url={shipRetailerTx ? `https://rinkeby.etherscan.io/tx/${shipRetailerTx[1]}` : null}
-          status={ statusList[8] }
+          status={statusList[8]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -912,17 +936,20 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Destino</div>
               {shipRetailerData.data ? 'Retailer' : message}
             </div> */}
-            {statusList[8] === "En Proceso" &&
+            {statusList[8] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
 
@@ -932,7 +959,7 @@ const TimeLine = ({ batchNo }) => {
           icon={'retailer.png'}
           date={retailerTx ? unixToYMD(retailerTx[2]) : txMessage}
           url={retailerTx ? `https://rinkeby.etherscan.io/tx/${retailerTx[1]}` : null}
-          status={ statusList[9] }
+          status={statusList[9]}
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
@@ -994,33 +1021,34 @@ const TimeLine = ({ batchNo }) => {
               <div className="mt-5 mb-1 font-semibold">Precio por Kilo</div>
               {retailerData.data ? `${parsePrice(retailerData.data.retailerPricePerKilo)}` : message}
             </div>
-            {statusList[9] === "En Proceso" &&
+            {statusList[9] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
                   className="font-bold track-btn bg-emerald-600 text-white mb-4  mx-4"
                   variant="contained"
                   size="small"
-                  onClick={()=>{navigate(`/dashboard?batch=${batchNoIn}`)}}
+                  onClick={() => {
+                    navigate(`/dashboard?batch=${batchNoIn}`);
+                  }}
                 >
                   Registrar
                 </Button>
-            </div>}
+              </div>
+            )}
           </div>
         </PhaseCard>
       </div>
       <div>
-        {
-          farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data &&
+        {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
           <MapsTracking
-          farmAddress={farmData.data[4]}
-          processAddress={processData.data[0]}
-          warehouseAddress={warehouseData.data[0]}
-          packerAddress={packerData.data[0]}
-          warehouseRetAddress={retailerData.data[3]}
-          salepointRetAddress={retailerData.data[4]}
+            farmAddress={farmData.data[4]}
+            processAddress={processData.data[0]}
+            warehouseAddress={warehouseData.data[0]}
+            packerAddress={packerData.data[0]}
+            warehouseRetAddress={retailerData.data[3]}
+            salepointRetAddress={retailerData.data[4]}
           />
-        }
-      
+        )}
       </div>
     </div>
   );

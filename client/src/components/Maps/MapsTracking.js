@@ -144,16 +144,16 @@ const MapsTracking = ({
     if (window.google) routes();
   }, [
     window.google,
-    farmDir,
-    processorDir,
-    warehouseDir,
-    packerDir,
-    warehouseRetDir,
+    // farmDir,
+    // processorDir,
+    // warehouseDir,
+    // packerDir,
+    // warehouseRetDir,
     salepointRetDir,
-    farmProcRoute,
-    procWarehouseRoute,
-    warehousePackerRoute,
-    wareRetPackerRoute,
+    // farmProcRoute,
+    // procWarehouseRoute,
+    // warehousePackerRoute,
+    // wareRetPackerRoute,
     salepointWareRoute,
   ]);
 
