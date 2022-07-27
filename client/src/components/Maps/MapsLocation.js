@@ -19,6 +19,8 @@ import { Geolocation } from '../../logic/Maps/NavLocation';
 
 import '../../App.css';
 
+const google = window.google;
+
 const libraries = ['places'];
 const mapContainerStyle = {
   height: '100%',
@@ -44,6 +46,10 @@ const MapsLocation = ({ svg }) => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+
+  console.log("ENV",process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
+  console.log(isLoaded)
+  console.log(loadError)
 
   const [markers, setMarkers] = useState({});
   const [location, setLocation] = useState('');
@@ -117,7 +123,7 @@ const MapsLocation = ({ svg }) => {
           icon={{
             url: svg,
             origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(5, 5),
+            anchor: new window.google.maps.Point(20, 45),
             scaledSize: new window.google.maps.Size(40, 40),
           }}
         />

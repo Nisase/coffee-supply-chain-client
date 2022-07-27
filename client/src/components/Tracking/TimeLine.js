@@ -35,7 +35,7 @@ import {
 import getUserInfura from '../../logic/GetUserInfura';
 import getOwnerInfura from '../../logic/GetOwnerInfura';
 
-// import MapsTracking from '../Maps/MapsTracking';
+ import MapsTracking from '../Maps/MapsTracking';
 
 import '../../App.css';
 
@@ -1009,15 +1009,18 @@ const TimeLine = ({ batchNo }) => {
         </PhaseCard>
       </div>
       <div>
-        {// <MapsTracking
-        // farmAddress={farmData.data[4]}
-        // processAddress={processData.data[0]}
-        // warehouseAddress={warehouseData.data[0]}
-        // packerAddress={packerData.data[0]}
-        // warehouseRetAddress={retailerData.data[3]}
-        // salepointRetAddress={retailerData.data[4]}
-        // />
-      }
+        {
+          farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data &&
+          <MapsTracking
+          farmAddress={farmData.data[4]}
+          processAddress={processData.data[0]}
+          warehouseAddress={warehouseData.data[0]}
+          packerAddress={packerData.data[0]}
+          warehouseRetAddress={retailerData.data[3]}
+          salepointRetAddress={retailerData.data[4]}
+          />
+        }
+      
       </div>
     </div>
   );
