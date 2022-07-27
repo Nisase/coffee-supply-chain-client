@@ -7,7 +7,6 @@ import '../../App.css';
 
 const google = window.google;
 
-
 const libraries = ['places'];
 
 const mapContainerStyle = {
@@ -32,15 +31,21 @@ const center = {
 const getCoordinates = async (val) => {
   const results = await getGeocode({ address: val });
   const { lat, lng } = await getLatLng(results[0]);
-  console.log("resultss")
-  console.log(results)
-  console.log(lat)
+  console.log('resultss');
+  console.log(results);
+  console.log(lat);
 
   return { lat, lng };
 };
 
-
-const MapsTracking = () => {
+const MapsTracking = ({
+  farmAddress,
+  processAddress,
+  warehouseAddress,
+  packerAddress,
+  warehouseRetAddress,
+  salepointRetAddress,
+}) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -105,43 +110,47 @@ const MapsTracking = () => {
     console.log('type lat: ', typeof farmRes.lat);
     console.log('lat: ', farmRes.lat);
   };
-  
-  const routes = () => {
-      routeDirection(farmDir, processorDir, setFarmProcRoute);
-      routeDirection(processorDir, warehouseDir, setProcWarehouseRoute);
-      routeDirection(warehouseDir, packerDir, setWarehousePackerRoute);
-      routeDirection(packerDir, warehouseRetDir, setWareRetPackerRoute);
-      routeDirection(warehouseRetDir, salepointRetDir, setSalepointWareRoute);
-    }
 
-    useEffect(() => {
-      setFarmDir('5223+H3V, Cuenca 010106, Ecuador');
-      setProcessorDir('Del Cedron 1-52, Cuenca, Ecuador');
-      setWarehouseDir('29PG+Q7 Latacunga, Ecuador');
-      setPackerDir('Alcantarillas 366, Quito 170131, Ecuador');
-      setWarehouseRetDir('JGVX+PMW, Sangolquí, Ecuador');
-      setSalepointRetDir('17O521 Edmundo Carvajal N24-52 y Av. La Gasca, Interior C.C, Quito 170129, Ecuador');
-      
-      // latLng();
-      if(window.google) routes();
-  
-    }, [window.google]);
+  const routes = () => {
+    routeDirection(farmDir, processorDir, setFarmProcRoute);
+    routeDirection(processorDir, warehouseDir, setProcWarehouseRoute);
+    routeDirection(warehouseDir, packerDir, setWarehousePackerRoute);
+    routeDirection(packerDir, warehouseRetDir, setWareRetPackerRoute);
+    routeDirection(warehouseRetDir, salepointRetDir, setSalepointWareRoute);
+  };
+
+  useEffect(() => {
+    // setFarmDir('5223+H3V, Cuenca 010106, Ecuador');
+    // setProcessorDir('Del Cedron 1-52, Cuenca, Ecuador');
+    // setWarehouseDir('29PG+Q7 Latacunga, Ecuador');
+    // setPackerDir('Alcantarillas 366, Quito 170131, Ecuador');
+    // setWarehouseRetDir('JGVX+PMW, Sangolquí, Ecuador');
+    // setSalepointRetDir('17O521 Edmundo Carvajal N24-52 y Av. La Gasca, Interior C.C, Quito 170129, Ecuador');
+    setFarmDir(farmAddress);
+    setProcessorDir(processAddress);
+    setWarehouseDir(warehouseAddress);
+    setPackerDir(packerAddress);
+    setWarehouseRetDir(warehouseRetAddress);
+    setSalepointRetDir(salepointRetAddress);
+
+    // latLng();
+    if (window.google) routes();
+  }, [window.google]);
 
   if (loadError) return 'Error';
   if (!isLoaded) return 'Cargando...';
 
   return (
-      <div className="map-track">
-        <GoogleMap
-          id="map"
-          mapContainerStyle={mapContainerStyle}
-          zoom={9}
-          center={center}
-          options={options}
-          onLoad={onMapLoad}
-        >
-          {
-          /* {farmMarker && (
+    <div className="map-track">
+      <GoogleMap
+        id="map"
+        mapContainerStyle={mapContainerStyle}
+        zoom={9}
+        center={center}
+        options={options}
+        onLoad={onMapLoad}
+      >
+        {/* {farmMarker && (
             <>
               <Marker
                 position={farmMarker}
@@ -204,76 +213,75 @@ const MapsTracking = () => {
                 <Typography variant="body2">{formatRelative(selected.time, new Date())} </Typography>
               </Box>
             </InfoWindow>
-          ) : null} } */
-        }
+          ) : null} } */}
 
-          {farmProcRoute && (
-            <DirectionsRenderer
-              directions={farmProcRoute}
-              options={{
-                polylineOptions: {
-                  zIndex: 50,
-                  strokeColor: '#F96B13',
-                  strokeWeight: 5,
-                },
-              }}
-            />
-          )}
+        {farmProcRoute && (
+          <DirectionsRenderer
+            directions={farmProcRoute}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: '#F96B13',
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
 
-          {procWarehouseRoute && (
-            <DirectionsRenderer
-              directions={procWarehouseRoute}
-              options={{
-                polylineOptions: {
-                  zIndex: 50,
-                  strokeColor: '#042A2B',
-                  strokeWeight: 5,
-                },
-              }}
-            />
-          )}
+        {procWarehouseRoute && (
+          <DirectionsRenderer
+            directions={procWarehouseRoute}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: '#042A2B',
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
 
-          {warehousePackerRoute && (
-            <DirectionsRenderer
-              directions={warehousePackerRoute}
-              options={{
-                polylineOptions: {
-                  zIndex: 50,
-                  strokeColor: '#F96B13',
-                  strokeWeight: 5,
-                },
-              }}
-            />
-          )}
+        {warehousePackerRoute && (
+          <DirectionsRenderer
+            directions={warehousePackerRoute}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: '#F96B13',
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
 
-          {wareRetPackerRoute && (
-            <DirectionsRenderer
-              directions={wareRetPackerRoute}
-              options={{
-                polylineOptions: {
-                  zIndex: 50,
-                  strokeColor: '#042A2B',
-                  strokeWeight: 5,
-                },
-              }}
-            />
-          )}
+        {wareRetPackerRoute && (
+          <DirectionsRenderer
+            directions={wareRetPackerRoute}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: '#042A2B',
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
 
-          {salepointWareRoute && (
-            <DirectionsRenderer
-              directions={salepointWareRoute}
-              panel={<div>Holi</div>}
-              options={{
-                polylineOptions: {
-                  zIndex: 50,
-                  strokeColor: '#F96B13',
-                  strokeWeight: 5,
-                },
-              }}
-            />
-          )}
-        </GoogleMap>
-      </div>
+        {salepointWareRoute && (
+          <DirectionsRenderer
+            directions={salepointWareRoute}
+            panel={<div>Holi</div>}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: '#F96B13',
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
+      </GoogleMap>
+    </div>
   );
 };
 
