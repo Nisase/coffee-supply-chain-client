@@ -1036,9 +1036,21 @@ const TimeLine = ({ batchNo }) => {
               </div>
             )}
           </div>
+          <div>
+            {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
+              <MapsTracking
+                farmAddress={farmData.data[4]}
+                processAddress={processData.data[0]}
+                warehouseAddress={warehouseData.data[0]}
+                packerAddress={packerData.data[0]}
+                warehouseRetAddress={retailerData.data[3]}
+                salepointRetAddress={retailerData.data[4]}
+              />
+            )}
+          </div>
         </PhaseCard>
       </div>
-      <div>
+      {/* <div>
         {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
           <MapsTracking
             farmAddress={farmData.data[4]}
@@ -1049,7 +1061,7 @@ const TimeLine = ({ batchNo }) => {
             salepointRetAddress={retailerData.data[4]}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
