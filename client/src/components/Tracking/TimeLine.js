@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import moment from 'moment';
-import { Button } from '@mui/material';
+import { Button, Typography, useTheme, Tooltip } from '@mui/material';
 import PhaseCard from './PhaseCard';
 
 import AskNextActionInfura from '../../logic/GetNextAction/AskNextActionInfura';
@@ -40,6 +40,7 @@ import MapsTracking from '../Maps/MapsTracking';
 import '../../App.css';
 
 const TimeLine = ({ batchNo }) => {
+  const theme = useTheme();
   const [batchNoIn, setBatchNoIn] = useState(batchNo);
   const navigate = useNavigate();
   const [message, setMessage] = useState('Loading..');
@@ -357,9 +358,20 @@ const TimeLine = ({ batchNo }) => {
   return (
     <div className="cursor-default max-w-5xl mx-auto mt-10">
       <p className="text-center mt-20 font-bold text-xl">Tracking del Café</p>
-      <p className="text-center my-4 mb-10 break-all">
-        Lote #: <span className="underline">{batchNoIn}</span>
-      </p>
+      {batchNoIn && (
+        <Tooltip title="Copiar" placement="bottom">
+          <div
+            className="text-center my-4 mb-8 break-all hover:cursor-pointer"
+            onClick={() => {
+              navigator.clipboard.writeText(batchNoIn);
+            }}
+            aria-hidden="true"
+          >
+            <span className="font-semibold">Lote #:</span> {batchNoIn}
+          </div>
+        </Tooltip>
+      )}
+
       <div
         style={{ backgroundImage: 'url(static/icons/data_shapes.svg)' }}
         className="w-full h-full absolute opacity-10 none"
@@ -1037,14 +1049,20 @@ const TimeLine = ({ batchNo }) => {
             )}
           </div>
         </PhaseCard>
-        {/* <PhaseCard title={'Ubicación en el Mapa'} className={'bg-blue-200'} icon={'retailer.png'}>
-          <div className="flex flex-col text-sm"> */}
-
-        {/* </div>
-        </PhaseCard> */}
       </div>
 
-      <div>
+      <div className="map-view">
+        {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: (theme) => theme.palette.secondary.main2,
+              textTransform: 'uppercase',
+            }}
+          >
+            Conoce los Puntos de Transporte de tu Café
+          </Typography>
+        )}
         {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
           <MapsTracking
             farmAddress={farmData.data[4]}

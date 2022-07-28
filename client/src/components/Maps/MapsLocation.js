@@ -47,9 +47,9 @@ const MapsLocation = ({ svg }) => {
     libraries,
   });
 
-  console.log("ENV",process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
-  console.log(isLoaded)
-  console.log(loadError)
+  console.log('ENV', process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+  console.log(isLoaded);
+  console.log(loadError);
 
   const [markers, setMarkers] = useState({});
   const [location, setLocation] = useState('');
@@ -123,7 +123,7 @@ const MapsLocation = ({ svg }) => {
           icon={{
             url: svg,
             origin: new window.google.maps.Point(0, 0),
-            anchor: new window.google.maps.Point(20, 45),
+            anchor: new window.google.maps.Point(10, 10),
             scaledSize: new window.google.maps.Size(40, 40),
           }}
         />
