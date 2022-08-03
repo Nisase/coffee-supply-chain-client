@@ -305,6 +305,12 @@ const TableUsers = ({ batchNo, nextActions }) => {
       : batchNo;
   };
 
+  const getNextActionsList = (nextActions, rowsPerPage, page) => {
+    return nextActions.length > 0 && rowsPerPage > 0
+      ? nextActions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      : nextActions;
+  };
+
   useEffect(() => {
     console.log('nextACTIONS:', nextActions);
   }, []);
@@ -432,7 +438,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                     </Stack>
                   </Grid>
                 </StyledTableCell>
-                {assignState(nextActions[index]).map((myState) => (
+                {assignState(getNextActionsList(nextActions, rowsPerPage, page)[index]).map((myState) => (
                   <StyledTableCell key={uuid()} align="center">
                     {defColor(myState)}
                     {/* {myState} */}
@@ -480,7 +486,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                 Línea de tiempo de los procesos del lote # {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
               </BootstrapDialogTitle>
               <DialogContent dividers>
-                <TimelineProcess nextAction={nextActions[indexSelect]} />
+                <TimelineProcess nextAction={getNextActionsList(nextActions, rowsPerPage, page)[indexSelect]} />
               </DialogContent>
             </BootstrapDialog>
 
