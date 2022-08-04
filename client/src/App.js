@@ -93,9 +93,9 @@ function App() {
     // const coffeAddress1 = '0x1f0c8351e0A36F666d33837Bc1a40370Cde84DeD';
     // const coffeAddress2 = '0x50f5f7623AFB6CA2D04CF9f14B96BE606a0A06Ae';
 
-    const userAddress = '0xAFDCDAd694Dd35Afbd4717cbB4D65C158A4D483E';
-    const coffeAddress1 = '0x9269D6E7605818fDE610d5254641F91970DCE566';
-    const coffeAddress2 = '0x3854eC1B8186D2a2d15dAfA907EF620d44DC2Ac9';
+    const userAddress = '0xe6c3FD72B4d06594772064fEd7eE7320A2a31dFe';
+    const coffeAddress1 = '0xd70640453b1746fE938E8a707D2285F690C69FF1';
+    const coffeAddress2 = '0xC36350f7F566948CDB016093c77E093267DC0d3F';
 
     window.userAddress = userAddress;
     window.coffeAddress1 = coffeAddress1;

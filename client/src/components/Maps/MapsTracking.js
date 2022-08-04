@@ -24,17 +24,6 @@ const options = {
   zoomControl: true,
 };
 
-// const center = {
-//   lat: 0.06218317633464823,
-//   lng: -78.6820212451912,
-//   // lat: -1.831239,
-//   // lng: -78.183406,
-// };
-// const center2 = {
-//   lat: -1.831239,
-//   lng: -78.183403,
-// };
-
 const getCoordinates = async (val) => {
   const results = await getGeocode({ address: val });
   const { lat, lng } = await getLatLng(results[0]);
@@ -110,54 +99,87 @@ const MapsTracking = ({
     );
   };
 
-  const getRoute = (request, setDirection) => {
-    let delayFactor = 0;
-    const service = new window.google.maps.DirectionsService();
+  // LIMIT ----
+  // const getRoute = (request, setDirection) => {
+  //   let delayFactor = 0;
+  //   const service = new window.google.maps.DirectionsService();
 
-    service.route(request, (result, status) => {
-      if (status === 'OK' && result) {
-        setDirection(result);
-      } else if (status === 'OVER_QUERY_LIMIT') {
-        delayFactor = +1;
-        setTimeout(() => {
-          getRoute(request);
-        }, delayFactor * 1000);
-      }
+  //   service.route(request, (result, status) => {
+  //     if (status === 'OK' && result) {
+  //       setDirection(result);
+  //     } else if (status === 'OVER_QUERY_LIMIT') {
+  //       delayFactor = +1;
+  //       setTimeout(() => {
+  //         getRoute(request);
+  //       }, delayFactor * 1000);
+  //     }
+  //   });
+  // };
+
+  // const routeDirection2 = (dir1, dir2, setDirection) => {
+  //   console.log('dir1 view: ', dir1);
+  //   const request = {
+  //     origin: dir1,
+  //     destination: dir2,
+  //     travelMode: 'DRIVING',
+  //     provideRouteAlternatives: false,
+  //   };
+  //   getRoute(request, setDirection);
+  // };
+  // ---
+
+  // const latLng = async () => {
+  //   const farmRes = await getCoordinates(farmDir);
+  //   const processorRes = await getCoordinates(processorDir);
+  //   const warehouseRes = await getCoordinates(warehouseDir);
+  //   const packerRes = await getCoordinates(packerDir);
+  //   const warehouseRetRes = await getCoordinates(warehouseRetDir);
+  //   const salepointRetRes = await getCoordinates(salepointRetDir);
+  //   setFarmMarker(farmRes);
+  //   setProcessorMarker(processorRes);
+  //   setWarehouseMarker(warehouseRes);
+  //   setPackerMarker(packerRes);
+  //   setWarehouseRetMarker(warehouseRetRes);
+  //   setSalepointRetMarker(salepointRetRes);
+  //   console.log('farm res:', farmRes);
+  //   console.log('type lat: ', typeof farmRes.lat);
+  //   console.log('lat: ', farmRes.lat);
+  // };
+
+  const latLngAssign = async () => {
+    setFarmMarker({
+      lat: parseFloat(farmAddress[1]),
+      lng: parseFloat(farmAddress[2]),
+    });
+    setProcessorMarker({
+      lat: parseFloat(processAddress[1]),
+      lng: parseFloat(processAddress[2]),
+    });
+    setWarehouseMarker({
+      lat: parseFloat(warehouseAddress[1]),
+      lng: parseFloat(warehouseAddress[2]),
+    });
+    setPackerMarker({
+      lat: parseFloat(packerAddress[1]),
+      lng: parseFloat(packerAddress[2]),
+    });
+    setWarehouseRetMarker({
+      lat: parseFloat(warehouseRetAddress[1]),
+      lng: parseFloat(warehouseRetAddress[2]),
+    });
+    setSalepointRetMarker({
+      lat: parseFloat(salepointRetAddress[1]),
+      lng: parseFloat(salepointRetAddress[2]),
     });
   };
 
-  const routeDirection2 = (dir1, dir2, setDirection) => {
-    console.log('dir1 view: ', dir1);
-    const request = {
-      origin: dir1,
-      destination: dir2,
-      travelMode: 'DRIVING',
-      provideRouteAlternatives: false,
-    };
-    getRoute(request, setDirection);
-  };
+  // const defineCenter = async () => {
+  //   const farmRes = await getCoordinates(farmDir);
+  //   setCenter(farmRes);
+  // };
 
-  const latLng = async () => {
-    const farmRes = await getCoordinates(farmDir);
-    const processorRes = await getCoordinates(processorDir);
-    const warehouseRes = await getCoordinates(warehouseDir);
-    const packerRes = await getCoordinates(packerDir);
-    const warehouseRetRes = await getCoordinates(warehouseRetDir);
-    const salepointRetRes = await getCoordinates(salepointRetDir);
-    setFarmMarker(farmRes);
-    setProcessorMarker(processorRes);
-    setWarehouseMarker(warehouseRes);
-    setPackerMarker(packerRes);
-    setWarehouseRetMarker(warehouseRetRes);
-    setSalepointRetMarker(salepointRetRes);
-    console.log('farm res:', farmRes);
-    console.log('type lat: ', typeof farmRes.lat);
-    console.log('lat: ', farmRes.lat);
-  };
-
-  const defineCenter = async () => {
-    const farmRes = await getCoordinates(farmDir);
-    setCenter(farmRes);
+  const defineCenterAssign = async () => {
+    setCenter({ lat: parseFloat(farmAddress[1]), lng: parseFloat(farmAddress[2]) });
   };
 
   const routes = () => {
@@ -166,39 +188,20 @@ const MapsTracking = ({
     routeDirection(warehouseMarker, packerMarker, setWarehousePackerRoute);
     routeDirection(packerMarker, warehouseRetMarker, setWareRetPackerRoute);
     routeDirection(warehouseRetMarker, salepointRetMarker, setSalepointWareRoute);
-    // routeDirection2(farmDir, processorDir, setFarmProcRoute);
-    // routeDirection(processorDir, warehouseDir, setProcWarehouseRoute);
-    // routeDirection(warehouseDir, packerDir, setWarehousePackerRoute);
-    // routeDirection(packerDir, warehouseRetDir, setWareRetPackerRoute);
-    // routeDirection(warehouseRetDir, salepointRetDir, setSalepointWareRoute);
   };
 
   useEffect(() => {
-    defineCenter();
-    setFarmDir(farmAddress);
-    setProcessorDir(processAddress);
-    setWarehouseDir(warehouseAddress);
-    setPackerDir(packerAddress);
-    setWarehouseRetDir(warehouseRetAddress);
-    setSalepointRetDir(salepointRetAddress);
+    defineCenterAssign();
+    setFarmDir(farmAddress[0]);
+    setProcessorDir(processAddress[0]);
+    setWarehouseDir(warehouseAddress[0]);
+    setPackerDir(packerAddress[0]);
+    setWarehouseRetDir(warehouseRetAddress[0]);
+    setSalepointRetDir(salepointRetAddress[0]);
 
-    latLng();
+    latLngAssign();
     if (window.google) routes();
-  }, [
-    window.google,
-    farmDir,
-    processorDir,
-    warehouseDir,
-    packerDir,
-    warehouseRetDir,
-    salepointRetMarker,
-    salepointRetDir,
-    farmProcRoute,
-    procWarehouseRoute,
-    warehousePackerRoute,
-    wareRetPackerRoute,
-    salepointWareRoute,
-  ]);
+  }, [window.google, farmDir, processorDir, warehouseDir, packerDir, warehouseRetDir, salepointRetDir]);
 
   if (loadError) return 'Error';
   if (!isLoaded) return 'Cargando...';
@@ -217,7 +220,6 @@ const MapsTracking = ({
           <>
             <Marker
               position={farmMarker}
-              // label={'Granja'}
               onClick={() => {
                 setSelectedFarm(farmMarker);
               }}
@@ -227,9 +229,6 @@ const MapsTracking = ({
                 anchor: new window.google.maps.Point(10, 10),
                 scaledSize: new window.google.maps.Size(40, 40),
               }}
-              // onMouseOver={() => {
-              //   setLabel('Granja');
-              // }}
             />
           </>
         )}
@@ -247,7 +246,11 @@ const MapsTracking = ({
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
-                {farmDir}
+                Dirección: {farmAddress[0]}
+              </Typography>
+              <Typography variant="body2" className="stage-address">
+                {' '}
+                Geolocalización: {Number(farmAddress[1]).toFixed(6)}, {Number(farmAddress[2]).toFixed(6)}
               </Typography>
             </Box>
           </InfoWindow>
@@ -257,11 +260,9 @@ const MapsTracking = ({
           <>
             <Marker
               position={processorMarker}
-              // label={'Procesador'}
               onClick={() => {
                 setSelectedProcessor(processorMarker);
               }}
-              // zIndex="50"
               icon={{
                 url: '/static/illustrations/processor.svg',
                 origin: new window.google.maps.Point(0, 0),
@@ -285,7 +286,11 @@ const MapsTracking = ({
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
-                {processorDir}
+                Dirección: {processAddress[0]}
+              </Typography>
+              <Typography variant="body2" className="stage-address">
+                {' '}
+                Geolocalización: {Number(processAddress[1]).toFixed(6)}, {Number(processAddress[2]).toFixed(6)}
               </Typography>
             </Box>
           </InfoWindow>
@@ -295,7 +300,6 @@ const MapsTracking = ({
           <>
             <Marker
               position={warehouseMarker}
-              // label={'Bodega'}
               onClick={() => {
                 setSelectedWarehouse(warehouseMarker);
               }}
@@ -322,7 +326,11 @@ const MapsTracking = ({
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
-                {warehouseDir}
+                Dirección: {warehouseAddress[0]}
+              </Typography>
+              <Typography variant="body2" className="stage-address">
+                {' '}
+                Geolocalización: {Number(warehouseAddress[1]).toFixed(6)}, {Number(warehouseAddress[2]).toFixed(6)}
               </Typography>
             </Box>
           </InfoWindow>
@@ -332,7 +340,6 @@ const MapsTracking = ({
           <>
             <Marker
               position={packerMarker}
-              // label={'Empacador'}
               onClick={() => {
                 setSelectedPacker(packerMarker);
               }}
@@ -359,7 +366,11 @@ const MapsTracking = ({
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
-                {packerDir}
+                Dirección: {packerAddress[0]}
+              </Typography>
+              <Typography variant="body2" className="stage-address">
+                {' '}
+                Geolocalización: {Number(packerAddress[1]).toFixed(6)}, {Number(packerAddress[2]).toFixed(6)}
               </Typography>
             </Box>
           </InfoWindow>
@@ -369,7 +380,6 @@ const MapsTracking = ({
           <>
             <Marker
               position={warehouseRetMarker}
-              // label={'Almacén del Retailer'}
               onClick={() => {
                 setSelectedWareRet(warehouseRetMarker);
               }}
@@ -396,7 +406,12 @@ const MapsTracking = ({
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
-                {warehouseRetDir}
+                Dirección: {warehouseRetAddress[0]}
+              </Typography>
+              <Typography variant="body2" className="stage-address">
+                {' '}
+                Geolocalización: {Number(warehouseRetAddress[1]).toFixed(6)},{' '}
+                {Number(warehouseRetAddress[2]).toFixed(6)}
               </Typography>
             </Box>
           </InfoWindow>
@@ -405,10 +420,7 @@ const MapsTracking = ({
         {salepointRetMarker && (
           <>
             <Marker
-              // className="marker-label"
-              // fontSize="16px"
               position={salepointRetMarker}
-              // label={'Punto de Venta'}
               onClick={() => {
                 setSelectedSalepoint(salepointRetMarker);
               }}
@@ -431,30 +443,20 @@ const MapsTracking = ({
           >
             <Box>
               <Typography variant="subttitle2" className="stage-title">
-                Punto de Venta del Retailer
+                Punto de Venta de Retailer
               </Typography>
               <Typography variant="body2" className="stage-address">
                 {' '}
-                {salepointRetDir}
+                Dirección: {salepointRetAddress[0]}
+              </Typography>
+              <Typography variant="body2" className="stage-address">
+                {' '}
+                Geolocalización: {Number(salepointRetAddress[1]).toFixed(6)},{' '}
+                {Number(salepointRetAddress[2]).toFixed(6)}
               </Typography>
             </Box>
           </InfoWindow>
         ) : null}
-
-        {/* {farmMarker && (
-            <>
-              <Marker
-                position={farmMarker}
-                label={"HOLA"}
-                title={"Titulo"}
-                // onClick={() => {
-                //   //   setSelected(farmMarker);
-                //   //   setSelectedLoc(farmMarker);
-                //   pantTo({ lat: farmMarker.lat, lng: farmMarker.lng });
-                // }}
-              />
-            </>
-          )} */}
 
         {farmProcRoute && (
           <DirectionsRenderer
@@ -470,8 +472,6 @@ const MapsTracking = ({
             }}
           />
         )}
-
-        {/* {farmProcRoute && <MiddlePoint leg={farmProcRoute.routes[0].legs[0]} />} */}
 
         {procWarehouseRoute && (
           <DirectionsRenderer
@@ -535,16 +535,3 @@ const MapsTracking = ({
 };
 
 export default MapsTracking;
-
-const MiddlePoint = ({ leg }) => {
-  if (!leg.distance) return null;
-  const middlePoint = Math.floor(leg.distance.value * 0.5);
-  console.log('distance: ', leg.distance.value);
-  console.log('middle: ', middlePoint);
-
-  return (
-    <div>
-      <p>{middlePoint}</p>
-    </div>
-  );
-};

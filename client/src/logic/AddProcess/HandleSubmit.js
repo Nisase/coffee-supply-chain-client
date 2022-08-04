@@ -4,7 +4,7 @@ const HandleSubmit = (values) => {
   const erc20 = getCoffeWriter1ERC20();
   return erc20.addProcessData(
     values.batchNo,
-    values.processorAddress,
+    [String(values.processorAddress), String(values.processorLat), String(values.processorLng)],
     values.typeOfDrying,
     values.humidityAfterDrying,
     values.roastImageHash,

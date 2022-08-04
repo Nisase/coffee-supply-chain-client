@@ -59,12 +59,14 @@ export default function DashboardLayout() {
         });
         return true;
       }
-      if(roleUser && roleUser.length>1) return false;
+      if (roleUser && roleUser.length > 1) return false;
 
       navigate(`${localPathname}/${pathnameAdmin}`);
       enqueueSnackbar(
-        `Estimado usuario su rol no corresponde al estado actual del lote de café seleccionado`,
-        { variant: 'success' }
+        `Estimado usuario su rol no corresponde al estado actual de modificación del lote de café seleccionado`,
+        {
+          variant: 'success',
+        }
       );
       return true;
     }
@@ -99,9 +101,25 @@ export default function DashboardLayout() {
       if (!goToForm) goToForm = goAddData(userInfo.role, 'TASTER', '/AddTasting', 'Taster', batch, nextAction);
       if (!goToForm) goToForm = goAddData(userInfo.role, 'SELLER', '/AddCoffeeSelling', 'Seller', batch, nextAction);
       if (!goToForm) goToForm = goAddData(userInfo.role, 'WAREHOUSE', '/AddWarehouse', 'Warehouse', batch, nextAction);
-      if (!goToForm) goToForm = goAddData(userInfo.role, 'SHIPPER_PACKER', '/AddShippingToPacker', 'ShipperToPacker', batch, nextAction);
+      if (!goToForm)
+        goToForm = goAddData(
+          userInfo.role,
+          'SHIPPER_PACKER',
+          '/AddShippingToPacker',
+          'ShipperToPacker',
+          batch,
+          nextAction
+        );
       if (!goToForm) goToForm = goAddData(userInfo.role, 'PACKER', '/AddPackaging', 'Packer', batch, nextAction);
-      if (!goToForm) goToForm = goAddData(userInfo.role, 'SHIPPER_RETAILER', '/AddShippingToRetailer', 'ShipperToRetailer', batch, nextAction);
+      if (!goToForm)
+        goToForm = goAddData(
+          userInfo.role,
+          'SHIPPER_RETAILER',
+          '/AddShippingToRetailer',
+          'ShipperToRetailer',
+          batch,
+          nextAction
+        );
       if (!goToForm) goToForm = goAddData(userInfo.role, 'RETAILER', '/AddRetailer', 'Retailer', batch, nextAction);
 
       if (!goToForm)

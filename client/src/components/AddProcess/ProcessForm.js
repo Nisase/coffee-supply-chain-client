@@ -49,6 +49,8 @@ const FILE_SIZE = 650 * 1024;
 const initialValues = {
   batchNo: '',
   processorAddress: '',
+  processorLat: '',
+  processorLng: '',
   typeOfDrying: '',
   humidityAfterDrying: '',
   // roastImageHash: '',
@@ -68,6 +70,8 @@ const valSchema = Yup.object().shape({
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
   processorAddress: Yup.string().required('Obligatorio'),
+  processorLat: Yup.string().required('Obligatorio'),
+  processorLng: Yup.string().required('Obligatorio'),
   typeOfDrying: Yup.string().required('Obligatorio'),
   humidityAfterDrying: Yup.string()
     .required('Obligatorio')
@@ -202,10 +206,14 @@ const ProcessForm = (props) => {
 
     if (locReadyToAddData) {
       formikRef.current.setFieldValue('processorAddress', directionData);
+      formikRef.current.setFieldValue('processorLat', latitudeData);
+      formikRef.current.setFieldValue('processorLng', longitudeData);
       // console.log('formik ref: ', formikRef.current);
       // console.log('AQUI 1');
     } else {
       formikRef.current.setFieldValue('processorAddress', '');
+      formikRef.current.setFieldValue('processorLat', '');
+      formikRef.current.setFieldValue('processorLng', '');
       // console.log('AQUI 2');
     }
   }, [props.batchValue, latitudeData, longitudeData, directionData]);
@@ -313,6 +321,62 @@ const ProcessForm = (props) => {
                           <TextfieldWrapper
                             name="processorAddress"
                             label="Dirección del Procesador"
+                            sx={{
+                              boxShadow: 0,
+                              borderRadius: '0%',
+                              borderBottom: 'none',
+                              marginBottom: 0,
+                            }}
+                          />
+                        </Grid>
+                      )}
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="processorLat"
+                            label="Latitud de la Dirección del Procesador"
+                            disabled
+                            sx={{
+                              boxShadow: 0,
+                              borderRadius: '0%',
+                              borderBottom: 'none',
+                              marginBottom: 2,
+                            }}
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="processorLat"
+                            label="Latitud de la Dirección del Procesador"
+                            sx={{
+                              boxShadow: 0,
+                              borderRadius: '0%',
+                              borderBottom: 'none',
+                              marginBottom: 0,
+                            }}
+                          />
+                        </Grid>
+                      )}
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="processorLng"
+                            label="Longitud de la Dirección del Procesador"
+                            disabled
+                            sx={{
+                              boxShadow: 0,
+                              borderRadius: '0%',
+                              borderBottom: 'none',
+                              marginBottom: 2,
+                            }}
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="processorLng"
+                            label="Longitud de la Dirección del Procesador"
                             sx={{
                               boxShadow: 0,
                               borderRadius: '0%',

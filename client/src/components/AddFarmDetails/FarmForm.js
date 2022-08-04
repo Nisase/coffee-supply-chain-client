@@ -260,7 +260,7 @@ const FarmForm = () => {
                               <Grid item xs={6}>
                                 <TextfieldWrapper
                                   name="latitude"
-                                  label="Latitud"
+                                  label="Latitud de la Dirección de la Granja"
                                   disabled
                                   sx={{
                                     boxShadow: 0,
@@ -271,7 +271,7 @@ const FarmForm = () => {
                                 {' '}
                                 <TextfieldWrapper
                                   name="longitude"
-                                  label="Longitud"
+                                  label="Longitud de la Dirección de la Granja"
                                   disabled
                                   sx={{
                                     boxShadow: 0,
@@ -286,7 +286,7 @@ const FarmForm = () => {
                               <Grid item xs={12}>
                                 <TextfieldWrapper
                                   name="latitude"
-                                  label="Latitud"
+                                  label="Latitud de la Dirección de la Granja"
                                   sx={{
                                     boxShadow: 0,
                                   }}
@@ -296,7 +296,7 @@ const FarmForm = () => {
                                 {' '}
                                 <TextfieldWrapper
                                   name="longitude"
-                                  label="Longitud"
+                                  label="Longitud de la Dirección de la Granja"
                                   sx={{
                                     boxShadow: 0,
                                   }}

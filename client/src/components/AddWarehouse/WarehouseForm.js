@@ -42,6 +42,8 @@ import HandleSubmit from '../../logic/AddWarehouse/HandleSubmit';
 const initialValues = {
   batchNo: '',
   warehouseAddress: '',
+  warehouseLat: '',
+  warehouseLng: '',
   warehouseArrivalDate: '',
   storagePricePerKiloPerTime: '',
 };
@@ -53,6 +55,8 @@ const valSchema = Yup.object().shape({
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
   warehouseAddress: Yup.string().required('Obligatorio'),
+  warehouseLat: Yup.string().required('Obligatorio'),
+  warehouseLng: Yup.string().required('Obligatorio'),
   warehouseArrivalDate: Yup.date().required('Obligatorio'),
   storagePricePerKiloPerTime: Yup.string()
     .required('Obligatorio')
@@ -140,8 +144,12 @@ const WarehouseForm = (props) => {
     }
     if (locReadyToAddData) {
       formikRef.current.setFieldValue('warehouseAddress', directionData);
+      formikRef.current.setFieldValue('warehouseLat', latitudeData);
+      formikRef.current.setFieldValue('warehouseLng', longitudeData);
     } else {
       formikRef.current.setFieldValue('warehouseAddress', '');
+      formikRef.current.setFieldValue('warehouseLat', '');
+      formikRef.current.setFieldValue('warehouseLng', '');
     }
   }, [props.batchValue, latitudeData, longitudeData, directionData]);
 
@@ -241,12 +249,39 @@ const WarehouseForm = (props) => {
                         </Grid>
                       )}
 
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="warehouseLat" label="Latitud de la Dirección de la Bodega" disabled />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="warehouseLat" label="Latitud de la Dirección de la Bodega" />
+                        </Grid>
+                      )}
+
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="warehouseLng"
+                            label="Longitud de la Dirección de la Bodega"
+                            disabled
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="warehouseLng" label="Longitud de la Dirección de la Bodega" />
+                        </Grid>
+                      )}
+
                       <Grid item xs={12}>
                         {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Bodegaje" /> */}
                         <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Bodegaje" />
                       </Grid>
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
-                        <TextfieldWrapper name="storagePricePerKiloPerTime" label="Precio de Bodegaje [$]" />
+                        <TextfieldWrapper
+                          name="storagePricePerKiloPerTime"
+                          label="Precio de Bodegaje por Kilo Almacenado [$]"
+                        />
                       </Grid>
 
                       <Grid item xs={6} sx={{ marginBottom: 2 }}>
