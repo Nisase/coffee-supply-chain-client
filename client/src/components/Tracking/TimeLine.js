@@ -599,7 +599,7 @@ const TimeLine = ({ batchNo }) => {
               {processData.data ? dateToYMD2(new Date(processData.data.roastMillDates[1])) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Procesado por Kilo de Café Procesado</div>
+              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Procesado</div>
               {processData.data ? `${parsePrice(processData.data.processorPricePerKilo)}` : message}
             </div>
             <div className="flex flex-col">
@@ -777,7 +777,7 @@ const TimeLine = ({ batchNo }) => {
               {warehouseData.data ? dateToYMD2(new Date(warehouseData.data.warehouseArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Bodegaje por Kilo de Café Almacenado</div>
+              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Almacenado</div>
               {warehouseData.data ? `${parsePrice(warehouseData.data.storagePricePerKiloPerTime)}` : message}
             </div>
             {statusList[5] === 'En Proceso' && (

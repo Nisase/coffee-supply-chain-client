@@ -280,7 +280,7 @@ const WarehouseForm = (props) => {
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper
                           name="storagePricePerKiloPerTime"
-                          label="Precio de Bodegaje por Kilo de Café Almacenado [$]"
+                          label="Precio por Kilo de Café Almacenado [$]"
                         />
                       </Grid>
 
