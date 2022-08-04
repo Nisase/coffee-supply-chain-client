@@ -426,11 +426,11 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {farmData.data ? `${parseFloat(farmData.data.latitude)}` : message}
+              {farmData.data ? `${parseFloat(farmData.data.latitude).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
-              {farmData.data ? `${parseFloat(farmData.data.longitude)}` : message}
+              {farmData.data ? `${parseFloat(farmData.data.longitude).toFixed(6)}` : message}
             </div>
             {statusList[0] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
@@ -568,11 +568,11 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[1])}` : message}
+              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[1]).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
-              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[2])}` : message}
+              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[2]).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Tipo de Secado</div>
@@ -766,11 +766,11 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[0])}` : message}
+              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[0]).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
-              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[1])}` : message}
+              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[1]).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Ingreso</div>
@@ -896,11 +896,11 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[0])}` : message}
+              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[0]).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
-              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[1])}` : message}
+              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[1]).toFixed(6)}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada</div>
@@ -911,7 +911,7 @@ const TimeLine = ({ batchNo }) => {
               {packerData.data ? dateToYMD2(new Date(packerData.data.packingDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Empacado por Kilo de Café</div>
+              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Empacado</div>
               {packerData.data ? `${parsePrice(packerData.data.packingPricePerKilo)}` : message}
             </div>
             {statusList[7] === 'En Proceso' && (
@@ -1033,12 +1033,16 @@ const TimeLine = ({ batchNo }) => {
               {retailerData.data ? retailerData.data.addressLatLngWarehouseRetailer[0] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud del Almacén</div>
-              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[1])}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              {retailerData.data
+                ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[1]).toFixed(6)}`
+                : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud del Almacén</div>
-              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[2])}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
+              {retailerData.data
+                ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[2]).toFixed(6)}`
+                : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Almacén</div>
@@ -1054,12 +1058,16 @@ const TimeLine = ({ batchNo }) => {
               {retailerData.data ? retailerData.data.addressLatLngSalepointRetailer[0] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud del Punto de Venta</div>
-              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[1])}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              {retailerData.data
+                ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[1]).toFixed(6)}`
+                : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud del Punto de Venta</div>
-              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[2])}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
+              {retailerData.data
+                ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[2]).toFixed(6)}`
+                : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Punto de Venta</div>
