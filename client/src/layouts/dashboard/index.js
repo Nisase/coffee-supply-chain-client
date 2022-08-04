@@ -65,7 +65,7 @@ export default function DashboardLayout() {
       enqueueSnackbar(
         `Estimado usuario su rol no corresponde al estado actual de modificación del lote de café seleccionado`,
         {
-          variant: 'success',
+          variant: 'warning',
         }
       );
       return true;
