@@ -97,7 +97,6 @@ function ShareSocialMedia(batch) {
           <LinkIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
       </IconButton>
-      {/* http://localhost:3000/tracking?batch=${batch}*/}
       <FacebookShareButton
         url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
