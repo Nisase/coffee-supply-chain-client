@@ -93,7 +93,7 @@ const CoffeeSellForm = (props) => {
                       )}
 
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
-                        <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta de Grano por Kilo [$]" />
+                        <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta por Kilo de Café [$]" />
                       </Grid>
 
                       <Grid item xs={6} sx={{ marginBottom: 2 }}>

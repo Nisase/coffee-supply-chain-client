@@ -599,7 +599,7 @@ const TimeLine = ({ batchNo }) => {
               {processData.data ? dateToYMD2(new Date(processData.data.roastMillDates[1])) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Procesado por Kilo</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de Procesado por Kilo de Café Procesado</div>
               {processData.data ? `${parsePrice(processData.data.processorPricePerKilo)}` : message}
             </div>
             <div className="flex flex-col">
@@ -710,7 +710,7 @@ const TimeLine = ({ batchNo }) => {
                   <p>{txMessage}</p>
                 )}
               </div>
-              <div className="mt-5 mb-1 font-semibold">Precio del Grano por Kilo</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de Venta por Kilo de Café</div>
               {sellData.data ? `${parsePrice(sellData.data)}` : message}
             </div>
             {statusList[4] === 'En Proceso' && (
@@ -777,7 +777,7 @@ const TimeLine = ({ batchNo }) => {
               {warehouseData.data ? dateToYMD2(new Date(warehouseData.data.warehouseArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Almacenamiento por Kilo</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de Bodegaje por Kilo de Café Almacenado</div>
               {warehouseData.data ? `${parsePrice(warehouseData.data.storagePricePerKiloPerTime)}` : message}
             </div>
             {statusList[5] === 'En Proceso' && (
@@ -911,7 +911,7 @@ const TimeLine = ({ batchNo }) => {
               {packerData.data ? dateToYMD2(new Date(packerData.data.packingDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Empacado por Kilo</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de Empacado por Kilo de Café</div>
               {packerData.data ? `${parsePrice(packerData.data.packingPricePerKilo)}` : message}
             </div>
             {statusList[7] === 'En Proceso' && (
@@ -1075,7 +1075,7 @@ const TimeLine = ({ batchNo }) => {
               {retailerData.data ? `${parsePrice(retailerData.data.toSalepointShippingPrice)}` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio por Kilo</div>
+              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Comercializado en Retailer</div>
               {retailerData.data ? `${parsePrice(retailerData.data.retailerPricePerKilo)}` : message}
             </div>
             {statusList[9] === 'En Proceso' && (

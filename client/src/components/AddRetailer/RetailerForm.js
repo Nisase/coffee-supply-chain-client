@@ -457,7 +457,7 @@ const RetailerForm = (props) => {
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper
                           name="retailerPricePerKilo"
-                          label="Precio por Kilo del Producto Comercializado en el Retailer [$]"
+                          label="Precio por Kilo de Café Comercializado en Retailer [$]"
                         />
                       </Grid>
                       <Grid item xs={6} sx={{ marginBottom: 2 }}>
