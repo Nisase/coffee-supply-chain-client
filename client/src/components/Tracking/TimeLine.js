@@ -336,6 +336,11 @@ const TimeLine = ({ batchNo }) => {
     };
 
     getDataInfura();
+    console.log('farm: ', farmData);
+    console.log('proc: ', processData);
+    console.log('warehouse: ', warehouseData);
+    console.log('packer: ', packerData);
+    console.log('retailer: ', retailerData);
   }, []);
 
   function unixToYMD(unixData) {
@@ -559,7 +564,15 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
-              {processData.data ? processData.data.processorAddress : message}
+              {processData.data ? processData.data.addressLatLngProcessor[0] : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[1])}` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
+              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[2])}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Tipo de Secado</div>
@@ -752,6 +765,14 @@ const TimeLine = ({ batchNo }) => {
               {warehouseData.data ? warehouseData.data.warehouseAddress : message}
             </div>
             <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[0])}` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
+              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[1])}` : message}
+            </div>
+            <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Ingreso</div>
               {warehouseData.data ? dateToYMD2(new Date(warehouseData.data.warehouseArrivalDate)) : message}
             </div>
@@ -872,6 +893,14 @@ const TimeLine = ({ batchNo }) => {
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección</div>
               {packerData.data ? packerData.data.packerAddress : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[0])}` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
+              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[1])}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada</div>
@@ -1001,7 +1030,15 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección del Almacén</div>
-              {retailerData.data ? retailerData.data.warehouseRetailerAddress : message}
+              {retailerData.data ? retailerData.data.addressLatLngWarehouseRetailer[0] : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud del Almacén</div>
+              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[1])}` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud del Almacén</div>
+              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[2])}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Almacén</div>
@@ -1014,7 +1051,15 @@ const TimeLine = ({ batchNo }) => {
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Dirección del Punto de Venta</div>
-              {retailerData.data ? retailerData.data.salepointRetailerAddress : message}
+              {retailerData.data ? retailerData.data.addressLatLngSalepointRetailer[0] : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud del Punto de Venta</div>
+              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[1])}` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud del Punto de Venta</div>
+              {retailerData.data ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[2])}` : message}
             </div>
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Punto de Venta</div>
@@ -1065,10 +1110,10 @@ const TimeLine = ({ batchNo }) => {
         )}
         {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
           <MapsTracking
-            farmAddress={farmData.data[4]}
+            farmAddress={[farmData.data[4], farmData.data[2], farmData.data[3]]}
             processAddress={processData.data[0]}
-            warehouseAddress={warehouseData.data[0]}
-            packerAddress={packerData.data[0]}
+            warehouseAddress={[warehouseData.data[0], warehouseData.data[1][0], warehouseData.data[1][1]]}
+            packerAddress={[packerData.data[0], packerData.data[1][0], packerData.data[1][1]]}
             warehouseRetAddress={retailerData.data[3]}
             salepointRetAddress={retailerData.data[4]}
           />

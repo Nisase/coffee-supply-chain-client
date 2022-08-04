@@ -7,8 +7,8 @@ const HandleSubmit = (values) => {
     [String(values.warehouseArrivalDate), String(values.salepointArrivalDate)],
     values.warehouseRetailerName,
     values.salepointRetailerName,
-    values.warehouseRetailerAddress,
-    values.salepointRetailerAddress,
+    [String(values.warehouseRetailerAddress), String(values.warehouseRetailerLat), String(values.warehouseRetailerLng)],
+    [String(values.salepointRetailerAddress), String(values.salepointRetailerLat), String(values.salepointRetailerLng)],
     values.toSalepointTransportType,
     values.toSalepointShippingPrice,
     values.retailerPricePerKilo

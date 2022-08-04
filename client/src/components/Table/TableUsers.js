@@ -90,30 +90,30 @@ function ShareSocialMedia(batch) {
         sixe="small"
         sx={{ p: 0, m: 0 }}
         onClick={() => {
-          navigator.clipboard.writeText(`http://localhost:3000/tracking?batch=${batch}`);
+          navigator.clipboard.writeText(`https://coffeetrack.vercel.app/tracking?batch=${batch}`);
         }}
       >
         <Tooltip size="small" placement="top" title="Copiar Url" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
           <LinkIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
       </IconButton>
-      {/* `https://192.168.100.4:3000/tracking?batch=${batch}` */}
+      {/* http://localhost:3000/tracking?batch=${batch}*/}
       <FacebookShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
         <FacebookIcon size={20} round />
       </FacebookShareButton>
       <WhatsappShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
         <WhatsappIcon size={20} round />
       </WhatsappShareButton>
       <EmailShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -121,13 +121,13 @@ function ShareSocialMedia(batch) {
         <EmailIcon size={20} round />
       </EmailShareButton>
       <TelegramShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
       </TelegramShareButton>
       <TwitterShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -380,7 +380,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                           <QRCode
                             bgColor="#FFFFFF"
                             id={batch}
-                            value={`http://localhost:3000/tracking?batch=${batch}`}
+                            value={`https://coffeetrack.vercel.app/tracking?batch=${batch}`}
                             size="50"
                             includeMargin
                             renderAs="svg"

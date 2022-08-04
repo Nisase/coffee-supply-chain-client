@@ -42,6 +42,8 @@ import HandleSubmit from '../../logic/AddPacker/HandleSubmit';
 const initialValues = {
   batchNo: '',
   packerAddress: '',
+  packerLat: '',
+  packerLng: '',
   packerArrivalDate: '',
   packingDate: '',
   packingPricePerKilo: '',
@@ -53,6 +55,8 @@ const valSchema = Yup.object().shape({
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
   packerAddress: Yup.string().required('Obligatorio'),
+  packerLat: Yup.string().required('Obligatorio'),
+  packerLng: Yup.string().required('Obligatorio'),
   packerArrivalDate: Yup.date().required('Obligatorio'),
   packingDate: Yup.date().required('Obligatorio'),
   packingPricePerKilo: Yup.string()
@@ -143,8 +147,12 @@ const PackerForm = (props) => {
 
     if (locReadyToAddData) {
       formikRef.current.setFieldValue('packerAddress', directionData);
+      formikRef.current.setFieldValue('packerLat', latitudeData);
+      formikRef.current.setFieldValue('packerLng', longitudeData);
     } else {
       formikRef.current.setFieldValue('packerAddress', '');
+      formikRef.current.setFieldValue('packerLat', '');
+      formikRef.current.setFieldValue('packerLng', '');
     }
   }, [props.batchValue, latitudeData, longitudeData, directionData]);
 
@@ -240,6 +248,26 @@ const PackerForm = (props) => {
                       ) : (
                         <Grid item xs={12}>
                           <TextfieldWrapper name="packerAddress" label="Dirección de Empacador" />
+                        </Grid>
+                      )}
+
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="packerLat" label="Latitud de la Dirección de Empacador" disabled />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="packerLat" label="Latitud de la Dirección de Empacador" />
+                        </Grid>
+                      )}
+
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="packerLng" label="Longitud de la Dirección de Empacador" disabled />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="packerLng" label="Longitud de la Dirección de Empacador" />
                         </Grid>
                       )}
 

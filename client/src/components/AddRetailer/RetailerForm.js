@@ -60,6 +60,10 @@ const initialValues = {
   salepointRetailerName: '',
   warehouseRetailerAddress: '',
   salepointRetailerAddress: '',
+  warehouseRetailerLat: '',
+  salepointRetailerLat: '',
+  warehouseRetailerLng: '',
+  salepointRetailerLng: '',
   toSalepointTransportType: '',
   toSalepointShippingPrice: '',
   retailerPricePerKilo: '',
@@ -76,6 +80,10 @@ const valSchema = Yup.object().shape({
   salepointRetailerName: Yup.string().required('Obligatorio'),
   warehouseRetailerAddress: Yup.string().required('Obligatorio'),
   salepointRetailerAddress: Yup.string().required('Obligatorio'),
+  warehouseRetailerLat: Yup.string().required('Obligatorio'),
+  salepointRetailerLat: Yup.string().required('Obligatorio'),
+  warehouseRetailerLng: Yup.string().required('Obligatorio'),
+  salepointRetailerLng: Yup.string().required('Obligatorio'),
   toSalepointTransportType: Yup.string().required('Obligatorio'),
   toSalepointShippingPrice: Yup.string()
     .required('Obligatorio')
@@ -182,14 +190,22 @@ const RetailerForm = (props) => {
 
     if (locReadyToAddData) {
       formikRef.current.setFieldValue('warehouseRetailerAddress', directionData);
+      formikRef.current.setFieldValue('warehouseRetailerLat', latitudeData);
+      formikRef.current.setFieldValue('warehouseRetailerLng', longitudeData);
     } else {
       formikRef.current.setFieldValue('warehouseRetailerAddress', '');
+      formikRef.current.setFieldValue('warehouseRetailerLat', '');
+      formikRef.current.setFieldValue('warehouseRetailerLng', '');
     }
 
     if (locReadyToAddDataSec) {
       formikRef.current.setFieldValue('salepointRetailerAddress', directionDataSec);
+      formikRef.current.setFieldValue('salepointRetailerLat', latitudeDataSec);
+      formikRef.current.setFieldValue('salepointRetailerLng', longitudeDataSec);
     } else {
       formikRef.current.setFieldValue('salepointRetailerAddress', '');
+      formikRef.current.setFieldValue('salepointRetailerLat', '');
+      formikRef.current.setFieldValue('salepointRetailerLng', '');
     }
   }, [
     props.batchValue,
@@ -296,6 +312,32 @@ const RetailerForm = (props) => {
                           <TextfieldWrapper name="warehouseRetailerAddress" label="Dirección del Almacén" />
                         </Grid>
                       )}{' '}
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="warehouseRetailerLat"
+                            label="Latitud de la Dirección del Almacén"
+                            disabled
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="warehouseRetailerLat" label="Latitud de la Dirección del Almacén" />
+                        </Grid>
+                      )}
+                      {locReadyToAddData ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="warehouseRetailerLng"
+                            label="Longitud de la Dirección del Almacén"
+                            disabled
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper name="warehouseRetailerLng" label="Longitud de la Dirección del Almacén" />
+                        </Grid>
+                      )}
                       <Grid item xs={12}>
                         <TextfieldWrapper name="warehouseRetailerName" label="Nombre del Almacén" />
                       </Grid>
@@ -360,6 +402,38 @@ const RetailerForm = (props) => {
                           <TextfieldWrapper name="salepointRetailerAddress" label="Dirección del Punto de Venta" />
                         </Grid>
                       )}
+                      {locReadyToAddDataSec ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="salepointRetailerLat"
+                            label="Latitud de la Dirección del Punto de Venta"
+                            disabled
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="salepointRetailerLat"
+                            label="Latitud de la Dirección del Punto de Venta"
+                          />
+                        </Grid>
+                      )}
+                      {locReadyToAddDataSec ? (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="salepointRetailerLng"
+                            label="Longitud de la Dirección del Punto de Venta"
+                            disabled
+                          />
+                        </Grid>
+                      ) : (
+                        <Grid item xs={12}>
+                          <TextfieldWrapper
+                            name="salepointRetailerLng"
+                            label="Longitud de la Dirección del Punto de Venta"
+                          />
+                        </Grid>
+                      )}
                       <Grid item xs={12}>
                         <TextfieldWrapper name="salepointRetailerName" label="Nombre del Punto de Venta" />
                       </Grid>
@@ -383,7 +457,7 @@ const RetailerForm = (props) => {
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper
                           name="retailerPricePerKilo"
-                          label="Precio por Kilo del Producto en el Retailer [$]"
+                          label="Precio por Kilo del Producto Comercializado en el Retailer [$]"
                         />
                       </Grid>
                       <Grid item xs={6} sx={{ marginBottom: 2 }}>
