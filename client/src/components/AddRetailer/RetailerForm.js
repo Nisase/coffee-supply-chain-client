@@ -342,7 +342,7 @@ const RetailerForm = (props) => {
                         <TextfieldWrapper name="warehouseRetailerName" label="Nombre del Almacén" />
                       </Grid>
                       <Grid item xs={12}>
-                        <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" />
+                        <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha y Hora de Llegada al Almacén" />
                         {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Llegada al Almacén" /> */}
                       </Grid>
                       <Grid
@@ -438,7 +438,10 @@ const RetailerForm = (props) => {
                         <TextfieldWrapper name="salepointRetailerName" label="Nombre del Punto de Venta" />
                       </Grid>
                       <Grid item xs={12}>
-                        <DateTimePickerMobile name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" />
+                        <DateTimePickerMobile
+                          name="salepointArrivalDate"
+                          label="Fecha y Hora de Llegada al Punto de Venta"
+                        />
                         {/* <DateTimePicker name="salepointArrivalDate" label="Fecha de Llegada al Punto de Venta" /> */}
                       </Grid>
                       <Grid item xs={12}>

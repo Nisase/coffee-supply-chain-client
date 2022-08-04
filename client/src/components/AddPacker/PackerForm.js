@@ -272,11 +272,11 @@ const PackerForm = (props) => {
                       )}
 
                       <Grid item xs={12}>
-                        <DateTimePickerMobile name="packerArrivalDate" label="Fecha de Llegada al Empacador" />
+                        <DateTimePickerMobile name="packerArrivalDate" label="Fecha y Hora de Llegada en Empacador" />
                         {/* <DateTimePicker name="packerArrivalDate" label="Fecha de Llegada al Empacador" /> */}
                       </Grid>
                       <Grid item xs={12}>
-                        <DateTimePickerMobile name="packingDate" label="Fecha de Empacado" />
+                        <DateTimePickerMobile name="packingDate" label="Fecha y Hora de Empacado" />
                         {/* <DateTimePicker name="packingDate" label="Fecha de Empacado" /> */}
                       </Grid>
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>

@@ -496,7 +496,7 @@ const TimeLine = ({ batchNo }) => {
               {harverstData.data ? harverstData.data.fertilizerUsed : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de cosecha</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Cosecha</div>
               {harverstData.data ? dateToYMD2(new Date(harverstData.data.harvestDate)) : message}
             </div>
             <div className="flex flex-col">
@@ -603,7 +603,7 @@ const TimeLine = ({ batchNo }) => {
               {processData.data ? `${parsePrice(processData.data.processorPricePerKilo)}` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Peso del Lote Procesado</div>
+              <div className="mt-5 mb-1 font-semibold">Peso del Lote después del Procesado</div>
               {processData.data ? `${parseFloat(processData.data.processBatchWeight)} [kg]` : message}
             </div>
             {statusList[2] === 'En Proceso' && (
@@ -828,7 +828,7 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Salida</div>
               {shipPackerData.data ? dateToYMD2(new Date(shipPackerData.data.warehousePickupDate)) : message}
             </div>
             <div className="flex flex-col">
@@ -907,7 +907,7 @@ const TimeLine = ({ batchNo }) => {
               {packerData.data ? dateToYMD2(new Date(packerData.data.packerArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora Empacado</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Empacado</div>
               {packerData.data ? dateToYMD2(new Date(packerData.data.packingDate)) : message}
             </div>
             <div className="flex flex-col">
@@ -962,7 +962,7 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora y Hora de Salida</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Salida</div>
               {shipRetailerData.data ? dateToYMD2(new Date(shipRetailerData.data.packerPickupDate)) : message}
             </div>
             <div className="flex flex-col">

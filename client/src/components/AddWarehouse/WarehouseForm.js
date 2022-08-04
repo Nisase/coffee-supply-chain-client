@@ -275,7 +275,7 @@ const WarehouseForm = (props) => {
 
                       <Grid item xs={12}>
                         {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Bodegaje" /> */}
-                        <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha de Bodegaje" />
+                        <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha y Hora de Ingreso en Bodega" />
                       </Grid>
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper

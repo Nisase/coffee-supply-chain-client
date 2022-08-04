@@ -430,17 +430,17 @@ const ProcessForm = (props) => {
                       </Grid>
                       <Grid item xs={12}>
                         {/* <DateTimePicker name="roastDate" label="Fecha de Tostado" /> */}
-                        <DateTimePickerMobile name="roastDate" label="Fecha de Tostado" />
+                        <DateTimePickerMobile name="roastDate" label="Fecha y Hora de Tostado" />
                       </Grid>
                       <Grid item xs={12}>
-                        <DateTimePickerMobile name="millDate" label="Fecha de Molienda" />
+                        <DateTimePickerMobile name="millDate" label="Fecha y Hora de Molienda" />
                         {/* <DateTimePicker name="millDate" label="Fecha de Molienda" /> */}
                       </Grid>
                       <Grid item xs={12}>
                         <TextfieldWrapper name="processorPricePerKilo" label="Precio por Kilo de Café Procesado [$]" />
                       </Grid>
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
-                        <TextfieldWrapper name="processBatchWeight" label="Peso del Lote Procesado [kg]" />
+                        <TextfieldWrapper name="processBatchWeight" label="Peso del Lote después del Procesado [kg]" />
                       </Grid>
 
                       <Grid item xs={6} sx={{ marginBottom: 2 }}>
