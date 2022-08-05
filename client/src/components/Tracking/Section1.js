@@ -6,16 +6,13 @@ import {
   Grid,
   Container,
   Card,
-  CardHeader,
   CardContent,
-  CardMedia,
   useTheme,
   Paper,
   CardActions,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   IconButton,
 } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -70,12 +67,8 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-const handleQR = () => {};
-
 const Section1 = () => {
   const theme = useTheme();
-  const [openBatch, setOpenBatch] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   const [stateLectorQR, setStateLectorQR] = useState(false);
   const [dataQR, setDataQR] = useState('');
@@ -145,8 +138,7 @@ const Section1 = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 mt-4 max-w-2xl mx-auto">
           <Button
-            // href="https://coffeetrack.vercel.app/tracking?batch=0x4ce9af1fE8A398dE6fE59E5419Bbc47f8Caf023d"
-            href="http://localhost:3000/tracking?batch=0xE2c88D045F33D03C43101e54539a45664E6B6e1e"
+            href={`${process.env.REACT_APP_HOST_URL}/tracking?batch=0xE2c88D045F33D03C43101e54539a45664E6B6e1e`}
             className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
             variant="contained"
           >
