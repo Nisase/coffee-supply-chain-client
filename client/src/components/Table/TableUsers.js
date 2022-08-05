@@ -365,7 +365,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                           <QRCode
                             bgColor="#FFFFFF"
                             id={batch}
-                            value={`${process.env.REACT_APP_HOST_URL}tracking?batch=${batch}`}
+                            value={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
                             size="50"
                             includeMargin
                             renderAs="svg"
