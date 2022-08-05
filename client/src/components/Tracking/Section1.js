@@ -138,7 +138,7 @@ const Section1 = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 mt-4 max-w-2xl mx-auto">
           <Button
-            href={`${process.env.REACT_APP_HOST_URL}tracking?batch=0xE2c88D045F33D03C43101e54539a45664E6B6e1e`}
+            href={`${process.env.REACT_APP_HOST_URL}/tracking?batch=0xE2c88D045F33D03C43101e54539a45664E6B6e1e`}
             className="font-bold track-btn bg-emerald-600 text-white lg:min-w-[300px] max-w-xs mx-auto"
             variant="contained"
           >
