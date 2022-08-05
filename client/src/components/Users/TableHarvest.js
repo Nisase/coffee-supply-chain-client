@@ -90,7 +90,7 @@ function ShareSocialMedia(batch) {
   return (
     <Stack direction="row" spacing={1}>
       <FacebookShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`${process.env.HOST_URL}/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
@@ -98,7 +98,7 @@ function ShareSocialMedia(batch) {
       </FacebookShareButton>
 
       <WhatsappShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`${process.env.HOST_URL}/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
@@ -106,7 +106,7 @@ function ShareSocialMedia(batch) {
       </WhatsappShareButton>
 
       <EmailShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`${process.env.HOST_URL}/tracking?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -115,14 +115,14 @@ function ShareSocialMedia(batch) {
       </EmailShareButton>
 
       <TelegramShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`${process.env.HOST_URL}/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
       </TelegramShareButton>
 
       <TwitterShareButton
-        url={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+        url={`${process.env.HOST_URL}/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -705,7 +705,7 @@ const TableHarvest = () => {
                         <QRCode
                           bgColor="#FFFFFF"
                           id={batch}
-                          value={`https://192.168.100.4:3000/tracking?batch=${batch}`}
+                          value={`${process.env.HOST_URL}/tracking?batch=${batch}`}
                           size="100"
                           includeMargin
                           renderAs="svg"
@@ -738,7 +738,7 @@ const TableHarvest = () => {
                   ))}
                   <StyledTableCell align="center">
                     <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center' }}>
-                      <RouterLink to={`https://localhost:3000/tracking?batch=${batch}`}>
+                      <RouterLink to={`/tracking?batch=${batch}`}>
                         <IconButton aria-label="tracking-batch" sx={{ color: 'grey[800]' }} size="small">
                           <RemoveRedEyeRoundedIcon />
                         </IconButton>

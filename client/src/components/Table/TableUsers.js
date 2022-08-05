@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
-  Container,
   Typography,
   Tooltip,
   TableContainer,
@@ -12,24 +11,19 @@ import {
   TableRow,
   TableCell,
   Paper,
-  Fab,
   IconButton,
-  Box,
   Stack,
-  Badge,
   Chip,
-  Avatar,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
 } from '@mui/material';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import { chipClasses } from '@mui/material/Chip';
 import { tooltipClasses } from '@mui/material/Tooltip';
 import { tableCellClasses } from '@mui/material/TableCell';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -46,22 +40,14 @@ import { v4 as uuid } from 'uuid';
 import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';
 import QRCode from 'qrcode.react';
 import DownloadForOfflineRoundedIcon from '@mui/icons-material/DownloadForOfflineRounded';
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
-import DoNotDisturbAltRoundedIcon from '@mui/icons-material/DoNotDisturbAltRounded';
-import RunningWithErrorsRoundedIcon from '@mui/icons-material/RunningWithErrorsRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 import LinkIcon from '@mui/icons-material/Link';
-import ZoomOutMapRoundedIcon from '@mui/icons-material/ZoomOutMapRounded';
-import OpenWithRoundedIcon from '@mui/icons-material/OpenWithRounded';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded';
 
-import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 
 import TimelineProcess from './TimelineProcess';
@@ -90,7 +76,7 @@ function ShareSocialMedia(batch) {
         sixe="small"
         sx={{ p: 0, m: 0 }}
         onClick={() => {
-          navigator.clipboard.writeText(`http://localhost:3000/tracking?batch=${batch}`);
+          navigator.clipboard.writeText(`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`);
         }}
       >
         <Tooltip size="small" placement="top" title="Copiar Url" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
@@ -98,21 +84,21 @@ function ShareSocialMedia(batch) {
         </Tooltip>
       </IconButton>
       <FacebookShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
         quote={'Modifica el estado de tu café 🥔☕️ accediendo al link: '}
         hashtag={'#coffeeTrackingAppEC'}
       >
         <FacebookIcon size={20} round />
       </FacebookShareButton>
       <WhatsappShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link: '}
         separator={''}
       >
         <WhatsappIcon size={20} round />
       </WhatsappShareButton>
       <EmailShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
         subject={'LINK COFFEE 🥔 ☕️ TRACKING APP EC 👩‍🌾 🧑‍🌾'}
         body={'Hola!, modifica el estado de tu café 🥔 ☕️ accediendo al link: '}
         separator={'  '}
@@ -120,13 +106,13 @@ function ShareSocialMedia(batch) {
         <EmailIcon size={20} round />
       </EmailShareButton>
       <TelegramShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾 accediendo al link'}
       >
         <TelegramIcon size={20} round />
       </TelegramShareButton>
       <TwitterShareButton
-        url={`http://localhost:3000/tracking?batch=${batch}`}
+        url={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
         title={'Modifica el estado de tu café 🥔☕️👩‍🌾🧑‍🌾  accediendo al link'}
         hashtags={['#coffeeTrackingAppEC', '#EC', 'coffee']}
       >
@@ -379,7 +365,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
                           <QRCode
                             bgColor="#FFFFFF"
                             id={batch}
-                            value={`http://localhost:3000/tracking?batch=${batch}`}
+                            value={`${process.env.REACT_APP_HOST_URL}/tracking?batch=${batch}`}
                             size="50"
                             includeMargin
                             renderAs="svg"
