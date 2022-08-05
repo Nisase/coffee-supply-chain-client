@@ -124,7 +124,7 @@ const HarvestForm = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                       {/* <DateTimePicker name="harvestDate" label="Fecha de Cosecha" /> */}
-                      <DateTimePickerMobile name="harvestDate" label="Fecha de Cosecha" />
+                      <DateTimePickerMobile name="harvestDate" label="Fecha y Hora de Cosecha" />
                     </Grid>
                     <Grid item xs={12}>
                       <TextfieldWrapper
