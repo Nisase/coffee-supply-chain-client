@@ -372,7 +372,7 @@ const TimeLine = ({ batchNo }) => {
             }}
             aria-hidden="true"
           >
-            <span className="font-semibold">Lote #:</span> {batchNoIn}
+            <span className="font-semibold">ID Lote:</span> {batchNoIn}
           </div>
         </Tooltip>
       )}
@@ -699,7 +699,6 @@ const TimeLine = ({ batchNo }) => {
                       rel="noopener noreferrer"
                       className="user-link"
                     >
-                      {/* Cuenta:  */}
                       {String(sellTx[0]).slice(0, 8).concat('...').concat(String(sellTx[0]).slice(-8))}
                     </a>
                     <a target="_blank" href={`mailto:${userSell.email}`} rel="noreferrer" className="mail-track ">
@@ -710,8 +709,14 @@ const TimeLine = ({ batchNo }) => {
                   <p>{txMessage}</p>
                 )}
               </div>
-              <div className="mt-5 mb-1 font-semibold">Precio de Venta por Kilo de Café</div>
-              {sellData.data ? `${parsePrice(sellData.data)}` : message}
+              <div className="flex flex-col">
+                <div className="mt-5 mb-1 font-semibold">Peso del Lote de Café Vendido</div>
+                {sellData.data ? `${parseFloat(sellData.data.coffeeSellingBatchWeight)}  [kg]` : message}
+              </div>
+              <div className="flex flex-col">
+                <div className="mt-5 mb-1 font-semibold">Precio de Venta por Kilo de Café</div>
+                {sellData.data ? `${parsePrice(sellData.data.beanPricePerKilo)}` : message}
+              </div>
             </div>
             {statusList[4] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
@@ -777,7 +782,11 @@ const TimeLine = ({ batchNo }) => {
               {warehouseData.data ? dateToYMD2(new Date(warehouseData.data.warehouseArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Almacenado</div>
+              <div className="mt-5 mb-1 font-semibold">Tiempo de Almacenamiento del Lote de Café</div>
+              {warehouseData.data ? `${warehouseData.data.storageTime} [días]` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café por Día Almacenado</div>
               {warehouseData.data ? `${parsePrice(warehouseData.data.storagePricePerKiloPerTime)}` : message}
             </div>
             {statusList[5] === 'En Proceso' && (

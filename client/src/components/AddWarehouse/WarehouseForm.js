@@ -45,6 +45,7 @@ const initialValues = {
   warehouseLat: '',
   warehouseLng: '',
   warehouseArrivalDate: '',
+  storageTime: '',
   storagePricePerKiloPerTime: '',
 };
 const digitsRegex = /^[\d.]+$/;
@@ -58,6 +59,7 @@ const valSchema = Yup.object().shape({
   warehouseLat: Yup.string().required('Obligatorio'),
   warehouseLng: Yup.string().required('Obligatorio'),
   warehouseArrivalDate: Yup.date().required('Obligatorio'),
+  storageTime: Yup.number().integer().required('Obligatorio'),
   storagePricePerKiloPerTime: Yup.string()
     .required('Obligatorio')
     .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
@@ -274,13 +276,15 @@ const WarehouseForm = (props) => {
                       )}
 
                       <Grid item xs={12}>
-                        {/* <DateTimePicker name="warehouseArrivalDate" label="Fecha de Bodegaje" /> */}
                         <DateTimePickerMobile name="warehouseArrivalDate" label="Fecha y Hora de Ingreso en Bodega" />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextfieldWrapper name="storageTime" label="Tiempo de Almacenamiento del Lote de Café [días]" />
                       </Grid>
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper
                           name="storagePricePerKiloPerTime"
-                          label="Precio por Kilo de Café Almacenado [$]"
+                          label="Precio por Kilo de Café por Día Almacenado [$]"
                         />
                       </Grid>
 

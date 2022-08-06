@@ -65,7 +65,7 @@ function ShareSocialMedia(batch) {
           navigator.clipboard.writeText(batch);
         }}
       >
-        <Tooltip size="small" placement="top" title="Copiar #Lote" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
+        <Tooltip size="small" placement="top" title="Copiar ID Lote" sx={{ m: 0, p: 0, fontSize: '1.3875rem' }}>
           <ContentCopyRoundedIcon sx={{ m: 0, p: 0, fontSize: '1.3875rem' }} />
         </Tooltip>
       </IconButton>
@@ -305,7 +305,7 @@ const TableUsers = ({ batchNo, nextActions }) => {
         <Table sx={{ minWidth: '900px' }} aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>
-              <StyledTableCell align="center">NO. LOTE</StyledTableCell>
+              <StyledTableCell align="center">ID LOTE</StyledTableCell>
               <StyledTableCell align="center">CÓDIGO QR</StyledTableCell>
               <StyledTableCell align="center">PROCESO ANTERIOR</StyledTableCell>
               <StyledTableCell align="center">PROCESO ACTUAL</StyledTableCell>
@@ -467,8 +467,14 @@ const TableUsers = ({ batchNo, nextActions }) => {
               </StyledTableRow>
             )}
             <BootstrapDialog aria-labelledby="customized-dialog-title" open={openLook}>
-              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLook}>
-                Línea de tiempo de los procesos del lote # {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
+              <BootstrapDialogTitle
+                sx={{
+                  textAlign: 'center',
+                }}
+                id="customized-dialog-title"
+                onClose={handleCloseLook}
+              >
+                Línea de tiempo de los procesos del lote {getBacthList(batchNo, rowsPerPage, page)[indexSelect]}
               </BootstrapDialogTitle>
               <DialogContent dividers>
                 <TimelineProcess nextAction={getNextActionsList(nextActions, rowsPerPage, page)[indexSelect]} />

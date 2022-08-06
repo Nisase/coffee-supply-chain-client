@@ -201,6 +201,11 @@
         },
         {
           "internalType": "string",
+          "name": "_storageTime",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
           "name": "_storagePricePerKiloPerTime",
           "type": "string"
         }
@@ -239,6 +244,11 @@
         {
           "internalType": "string",
           "name": "warehouseArrivalDate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "storageTime",
           "type": "string"
         },
         {

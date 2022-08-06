@@ -113,7 +113,7 @@ const InformativeSection = () => {
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
                   <a
                     className="coffee-smart-contract-1 font-bold"
-                    href="https://rinkeby.etherscan.io/address/0x6596055d2fd7284aa0978778b19cd8ab05a3fa98"
+                    href="https://rinkeby.etherscan.io/address/0x3d0E0eA4f525D71e474c3da29A7B9BDE3cad703F#code"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -124,7 +124,7 @@ const InformativeSection = () => {
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
                   <a
                     className="coffee-smart-contract-2 font-bold"
-                    href="https://rinkeby.etherscan.io/address/0xCABBC0765Ccd94B34c17Bd74a03197E4760F6C6E"
+                    href="https://rinkeby.etherscan.io/address/0x9975cE49F4dB7b3e51e10c28718a6064A2457591#code"
                     target="_blank"
                     rel="noreferrer"
                   >

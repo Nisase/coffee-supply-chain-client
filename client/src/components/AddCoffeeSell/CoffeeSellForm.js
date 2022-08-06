@@ -14,6 +14,7 @@ import HandleSubmit from '../../logic/AddCoffeeSell/HandleSubmit';
 
 const initialValues = {
   batchNo: '',
+  coffeeSellingBatchWeight: '',
   beanPricePerKilo: '',
 };
 const digitsRegex = /^[\d.]+$/;
@@ -22,6 +23,9 @@ const valSchema = Yup.object().shape({
     .required('Obligatorio')
     .max(42, 'La dirección debe tener 42 caracteres')
     .min(42, 'La dirección debe tener 42 caracteres'),
+  coffeeSellingBatchWeight: Yup.string()
+    .required('Obligatorio')
+    .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
   beanPricePerKilo: Yup.string()
     .required('Obligatorio')
     .matches(digitsRegex, 'Puede ingresar solo dígitos [0-9] y . como separador decimal'),
@@ -91,6 +95,10 @@ const CoffeeSellForm = (props) => {
                           <TextfieldWrapper name="batchNo" label="No. Lote" />
                         </Grid>
                       )}
+
+                      <Grid item xs={12} sx={{ marginBottom: 2 }}>
+                        <TextfieldWrapper name="coffeeSellingBatchWeight" label="Peso del Lote de Café Vendido [kg]" />
+                      </Grid>
 
                       <Grid item xs={12} sx={{ marginBottom: 2 }}>
                         <TextfieldWrapper name="beanPricePerKilo" label="Precio de Venta por Kilo de Café [$]" />

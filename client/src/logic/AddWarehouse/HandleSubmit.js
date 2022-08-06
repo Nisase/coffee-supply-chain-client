@@ -7,6 +7,7 @@ const HandleSubmit = (values) => {
     values.warehouseAddress,
     [String(values.warehouseLat), String(values.warehouseLng)],
     String(values.warehouseArrivalDate),
+    values.storageTime,
     values.storagePricePerKiloPerTime
   );
 };
