@@ -17,6 +17,8 @@
 .env.development.local
 .env.test.local
 .env.production.local
+/CA
+
 
 /.env
 /.env.local
@@ -30,4 +32,3 @@ yarn-error.log*
 
 .eslintcache
 
-/CA
