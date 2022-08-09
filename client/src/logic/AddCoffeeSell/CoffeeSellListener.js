@@ -9,7 +9,6 @@ const CoffeeSellListener = () => {
       const erc20 = getCoffe1ERC20();
 
       erc20.on('DoneCoffeeSelling', (user, batchNo, event) => {
-        // console.log({ user, batchNo });
         setCoffeeSellRegistered({
           user,
           batchNo,

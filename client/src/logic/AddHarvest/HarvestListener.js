@@ -9,7 +9,6 @@ const HarvestListener = () => {
       const erc20 = getCoffe1ERC20();
 
       erc20.on('DoneHarvesting', (user, batchNo, event) => {
-        // console.log({ user, batchNo });
         setHarvestRegistered({
           user,
           batchNo,
