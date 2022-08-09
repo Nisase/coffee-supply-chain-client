@@ -16,13 +16,17 @@ const InformativeSection = () => {
     <div id="about" className="max-w-6xl mx-auto">
       <Grid container>
         <div className="grid mx-16 grid-cols-1 lg:grid-cols-2 gap-x-10">
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 ">
             <Typography
               variant="h6"
-              sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
+              className="title-home"
+              sx={{
+                color: theme.palette.secondary.main,
+                display: 'flex',
+                justifyContent: 'center',
+              }}
             >
-              Nuestro <span className="spanInfo">Sistema de Tracking </span> está construido sobre la tecnología{' '}
-              <span className="spanInfo">Blockchain</span>
+              Nuestro SISTEMA DE TRACKING está construido sobre la tecnología BLOCKCHAIN
             </Typography>
           </div>
           <div className="p-5">
@@ -83,10 +87,7 @@ const InformativeSection = () => {
           </div>
         </div>
         <div className="mx-auto mt-5">
-          <Typography
-            variant="h6"
-            sx={{ color: theme.palette.primary.main, display: 'flex', justifyContent: 'center' }}
-          >
+          <Typography variant="h6" className="title-home2" sx={{ color: theme.palette.tertiary.main }}>
             ¿Cómo funciona <span className="spanInfo">CoffeeTrack</span>?
           </Typography>
         </div>

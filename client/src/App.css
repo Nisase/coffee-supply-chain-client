@@ -248,7 +248,19 @@ a.mail-link:hover, a.mail-link:focus {
 .spanInfo {
   color: #ff2f00;
   padding-left: 5px;
-  padding-right: 5px;
+  padding-right: 0px;
+}
+
+.title-home {
+  color: #ff2f00;
+  text-align: center;
+  font-size: 20px;
+}
+
+.title-home2 {
+  color: #ff2f00;
+  text-align: center;
+  font-size: 23px;
 }
 
 #contact .wave {
