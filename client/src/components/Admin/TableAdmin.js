@@ -507,7 +507,7 @@ const TableAdmin = () => {
           <Table sx={{ minWidth: '2100px' }} aria-label="customized table" stickyHeader>
             <TableHead>
               <TableRow>
-                <StyledTableCell align="center">NO. LOTE</StyledTableCell>
+                <StyledTableCell align="center">ID Lote</StyledTableCell>
                 <StyledTableCell align="center">CÓDIGO QR</StyledTableCell>
                 <StyledTableCell align="center">COSECHA</StyledTableCell>
                 <StyledTableCell align="center">PROCESADO</StyledTableCell>

@@ -92,11 +92,11 @@ const TasterForm = (props) => {
                     <Grid container spacing={2}>
                       {props.batchValue ? (
                         <Grid item xs={12}>
-                          <TextfieldWrapper name="batchNo" label="No. Lote" disabled />
+                          <TextfieldWrapper name="batchNo" label="ID Lote" disabled />
                         </Grid>
                       ) : (
                         <Grid item xs={12}>
-                          <TextfieldWrapper name="batchNo" label="No. Lote" />
+                          <TextfieldWrapper name="batchNo" label="ID Lote" />
                         </Grid>
                       )}
 
