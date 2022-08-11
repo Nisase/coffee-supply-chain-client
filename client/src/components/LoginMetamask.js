@@ -57,10 +57,11 @@ const LoginMetamask = () => {
       {walletAddress && !error && !loading && (
         <>
           <Typography variant="p" className="my-3">
-            Wallet Address: {walletAddress}
+            Dirección de Billetera MetaMask: {walletAddress}
           </Typography>
           <Alert severity="error">
-            Wallet Address con la que se ingreso desde el Metamask no tiene asignado ningun Rol hasta el momento.
+            La dirección de billetera MetaMask con la que se ingreso desde el Metamask no tiene asignado ningun Rol
+            hasta el momento.
           </Alert>
         </>
       )}
