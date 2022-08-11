@@ -114,22 +114,22 @@ const InformativeSection = () => {
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
                   <a
                     className="coffee-smart-contract-1 font-bold"
-                    href="https://rinkeby.etherscan.io/address/0x3d0E0eA4f525D71e474c3da29A7B9BDE3cad703F#code"
+                    href="https://rinkeby.etherscan.io/address/0xdf0C594655C466B0b37CeFc519f38Ea8fEB465F9#code"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    CoffeeSupplyChain1
+                    Contrato Trazabilidad 1
                   </a>
                 </Typography>
                 <br />
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 2 }}>
                   <a
                     className="coffee-smart-contract-2 font-bold"
-                    href="https://rinkeby.etherscan.io/address/0x9975cE49F4dB7b3e51e10c28718a6064A2457591#code"
+                    href="https://rinkeby.etherscan.io/address/0xcf76465C29A32F11D6A27a009eE7CB500669c5Ff#code"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    CoffeeSupplyChain2
+                    Contrato Trazabilidad 2
                   </a>
                 </Typography>
               </CardContent>
