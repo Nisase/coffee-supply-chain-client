@@ -780,7 +780,7 @@ const TimeLine = ({ batchNo }) => {
             <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]:</div>
               {warehouseData.data
-                ? `[${parseFloat(warehouseData.data.latLngWarehouse[0]).toFixed(6)},${parseFloat(
+                ? `[${parseFloat(warehouseData.data.latLngWarehouse[0]).toFixed(6)}, ${parseFloat(
                     warehouseData.data.latLngWarehouse[1]
                   ).toFixed(6)}]`
                 : message}
