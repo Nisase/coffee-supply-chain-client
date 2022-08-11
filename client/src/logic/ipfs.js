@@ -14,7 +14,7 @@ export const createIpfs = () => {
     headers: {
       authorization: auth,
     },
-  }); // ,    headers: { authorization: auth}
+  });
 };
 
 export const addFileToIpfs = async (ipfs, file) => {
