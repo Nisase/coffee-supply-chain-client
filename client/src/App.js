@@ -64,7 +64,7 @@ function App() {
       if (isOwner) {
         user.name = 'Administrador';
         user.role = [{ key: 'ADMIN', value: 'Admin User' }];
-        user.email = 'admincoffe@.epn.edu.ec';
+        user.email = 'coffeetrackec@.gmail.com';
       }
       if (user.role.length < 1 || user.name === '') {
         dispatch(setUserData(null));
