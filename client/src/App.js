@@ -85,16 +85,9 @@ function App() {
   };
 
   useLayoutEffect(() => {
-    // dispatch(setLoading(true));
-    // const userAddress = '0xfd6407812e082583E4B9A00A917fae8D0F8D709B';
-    // const coffeAddress = '0x5F87cD4E112beb3AF8918Be2Eb232DdEF032f69d';
-
-    // const userAddress = '0xe6c3FD72B4d06594772064fEd7eE7320A2a31dFe';
-    // const coffeAddress1 = '0xd70640453b1746fE938E8a707D2285F690C69FF1';
-    // const coffeAddress2 = '0xC36350f7F566948CDB016093c77E093267DC0d3F';
-    const userAddress = '0x2D0D6bBE81A73388dCD09A895dc582e0DD14f28c';
-    const coffeAddress1 = '0x3d0E0eA4f525D71e474c3da29A7B9BDE3cad703F';
-    const coffeAddress2 = '0x9975cE49F4dB7b3e51e10c28718a6064A2457591';
+    const userAddress = '0xbf87Fd7e3416311dbef4F00e2ce73950A0F2a0D2';
+    const coffeAddress1 = '0xdf0C594655C466B0b37CeFc519f38Ea8fEB465F9';
+    const coffeAddress2 = '0xcf76465C29A32F11D6A27a009eE7CB500669c5Ff';
 
     window.userAddress = userAddress;
     window.coffeAddress1 = coffeAddress1;
