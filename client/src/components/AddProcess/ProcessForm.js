@@ -164,6 +164,7 @@ const ProcessForm = (props) => {
     setfileUrl('');
 
     console.log('roast Img value', values.roastImageHash);
+    console.log('ipfs: ', ipfs);
 
     if (values.roastImageHash !== '') {
       enqueueSnackbar('Guardando Imagen del usuario en red IPFS', { variant: 'info' });

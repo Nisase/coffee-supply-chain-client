@@ -1,8 +1,20 @@
 import { create } from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+
+const projectId = process.env.REACT_APP_IPFS_PROJECT_ID;
+const projectSecret = process.env.REACT_APP_IPFS_KEY;
+const auth = `Basic ${Buffer.from(`${projectId}:${projectSecret}`).toString('base64')}`;
 
 export const createIpfs = () => {
   // const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64')
-  return create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }); // ,    headers: { authorization: auth}
+  return create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+      authorization: auth,
+    },
+  }); // ,    headers: { authorization: auth}
 };
 
 export const addFileToIpfs = async (ipfs, file) => {
