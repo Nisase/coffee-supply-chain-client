@@ -60,7 +60,7 @@ const LoginMetamask = () => {
             Dirección de Billetera MetaMask: {walletAddress}
           </Typography>
           <Alert severity="error">
-            La dirección de billetera MetaMask con la que se ingreso desde el Metamask no tiene asignado ningun Rol
+            La dirección de billetera MetaMask con la que se ingresó desde el Metamask no tiene asignado ningun Rol
             hasta el momento.
           </Alert>
         </>
