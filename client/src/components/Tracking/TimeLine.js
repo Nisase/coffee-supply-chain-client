@@ -1156,7 +1156,7 @@ const TimeLine = ({ batchNo }) => {
               textTransform: 'uppercase',
             }}
           >
-            Conoce los Puntos de Transporte de tu Café
+            Conoce los Puntos de Intervención de tu Café
           </Typography>
         )}
         {farmData.data && processData.data && warehouseData.data && packerData.data && retailerData.data && (
