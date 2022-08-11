@@ -60,8 +60,8 @@ const LoginMetamask = () => {
             Dirección de Billetera MetaMask: {walletAddress}
           </Typography>
           <Alert severity="error">
-            La dirección de billetera MetaMask con la que se ingresó desde el Metamask no tiene asignado ningun Rol
-            hasta el momento.
+            La dirección de billetera MetaMask con la que se ingresó no tiene asignado ningún rol hasta el momento.
+            Comuníquese al correo: coffeetrackec@gmail.com.
           </Alert>
         </>
       )}
