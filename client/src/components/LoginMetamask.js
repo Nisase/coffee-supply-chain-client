@@ -37,7 +37,7 @@ const LoginMetamask = () => {
             color="secondary"
             // color="primary"
           >
-            Conectar Wallet Metamask
+            Conectar Billetera Metamask
           </LoadingButton>
           <div className="w-full h-1 my-3" />
           <LoadingButton
