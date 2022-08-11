@@ -395,7 +395,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
               {userAdmin ? (
                 <>
                   <div>Administrador</div>
@@ -416,22 +416,26 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Nombre</div>
+              <div className="mt-5 mb-1 font-semibold">Nombre:</div>
 
               {farmData.data ? farmData.data.farmName : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Dirección</div>
+              <div className="mt-5 mb-1 font-semibold">Dirección:</div>
               {farmData.data ? farmData.data.farmAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {farmData.data ? `${parseFloat(farmData.data.latitude).toFixed(6)}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]:</div>
+              {farmData.data
+                ? `[${parseFloat(farmData.data.latitude).toFixed(6)}, ${parseFloat(farmData.data.longitude).toFixed(
+                    6
+                  )}]`
+                : message}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {farmData.data ? `${parseFloat(farmData.data.longitude).toFixed(6)}` : message}
-            </div>
+            </div> */}
             {statusList[0] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
                 <Button
@@ -459,7 +463,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor:</div>
               {harvestTx ? (
                 <>
                   <div>{userHarvest.name ? `${userHarvest.name}` : message}</div>
@@ -480,31 +484,31 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Proveedor de Semilla</div>
+              <div className="mt-5 mb-1 font-semibold">Proveedor de semilla:</div>
               {harverstData.data ? harverstData.data.seedSupplier : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tipo de Semilla</div>
+              <div className="mt-5 mb-1 font-semibold">Tipo de semilla:</div>
               {harverstData.data ? harverstData.data.typeOfSeed : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Familia del Café</div>
+              <div className="mt-5 mb-1 font-semibold">Familia del café:</div>
               {harverstData.data ? harverstData.data.coffeeFamily : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fertilizantes</div>
+              <div className="mt-5 mb-1 font-semibold">Fertilizantes:</div>
               {harverstData.data ? harverstData.data.fertilizerUsed : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Cosecha</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de cosecha:</div>
               {harverstData.data ? dateToYMD2(new Date(harverstData.data.harvestDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Humedad del Grano Cosechado</div>
+              <div className="mt-5 mb-1 font-semibold">Humedad del grano cosechado:</div>
               {harverstData.data ? `${parseFloat(harverstData.data.humidityPercentage)} [%]` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Peso del Lote Cosechado</div>
+              <div className="mt-5 mb-1 font-semibold">Peso del lote cosechado:</div>
               {harverstData.data ? `${parseFloat(harverstData.data.batchWeight)} [kg]` : message}
             </div>
             {statusList[1] === 'En Proceso' && (
@@ -541,7 +545,7 @@ const TimeLine = ({ batchNo }) => {
               />
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-5 mb-1 font-semibold ">Información del editor:</div>
               {processTx ? (
                 <>
                   <div>{userProcess.name && processTx[0] ? `${userProcess.name}` : message}</div>
@@ -563,47 +567,51 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Dirección</div>
+              <div className="mt-5 mb-1 font-semibold">Dirección:</div>
               {processData.data ? processData.data.addressLatLngProcessor[0] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[1]).toFixed(6)}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]:</div>
+              {processData.data
+                ? `[${parseFloat(processData.data.addressLatLngProcessor[1]).toFixed(6)}, ${parseFloat(
+                    processData.data.addressLatLngProcessor[2]
+                  ).toFixed(6)}]`
+                : message}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {processData.data ? `${parseFloat(processData.data.addressLatLngProcessor[2]).toFixed(6)}` : message}
-            </div>
+            </div> */}
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tipo de Secado</div>
+              <div className="mt-5 mb-1 font-semibold">Tipo de secado:</div>
               {processData.data ? processData.data.typeOfDrying : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Humedad del Grano Secado</div>
+              <div className="mt-5 mb-1 font-semibold">Humedad del grano secado:</div>
               {processData.data ? `${parseFloat(processData.data.humidityAfterDrying)} [%]` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Temperatura de Tostado</div>
+              <div className="mt-5 mb-1 font-semibold">Temperatura de tostado:</div>
               {processData.data ? `${parseFloat(processData.data.tempTypeRoast[0])} [ºC]` : message}
             </div>{' '}
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tipo de Tostado</div>
+              <div className="mt-5 mb-1 font-semibold">Tipo de tostado:</div>
               {processData.data ? processData.data.tempTypeRoast[1] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Tostado</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de tostado:</div>
               {processData.data ? dateToYMD2(new Date(processData.data.roastMillDates[0])) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Molienda</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de molienda:</div>
               {processData.data ? dateToYMD2(new Date(processData.data.roastMillDates[1])) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Procesado</div>
+              <div className="mt-5 mb-1 font-semibold">Precio por kilo de café procesado:</div>
               {processData.data ? `${parsePrice(processData.data.processorPricePerKilo)}` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Peso del Lote después del Procesado</div>
+              <div className="mt-5 mb-1 font-semibold">Peso del lote después del procesado:</div>
               {processData.data ? `${parseFloat(processData.data.processBatchWeight)} [kg]` : message}
             </div>
             {statusList[2] === 'En Proceso' && (
@@ -633,7 +641,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
               {tasteTx ? (
                 <>
                   <div>{userTaste.name && tasteTx[0] ? `${userTaste.name}` : message}</div>
@@ -654,11 +662,11 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Puntaje de Catación</div>
+              <div className="mt-5 mb-1 font-semibold">Puntaje de catación:</div>
               {tasteData.data ? `${parseFloat(tasteData.data.tastingScore)}` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio del Servicio</div>
+              <div className="mt-5 mb-1 font-semibold">Precio del servicio:</div>
               {tasteData.data ? `${parsePrice(tasteData.data.tastingServicePrice)}` : message}
             </div>
             {statusList[3] === 'En Proceso' && (
@@ -689,7 +697,7 @@ const TimeLine = ({ batchNo }) => {
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
               <div className="flex flex-col">
-                <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+                <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
                 {sellTx ? (
                   <>
                     <div>{userSell.name && sellTx[0] ? `${userSell.name}` : message}</div>
@@ -710,11 +718,11 @@ const TimeLine = ({ batchNo }) => {
                 )}
               </div>
               <div className="flex flex-col">
-                <div className="mt-5 mb-1 font-semibold">Peso del Lote de Café Vendido</div>
+                <div className="mt-5 mb-1 font-semibold">Peso del lote de café vendido:</div>
                 {sellData.data ? `${parseFloat(sellData.data.coffeeSellingBatchWeight)}  [kg]` : message}
               </div>
               <div className="flex flex-col">
-                <div className="mt-5 mb-1 font-semibold">Precio de Venta por Kilo de Café</div>
+                <div className="mt-5 mb-1 font-semibold">Precio de venta por kilo de café:</div>
                 {sellData.data ? `${parsePrice(sellData.data.beanPricePerKilo)}` : message}
               </div>
             </div>
@@ -745,7 +753,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
               {warehouseTx ? (
                 <>
                   <div>{userWarehouse.name && warehouseTx[0] ? `${userWarehouse.name}` : message}</div>
@@ -766,27 +774,35 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Dirección</div>
+              <div className="mt-5 mb-1 font-semibold">Dirección:</div>
               {warehouseData.data ? warehouseData.data.warehouseAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[0]).toFixed(6)}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]:</div>
+              {warehouseData.data
+                ? `[${parseFloat(warehouseData.data.latLngWarehouse[0]).toFixed(6)},${parseFloat(
+                    warehouseData.data.latLngWarehouse[1]
+                  ).toFixed(6)}]`
+                : message}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {warehouseData.data ? `${parseFloat(warehouseData.data.latLngWarehouse[1]).toFixed(6)}` : message}
-            </div>
+            </div> */}
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Ingreso</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de ingreso:</div>
               {warehouseData.data ? dateToYMD2(new Date(warehouseData.data.warehouseArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tiempo de Almacenamiento del Lote de Café</div>
+              <div className="mt-5 mb-1 font-semibold">Tiempo de almacenamiento del lote de café:</div>
               {warehouseData.data ? `${warehouseData.data.storageTime} [días]` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café por Día Almacenado</div>
+              <div className="mt-5 mb-1 font-semibold">Peso del lote ingresado:</div>
+              {warehouseData.data ? `${parseFloat(sellData.data.coffeeSellingBatchWeight)}  [kg]` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Precio por kilo de café por día almacenado:</div>
               {warehouseData.data ? `${parsePrice(warehouseData.data.storagePricePerKiloPerTime)}` : message}
             </div>
             {statusList[5] === 'En Proceso' && (
@@ -816,7 +832,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
               {shipPackerTx ? (
                 <>
                   <div>{userShipPacker.name && shipPackerTx[0] ? `${userShipPacker.name}` : message}</div>
@@ -837,15 +853,15 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Salida</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de salida:</div>
               {shipPackerData.data ? dateToYMD2(new Date(shipPackerData.data.warehousePickupDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tipo de Transporte</div>
+              <div className="mt-5 mb-1 font-semibold">Tipo de transporte:</div>
               {shipPackerData.data ? shipPackerData.data.toPackerTransportType : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Transporte</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de transporte:</div>
               {shipPackerData.data ? `${parsePrice(shipPackerData.data.toPackerShippingPrice)}` : message}
             </div>
             {statusList[6] === 'En Proceso' && (
@@ -879,7 +895,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
               {packerTx ? (
                 <>
                   <div>{userPacker.name && packerTx[0] ? `${userPacker.name}` : message}</div>
@@ -900,28 +916,36 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Dirección</div>
+              <div className="mt-5 mb-1 font-semibold">Dirección:</div>
               {packerData.data ? packerData.data.packerAddress : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
-              {packerData.data ? `${parseFloat(packerData.data.latLngPacker[0]).toFixed(6)}` : message}
+              <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]:</div>
+              {packerData.data
+                ? `[${parseFloat(packerData.data.latLngPacker[0]).toFixed(6)}, ${parseFloat(
+                    packerData.data.latLngPacker[1]
+                  ).toFixed(6)}]`
+                : message}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {packerData.data ? `${parseFloat(packerData.data.latLngPacker[1]).toFixed(6)}` : message}
-            </div>
+            </div> */}
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de llegada:</div>
               {packerData.data ? dateToYMD2(new Date(packerData.data.packerArrivalDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Empacado</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de empacado:</div>
               {packerData.data ? dateToYMD2(new Date(packerData.data.packingDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Empacado</div>
+              <div className="mt-5 mb-1 font-semibold">Precio por kilo de café empacado:</div>
               {packerData.data ? `${parsePrice(packerData.data.packingPricePerKilo)}` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Peso del lote ingresado:</div>
+              {packerData.data ? `${parseFloat(sellData.data.coffeeSellingBatchWeight)}  [kg]` : message}
             </div>
             {statusList[7] === 'En Proceso' && (
               <div className="absolute bottom-0 left-0 w-full flex flex-col justify-center">
@@ -950,7 +974,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor: </div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor: </div>
               {shipRetailerTx ? (
                 <>
                   <div>{userShipRetailer.name && shipRetailerTx[0] ? `${userShipRetailer.name}` : message}</div>
@@ -971,15 +995,15 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Salida</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de salida:</div>
               {shipRetailerData.data ? dateToYMD2(new Date(shipRetailerData.data.packerPickupDate)) : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tipo de Transporte</div>
+              <div className="mt-5 mb-1 font-semibold">Tipo de transporte:</div>
               {shipRetailerData.data ? shipRetailerData.data.toRetailerTransportType : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de transporte</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de transporte:</div>
               {shipRetailerData.data ? `${parsePrice(shipRetailerData.data.toReatilerShippingPrice)}` : message}
             </div>
             {/* <div className="flex flex-col">
@@ -1013,7 +1037,7 @@ const TimeLine = ({ batchNo }) => {
         >
           <div className="flex flex-col text-sm">
             <div className="flex flex-col">
-              <div className="mt-1 mb-1 font-semibold ">Información del Editor:</div>
+              <div className="mt-1 mb-1 font-semibold ">Información del editor:</div>
               {retailerTx ? (
                 <>
                   <div>{userRetailer.name && retailerTx[0] ? `${userRetailer.name}` : message}</div>
@@ -1034,65 +1058,73 @@ const TimeLine = ({ batchNo }) => {
               )}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Almacén</div>
+              <div className="mt-5 mb-1 font-semibold">Almacén:</div>
               {retailerData.data ? retailerData.data.warehouseRetailerName : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Dirección del Almacén</div>
+              <div className="mt-5 mb-1 font-semibold">Dirección del almacén:</div>
               {retailerData.data ? retailerData.data.addressLatLngWarehouseRetailer[0] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]: </div>
               {retailerData.data
-                ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[1]).toFixed(6)}`
+                ? `[${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[1]).toFixed(6)}, ${parseFloat(
+                    retailerData.data.addressLatLngWarehouseRetailer[2]
+                  ).toFixed(6)}]`
                 : message}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {retailerData.data
                 ? `${parseFloat(retailerData.data.addressLatLngWarehouseRetailer[2]).toFixed(6)}`
                 : message}
-            </div>
+            </div> */}
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Almacén</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de llegada al almacén:</div>
               {retailerData.data ? dateToYMD2(new Date(retailerData.data.warehouseSalepointArrivalDate[0])) : message}
             </div>
 
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Punto de Venta</div>
+              <div className="mt-5 mb-1 font-semibold">Punto de venta:</div>
               {retailerData.data ? retailerData.data.salepointRetailerName : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Dirección del Punto de Venta</div>
+              <div className="mt-5 mb-1 font-semibold">Dirección del punto de venta:</div>
               {retailerData.data ? retailerData.data.addressLatLngSalepointRetailer[0] : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Geolocalización: Latitud</div>
+              <div className="mt-5 mb-1 font-semibold">Geolocalización [lat, lng]:</div>
               {retailerData.data
-                ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[1]).toFixed(6)}`
+                ? `[${parseFloat(retailerData.data.addressLatLngSalepointRetailer[1]).toFixed(6)}, ${parseFloat(
+                    retailerData.data.addressLatLngSalepointRetailer[2]
+                  ).toFixed(6)}]`
                 : message}
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <div className="mt-5 mb-1 font-semibold">Geolocalización: Longitud</div>
               {retailerData.data
                 ? `${parseFloat(retailerData.data.addressLatLngSalepointRetailer[2]).toFixed(6)}`
                 : message}
-            </div>
+            </div> */}
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Fecha y Hora de Llegada al Punto de Venta</div>
+              <div className="mt-5 mb-1 font-semibold">Fecha y hora de llegada al punto de venta:</div>
               {retailerData.data ? dateToYMD2(new Date(retailerData.data.warehouseSalepointArrivalDate[1])) : message}
             </div>
 
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Tipo de Transporte</div>
+              <div className="mt-5 mb-1 font-semibold">Tipo de transporte:</div>
               {retailerData.data ? retailerData.data.toSalepointTransportType : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio de Transporte</div>
+              <div className="mt-5 mb-1 font-semibold">Precio de transporte:</div>
               {retailerData.data ? `${parsePrice(retailerData.data.toSalepointShippingPrice)}` : message}
             </div>
             <div className="flex flex-col">
-              <div className="mt-5 mb-1 font-semibold">Precio por Kilo de Café Comercializado en Retailer</div>
+              <div className="mt-5 mb-1 font-semibold">Peso del lote ingresado:</div>
+              {retailerData.data ? `${parseFloat(sellData.data.coffeeSellingBatchWeight)}  [kg]` : message}
+            </div>
+            <div className="flex flex-col">
+              <div className="mt-5 mb-1 font-semibold">Precio por kilo de café comercializado en retailer:</div>
               {retailerData.data ? `${parsePrice(retailerData.data.retailerPricePerKilo)}` : message}
             </div>
             {statusList[9] === 'En Proceso' && (
