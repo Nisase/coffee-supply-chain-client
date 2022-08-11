@@ -1151,6 +1151,8 @@ const TimeLine = ({ batchNo }) => {
             variant="subtitle1"
             sx={{
               color: (theme) => theme.palette.secondary.main2,
+              marginBottom: '10px',
+              fontSize: '18px',
               textTransform: 'uppercase',
             }}
           >
