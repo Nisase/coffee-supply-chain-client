@@ -57,7 +57,6 @@ function ShareSocialMedia(batch) {
     <Stack direction="row" spacing={1}>
       <IconButton
         aria-label="copy"
-        // color="comp5"
         color="quaternary"
         sixe="small"
         sx={{ p: 0, m: 0 }}
@@ -71,7 +70,6 @@ function ShareSocialMedia(batch) {
       </IconButton>
       <IconButton
         aria-label="copy URL"
-        // color="comp5"
         color="quaternary"
         sixe="small"
         sx={{ p: 0, m: 0 }}
