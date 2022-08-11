@@ -80,8 +80,8 @@ const Section1 = () => {
   };
 
   const handleCloseLectorQR = () => {
-    // setDataQR('');
-    // setStateLectorQR(false);
+    setDataQR('');
+    setStateLectorQR(false);
     setOpenLectorQR(false);
   };
 
