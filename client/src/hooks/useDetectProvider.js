@@ -20,7 +20,7 @@ const useDetectProvider = (callRequestAccount = false) => {
         setWalletAddress(null);
       }
     } else {
-      setError('Metamask no detectado');
+      setError('Metamask no detectado, seleccione la opción de Instalar Metamask.');
     }
   };
   useEffect(() => {
