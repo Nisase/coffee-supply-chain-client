@@ -138,7 +138,7 @@ function App() {
   const { userUpdated } = UpdateUserListener();
   useEffect(() => {
     if (userUpdated !== undefined && txIsContain(userUpdated.tx, 'UserUpdate')) {
-      enqueueSnackbar(`Usuario ${userUpdated.name} agregado correctamente`, { variant: 'success' });
+      enqueueSnackbar(`Información de usuario ${userUpdated.name} modificada correctamente`, { variant: 'success' });
       dispatch(removeTx({ tx: userUpdated.tx, type: 'UserUpdate' }));
     }
   }, [userUpdated, txList]);
