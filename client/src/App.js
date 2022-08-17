@@ -130,6 +130,7 @@ function App() {
   const { userRegistered } = UserAdminListener();
   useEffect(() => {
     if (userRegistered !== undefined && txIsContain(userRegistered.tx, 'UserUpdate')) {
+      console.log('HERE');
       enqueueSnackbar(`Usuario ${userRegistered.name} agregado correctamente`, { variant: 'success' });
       dispatch(removeTx({ tx: userRegistered.tx, type: 'UserUpdate' }));
     }
@@ -138,6 +139,7 @@ function App() {
   const { userUpdated } = UpdateUserListener();
   useEffect(() => {
     if (userUpdated !== undefined && txIsContain(userUpdated.tx, 'UserUpdate')) {
+      console.log('MODIFIED');
       enqueueSnackbar(`Información de usuario ${userUpdated.name} modificada correctamente`, { variant: 'success' });
       dispatch(removeTx({ tx: userUpdated.tx, type: 'UserUpdate' }));
     }

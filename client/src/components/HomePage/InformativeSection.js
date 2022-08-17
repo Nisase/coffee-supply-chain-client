@@ -144,11 +144,11 @@ const InformativeSection = () => {
                 // image="/static/images/metamask.png"
                 alt="blockchain technology"
               />
-              <CardHeader title="2. Usa la billetera digital de Metamask para interactuar con los contratos inteligentes" />
+              <CardHeader title="2. Usa la billetera digital de MetaMask para interactuar con los contratos inteligentes" />
 
               <CardContent>
                 <Typography variant="body2" className="about-info">
-                  La billetera digital de Metamask permite interactuar con los contratos inteligentes a través de
+                  La billetera digital de MetaMask permite interactuar con los contratos inteligentes a través de
                   nuestra aplicación. Todos los usuarios que interactúan con los contratos inteligentes deben ser
                   previamente habilitados para hacerlo.
                 </Typography>
@@ -161,9 +161,11 @@ const InformativeSection = () => {
                     rel="noreferrer"
                     className="metamask-link font-bold"
                   >
-                    Metamask
+                    MetaMask
                   </a>
-                  en tu navegador, así como de habilitar la red de prueba de Rinkeby.
+                  en tu navegador, así como de habilitar la red de prueba de Rinkeby. A continuación, inicia sesión con
+                  tu cuenta de billetera MetaMask y accede a la pestaña Dashboard de la aplicación para redireccionarte
+                  a tu panel de control.
                 </Typography>
                 <br />
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
@@ -195,13 +197,13 @@ const InformativeSection = () => {
 
               <CardContent>
                 <Typography variant="body2" className="about-info">
-                  El producto de venta al público contiene un código QR que al ser escaneado, redirije a una página de
+                  El producto de venta al público contiene un código QR que al ser escaneado, redirije a la página de
                   nuestra aplicación correspondiente al historial del producto a lo largo de su cadena de suministro.
                 </Typography>
                 <br />
                 <Typography variant="body2" className="about-info" sx={{ marginLeft: 1 }}>
                   {bull}Si eres consumidor de café de especialidad, escanea tu código y empodera a quienes permitieron
-                  que el producto llegue a tu manos.
+                  que el producto llegue a tus manos.
                 </Typography>
               </CardContent>
             </Card>
