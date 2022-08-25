@@ -93,7 +93,6 @@ function App() {
     window.coffeAddress1 = coffeAddress1;
     window.coffeAddress2 = coffeAddress2;
 
-    // console.log("DISPACH SMART CONTRACT ADDRESS")
     dispatch(setUserAddress(userAddress));
     dispatch(setCoffeAddress1(coffeAddress1));
     dispatch(setCoffeAddress2(coffeAddress2));
