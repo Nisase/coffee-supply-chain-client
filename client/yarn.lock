@@ -3928,6 +3928,10 @@ coa@^2.0.2:
     chalk "^2.4.1"
     q "^1.1.2"
 
+"coffee-supply-chain-client@https://github.com/Nisase/coffee-supply-chain-client.git":
+  version "0.0.0"
+  resolved "https://github.com/Nisase/coffee-supply-chain-client.git#364c04b162e4b31d8252906fa49934b80f65956f"
+
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz#cc2c8e94fc18bbdffe64d6534570c8a673b27f59"

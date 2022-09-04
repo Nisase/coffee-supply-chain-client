@@ -21,6 +21,7 @@
     "apexcharts": "^3.35.0",
     "buffer": "^6.0.3",
     "change-case": "^4.1.2",
+    "coffee-supply-chain-client": "https://github.com/Nisase/coffee-supply-chain-client.git",
     "date-fns": "^2.28.0",
     "ethers": "^5.6.2",
     "formik": "^2.2.9",
