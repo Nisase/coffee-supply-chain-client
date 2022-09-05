@@ -102,8 +102,6 @@ function App() {
     console.log('DISPACH ERROR ADDRESS');
     console.log(error);
     if (error) {
-      // enqueueSnackbar(error, { variant: 'error' });
-      // setNullUserLocal();
       dispatch(setLoading(false));
     }
   }, [error]);
