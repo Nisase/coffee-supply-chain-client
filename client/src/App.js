@@ -107,7 +107,6 @@ function App() {
   }, [error]);
 
   useEffect(() => {
-    // console.log("DISPACH USER ADDRESS")
     dispatch(setWalletAddress(walletAddress));
   }, [walletAddress]);
 
